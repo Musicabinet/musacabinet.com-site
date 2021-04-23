@@ -2,20 +2,39 @@
   "name": "with-typescript",
   "version": "1.0.0",
   "scripts": {
-    "dev": "next",
-    "build": "next build",
-    "start": "next start",
+    "dev": "next dev -p 3201",
+    "build": "NODE_ENV=production next build",
+    "start": "NODE_ENV=production next start -p 3201",
+    "prod-start": "git pull origin master && yarn install && yarn build && pm2 start npm --name musicabinet.com -- start",
+    "prod-restart": "git pull origin master && yarn install && yarn build && pm2 restart musicabinet.com",
     "type-check": "tsc"
   },
   "dependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.13.0",
+    "@babel/plugin-proposal-decorators": "^7.13.15",
+    "@babel/plugin-transform-react-jsx": "^7.13.12",
+    "@types/react-facebook-login": "^4.1.3",
+    "bem-css-modules": "^1.4.2",
+    "bootstrap": "^5.0.0-beta3",
+    "css-reset-and-normalize": "^2.3.5",
+    "dotenv": "^8.2.0",
+    "mobx": "^6.2.0",
+    "mobx-react": "^7.1.0",
     "next": "latest",
+    "next-compose-plugins": "^2.2.1",
+    "next-images": "^1.7.0",
+    "nookies": "^2.5.2",
     "react": "^17.0.1",
-    "react-dom": "^17.0.1"
+    "react-dom": "^17.0.1",
+    "react-facebook-login": "^4.1.1",
+    "sass": "^1.32.10",
+    "webpack": "^5.35.0"
   },
   "devDependencies": {
     "@types/node": "^12.12.21",
     "@types/react": "^17.0.2",
     "@types/react-dom": "^17.0.1",
+    "babel-plugin-inline-react-svg": "^2.0.1",
     "typescript": "4.0"
   },
   "license": "MIT"

@@ -1,0 +1,45 @@
+@function calculateRem($size)
+  $remSize: $size / 16px
+  @return #{$size}
+
+@mixin fontMontserrat($size: 14px, $weight: normal)
+  font-family: 'Montserrat', sans-serif
+  font-size: calculateRem($size)
+  font-weight: $weight
+  font-style: normal
+  @content
+
+
+@mixin fontFuturaMedium($size: 14px, $weight: 500)
+  font-family: 'FuturaMediumC'
+  font-size: calculateRem($size)
+  font-weight: $weight
+  font-style: normal
+  @content
+
+@mixin fontFuturaDemic($size: 14px)
+  font-family: 'FuturaDemiC'
+  font-size: calculateRem($size)
+  font-weight: normal
+  font-style: normal
+  @content
+
+@font-face
+  font-family: 'FuturaDemiC'
+  src: url('/fonts/futura/FuturaDemiC.eot')
+  src: local('Futura Demi Italic Cyrillic'), local('FuturaDemiC-Italic')
+  src: url('/fonts/futura/FuturaDemiC.eot?#iefix') format('embedded-opentype')
+  src: url('/fonts/futura/FuturaDemiC.woff') format('woff')
+  src: url('/fonts/futura/FuturaDemiC.ttf') format('truetype')
+  font-weight: normal
+  font-style: italic
+
+@font-face
+  font-family: 'FuturaMediumC'
+  src: url('/fonts/futura/FuturaMediumC.eot')
+  src: local('Futura Medium Cyrillic'), local('FuturaMediumC')
+  src: url('/fonts/futura/FuturaMediumC.eot?#iefix') format('embedded-opentype')
+  src: url('/fonts/futura/FuturaMediumC.woff') format('woff')
+  src: url('/fonts/futura/FuturaMediumC.ttf') format('truetype')
+  font-weight: 500
+  font-style: normal

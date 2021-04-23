@@ -1,0 +1,34 @@
+$breakpoints: ("phone": 992px, "phone-vertical": 420px, "desktop": 1200px, "large-desktop": 1200)
+
+@mixin breakpoint-up($size)
+  @media (min-width: $size)
+    @content
+
+@mixin breakpoint-down($size)
+  @media (max-width: $size)
+    @content
+
+@mixin breakpoint-up-down($min, $max)
+  @media (max-width: $max)
+    @content
+
+@mixin breakpoint-phone()
+  @include breakpoint-down(map_get($breakpoints, phone))
+    @content
+
+@mixin breakpoint-phone-vertical()
+  @include breakpoint-down(map_get($breakpoints, phone-vertical))
+    @content
+
+
+@mixin breakpoint-desktop-up()
+  @include breakpoint-up(map_get($breakpoints, desktop))
+    @content
+
+@mixin breakpoint-tablet-vertical()
+  @include breakpoint-up-down(map_get($breakpoints, phone-vertical), map_get($breakpoints, phone))
+    @content
+
+@mixin breakpoint-tablet()
+  @include breakpoint-down(map_get($breakpoints, desktop))
+    @content

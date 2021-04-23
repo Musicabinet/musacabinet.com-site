@@ -1,15 +1,19 @@
-import Link from 'next/link'
-import Layout from '../components/Layout'
+import * as React from 'react';
+import { inject, observer } from 'mobx-react';
+import { BaseLayout } from '../ui';
+import { MainPage } from '../ui/components/main-page/main-page';
 
-const IndexPage = () => (
-  <Layout title="Home | Next.js + TypeScript Example">
-    <h1>Hello Next.js 👋</h1>
-    <p>
-      <Link href="/about">
-        <a>About</a>
-      </Link>
-    </p>
-  </Layout>
-)
+type IndexPageProps = {};
+type IndexPageState = {};
 
-export default IndexPage
+@inject(() => ({}))
+@observer
+export default class IndexPage extends React.Component<IndexPageProps, IndexPageState> {
+  render() {
+    return (
+      <BaseLayout>
+        <MainPage />
+      </BaseLayout>
+    );
+  }
+}

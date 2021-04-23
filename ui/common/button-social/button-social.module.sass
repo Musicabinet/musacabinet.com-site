@@ -1,0 +1,33 @@
+@import "../../../stylesheets/index"
+
+.button-social
+  position: relative
+  width: 100%
+  border: 0
+  background: $red50
+  color: $white
+  @include fontMontserrat(18px)
+  line-height: 22px
+  padding: 14px 50px
+  border-radius: 10px
+  cursor: pointer
+  transition: all 0.25s
+
+  &:disabled
+    opacity: 0.7
+    cursor: not-allowed
+
+  &:active
+    transform: scale(0.97)
+
+  &_facebook
+    background: #355A97
+
+    &:hover
+      background: darken(#355A97, 5%)
+
+  &_google
+    background: #4184F3
+
+    &:hover
+      background: darken(#4184F3, 5%)

@@ -1,0 +1,19 @@
+@import "../../../stylesheets/index"
+
+.motto
+  position: relative
+  display: flex
+  align-items: center
+  color: $white
+
+  &:before
+    content: ''
+    display: flex
+    margin: 0 29.5px
+    width: 1px
+    height: 30px
+    background: $white
+
+  @include breakpoint-phone
+  @include breakpoint-tablet
+    display: none

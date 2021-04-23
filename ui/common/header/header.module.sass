@@ -1,0 +1,14 @@
+@import "../../../stylesheets/index"
+
+.header
+  position: relative
+  padding: 0 5px
+
+  @include breakpoint-phone
+    padding: 20px 5px
+
+
+  &__rightside
+    @include breakpoint-phone
+      flex-direction: row-reverse !important
+      justify-content: start !important

@@ -1,0 +1,43 @@
+@import "../../../stylesheets/index"
+
+.button-burger
+  display: none
+  position: relative
+  width: 30px
+  height: 30px
+  border-width: 2px 0
+  border-style: solid
+  border-color: $white
+  background: transparent
+  transition: all 0.2s
+  z-index: 1100
+
+  &:after, &:before
+    content: ''
+    position: absolute
+    left: 0
+    top: 50%
+    transform: translateY(-50%)
+    background: $white
+    width: 100%
+    height: 2px
+    transition: all 0.2s
+
+  &:before
+    display: none
+
+  &_show
+    border: 0
+
+    &:after
+      transform: translateY(-50%) rotate(45deg)
+
+    &:before
+      display: flex
+      transform: translateY(-50%) rotate(-45deg)
+
+
+  @include breakpoint-phone
+    display: flex
+
+

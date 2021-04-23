@@ -1,0 +1,22 @@
+@import "../../../stylesheets/index"
+
+.button
+  position: relative
+  padding: 14px 12px
+  margin: 0
+  background: $red50
+  color: $white
+  @include fontMontserrat(18px)
+  line-height: 22px
+  border: 0
+  border-radius: 10px
+  min-width: 115px
+  cursor: pointer
+  transition: all 0.2s
+
+  &:hover
+    background: $red100
+
+  &:active
+    transform: scale(0.97)
+

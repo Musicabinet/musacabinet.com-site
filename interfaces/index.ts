@@ -1,10 +1,23 @@
-// You can include shared interfaces/types in a separate file
-// and then use them in any component by importing them. For
-// example, to import the interface below do:
-//
-// import { User } from 'path/to/interfaces';
+import { AppContext } from 'next/app';
+import { RootStore } from '../stores';
+import { NextPageContext } from 'next';
 
-export type User = {
-  id: number
-  name: string
+export interface CustomAppContext extends AppContext {
+  store?: RootStore;
 }
+
+export interface CustomPageContext extends NextPageContext {
+  store?: RootStore;
+  isServer: boolean;
+}
+
+export interface ImageTagI {
+  path: string
+  className: string,
+  alt: string
+}
+
+export * from './menu';
+export * from './auth';
+export * from './user';
+export * from './notification';

@@ -1,0 +1,32 @@
+@import "~css-reset-and-normalize/scss/reset-and-normalize"
+@import "~bootstrap/scss/bootstrap-grid"
+@import "stylesheets/index"
+
+@media (min-width: 1200px)
+  .container
+    max-width: 960px
+
+
+html
+  height: 100%
+
+body
+  display: flex
+  flex-direction: column
+  height: 100%
+  background: $gray100
+  color: $gray60
+  @include fontMontserrat(18px)
+  line-height: 25px
+
+#__next
+  flex: 1
+  display: flex
+  flex-direction: column
+
+.overflow
+  overflow: hidden
+
+
+*:focus
+  outline: 0 !important

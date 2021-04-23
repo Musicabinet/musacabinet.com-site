@@ -1,0 +1,54 @@
+@import "../../../stylesheets/index"
+
+
+.notifications
+  $root: &
+  position: fixed
+  right: 15px
+  top: 15px
+  z-index: 5000
+  width: 360px
+  color: $white
+
+  @include breakpoint-phone
+    width: calc(100% - 30px)
+
+  &__item
+    display: flex
+    border-radius: 8px
+    padding: 10px 15px
+    cursor: pointer
+
+    &_type
+      &_success, &_warning, &_error
+        position: relative
+
+      &_error
+        background: $error
+
+      &_success
+        background: $success
+
+      &_warning
+        background: $warning
+
+  &__icon
+    display: flex
+    font-size: 30px
+    color: $white
+
+  &__body
+    display: flex
+    flex-direction: column
+    margin: 0 0 0 10px
+
+  &__title
+    padding: 2px 0 0
+    @include fontMontserrat(18px, 800)
+    margin-bottom: 10px
+    color: $white
+
+  &__message
+    @include fontMontserrat(16px, 300)
+    line-height: 24px
+
