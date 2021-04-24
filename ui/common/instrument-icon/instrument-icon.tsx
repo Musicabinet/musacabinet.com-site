@@ -23,7 +23,7 @@ export class InstrumentIcon extends React.Component<InstrumentIconProps, Instrum
   };
 
   getIcon = () => {
-    const { icon, service, size, className } = this.props;
+    const { icon, service, size } = this.props;
     const guitarClass = `${service}-guitar`;
     const keyboardClass = `${service}-keyboards`;
     const saxophoneClass = `${service}-saxophone`;

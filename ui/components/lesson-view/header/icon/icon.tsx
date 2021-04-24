@@ -3,7 +3,6 @@ import { inject, observer } from 'mobx-react';
 import block from 'bem-css-modules';
 import style from './icon.module.sass';
 import { RootStore } from '../../../../../stores';
-import { InstrumentIcon } from '../../../../common';
 import { SERVICE_NAME } from '../../../../../constants';
 
 const b = block(style);
