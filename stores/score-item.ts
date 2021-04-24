@@ -2,7 +2,6 @@ import { action, observable } from 'mobx';
 import { ScoreItemContentI, ScoreItemI } from '../interfaces';
 import { API } from '../core';
 import { METHODS_REQUEST } from '../constants';
-import { notification } from 'antd';
 
 export class ScoreItemStore implements ScoreItemI {
 
@@ -26,10 +25,6 @@ export class ScoreItemStore implements ScoreItemI {
       await API.request(`${this.pathStore}/${this.id}`, {
         method: METHODS_REQUEST.POST,
         body: API.getFormData({ content: JSON.stringify(values) })
-      });
-
-      notification.success({
-        message: 'Успешно обновлено'
       });
     } catch (e) {
       console.error(`Error in method ScoreItemStore.update : `, e);
