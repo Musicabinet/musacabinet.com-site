@@ -1,0 +1,104 @@
+@import "../../../../../stylesheets/index"
+
+.group-lesson-view
+  $root: &
+  position: absolute
+  left: -10px
+  top: -10px
+  height: 100%
+  width: calc(100% + 20px)
+  background: #E5E5E5
+  z-index: 100
+  padding: 10px 10px
+  flex-direction: column
+
+  &_active
+    display: flex
+    width: calc(100% + 10px)
+
+  &__back
+    display: none
+    margin-bottom: 10px
+    cursor: pointer
+
+    svg
+      width: 43px
+      height: 27px
+
+    &_show
+      display: block
+
+  &__item
+    background: $white
+    border-radius: 10px
+    padding: 20px 30px
+    margin-bottom: 10px
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25)
+
+    &:last-child
+      margin-bottom: 0
+
+    &_school
+      #{$root}__back
+        svg
+          path
+            stroke: $school
+
+      #{$root}__total-percent, #{$root}__time
+        color: $school
+
+    &_college
+      #{$root}__back
+      svg
+        path
+          stroke: $college
+
+      #{$root}__total-percent, #{$root}__time
+        color: $college
+
+
+  &__body
+    display: flex
+    align-items: center
+    padding: 0 20px
+
+  &__title
+    @include fontMontserrat(18px, 700)
+    line-height: 22px
+    padding: 40px 0
+    flex: 1
+
+  &__total-percent
+    @include fontMontserrat(36px, 300)
+    text-align: right
+    margin-bottom: 10px
+
+  &__progress
+    width: 380px
+
+  &__line
+    width: 100%
+    height: 6px
+    background: $gray20
+    border-radius: 10px
+    margin-bottom: 14px
+
+  &__statistic
+    display: flex
+    justify-content: space-between
+
+  &__block
+    display: flex
+    align-items: center
+
+  &__text
+    @include fontMontserrat(12px)
+    line-height: 15px
+    margin-right: 10px
+
+  &__time
+    @include fontMontserrat(36px, 300)
+    line-height: 44px
+
+    &_remain
+      color: $red50 !important

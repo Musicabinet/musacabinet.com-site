@@ -9,6 +9,7 @@ import { ICONS_NAME, MODALS, SERVICE_NAME } from '../../../../constants';
 import { Modules } from './modules/modules';
 import { Courses } from './courses/courses';
 import { GroupLessons } from './group-lessons/group-lessons';
+import { GroupLessonView } from './group-lesson-view/group-lesson-view';
 
 const b = block(style);
 
@@ -51,7 +52,7 @@ export class GrandChartModal extends React.Component<GrandChartModalProps, Grand
               <InstrumentIcon service={service_name} icon={instrument_icon} />
               <div className={b('name', {
                 [service_name]: true
-              })}>Grand<br/> Chart
+              })}>Grand<br /> Chart
               </div>
             </div>
             <Modules />
@@ -62,6 +63,7 @@ export class GrandChartModal extends React.Component<GrandChartModalProps, Grand
               <Courses />
             </div>
             <div className={b('content')}>
+              <GroupLessonView />
               <GroupLessons />
             </div>
           </div>

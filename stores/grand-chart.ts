@@ -1,4 +1,4 @@
-import { action, makeObservable, observable } from 'mobx';
+import { action, computed, makeObservable, observable } from 'mobx';
 import { SystemStore } from './system';
 import { CollectionI, CourseI, ModuleI } from '../interfaces';
 import { GroupLessonI, GroupLessonsFinal } from '../interfaces/group-lesson';
@@ -12,6 +12,8 @@ export class GrandChartStore {
   @observable collections: CollectionI[] = [];
   @observable groupLessons: GroupLessonI[] = [];
   @observable finalData: GroupLessonsFinal = {};
+
+  @observable showGroupLessonDetail: boolean = false;
 
   public systemStore: SystemStore;
 
@@ -59,6 +61,20 @@ export class GrandChartStore {
     } catch (e) {
       console.error(`Error in method GrandChartStore.getList : `, e);
     }
+  }
+
+  @action.bound
+  setShowGroupLessonDetail(show: boolean = true) {
+    this.showGroupLessonDetail = show;
+  }
+
+  @computed
+  get groupLessonDetail(): GroupLessonI[] {
+    if (this.systemStore.selected_course_id === undefined || this.systemStore.selected_group_lesson_id === undefined) {
+      return [];
+    }
+
+    return this.finalData[`${this.systemStore.selected_course_id}-${this.systemStore.selected_module_id}`] || [];
   }
 
   @action

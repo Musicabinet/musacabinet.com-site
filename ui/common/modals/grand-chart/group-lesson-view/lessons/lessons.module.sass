@@ -1,0 +1,115 @@
+@import "../../../../../../stylesheets/index"
+
+.lessons
+  $root: &
+  position: relative
+  display: flex
+  align-items: center
+  flex-wrap: wrap
+  margin-right: 430px
+
+  &_school
+    #{$root}__count-lessons
+    color: $white
+
+    #{$root}__circle
+      stroke: $gray50
+
+    #{$root}__fill
+      stroke: $white
+
+    #{$root}__id
+      color: $school
+
+  &__item
+    position: relative
+    width: 46px
+    height: 46px
+    margin-right: 7px
+    cursor: pointer
+    background: transparent
+    border-radius: 10px
+
+    &_school
+      #{$root}__circle
+      stroke: $school
+
+      #{$root}__id
+        color: $school
+
+      &:hover
+        background: $school
+
+        #{$root}__id
+          color: $white
+
+        #{$root}__fill
+          stroke: $white
+
+    &_college
+      #{$root}__circle
+      stroke: $college
+
+      #{$root}__id
+        color: $college
+
+      &:hover
+        background: $college
+
+        #{$root}__id
+          color: $white
+
+        #{$root}__fill
+          stroke: $white
+
+    &_active-school
+      background: $school
+
+      #{$root}__id
+        color: $white
+
+      #{$root}__fill
+        stroke: $white
+
+      #{$root}__circle
+        stroke: $gray50
+
+    &_active-college
+      background: $college
+
+      #{$root}__id
+        color: $white
+
+      #{$root}__fill
+        stroke: $white
+
+      #{$root}__circle
+        stroke: $gray50
+
+
+
+  &__pie
+    position: relative
+    width: 40px
+    height: 40px
+    margin: 3px 0 0 3px
+
+  &__circle
+    stroke-dasharray: 0 113
+    transform-origin: center
+    transform: rotate(-90deg)
+    transition: stroke-dasharray 0.6s
+
+  &__fill
+    stroke: $gray20
+    stroke-dasharray: 113 113
+    transform-origin: center
+    transform: rotate(-90deg)
+    transition: stroke-dasharray 0.3s
+
+  &__id
+    position: absolute
+    top: 50%
+    left: 50%
+    transform: translate(-50%, -50%)
+    @include fontMontserrat(14px)

@@ -15,6 +15,7 @@ type GroupLessonItemProps = {
   onSetCourseId: (id: number) => void,
   onSetModuleId: (id: number) => void,
   onSetGroupLessonId: (id: number) => void,
+  onSetShowGroupLessonDetail: () => void,
 };
 type GroupLessonItemState = {};
 
@@ -26,7 +27,8 @@ type GroupLessonItemState = {};
   onSetCollectionId: store.systemStore.setCollectionId,
   onSetCourseId: store.systemStore.setCourseId,
   onSetModuleId: store.systemStore.setModuleId,
-  onSetGroupLessonId: store.systemStore.setGroupLessonId
+  onSetGroupLessonId: store.systemStore.setGroupLessonId,
+  onSetShowGroupLessonDetail: store.grandChartStore.setShowGroupLessonDetail
 }))
 @observer
 export class GroupLessonItem extends React.Component<GroupLessonItemProps & GroupLessonI, GroupLessonItemState> {
@@ -37,7 +39,8 @@ export class GroupLessonItem extends React.Component<GroupLessonItemProps & Grou
     onSetCollectionId: () => console.log('Not set handler'),
     onSetCourseId: () => console.log('Not set handler'),
     onSetModuleId: () => console.log('Not set handler'),
-    onSetGroupLessonId: () => console.log('Not set handler')
+    onSetGroupLessonId: () => console.log('Not set handler'),
+    onSetShowGroupLessonDetail: () => console.log('Not set handler')
   };
 
   circle = React.createRef<SVGSVGElement>();
@@ -58,13 +61,15 @@ export class GroupLessonItem extends React.Component<GroupLessonItemProps & Grou
       onSetCollectionId,
       onSetCourseId,
       onSetModuleId,
-      onSetGroupLessonId
+      onSetGroupLessonId,
+      onSetShowGroupLessonDetail
     } = this.props;
 
     onSetCollectionId(collection_id);
     onSetCourseId(course_id);
     onSetModuleId(module_id);
     onSetGroupLessonId(id);
+    onSetShowGroupLessonDetail();
   };
 
   render() {

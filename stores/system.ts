@@ -1,4 +1,4 @@
-import { action, makeObservable, observable } from 'mobx';
+import { action, computed, makeObservable, observable } from 'mobx';
 import { SERVICE_NAME } from '../constants';
 
 export class SystemStore {
@@ -48,23 +48,28 @@ export class SystemStore {
   }
 
   @action.bound
-  setCollectionId(id: number){
-    this.selected_collection_id = id
+  setCollectionId(id: number) {
+    this.selected_collection_id = id;
   }
 
   @action.bound
-  setCourseId(id: number){
-    this.selected_course_id = id
+  setCourseId(id: number) {
+    this.selected_course_id = id;
   }
 
   @action.bound
-  setModuleId(id: number){
-    this.selected_module_id = id
+  setModuleId(id: number) {
+    this.selected_module_id = id;
   }
 
   @action.bound
-  setGroupLessonId(id: number){
-    this.selected_group_lesson_id = id
+  setGroupLessonId(id: number) {
+    this.selected_group_lesson_id = id;
+  }
+
+  @computed
+  get showGroupLesson(): boolean {
+    return (this.selected_group_lesson_id !== undefined);
   }
 
   @action
