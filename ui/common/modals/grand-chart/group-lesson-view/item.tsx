@@ -6,7 +6,7 @@ import { RootStore } from '../../../../../stores';
 import { GroupLessonI } from '../../../../../interfaces/group-lesson';
 import { IconBack } from '../../../icons';
 import { SERVICE_NAME } from '../../../../../constants';
-import moment from 'moment';
+import * as moment from "moment"
 import { Lessons } from './lessons/lessons';
 
 const b = block(style);
