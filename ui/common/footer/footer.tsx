@@ -14,7 +14,7 @@ export class Footer extends React.Component<FooterProps, FooterState> {
   render() {
     return (
       <footer className={b(null)}>
-        footer
+
       </footer>
     );
   }

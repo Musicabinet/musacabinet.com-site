@@ -1,7 +1,7 @@
 export interface UserI{
   id: number,
   avatar: string,
-  birthday: Date,
+  birthday: Date | undefined,
   city: string,
   country: string,
   education: string,

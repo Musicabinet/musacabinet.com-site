@@ -18,7 +18,7 @@ export class NotificationItem extends React.Component<NotificationItemProps & No
     this.timeoutID = setTimeout(() => {
       const { onRemove } = this.props;
       onRemove();
-    }, 10000);
+    }, 4000);
   }
 
   handleOnClick = () => {

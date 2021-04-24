@@ -8,8 +8,11 @@ import { Title } from '../../title/title';
 import { MODALS, SOCIAL_BUTTON_TYPE, TITLE_SIZE } from '../../../../constants';
 import { IconForm1, IconForm2, IconForm3 } from '../../icons';
 import ReactFacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
+import GoogleLogin from 'react-google-login';
 import { FacebookClientResponsive } from '../../../../responsible';
 import { ButtonSocial } from '../../button-social/button-social';
+import { HrWithText } from '../../hr-with-text/hr-with-text';
+import { FormLogin } from '../../form-login/form-login';
 
 const b = block(style);
 
@@ -33,6 +36,7 @@ export class SignInModal extends React.Component<SignInModalProps, SignInModalSt
   static defaultProps = {
     show: false,
     isFetchFacebook: false,
+    onSignInFacebook: () => console.log('Not set handler'),
     onClose: () => console.log('Not set handler')
   };
 
@@ -114,6 +118,40 @@ export class SignInModal extends React.Component<SignInModalProps, SignInModalSt
                                         }} />
                   </div>
                 </div>
+
+                <div className='row'>
+                  <div className='col-12'>
+                    <HrWithText>or</HrWithText>
+                  </div>
+                </div>
+
+                <div className='row'>
+                  <div className='col-12'>
+                    <GoogleLogin
+                      clientId='826618397728-phql2reajkfudj3q0uosjuqb7tpjdlhf.apps.googleusercontent.com'
+                      render={renderProps => (
+                        <ButtonSocial onClick={renderProps.onClick}
+                                      type={SOCIAL_BUTTON_TYPE.GOOGLE}>
+                          Log in with Google
+                        </ButtonSocial>
+                      )}
+                      buttonText='Login'
+                      onSuccess={(data) => console.log(data)}
+                      onFailure={(responseError) => console.log('responseError', responseError)}
+                      cookiePolicy={'single_host_origin'}
+                    />
+                  </div>
+                </div>
+
+                <div className='row'>
+                  <div className='col-12'>
+                    <div className={b('text-middle')}>
+                      or log in with email
+                    </div>
+                  </div>
+                </div>
+
+                <FormLogin />
               </div>
             </div>
           </div>

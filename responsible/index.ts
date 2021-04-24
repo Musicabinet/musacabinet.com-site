@@ -1,3 +1,8 @@
+import { CollectionI, CourseI, ModuleI } from '../interfaces';
+import { GroupLessonI } from '../interfaces/group-lesson';
+
+export * from './auth';
+
 export interface FacebookClientResponsive {
   accessToken: string,
   data_access_expiration_time: number,
@@ -9,4 +14,9 @@ export interface FacebookClientResponsive {
   userID: string
 }
 
-export * from './auth';
+export interface GrandChartResponse {
+  courses: CourseI[],
+  modules: ModuleI[],
+  collections: CollectionI[],
+  group_lessons: GroupLessonI[]
+}

@@ -5,19 +5,28 @@ import style from './container-main.module.sass';
 
 const b = block(style);
 
-type ContainerMainProps = {};
+type ContainerMainProps = {
+  background: 'gray' | 'default'
+};
 type ContainerMainState = {};
 
 @inject(() => ({}))
 @observer
 export class ContainerMain extends React.Component<ContainerMainProps, ContainerMainState> {
+
+  static defaultProps = {
+    background: 'default'
+  };
+
   render() {
-    const { children } = this.props;
+    const { children, background } = this.props;
 
     return (
-      <main className={b(null)}>
-        <div className='container'>
-          <div className='row'>
+      <main className={b(null, {
+        [background]: true
+      })}>
+        <div className='container g-lg-0'>
+          <div className='row g-lg-0'>
             <div className='col-lg-12'>
               {children}
             </div>

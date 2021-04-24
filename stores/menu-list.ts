@@ -87,6 +87,33 @@ export class MenuListStore {
       is_active: false
     }];
 
+  @observable cabinet_list: MenuI[] = [{
+    title: 'Your day',
+    link: '',
+    type: MenuType.DEFAULT,
+    is_active: false
+  }, {
+    title: 'Your subscriptions',
+    link: '',
+    type: MenuType.DEFAULT,
+    is_active: true
+  }, {
+    title: 'Your statistics',
+    link: '',
+    type: MenuType.DEFAULT,
+    is_active: false
+  }, {
+    title: 'Tutorials',
+    link: '',
+    type: MenuType.DEFAULT,
+    is_active: false
+  }, {
+    title: 'Extra lessons',
+    link: '',
+    type: MenuType.DEFAULT,
+    is_active: false
+  }];
+
   constructor(initialData: MenuListStore | null) {
     makeObservable(this);
     if (initialData) {
@@ -96,8 +123,9 @@ export class MenuListStore {
 
   @action
   fillingStore(data: MenuListStore) {
-    const { list } = data;
+    const { list, cabinet_list } = data;
     this.list = list;
+    this.cabinet_list = cabinet_list;
   }
 
 }

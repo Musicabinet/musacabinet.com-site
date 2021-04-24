@@ -1,0 +1,61 @@
+@import "../../../stylesheets/index"
+
+.instrument-icon
+  position: relative
+
+  &__icon
+
+    &_school-guitar
+      path
+        stroke: $school
+
+    &_school-keyboards
+      path
+        stroke: $school
+
+        &:nth-child(2), &:nth-child(4), &:nth-child(6), &:nth-child(8), &:nth-child(10)
+          fill: $school
+
+    &_school-saxophone
+      path
+        stroke: $school
+
+
+    &_college-guitar
+      path
+        stroke: $college
+
+    &_college-keyboards
+      path
+        stroke: $college
+
+        &:nth-child(2), &:nth-child(4), &:nth-child(6), &:nth-child(8), &:nth-child(10)
+          fill: $college
+
+    &_college-saxophone
+      path
+        stroke: $college
+
+
+    &_university-guitar
+      path
+        stroke: $university
+
+    &_university-keyboards
+      path
+        stroke: $university
+
+        &:nth-child(2), &:nth-child(4), &:nth-child(6), &:nth-child(8), &:nth-child(10)
+          fill: $university
+
+    &_university-saxophone
+      path
+        stroke: $university
+
+    &_size
+
+      &_small
+        transform: scale(0.47)
+
+
+

@@ -1,0 +1,16 @@
+@import "../../../stylesheets/index"
+
+.input-text
+  position: relative
+  display: flex
+  width: 100%
+  @include fontMontserrat(18px)
+  line-height: 24px
+  padding: 10px 20px
+  border-radius: 10px
+  margin: 0
+  border: 1px solid $gray20
+
+  &_notValid
+    border-color: $red50
+

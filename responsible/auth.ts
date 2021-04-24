@@ -1,10 +1,10 @@
 import { UserI } from '../interfaces';
 
-export interface LoginFacebookResponse{
+export interface LoginResponse{
+  access_token: string,
   expires: number,
   isNew: boolean,
-  success: boolean,
-  token: string,
-  type: string,
   user: UserI
 }
+
+

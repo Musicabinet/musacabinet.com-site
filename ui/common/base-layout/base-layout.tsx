@@ -4,18 +4,25 @@ import { Header } from '../header/header';
 import { Footer } from '../footer/footer';
 import { ContainerMain } from '../container-main/container-main';
 
-type BaseLayoutProps = {};
+type BaseLayoutProps = {
+  background: 'default' | 'gray'
+};
 type BaseLayoutState = {};
 
 @inject(() => ({}))
 @observer
 export class BaseLayout extends React.Component<BaseLayoutProps, BaseLayoutState> {
+
+  static defaultProps = {
+    background: 'default'
+  };
+
   render() {
-    const { children } = this.props;
+    const { children, background } = this.props;
     return (
       <>
         <Header />
-        <ContainerMain>
+        <ContainerMain background={background}>
           {children}
         </ContainerMain>
         <Footer />

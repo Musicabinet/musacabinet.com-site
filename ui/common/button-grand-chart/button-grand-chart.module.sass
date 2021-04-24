@@ -1,0 +1,31 @@
+@import "../../../stylesheets/index"
+
+.button-grand-chart
+  position: relative
+  border: 0
+  padding: 12.5px 0
+  margin: 0
+  display: flex
+  justify-content: center
+  width: 100%
+  cursor: pointer
+  border-radius: 10px
+  color: $white
+
+  &_school
+    background: $school
+
+    &:hover
+      background: darken($school, 10%)
+
+  &_college
+    background: $college
+
+    &:hover
+      background: darken($college, 10%)
+
+  &_university
+    background: $university
+
+    &:hover
+      background: darken($university, 10%)

@@ -13,7 +13,7 @@ type MainPageState = {};
 export class MainPage extends React.Component<MainPageProps, MainPageState> {
   render() {
     return (
-      <div className={b(null)}>fdgdfsg</div>
+      <div className={b(null)}></div>
     );
   }
 }

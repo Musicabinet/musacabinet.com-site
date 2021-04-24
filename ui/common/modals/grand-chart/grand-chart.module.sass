@@ -1,0 +1,49 @@
+@import "../../../../stylesheets/index"
+
+.grand-chart
+  position: relative
+  background: #E5E5E5
+  //flex: 1
+  overflow: auto
+  padding-right: 20px
+  padding-bottom: 20px
+
+  &__header
+    height: 80px
+    margin: 20px 0
+    display: flex
+    width: 100%
+    align-items: center
+    justify-content: center
+
+  &__logotype
+    display: flex
+    align-items: center
+    flex: 0 0 210px
+
+  &__name
+    @include fontMontserrat(18px, 700)
+    line-height: 21.94px
+
+    &_school
+      color: $school
+
+    &_college
+      color: $college
+
+    &_university
+      color: $university
+
+  &__container
+    display: flex
+    flex: 1
+
+  &__sidebar
+    width: 210px
+    padding-left: 20px
+
+  &__content
+    position: relative
+    flex: 1
+    margin-left: 10px
+

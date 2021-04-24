@@ -19,8 +19,17 @@ type NotificationsState = {};
 }))
 @observer
 export class Notifications extends React.Component<NotificationsProps, NotificationsState> {
+
+  static defaultProps = {
+    list: []
+  };
+
   render() {
     const { list } = this.props;
+
+    if (list.length === 0) {
+      return null;
+    }
 
     return (
       <Portal>

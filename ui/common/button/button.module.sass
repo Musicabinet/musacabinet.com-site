@@ -14,9 +14,16 @@
   cursor: pointer
   transition: all 0.2s
 
+  &_full
+    width: 100%
+
   &:hover
     background: $red100
 
   &:active
     transform: scale(0.97)
+
+  &:disabled
+    opacity: 0.6
+    cursor: not-allowed
 

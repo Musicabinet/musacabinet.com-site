@@ -1,0 +1,40 @@
+@import "../../../stylesheets/index"
+
+.cabinet-avatar
+  position: relative
+  display: flex
+  flex-direction: column
+  align-items: center
+  width: 100%
+  background: $white
+  border-radius: 10px
+  padding: 20px 20px 16px
+
+  &__upload
+    display: flex
+    justify-content: center
+    align-items: center
+    width: 140px
+    height: 140px
+    background: $red50
+    border: 0
+    border-radius: 50%
+    @include fontMontserrat(18px)
+    line-height: 25px
+    color: $white
+    cursor: pointer
+    padding: 0
+    margin: 0 0 20px
+
+  &__fullName
+    text-align: center
+    margin-bottom: 30px
+    padding: 17.5px 0
+    line-height: 21.94px
+    color: $gray50
+
+  &__link
+    @include fontMontserrat(12px)
+    line-height: 14.63px
+    color: $school
+    cursor: pointer

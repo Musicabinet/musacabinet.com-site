@@ -10,17 +10,20 @@ import { MODALS } from '../../../constants';
 const b = block(style);
 
 type ButtonSignInProps = {
+  isAuth: boolean,
   onShow: (id_window: MODALS) => void
 };
 type ButtonSignInState = {};
 
 @inject((store: RootStore) => ({
+  isAuth: store.authStore.isAuth,
   onShow: store.modalsStore.show
 }))
 @observer
 export class ButtonSignIn extends React.Component<ButtonSignInProps, ButtonSignInState> {
 
   static defaultProps = {
+    isAuth: false,
     onShow: () => console.log('Not set handler')
   };
 
@@ -30,6 +33,12 @@ export class ButtonSignIn extends React.Component<ButtonSignInProps, ButtonSignI
   };
 
   render() {
+    const { isAuth } = this.props;
+
+    if (isAuth) {
+      return null;
+    }
+
     return (
       <>
         <Button name={'sign-in'}
