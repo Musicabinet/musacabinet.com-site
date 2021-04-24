@@ -5,8 +5,8 @@
     "dev": "next dev -p 3201",
     "build": "NODE_ENV=production next build",
     "start": "NODE_ENV=production next start -p 3201",
-    "prod-start": "git pull origin master && yarn install && yarn build && pm2 start npm --name musicabinet.com -- start",
-    "prod-restart": "git pull origin master && yarn install && yarn build && pm2 restart musicabinet.com",
+    "prod-start": "git pull origin main && yarn install && yarn build && pm2 start npm --name musicabinet.com -- start",
+    "prod-restart": "git pull origin main && yarn install && yarn build && pm2 restart musicabinet.com",
     "type-check": "tsc"
   },
   "dependencies": {
