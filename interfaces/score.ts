@@ -1,4 +1,5 @@
 import { SCORE_TYPE } from '../constants';
+import { ScoreItemStore } from '../stores/score-item';
 
 export interface ScoreI {
   id: number,
@@ -6,7 +7,7 @@ export interface ScoreI {
   name: string,
   video_url: string,
   content: string
-  items: []
+  items: ScoreItemStore[]
 }
 
 export interface ScoreContentI {

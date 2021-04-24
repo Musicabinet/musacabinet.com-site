@@ -9,7 +9,8 @@ const b = block(style);
 type InstrumentIconProps = {
   icon: ICONS_NAME,
   service: SERVICE_NAME,
-  size: 'small'
+  size: 'small',
+  className: string
 };
 type InstrumentIconState = {};
 
@@ -17,11 +18,12 @@ export class InstrumentIcon extends React.Component<InstrumentIconProps, Instrum
 
   static defaultProps = {
     icon: ICONS_NAME.GUITAR,
-    size: 'small'
+    size: 'small',
+    className: ''
   };
 
   getIcon = () => {
-    const { icon, service, size } = this.props;
+    const { icon, service, size, className } = this.props;
     const guitarClass = `${service}-guitar`;
     const keyboardClass = `${service}-keyboards`;
     const saxophoneClass = `${service}-saxophone`;

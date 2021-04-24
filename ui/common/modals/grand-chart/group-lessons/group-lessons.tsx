@@ -55,7 +55,14 @@ export class GroupLessons extends React.Component<GroupLessonsProps, GroupLesson
                                         module_id={group_lesson.module_id}
                                         course_id={group_lesson.course_id}
                                         total_lessons={group_lesson.total_lessons}
-                                        lessons={group_lesson.lessons} />;
+                                        lessons={group_lesson.lessons}
+                                        slug={group_lesson.slug}
+                                        sort={group_lesson.sort}
+                                        meta_title={group_lesson.meta_title}
+                                        meta_description={group_lesson.meta_description}
+                                        meta_keywords={group_lesson.meta_keywords}
+                                        description={group_lesson.description}
+                                        is_active={group_lesson.is_active} />;
               })}
 
             </div>);

@@ -1,6 +1,6 @@
 import { ScoreI } from './score';
-import { GroupLessonI } from './group-lesson';
 import { AccompanimentI } from './accompaniment';
+import { GroupLessonStore } from '../stores/group-lesson';
 
 export interface LessonI {
   id: number,
@@ -16,6 +16,6 @@ export interface LessonI {
   duration_minute: number,
   is_active: boolean,
   scores: ScoreI[],
-  group_lesson?: GroupLessonI | undefined,
+  group_lesson?: GroupLessonStore | undefined,
   accompaniments: AccompanimentI[]
 }

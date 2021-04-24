@@ -1,0 +1,37 @@
+@import "../../../../../stylesheets/index"
+
+.icon
+  $root: &
+  position: relative
+  padding: 0
+  margin: 12px 0 6px
+  display: flex
+  flex-direction: column
+  @include fontMontserrat(12px)
+  color: $white
+
+  &_school
+    position: relative
+
+    #{$root}__name-instrument
+      #{$root}__color
+        color: $school
+
+    #{$root}__name-instrument
+      color: $school
+
+  &_college
+    position: relative
+
+    #{$root}__name-instrument
+      #{$root}__color
+        color: $college
+
+    #{$root}__name-instrument
+      color: $college
+
+  &__name-instrument
+    @include fontMontserrat(12px, 800)
+    text-transform: uppercase
+    width: 50px
+    text-align: center

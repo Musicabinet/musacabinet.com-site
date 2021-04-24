@@ -5,7 +5,8 @@ import { Footer } from '../footer/footer';
 import { ContainerMain } from '../container-main/container-main';
 
 type BaseLayoutProps = {
-  background: 'default' | 'gray'
+  background: 'default' | 'gray',
+  full: boolean
 };
 type BaseLayoutState = {};
 
@@ -14,17 +15,26 @@ type BaseLayoutState = {};
 export class BaseLayout extends React.Component<BaseLayoutProps, BaseLayoutState> {
 
   static defaultProps = {
-    background: 'default'
+    background: 'default',
+    full: false
   };
 
   render() {
-    const { children, background } = this.props;
+    const { children, background, full } = this.props;
     return (
       <>
         <Header />
-        <ContainerMain background={background}>
-          {children}
-        </ContainerMain>
+
+        {
+          full
+            ? (children)
+            : (
+              <ContainerMain background={background}>
+                {children}
+              </ContainerMain>
+            )
+        }
+
         <Footer />
       </>
     );

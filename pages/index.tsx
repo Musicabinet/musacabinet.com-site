@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import { BaseLayout } from '../ui';
-import { MainPage } from '../ui/components/main-page/main-page';
+import { CustomAppContext } from '../interfaces';
+import { MainPage } from '../ui/components';
 
 type IndexPageProps = {};
 type IndexPageState = {};
@@ -9,10 +10,16 @@ type IndexPageState = {};
 @inject(() => ({}))
 @observer
 export default class IndexPage extends React.Component<IndexPageProps, IndexPageState> {
+
+  static async getInitialProps({ store }: CustomAppContext) {
+    await store?.authStore.check();
+    return {};
+  }
+
   render() {
     return (
       <BaseLayout>
-        <MainPage />
+        <MainPage/>
       </BaseLayout>
     );
   }

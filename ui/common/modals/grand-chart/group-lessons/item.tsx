@@ -65,7 +65,10 @@ export class GroupLessonItem extends React.Component<GroupLessonItemProps & Grou
       onSetShowGroupLessonDetail
     } = this.props;
 
-    onSetCollectionId(collection_id);
+    if(collection_id){
+      onSetCollectionId(collection_id);
+    }
+
     onSetCourseId(course_id);
     onSetModuleId(module_id);
     onSetGroupLessonId(id);

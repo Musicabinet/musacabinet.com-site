@@ -7,6 +7,7 @@ import { UserStore } from './user';
 import { ServicesStore } from './services';
 import { GrandChartStore } from './grand-chart';
 import { SystemStore } from './system';
+import { LessonStore } from './lesson';
 
 const isServer = typeof window === 'undefined';
 enableStaticRendering(isServer);
@@ -21,6 +22,7 @@ export class RootStore {
   public notificationsStore: NotificationsStore;
   public servicesStore: ServicesStore;
   public grandChartStore: GrandChartStore;
+  public lessonStore: LessonStore;
 
 
   constructor(initialData: RootStore | null) {
@@ -58,6 +60,10 @@ export class RootStore {
       initialData && initialData.grandChartStore ? initialData.grandChartStore : null,
       { systemStore: this.systemStore }
     );
+
+    this.lessonStore = new LessonStore(
+      initialData && initialData.lessonStore ? initialData.lessonStore : null,
+    )
 
   }
 }

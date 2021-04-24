@@ -45,7 +45,14 @@ export class GroupLessonView extends React.Component<GroupLessonViewProps, Group
                                  module_id={groupLesson.module_id}
                                  course_id={groupLesson.course_id}
                                  total_lessons={groupLesson.total_lessons}
-                                 lessons={groupLesson.lessons} />
+                                 lessons={groupLesson.lessons}
+                                 description={groupLesson.description}
+                                 sort={groupLesson.sort}
+                                 is_active={groupLesson.is_active}
+                                 meta_title={groupLesson.meta_title}
+                                 meta_description={groupLesson.meta_description}
+                                 meta_keywords={groupLesson.meta_keywords}
+                                 slug={groupLesson.slug} />
           );
         })}
       </div>

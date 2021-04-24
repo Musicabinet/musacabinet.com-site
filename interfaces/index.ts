@@ -17,6 +17,11 @@ export interface ImageTagI {
   alt: string
 }
 
+export interface RelationIdNameI {
+  id: number,
+  name: string
+}
+
 export * from './menu';
 export * from './auth';
 export * from './user';
@@ -30,3 +35,4 @@ export * from './accompaniment';
 export * from './lesson';
 export * from './library';
 export * from './score';
+export * from './group-lesson';
