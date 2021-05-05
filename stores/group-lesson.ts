@@ -1,4 +1,4 @@
-import { action, observable } from 'mobx';
+import { action, makeObservable, observable } from 'mobx';
 import { GroupLessonI, LessonI } from '../interfaces';
 import { CollectionStore } from './collection';
 
@@ -23,6 +23,7 @@ export class GroupLessonStore implements GroupLessonI {
   @observable lessons: LessonI[] = [];
 
   constructor(initialData: GroupLessonI | null) {
+    makeObservable(this);
     if (initialData) {
       this.fillingStore(initialData);
     }

@@ -1,0 +1,84 @@
+@import "../../../../../../stylesheets/index"
+
+.play-button
+  $root: &
+  position: relative
+  background: transparent
+  border: 0
+  margin: 0
+  display: flex
+  align-items: center
+  justify-content: center
+  border-radius: 50%
+  cursor: pointer
+  transition: all .2s
+  width: 58px
+  height: 52px
+  padding: 0
+
+  &:active:enabled
+    transform: scale(0.97)
+
+  &:disabled
+    opacity: 0.5
+
+  &_school
+    background: $school
+
+    &:hover
+      background: darken($school, 10%)
+
+  &_college
+    background: $college
+
+    &:hover
+      background: darken($college, 10%)
+
+  &_is_playing
+    position: relative
+
+    #{$root}__icon
+      display: none
+
+    &:before, &:after
+      content: ''
+      position: absolute
+      width: 5px
+      height: 25px
+      top: 50%
+      transform: translateY(-50%)
+      background: $white
+
+    &:before
+      left: 18px
+
+    &:after
+      right: 18px
+
+  &_is-playing
+    position: relative
+
+    #{$root}__icon
+      display: none
+
+    &:before, &:after
+      content: ''
+      position: absolute
+      width: 5px
+      height: 25px
+      top: 50%
+      transform: translateY(-50%)
+      background: $white
+
+    &:before
+      left: 16px
+
+    &:after
+      right: 16px
+
+  &__icon
+    width: 25px
+    height: 27px
+    fill: $white
+    margin-left: 4px
+

@@ -1,6 +1,7 @@
 @import "../../../../../stylesheets/index"
 
 .group-lesson-view
+  display: none
   $root: &
   position: absolute
   left: -10px
@@ -11,6 +12,9 @@
   z-index: 100
   padding: 10px 10px
   flex-direction: column
+
+  &_show
+    display: block
 
   &_active
     display: flex
@@ -49,9 +53,9 @@
 
     &_college
       #{$root}__back
-      svg
-        path
-          stroke: $college
+        svg
+          path
+            stroke: $college
 
       #{$root}__total-percent, #{$root}__time
         color: $college

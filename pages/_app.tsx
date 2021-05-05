@@ -5,7 +5,7 @@ import initializeStore, { RootStore } from '../stores';
 import './app.global.sass';
 import { Cookie } from '../core';
 import { CustomAppContext } from '../interfaces';
-import { HeadBlock } from './head-block';
+import HeadBlock from './head-block';
 import { Notifications } from '../ui';
 
 interface Props {

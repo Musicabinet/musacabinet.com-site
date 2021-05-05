@@ -1,6 +1,7 @@
 import { ScoreI } from './score';
 import { AccompanimentI } from './accompaniment';
 import { GroupLessonStore } from '../stores/group-lesson';
+import { BreadcrumbsI } from './breadcrumbs';
 
 export interface LessonI {
   id: number,
@@ -17,5 +18,25 @@ export interface LessonI {
   is_active: boolean,
   scores: ScoreI[],
   group_lesson?: GroupLessonStore | undefined,
-  accompaniments: AccompanimentI[]
+  accompaniments: AccompanimentI[],
+  breadcrumbs: BreadcrumbsI[]
+  progress_second?: number,
+  lesson_list: LessonListI[],
+  prevModuleLesson?: null | string,
+  nextModuleLesson?: null | string,
+  selected_accompaniment?: number
+}
+
+export interface LessonListI {
+  'id': number,
+  'uuid': string,
+  'name': string
+}
+
+export enum LessonDirection {
+  LEFT = 'left',
+  RIGHT = 'right'
+}
+
+export interface LessonExtraParamsI {
 }

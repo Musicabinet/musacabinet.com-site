@@ -4,7 +4,6 @@ import block from 'bem-css-modules';
 import style from './group-lesson-view.module.sass';
 import { RootStore } from '../../../../../stores';
 import { GroupLessonI } from '../../../../../interfaces/group-lesson';
-import { IconBack } from '../../../icons';
 import { SERVICE_NAME } from '../../../../../constants';
 import * as moment from "moment"
 import { Lessons } from './lessons/lessons';
@@ -54,7 +53,8 @@ export class GroupLessonViewItem extends React.Component<GroupLessonViewItemProp
         [service_name]: true
       })}>
         <div className={b('back', { show: isFirst })}
-             onClick={this.handleOnBack}><IconBack />
+             onClick={this.handleOnBack}>
+
         </div>
 
         <div className={b('body')}>

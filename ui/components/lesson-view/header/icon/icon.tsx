@@ -32,7 +32,6 @@ export class Icon extends React.Component<IconProps, IconState> {
       [service_name]: true
     })}>
       <div className={b('name-instrument')}>{instrument_name}</div>
-
     </div>;
   }
 }

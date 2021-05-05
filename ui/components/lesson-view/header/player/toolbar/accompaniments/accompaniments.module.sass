@@ -1,0 +1,103 @@
+@import "../../../../../../../stylesheets/index"
+
+.accompaniments
+  $root: &
+  position: relative
+  display: flex
+
+  &__item
+    position: relative
+    display: flex
+    height: 100%
+    align-items: center
+    @include fontMontserrat(14px, 400)
+    padding: 0 20px
+    min-width: 120px
+    cursor: pointer
+
+    &:first-child
+      &:after
+        background: transparent
+
+    &:after
+      content: ''
+      position: absolute
+      left: 0
+      width: 1px
+      height: 20px
+      background: $gray50
+
+    &_selected
+      border-top-left-radius: 10px
+      border-top-right-radius: 10px
+      background: $silver
+      cursor: default
+
+      & + #{$root}__item
+        &:after
+          background: transparent
+
+
+      &:before, &:after
+        position: absolute
+        content: ""
+        width: 0
+        height: 0
+        border-left: 5px solid transparent
+        border-right: 5px solid transparent
+        border-bottom: 5px solid $silver
+        background: transparent
+
+      &:before
+        bottom: -0.8px
+        left: -6.2px
+        transform: rotate(135deg)
+
+      &:after
+        bottom: -0.8px
+        right: -6.2px
+        transform: rotate(225deg)
+        left: auto
+
+  &__close
+    position: absolute
+    right: 20px
+    width: 10px
+    height: 10px
+    background: transparent
+    border: 0
+    padding: 0
+    margin: 0
+    cursor: pointer
+
+    &:before, &:after
+      content: ''
+      position: absolute
+      width: 10px
+      height: 2px
+      background: $gray50
+      right: 0
+      top: 4px
+
+    &:before
+      transform: rotate(45deg)
+
+    &:after
+      transform: rotate(-45deg)
+
+  &__arrow
+    position: absolute
+    top: 15px
+    right: 20px
+    border-right: 0
+    border-left: 1px solid $gray50
+    border-top: 0
+    border-bottom: 1px solid $gray50
+    width: 8px
+    height: 8px
+    transform: rotate(-45deg)
+    transition: all .2s
+    padding: 0
+    margin: 0
+    background: transparent
+    cursor: pointer

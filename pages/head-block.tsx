@@ -8,10 +8,10 @@ type HeadBlockProps = {
 };
 type HeadBlockState = {};
 
-export class HeadBlock extends React.Component<HeadBlockProps, HeadBlockState> {
+export default class HeadBlock extends React.Component<HeadBlockProps, HeadBlockState> {
 
   static defaultProps = {
-    title: 'Musicabinet | Online School',
+    title: 'Musicabinet',
     description: '',
     keywords: ''
   };

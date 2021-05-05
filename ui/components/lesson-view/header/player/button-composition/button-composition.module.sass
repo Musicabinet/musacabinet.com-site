@@ -1,0 +1,39 @@
+@import "../../../../../../stylesheets/index"
+
+.button-composition
+  $root: &
+  position: absolute
+  bottom: 0
+  left: 114px
+
+  &_school
+    display: flex
+
+    #{$root}__button
+      background: $school
+
+  &_college
+    display: flex
+
+    #{$root}__button
+      background: $college
+
+  &__button
+    background: transparent
+    border: 0
+    margin: 0 10px 0 0
+    padding: 7px 0
+    @include fontMontserrat(13px, 400)
+    line-height: 13px
+    color: $white
+    border-top-left-radius: 10px
+    border-top-right-radius: 10px
+    width: 80px
+    cursor: pointer
+
+    &_mute
+      background: $gray50 !important
+
+    &:last-child
+      margin-right: 0
+

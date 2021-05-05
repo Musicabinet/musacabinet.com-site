@@ -10,12 +10,14 @@ const b = block(style);
 
 type GroupLessonViewProps = {
   show: boolean,
-  list: GroupLessonI[]
+  list: GroupLessonI[],
+  setShowGroupLessonDetail: (show: boolean) => void
 };
 type GroupLessonViewState = {};
 
 @inject((store: RootStore) => ({
   show: store.grandChartStore.showGroupLessonDetail,
+  setShowGroupLessonDetail: store.grandChartStore.setShowGroupLessonDetail,
   list: store.grandChartStore.groupLessonDetail
 }))
 @observer
@@ -23,8 +25,14 @@ export class GroupLessonView extends React.Component<GroupLessonViewProps, Group
 
   static defaultProps = {
     show: false,
-    list: []
+    list: [],
+    setShowGroupLessonDetail: () => console.log('Not set handler')
   };
+
+  componentWillUnmount() {
+    const { setShowGroupLessonDetail } = this.props;
+    setShowGroupLessonDetail(false);
+  }
 
   render() {
     const { show, list } = this.props;
@@ -34,7 +42,7 @@ export class GroupLessonView extends React.Component<GroupLessonViewProps, Group
     }
 
     return (
-      <div className={b(null)}>
+      <div className={b(null, { show })}>
         {list.map((groupLesson, index) => {
           return (
             <GroupLessonViewItem key={groupLesson.id}

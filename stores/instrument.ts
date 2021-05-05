@@ -1,5 +1,6 @@
 import { action, makeObservable, observable } from 'mobx';
 import { InstrumentI } from '../interfaces';
+import { LIST_ICON } from '../ui/common/icons';
 
 export class InstrumentStore implements InstrumentI {
 
@@ -12,7 +13,7 @@ export class InstrumentStore implements InstrumentI {
   @observable meta_keywords = '';
   @observable name = '';
   @observable description = '';
-  @observable icon = '';
+  @observable icon: LIST_ICON.GUITAR | LIST_ICON.KEYBOARD | LIST_ICON.SAXOPHONE = LIST_ICON.GUITAR;
   @observable is_active = false;
 
   constructor(initialData: InstrumentStore | null | InstrumentI) {
@@ -48,7 +49,8 @@ export class InstrumentStore implements InstrumentI {
     this.meta_keywords = meta_keywords;
     this.name = name;
     this.description = description;
-    this.icon = icon;
+    // @ts-ignore
+    this.icon = icon.toLocaleUpperCase();
     this.is_active = is_active;
   }
 

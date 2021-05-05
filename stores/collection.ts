@@ -1,5 +1,6 @@
-import { action, computed, observable } from 'mobx';
+import { action, computed, makeObservable, observable } from 'mobx';
 import { CollectionI, RelationIdNameI } from '../interfaces';
+import { SERVICE_NAME } from '../constants';
 
 export class CollectionStore implements CollectionI {
 
@@ -20,25 +21,27 @@ export class CollectionStore implements CollectionI {
   @observable modules: RelationIdNameI | null = null;
 
   constructor(initialData: CollectionI | null) {
+    makeObservable(this);
     if (initialData) {
       this.fillingStore(initialData);
     }
   }
 
   @computed
-  get serviceName(): string {
-    let result = '';
+  get serviceName(): SERVICE_NAME | null {
+    let result: SERVICE_NAME | null = null;
+
     switch (this.service_id) {
       case 1: {
-        result = 'school';
+        result = SERVICE_NAME.SCHOOL;
         break;
       }
       case 2: {
-        result = 'college';
+        result = SERVICE_NAME.COLLEGE;
         break;
       }
       case 3: {
-        result = 'university';
+        result = SERVICE_NAME.UNIVERSITY;
         break;
       }
     }
@@ -47,8 +50,13 @@ export class CollectionStore implements CollectionI {
   }
 
   @computed
-  get instrumentName(): string {
+  get instrumentName():string {
     return (this.instruments && this.instruments.name) ? this.instruments.name : '';
+  }
+
+  @computed
+  get instrumentIcon():string {
+    return (this.instruments && this.instruments.name) ? this.instruments.name.toUpperCase() : '';
   }
 
   @computed

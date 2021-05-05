@@ -4,11 +4,6 @@ import { MenuI, MenuType } from '../interfaces';
 export class MenuListStore {
 
   @observable list: MenuI[] = [{
-    title: 'About',
-    link: 'about',
-    type: MenuType.DEFAULT,
-    is_active: false
-  }, {
     title: 'School',
     link: 'school/guitar',
     type: MenuType.SCHOOL,

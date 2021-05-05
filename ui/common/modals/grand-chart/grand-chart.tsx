@@ -5,18 +5,19 @@ import style from './grand-chart.module.sass';
 import { RootStore } from '../../../../stores';
 import { Modal } from '../../modal/modal';
 import { InstrumentIcon } from '../../instrument-icon/instrument-icon';
-import { ICONS_NAME, MODALS, SERVICE_NAME } from '../../../../constants';
+import { MODALS, SERVICE_NAME } from '../../../../constants';
 import { Modules } from './modules/modules';
 import { Courses } from './courses/courses';
 import { GroupLessons } from './group-lessons/group-lessons';
 import { GroupLessonView } from './group-lesson-view/group-lesson-view';
+import { LIST_ICON } from '../../icons';
 
 const b = block(style);
 
 type GrandChartModalProps = {
   is_show: boolean,
   service_name: SERVICE_NAME,
-  instrument_icon: ICONS_NAME,
+  instrument_icon: LIST_ICON.GUITAR | LIST_ICON.KEYBOARD | LIST_ICON.SAXOPHONE,
   onCloseModal: (id_modal: MODALS) => void
 };
 type GrandChartModalState = {};

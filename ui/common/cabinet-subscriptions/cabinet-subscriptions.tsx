@@ -4,8 +4,8 @@ import block from 'bem-css-modules';
 import style from './cabinet-subscriptions.module.sass';
 import { RootStore } from '../../../stores';
 import { ServiceStore } from '../../../stores/service';
-import { CabinetSubscriptionItem } from './item';
 import { GrandChartModal } from '../modals/grand-chart/grand-chart';
+import { CabinetSubscriptionItem } from './item';
 
 const b = block(style);
 

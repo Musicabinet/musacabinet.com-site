@@ -27,6 +27,7 @@ export class LessonItem extends React.Component<LessonItemProps & LessonI, Lesso
   circleFill = React.createRef<SVGSVGElement>();
 
   static defaultProps = {
+    breadcrumbs: [],
     service_name: SERVICE_NAME.SCHOOL,
     onCloseModal: () => console.log('Not set handler')
   };

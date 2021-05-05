@@ -13,6 +13,7 @@ export interface LibraryI {
   BASS?: any,
   DRUMS?: any,
   KEYBOARDS?: any
+  pivot: LibraryPivotI
 }
 
 export interface LibraryTrackI {
@@ -20,5 +21,11 @@ export interface LibraryTrackI {
   library_id: number,
   name: string,
   origin_name: string,
+  path: string,
   type: LibraryTrackType
+}
+
+export interface LibraryPivotI {
+  accompaniment_id: number,
+  library_id: number
 }

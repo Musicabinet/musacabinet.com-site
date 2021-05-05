@@ -1,0 +1,82 @@
+@import "../../../../../../stylesheets/index"
+
+.timer
+  $root: &
+  position: relative
+  display: inline-block
+  user-select: none
+  cursor: pointer
+  width: 72.6px
+  height: 72.6px
+  margin: 0 0 11.91px
+
+  &_school
+    position: relative
+
+    #{$root}__circle
+      stroke: $school
+
+    #{$root}__fill
+      stroke: $school
+
+  &_college
+    position: relative
+
+    #{$root}__circle
+      stroke: $college
+
+    #{$root}__fill
+      stroke: $college
+
+  &__container
+    position: relative
+
+  &__circle
+    //stroke-dasharray: 10 10
+    stroke: $school
+    stroke-dashoffset: 146
+    transform-origin: center
+    transform: rotate(-90deg)
+    transition: stroke-dashoffset 0.3s
+
+  &__fill
+    stroke-width: 30
+    //stroke-dashoffset: 50
+    stroke-dasharray: 0 94
+    transform-origin: center
+    transform: rotate(-90deg)
+    transition: stroke-dasharray 0.3s
+
+  &__current-time
+    position: absolute
+    top: 50%
+    left: 50%
+    transform: translate(-50%, -50%)
+    @include fontMontserrat(15px, 400)
+    color: $gray50
+    z-index: 20
+
+
+  &_time-15
+    position: relative
+
+    #{$root}__circle
+      stroke-dashoffset: 146
+
+  &_time-30
+    position: relative
+
+    #{$root}__circle
+      stroke-dashoffset: 97.3
+
+  &_time-45
+    position: relative
+
+    #{$root}__circle
+      stroke-dashoffset: 48.6
+
+  &_time-60
+    position: relative
+
+    #{$root}__circle
+      stroke-dashoffset: 0

@@ -3,7 +3,7 @@ const withImage = require('next-images');
 const webpack = require('webpack');
 require('dotenv').config();
 
-const nextConfig = {
+const nextConfig = withImage({
   webpack: (config) => {
     config.plugins.push(
       new webpack.DefinePlugin({
@@ -26,15 +26,27 @@ const nextConfig = {
 
     if (!config.module.rules) {
       config.module.rules = [];
+
+      config.module.rules.push({
+          test: /^(?!.*\.svg$).*\.svg$/,
+          loader: 'svg-url-loader',
+          options: {
+            limit: 10000,
+            name: '[path][name].[ext]',
+          },
+        },
+        {
+          test: /\.svg$/,
+          loader: 'react-svg-loader',
+        });
     }
 
     return config;
   }
-};
+});
 
 module.exports = withPlugins(
   [
-    [withImage],
   ],
   nextConfig
 );

@@ -6,7 +6,6 @@ import { RootStore } from '../../../../stores';
 import { Modal } from '../../modal/modal';
 import { Title } from '../../title/title';
 import { MODALS, SOCIAL_BUTTON_TYPE, TITLE_SIZE } from '../../../../constants';
-import { IconForm1, IconForm2, IconForm3 } from '../../icons';
 import ReactFacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
 import GoogleLogin from 'react-google-login';
 import { FacebookClientResponsive } from '../../../../responsible';
@@ -62,7 +61,7 @@ export class SignInModal extends React.Component<SignInModalProps, SignInModalSt
 
                 <div className='row'>
                   <div className='col-12 d-flex align-items-center'>
-                    <IconForm1 className={b('icon')} />
+
                     <p className={b('paragraph')}>
                       Our system is built to guide you step-by-step from 0 to Pro+ level
                     </p>
@@ -71,7 +70,7 @@ export class SignInModal extends React.Component<SignInModalProps, SignInModalSt
                 <div className={b('divider')} />
                 <div className='row'>
                   <div className='col-12 d-flex align-items-center'>
-                    <IconForm2 className={b('icon')} />
+
                     <p className={b('paragraph')}>
                       Intuitive & user-friendly interface, allowing you to enjoy the learning process
                     </p>
@@ -80,7 +79,7 @@ export class SignInModal extends React.Component<SignInModalProps, SignInModalSt
                 <div className={b('divider')} />
                 <div className='row'>
                   <div className='col-12 d-flex align-items-center'>
-                    <IconForm3 className={b('icon')} />
+
                     <p className={b('paragraph')}>
                       Study at home or while traveling from your Mac/PC, Tab or Smartphone
                     </p>

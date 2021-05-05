@@ -1,0 +1,52 @@
+@import "../../../../../../stylesheets/index"
+
+.progress-line
+  $root: &
+  position: relative
+  display: flex
+  width: 100%
+  margin-left: 10px
+
+  &_school, &_college
+    position: relative
+
+  &_school
+    #{$root}__line
+      &::-webkit-slider-thumb
+        background: $school
+
+  &_college
+    #{$root}__line
+      &::-webkit-slider-thumb
+        background: $college
+
+  &__line
+    position: relative
+    -webkit-appearance: none
+    border-radius: 9px
+    height: 4px
+    width: 100%
+    background: $gray50
+    cursor: pointer
+    margin-right: 18px
+    transition: all 0.2s
+
+    &::-webkit-slider-thumb
+      -webkit-appearance: none
+
+    &::-ms-track
+      width: 100%
+      cursor: pointer
+      background: transparent
+      border-color: transparent
+      color: transparent
+
+    &::-webkit-slider-thumb
+      position: relative
+      -webkit-appearance: none
+      border: 0
+      height: 18px
+      width: 18px
+      border-radius: 50%
+      cursor: pointer
+      z-index: 15

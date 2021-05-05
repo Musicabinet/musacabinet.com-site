@@ -1,0 +1,63 @@
+@import "../../../../../../../stylesheets/index"
+
+.play
+  position: relative
+  width: 25px
+  height: 25px
+  border-radius: 50%
+  border: 0
+  background: transparent
+  cursor: pointer
+  transition: all .2s
+  display: flex
+  justify-content: center
+  align-items: center
+
+  &:active
+    transform: scale(0.97)
+
+  &_school
+    background: $school
+
+    &:hover
+      background: darken($school, 10%)
+
+  &_college
+    background: $college
+
+    &:hover
+      background: darken($college, 10%)
+
+  &__icon
+    width: 10px
+    height: 10px
+    path
+      fill: $white !important
+
+
+  &__pause
+    position: relative
+    width: 10px
+    height: 10px
+    margin: 0 0 0 3px
+
+    &:before, &:after
+      top: 0
+      content: ''
+      position: absolute
+      width: 1px
+      height: 100%
+      background: $white
+
+    &:before
+      left: 0
+
+    &_after
+      right: 0
+
+  &__play
+
+    svg
+      height: 10px
+      fill: $white
+

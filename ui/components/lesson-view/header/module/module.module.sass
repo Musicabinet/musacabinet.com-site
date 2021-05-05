@@ -1,0 +1,42 @@
+@import "../../../../../stylesheets/index"
+
+.module
+  $root: &
+  position: relative
+  width: 150px
+  margin: 25px 0 0
+  border-radius: 10px
+  display: flex
+  flex-direction: column
+  height: 100%
+
+  &_school
+    position: relative
+
+    #{$root}__header
+      background: $school
+
+  &_college
+    position: relative
+
+    #{$root}__header
+      background: $college
+
+  &__header
+    position: relative
+    color: $white
+    @include fontMontserrat(18px, 500)
+    text-align: center
+    padding: 10.5px 0
+    border-top-left-radius: 10px
+    border-top-right-radius: 10px
+    text-transform: uppercase
+
+  &__body
+    background: $silver
+    position: relative
+    display: flex
+    flex-direction: column
+    align-items: center
+    border-bottom-left-radius: 10px
+    border-bottom-right-radius: 10px

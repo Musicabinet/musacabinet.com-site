@@ -2,18 +2,21 @@
 
 .instrument-icon
   position: relative
+  display: flex
+  justify-content: center
 
   &__icon
+    position: relative
 
     &_school-guitar
       path
         stroke: $school
 
-    &_school-keyboards
+    &_school-keyboard
       path
         stroke: $school
 
-        &:nth-child(2), &:nth-child(4), &:nth-child(6), &:nth-child(8), &:nth-child(10)
+        &:nth-child(2), &:nth-child(4), &:nth-child(6), &:nth-child(8), &:nth-child(10), &:nth-child(12)
           fill: $school
 
     &_school-saxophone
@@ -25,11 +28,11 @@
       path
         stroke: $college
 
-    &_college-keyboards
+    &_college-keyboard
       path
         stroke: $college
 
-        &:nth-child(2), &:nth-child(4), &:nth-child(6), &:nth-child(8), &:nth-child(10)
+        &:nth-child(2), &:nth-child(4), &:nth-child(6), &:nth-child(8), &:nth-child(10), &:nth-child(12)
           fill: $college
 
     &_college-saxophone
@@ -41,11 +44,11 @@
       path
         stroke: $university
 
-    &_university-keyboards
+    &_university-keyboard
       path
         stroke: $university
 
-        &:nth-child(2), &:nth-child(4), &:nth-child(6), &:nth-child(8), &:nth-child(10)
+        &:nth-child(2), &:nth-child(4), &:nth-child(6), &:nth-child(8), &:nth-child(10), &:nth-child(12)
           fill: $university
 
     &_university-saxophone
@@ -55,7 +58,9 @@
     &_size
 
       &_small
-        transform: scale(0.47)
-
+        svg
+          width: 42px
+          height: 46px
+          display: flex
 
 

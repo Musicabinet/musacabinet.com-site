@@ -1,0 +1,54 @@
+@import "../../../../../stylesheets/index"
+
+.breadcrumbs
+  $root: &
+  position: relative
+  padding: 0
+  margin: 0
+  display: flex
+  align-items: center
+  @include fontMontserrat(12px)
+  color: $white
+
+  &_school
+    position: relative
+
+    #{$root}__item
+      #{$root}__color
+        color: $school
+
+    #{$root}__name-instrument
+      color: $school
+
+  &_college
+    position: relative
+
+    #{$root}__item
+      #{$root}__color
+        color: $college
+
+    #{$root}__name-instrument
+      color: $college
+
+  &_university
+    position: relative
+
+    #{$root}__item
+      #{$root}__color
+        color: $university
+
+    #{$root}__name-instrument
+      color: $university
+
+  &__name-instrument
+    @include fontMontserrat(12px, 800)
+    text-transform: uppercase
+    text-align: center
+
+  &__item
+    position: relative
+
+  &__first
+    display: inline-flex
+    margin-right: 5px
+

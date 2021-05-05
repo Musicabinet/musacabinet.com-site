@@ -3,10 +3,20 @@
     "next/babel"
   ],
   "plugins": [
-    ["@babel/plugin-proposal-decorators", { "legacy": true }],
-    ["@babel/plugin-proposal-class-properties", { "loose": false }],
-    ["@babel/plugin-transform-react-jsx"],
-    "inline-react-svg",
-    "@babel/syntax-dynamic-import"
+    [
+      "@babel/plugin-proposal-decorators",
+      {
+        "legacy": true
+      }
+    ],
+    [
+      "@babel/plugin-proposal-class-properties",
+      {
+        "loose": false
+      }
+    ],
+    [
+      "@babel/plugin-transform-react-jsx"
+    ]
   ]
 }

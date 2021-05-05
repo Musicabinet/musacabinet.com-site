@@ -9,20 +9,24 @@
   align-items: center
 
   &_school
-    #{$root}__item
-    &_is_active
-      background: $school
+    position: relative
 
-      &:hover
-        background: darken($school, 4%)
+    #{$root}__item
+      &_is_active
+        background: $school
+
+        &:hover
+          background: darken($school, 4%)
 
   &_college
-    #{$root}__item
-    &_is_active
-      background: $college
+    position: relative
 
-      &:hover
-        background: darken($college, 4%)
+    #{$root}__item
+      &_is_active
+        background: $college
+
+        &:hover
+          background: darken($college, 4%)
 
   &__item
     width: 170px

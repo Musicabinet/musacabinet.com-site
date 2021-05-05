@@ -1,5 +1,6 @@
 import { action, computed, makeObservable, observable } from 'mobx';
 import { SERVICE_NAME } from '../constants';
+import { LIST_ICON } from '../ui/common/icons';
 
 export class SystemStore {
 
@@ -7,7 +8,7 @@ export class SystemStore {
   @observable service_name: SERVICE_NAME | undefined = undefined;
   @observable instrument_id: number = 0;
   @observable instrument_name: string = '';
-  @observable instrument_icon: string = '';
+  @observable instrument_icon: LIST_ICON.GUITAR | LIST_ICON.KEYBOARD | LIST_ICON.SAXOPHONE = LIST_ICON.GUITAR;
 
   @observable selected_collection_id: number | undefined = undefined;
   @observable selected_course_id: number | undefined = undefined;
@@ -43,7 +44,7 @@ export class SystemStore {
   }
 
   @action.bound
-  setInstrumentIcon(name: string) {
+  setInstrumentIcon(name: LIST_ICON.GUITAR | LIST_ICON.SAXOPHONE | LIST_ICON.KEYBOARD) {
     this.instrument_icon = name;
   }
 
@@ -74,12 +75,13 @@ export class SystemStore {
 
   @action
   fillingStore(data: SystemStore) {
-    const { service_id, service_name, instrument_id, instrument_name } = data;
+    const { service_id, service_name, instrument_id, instrument_name, instrument_icon } = data;
 
     this.service_id = service_id;
     this.service_name = service_name;
     this.instrument_id = instrument_id;
     this.instrument_name = instrument_name;
+    this.instrument_icon = instrument_icon;
   }
 
 }

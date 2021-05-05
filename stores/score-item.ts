@@ -1,4 +1,4 @@
-import { action, observable } from 'mobx';
+import { action, makeObservable, observable } from 'mobx';
 import { ScoreItemContentI, ScoreItemI } from '../interfaces';
 import { API } from '../core';
 import { METHODS_REQUEST } from '../constants';
@@ -14,6 +14,8 @@ export class ScoreItemStore implements ScoreItemI {
   @observable content: ScoreItemContentI = {};
 
   constructor(initialData: ScoreItemI | null) {
+    makeObservable(this);
+
     if (initialData) {
       this.fillingStore(initialData);
     }

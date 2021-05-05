@@ -1,0 +1,52 @@
+@import "../../../../../../stylesheets/index"
+
+.time-left
+  $root: &
+  position: relative
+  margin: 0 0 0 10px
+  display: flex
+  align-items: center
+
+  &_school
+    position: relative
+
+    #{$root}__time
+      color: $school
+
+  &_college
+    position: relative
+
+    #{$root}__time
+      color: $college
+
+  &__text
+    color: $gray10
+    @include fontMontserrat(20px)
+    margin-right: 20px
+
+    @include breakpoint-phone
+      display: none
+
+  &__time
+    display: flex
+    align-items: center
+    width: 98px
+    margin: 0 20px 0 10px
+
+    &-colon
+      transition: all .2s
+    //animation: blink 1s steps(1) infinite
+
+    &-block
+      display: flex
+      justify-content: center
+      flex: 0 0 30px
+
+  .blink
+    display: inline
+    color: inherit
+    animation: blink 1s steps(1) infinite
+
+  @keyframes blink
+    50%
+      color: transparent

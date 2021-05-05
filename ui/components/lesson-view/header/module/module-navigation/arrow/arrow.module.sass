@@ -1,0 +1,40 @@
+@import "../../../../../../../stylesheets/index"
+
+.arrow
+  background: transparent
+  cursor: pointer
+
+  &_hidden
+    display: none
+
+  &_left, &_right
+    position: absolute
+    height: 100%
+    border: 0
+    top: 0
+    width: 30px
+
+    &:after
+      content: ''
+      position: absolute
+      width: 12px
+      height: 12px
+      top: calc(50% - 2px)
+
+  &_left
+    left: 0
+
+    &:after
+      border-top: 1px solid $white
+      border-left: 1px solid $white
+      left: 20px
+      transform: rotate(-45deg) translateY(-50%)
+
+  &_right
+    right: 0
+
+    &:after
+      border-top: 1px solid $white
+      border-right: 1px solid $white
+      right: 20px
+      transform: rotate(45deg) translateY(-50%)

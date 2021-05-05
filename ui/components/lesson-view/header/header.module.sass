@@ -2,5 +2,52 @@
 
 .header
   position: relative
-  margin: 12px 0 0 0
+  margin: 0
   padding: 0 15px
+  display: flex
+
+  &__left-side
+    display: flex
+    flex-direction: column
+    flex: 1
+
+  &__breadcrumbs-list-lesson
+    display: flex
+    flex-direction: column
+    flex: 1
+
+  &__lesson-list
+    display: flex
+
+  &__name-icon
+    display: flex
+    flex-direction: column
+    margin-right: 5px
+
+  &__name-instrument
+    @include fontMontserrat(12px, 800)
+    text-transform: uppercase
+    text-align: center
+
+    &_school
+      color: $school
+
+    &_college
+      color: $college
+
+    &_university
+      color: $university
+
+  &__icon
+    display: flex
+    justify-content: center
+
+  &__container
+    display: flex
+    margin-bottom: 10px
+
+
+  &__right-side
+    display: flex
+    flex-direction: column
+

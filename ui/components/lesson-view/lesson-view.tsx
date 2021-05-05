@@ -15,7 +15,6 @@ export class LessonView extends React.Component<LessonViewProps, LessonViewState
   render() {
     return (
       <div className={b(null)}>
-        <div className={b('message')}>Collecting data from the database</div>
         <Header />
       </div>
     );

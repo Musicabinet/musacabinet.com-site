@@ -1,5 +1,6 @@
 import { Cookie } from './cookies';
 import { METHODS_REQUEST } from '../constants';
+import FormData from 'form-data';
 
 class APIWrapper {
 

@@ -8,6 +8,8 @@ import { ServicesStore } from './services';
 import { GrandChartStore } from './grand-chart';
 import { SystemStore } from './system';
 import { LessonStore } from './lesson';
+import { PlayerStore } from './player';
+import { LessonProgressStore } from './lesson-progress';
 
 const isServer = typeof window === 'undefined';
 enableStaticRendering(isServer);
@@ -23,6 +25,8 @@ export class RootStore {
   public servicesStore: ServicesStore;
   public grandChartStore: GrandChartStore;
   public lessonStore: LessonStore;
+  public playerStore: PlayerStore;
+  public lessonProgress: LessonProgressStore;
 
 
   constructor(initialData: RootStore | null) {
@@ -63,7 +67,24 @@ export class RootStore {
 
     this.lessonStore = new LessonStore(
       initialData && initialData.lessonStore ? initialData.lessonStore : null,
-    )
+      { systemStore: this.systemStore }
+    );
+
+    this.playerStore = new PlayerStore(
+      initialData && initialData.playerStore ? initialData.playerStore : null,
+      {
+        systemStore: this.systemStore,
+        lessonStore: this.lessonStore
+      }
+    );
+
+
+    this.lessonProgress = new LessonProgressStore(
+      initialData && initialData.lessonProgress ? initialData.lessonProgress : null,
+      {
+        lessonStore: this.lessonStore
+      }
+    );
 
   }
 }

@@ -36,7 +36,8 @@ export class Lessons extends React.Component<LessonsProps, LessonsState> {
                         duration_minute={lesson.duration_minute}
                         is_active={lesson.is_active}
                         scores={lesson.scores}
-                        accompaniments={lesson.accompaniments} />
+                        accompaniments={lesson.accompaniments}
+                        lesson_list={lesson.lesson_list} />
           );
         })}
       </div>

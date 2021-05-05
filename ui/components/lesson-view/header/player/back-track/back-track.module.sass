@@ -1,0 +1,38 @@
+@import "../../../../../../stylesheets/index"
+
+.back-track
+  $root: &
+  position: relative
+  background: transparent
+  border: 0
+  cursor: pointer
+  transition: all .2s
+  margin: 0 10px 0 22px
+  padding: 0
+  display: flex
+
+  &:active
+    transform: scale(0.90)
+
+  &_school
+    position: relative
+
+    #{$root}__icon
+      fill: $school
+
+  &_college
+    position: relative
+
+    #{$root}__icon
+      fill: $college
+
+  &_university
+    position: relative
+
+    #{$root}__icon
+      fill: $university
+
+  &__icon
+    width: 20px
+    height: 22px
+

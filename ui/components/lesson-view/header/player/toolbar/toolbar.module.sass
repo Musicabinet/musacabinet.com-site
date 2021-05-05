@@ -1,0 +1,47 @@
+@import "../../../../../../stylesheets/index"
+
+.toolbar
+  display: flex
+  position: relative
+  background: $gray20
+  height: 40px
+  border-top-right-radius: 10px
+  border-top-left-radius: 10px
+
+  &__plus-button
+    position: relative
+    width: 24px
+    height: 24px
+    border: 0
+    border-radius: 50%
+    margin: 9px 20px 7px 10px
+    cursor: pointer
+
+    &:before
+      content: ''
+      position: absolute
+      top: 4px
+      left: 50%
+      transform: translateX(-50%)
+      width: 1px
+      height: 16px
+      background: $white
+
+    &:after
+      content: ''
+      position: absolute
+      top: 50%
+      left: 4px
+      transform: translateY(-50%)
+      width: 16px
+      height: 1px
+      background: $white
+
+    &_school
+      background: $school
+
+    &_college
+      background: $college
+
+    &_university
+      background: $university

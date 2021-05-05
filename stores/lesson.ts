@@ -1,9 +1,14 @@
-import { action, observable } from 'mobx';
-import { AccompanimentI, LessonI, ScoreI } from '../interfaces';
+import { action, computed, makeObservable, observable } from 'mobx';
+import { AccompanimentI, BreadcrumbsI, LessonI, LessonListI, ScoreI } from '../interfaces';
 import { API } from '../core';
 import { GroupLessonStore } from './group-lesson';
 import { ScoreStore } from './score';
 import { AccompanimentStore } from './accompaniment';
+import { SystemStore } from './system';
+
+interface ImportStore {
+  systemStore: SystemStore,
+}
 
 export class LessonStore implements LessonI {
 
@@ -22,8 +27,20 @@ export class LessonStore implements LessonI {
   @observable scores: ScoreI[] = [];
   @observable group_lesson: GroupLessonStore | undefined = undefined;
   @observable accompaniments: AccompanimentI[] = [];
+  @observable breadcrumbs: BreadcrumbsI[] = [];
+  @observable progress_second = 0;
+  @observable lesson_list: LessonListI[] = [];
 
-  constructor(initialData: LessonStore | null) {
+  @observable prevModuleLesson: null | string = null;
+  @observable nextModuleLesson: null | string = null;
+  @observable selected_accompaniment: number = 0;
+
+  public systemStore: SystemStore;
+
+  constructor(initialData: LessonStore | null, { systemStore }: ImportStore) {
+    makeObservable(this);
+    this.systemStore = systemStore;
+
     if (initialData) {
       this.fillingStore(initialData);
     }
@@ -35,8 +52,139 @@ export class LessonStore implements LessonI {
       const response = await API.request<LessonI>(`lessons/${uuid}`);
       this.fillingStore(response);
 
+      // Выбираем первый аккомпонимент
+      if (this.accompaniments.length > 0) {
+        this.selected_accompaniment = this.accompaniments[0].id;
+      }
     } catch (e) {
       console.error(`Error im method LessonStore.get : `, e);
+    }
+  }
+
+  @action.bound
+  async getModuleMapping() {
+    try {
+      const result = await API.request<any>(`map/get`, {
+        method: 'POST',
+        body: API.getFormData({
+          service_id: this.systemStore.service_id,
+          instrument_id: this.systemStore.instrument_id
+        })
+      });
+
+      const currentCourseId = this.group_lesson?.collections?.course_id;
+      const currentModuleId = this.group_lesson?.collections?.module_id;
+
+      //  Текущий курс-моудль
+      const find_course_module_key = `${currentCourseId}-${currentModuleId}`;
+
+      const findIndex = Object.keys(result).findIndex((key) => {
+        return (key == find_course_module_key);
+      });
+
+      const arrCourseModule = Object.keys(result);
+      const isPrevCourseModule = arrCourseModule[findIndex - 1];
+      const isNextCourseModule = arrCourseModule[findIndex + 1];
+
+      if (isPrevCourseModule !== undefined) {
+        const findPrevLesson = result[isPrevCourseModule].find((item: any) => item.is_finished === false);
+
+        if (findPrevLesson !== undefined) {
+          this.prevModuleLesson = findPrevLesson.uuid;
+        }
+      }
+
+      if (isNextCourseModule !== undefined) {
+        const findNextLesson = result[isNextCourseModule].find((item: any) => item.is_finished === false);
+
+        if (findNextLesson !== undefined) {
+          this.nextModuleLesson = findNextLesson.uuid;
+        }
+      }
+
+    } catch (e) {
+      console.error(`Error getModuleMapping: `, e);
+    }
+  }
+
+  @action.bound
+  setAccompaniment(id: number) {
+    this.selected_accompaniment = id;
+  }
+
+  @computed
+  get number(): number {
+    return Number(this.name.replace(/\D+/g, ''));
+  }
+
+  @computed
+  get duration_second(): number {
+    return this.duration_minute * 60;
+  }
+
+  @computed
+  get timeLeft() {
+
+    let time = '00:00:00';
+
+    if (this.progress_second <= this.duration_second) {
+      let left_duration = this.duration_second - this.progress_second;
+      let hours = left_duration / 3600 ^ 0;
+      let minutes = (left_duration - hours * 3600) / 60 ^ 0;
+      let second = left_duration - hours * 3600 - minutes * 60;
+      time = (hours < 10 ? '0' + hours : hours) + ':' + (minutes < 10 ? '0' + minutes : minutes) + ':' + (second < 10 ? '0' + second : second);
+
+    }
+    return time.split(':');
+  }
+
+  @computed
+  get getPassedLesson(): number {
+    let percent = Number(((this.progress_second * 100) / this.duration_second).toFixed(2));
+
+    if (percent >= 100)
+      return 100;
+    else
+      return Number(percent);
+  }
+
+  @computed
+  get getNextLesson(): boolean | string {
+    const currentLessonUUID = this.uuid;
+    const findIndex = this.lesson_list.findIndex(lesson => lesson.uuid === currentLessonUUID);
+
+    if (findIndex !== -1) {
+
+      const nextLesson = this.lesson_list[findIndex + 1];
+
+      if (nextLesson) {
+        return nextLesson.uuid;
+      } else {
+        return false;
+      }
+
+    } else {
+      return false;
+    }
+  }
+
+  @computed
+  get getPrevLesson(): boolean | string {
+    const currentLessonUUID = this.uuid;
+    const findIndex = this.lesson_list.findIndex(lesson => lesson.uuid === currentLessonUUID);
+
+    if (findIndex !== -1) {
+
+      const nextLesson = this.lesson_list[findIndex - 1];
+
+      if (nextLesson) {
+        return nextLesson.uuid;
+      } else {
+        return false;
+      }
+
+    } else {
+      return false;
     }
   }
 
@@ -44,7 +192,8 @@ export class LessonStore implements LessonI {
   fillingStore(data: LessonStore | LessonI) {
     const {
       id, uuid, group_lesson_id, sort, slug, group_lesson, scores, accompaniments,
-      meta_title, meta_description, meta_keywords, name, description, duration_minute, is_active
+      meta_title, meta_description, meta_keywords, name, description, duration_minute, is_active, breadcrumbs,
+      lesson_list, prevModuleLesson, nextModuleLesson, selected_accompaniment
     } = data;
 
     this.id = id;
@@ -62,6 +211,12 @@ export class LessonStore implements LessonI {
     this.group_lesson = (group_lesson) ? new GroupLessonStore(group_lesson) : undefined;
     this.scores = (scores || []).map((score) => new ScoreStore(score));
     this.accompaniments = (accompaniments || []).map((accompaniment) => new AccompanimentStore(accompaniment));
+    this.breadcrumbs = [...breadcrumbs];
+    this.lesson_list = (lesson_list || []);
+
+    this.prevModuleLesson = prevModuleLesson || null;
+    this.nextModuleLesson = nextModuleLesson || null;
+    this.selected_accompaniment = selected_accompaniment || 0;
   }
 
 }
