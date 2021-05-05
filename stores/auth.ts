@@ -46,7 +46,7 @@ export class AuthStore implements AuthI {
     } catch (e) {
       await callbackError();
       this.setIsAuth(false);
-      console.error(`Redirect : ${callbackError.toString()}`);
+      console.error(`Redirect : `, e);
     } finally {
 
     }
