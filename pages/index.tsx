@@ -13,6 +13,7 @@ export default class IndexPage extends React.Component<IndexPageProps, IndexPage
 
   static async getInitialProps({ store }: CustomAppContext) {
     await store?.authStore.check();
+    await store?.servicesStore.getAll();
     await store?.instrumentsStore.getAll();
 
     return {

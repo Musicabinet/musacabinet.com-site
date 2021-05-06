@@ -1,4 +1,4 @@
-import { CollectionI, CourseI, ModuleI } from '../interfaces';
+import { CollectionI, CourseI, ModuleI, ServiceI } from '../interfaces';
 import { GroupLessonI } from '../interfaces/group-lesson';
 
 export * from './auth';
@@ -19,4 +19,9 @@ export interface GrandChartResponse {
   modules: ModuleI[],
   collections: CollectionI[],
   group_lessons: GroupLessonI[]
+}
+
+export interface ServiceListResponse {
+  success: boolean,
+  data: ServiceI[]
 }

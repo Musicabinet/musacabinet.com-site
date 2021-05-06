@@ -16,9 +16,33 @@ type HeaderState = {};
 @inject(() => ({}))
 @observer
 export class Header extends React.Component<HeaderProps, HeaderState> {
+
+  headerRef = React.createRef<HTMLDivElement>();
+
+  componentDidMount() {
+    document.addEventListener('scroll', this.detectScrollHeader);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('scroll', this.detectScrollHeader);
+  }
+
+  detectScrollHeader = () => {
+    if (this.headerRef.current) {
+      const header = this.headerRef.current;
+      if (window.pageYOffset > header.offsetTop) {
+        header.classList.add(b('sticky').toString());
+      } else {
+        header.classList.remove(b('sticky').toString());
+      }
+    }
+  };
+
+
   render() {
     return (
-      <header className={b(null)}>
+      <header className={b(null)}
+              ref={this.headerRef}>
         <div className='container-fluid'>
           <div className='row'>
             <div className='col-lg-2 col-xl-5 col-4 d-flex align-items-center'>

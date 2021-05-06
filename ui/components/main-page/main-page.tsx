@@ -4,6 +4,7 @@ import block from 'bem-css-modules';
 import style from './main-page.module.sass';
 import { ComprehensiveMusicEducation } from './comprehensive-music-education/comprehensive-music-education';
 import { WhatIsMusicabinet } from './what-is-musicabinet/what-is-musicabinet';
+import { StudyAt } from '../../common';
 
 const b = block(style);
 
@@ -18,6 +19,7 @@ export class MainPage extends React.Component<MainPageProps, MainPageState> {
       <div className={b(null)}>
         <ComprehensiveMusicEducation />
         <WhatIsMusicabinet />
+        <StudyAt />
       </div>
     );
   }

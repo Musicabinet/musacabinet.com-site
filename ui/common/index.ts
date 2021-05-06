@@ -23,3 +23,4 @@ export { CabinetMenu } from './cabinet-menu/cabinet-menu';
 export { CabinetSubscriptions } from './cabinet-subscriptions/cabinet-subscriptions';
 export { InstrumentIcon } from './instrument-icon/instrument-icon';
 export { Paragraph } from './paragraph/paragraph';
+export { StudyAt } from './study-at/study-at';

@@ -1,4 +1,52 @@
 @import "../../../../../stylesheets/index"
 
 .instrument-list
+  $root: &
   position: relative
+
+  &__item
+    flex: 1
+    margin: 0 10px 0 0
+    border: 2px solid $gold
+    border-radius: 8px
+    padding: 60px 15px
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    background: transparent
+    cursor: pointer
+    transition: background-color 0.2s, transform 0.2s
+
+    &_last
+      margin-right: 0
+
+    &:hover
+      background: $gold
+
+      #{$root}__title
+        color: $white
+
+      #{$root}__icon
+        path
+          stroke: $white
+
+    &:active
+      transform: scale(0.96)
+
+    @include breakpoint-tablet-vertical
+      flex: 25%
+      margin-bottom: 30px
+
+    @include breakpoint-phone-vertical
+      flex: 100%
+      margin-bottom: 20px
+
+  &__title
+    @include fontMontserrat(36px, 700)
+    line-height: 44px
+    margin: 20px 0 0 0
+    color: $gold
+
+  &__icon
+    height: 88px

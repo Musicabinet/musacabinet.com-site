@@ -7,10 +7,13 @@
   z-index: 1000
 
   @include breakpoint-phone
-    padding: 20px 5px
+    padding: 5px 5px
 
+  &__sticky
+    background: $gray80
 
   &__rightside
     @include breakpoint-phone
       flex-direction: row-reverse !important
       justify-content: start !important
+

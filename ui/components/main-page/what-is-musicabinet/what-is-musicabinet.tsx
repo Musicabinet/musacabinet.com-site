@@ -8,6 +8,7 @@ import { BlockContent } from './block-content/block-content';
 import { LIST_ICON } from '../../../common/icons';
 import { Video } from './video/video';
 import { InstrumentList } from './instrument-list/instrument-list';
+import { ServiceList } from './service-list/service-list';
 
 const b = block(style);
 
@@ -42,25 +43,27 @@ export class WhatIsMusicabinet extends React.Component<WhatIsMusicabinetProps, W
                               description={'Select the instrument & level of education you want'} />
               </div>
               <div className='col-lg-4'>
-                <BlockContent title={'Choose'}
+                <BlockContent title={'Start'}
                               icon={LIST_ICON.STEP_2}
                               fix
-                              description={'Select the instrument & level of education you want'} />
+                              description={'Starting your professional music training is easy as 1, 2, 3'} />
               </div>
               <div className='col-lg-4'>
-                <BlockContent title={'Choose'}
+                <BlockContent title={'Play'}
                               icon={LIST_ICON.STEP_3}
-                              description={'Select the instrument & level of education you want'} />
+                              description={'At the end of each lesson, each course, each module, each program your playing skills will take a tremedeous step up'} />
               </div>
             </div>
 
-            <div className='row'>
-              <div className='col-12'>
+            <div className='row g-0'>
+              <div className='col-12 g-lg-0'>
                 <Video />
               </div>
             </div>
 
-            <InstrumentList/>
+            <ServiceList />
+
+            <InstrumentList />
           </div>
         </div>
       </div>

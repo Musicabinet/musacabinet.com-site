@@ -25,7 +25,8 @@ export class InstrumentsStore {
 
   @action
   fillingStore(data: InstrumentsStore) {
-    const {} = data;
+    const {all} = data;
+    this.all = (all || []).map((instrument) => new InstrumentStore(instrument));
   }
 
 }

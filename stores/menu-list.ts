@@ -109,6 +109,23 @@ export class MenuListStore {
     is_active: false
   }];
 
+  @observable footer_list: MenuI[] = [{
+    title: 'User Agreement',
+    link: 'user-agreement',
+    type: MenuType.DEFAULT,
+    is_active: false
+  }, {
+    title: 'Privacy Policy',
+    link: 'privacy-policy',
+    type: MenuType.DEFAULT,
+    is_active: false
+  }, {
+    title: 'Contact us',
+    link: 'contact',
+    type: MenuType.DEFAULT,
+    is_active: false
+  }];
+
   constructor(initialData: MenuListStore | null) {
     makeObservable(this);
     if (initialData) {
@@ -118,9 +135,10 @@ export class MenuListStore {
 
   @action
   fillingStore(data: MenuListStore) {
-    const { list, cabinet_list } = data;
+    const { list, cabinet_list, footer_list } = data;
     this.list = list;
     this.cabinet_list = cabinet_list;
+    this.footer_list = footer_list;
   }
 
 }
