@@ -1,0 +1,39 @@
+@import "../../../../../stylesheets/index"
+
+.block-content
+  position: relative
+  margin: 50px 0 0
+
+  &__icon
+    width: 150px
+    margin: 0 auto
+    display: block
+
+    path
+      stroke: $gold !important
+
+    &_fix
+      path
+
+        &:nth-child(4)
+          fill: none !important
+
+        &:nth-child(2)
+          fill: #d89f5b !important
+
+        &:nth-child(3)
+          fill: none !important
+
+  &__title
+    @include fontMontserrat(36px, 700)
+    line-height: 44px
+    text-align: center
+    color: $gray50
+    margin-bottom: 21px
+
+  &__description
+    @include fontMontserrat(18px)
+    line-height: 25px
+    text-align: center
+    color: $gray50
+

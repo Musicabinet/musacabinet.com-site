@@ -21,6 +21,10 @@ export class PlayerStore {
   @observable bassMute: boolean = false;
   @observable keysMute: boolean = false;
 
+  @observable duration_time: number = 0;
+  @observable current_percent: number = 0;
+
+  clearUpdateTime: number = 0;
 
   systemStore: SystemStore;
   lessonStore: LessonStore;
@@ -63,8 +67,6 @@ export class PlayerStore {
       return null;
     }
 
-    console.log('current_library', current_library);
-
     // Записываем тип
     this.library_type = current_library.type;
 
@@ -74,10 +76,18 @@ export class PlayerStore {
         new Tone.Player({
           url: `${CONTENT_URL}${track.path}`,
           loop: true,
-          volume: -12 // -100 0
+          volume: -12, // -100 0
+          onload: () => {
+            this.setDurationTime(this.player[0].buffer.duration);
+          }
         }).toDestination()
       );
     });
+  }
+
+  @action.bound
+  setDurationTime(duration: number) {
+    this.duration_time = duration;
   }
 
   @action.bound
@@ -103,10 +113,25 @@ export class PlayerStore {
 
   @action.bound
   onPlay() {
+    Tone.Transport.stop();
+    Tone.Transport.cancel(0);
+
+    let now = Tone.now();
+    Tone.Transport.start(now);
     this.player.forEach((player) => {
       player.start(0);
-      console.log(player.state);
     });
+
+    this.clearUpdateTime = window.setInterval(() => {
+      let currentSecond = Tone.Transport.toSeconds(Tone.Transport.ticks + 'i');
+      let percent = Math.round((100 * currentSecond) / this.duration_time);
+
+      if(percent >=100){
+        Tone.Transport.ticks = 0;
+      }
+
+      console.log('percent', percent);
+    }, 100);
 
     this.is_playing = true;
   }
@@ -114,14 +139,17 @@ export class PlayerStore {
   @action.bound
   onStop() {
     this.player.forEach((player) => {
-      player.stop();
+      player.stop()
     });
+    Tone.Transport.stop();
 
     this.is_playing = false;
+    clearInterval(this.clearUpdateTime);
   }
 
   @action.bound
   onBack() {
+    Tone.Transport.stop(0);
     this.player.forEach((player) => {
       player.stop(0);
     });

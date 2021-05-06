@@ -1,0 +1,79 @@
+@import "../../../../stylesheets/index"
+
+.comprehensive-music-education
+  position: relative
+  height: 650px
+
+  @include breakpoint-phone
+    height: 100vh
+
+  &:before
+    content: ''
+    display: block
+    background: linear-gradient(180deg, #040404 0%, rgba(4, 4, 4, 0) 100%)
+    position: absolute
+    left: 0
+    top: 0
+    width: 100%
+    height: 150px
+    z-index: 200
+
+  &__background
+    position: absolute
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+    z-index: 100
+
+    img
+      width: 100%
+      height: 100%
+      object-fit: cover
+
+  &__content
+    position: relative
+    z-index: 200
+    padding: 150px 0 70px
+    margin: 0 auto
+    max-width: 950px
+
+  &__logotype
+    display: block
+    margin: 0 auto 30px
+
+    @include breakpoint-phone
+      width: 250px
+
+  &__title
+    @include fontMontserrat(60px, 700)
+    line-height: 74px
+    color: $white
+    padding: 0
+    margin: 0 0 40px
+    max-width: 950px
+    text-align: center
+
+    @include breakpoint-phone
+      font-size: 25px
+      line-height: 35px
+      width: 80%
+      max-width: 80%
+      margin: 0 auto 20px
+
+  &__description
+    @include fontMontserrat(18px, 400)
+    line-height: 25px
+    color: $white
+    padding: 0
+    margin: 0 auto 30px
+    max-width: 600px
+    text-align: center
+
+    @include breakpoint-phone
+      font-size: 14px
+      line-height: 24px
+
+  &__button
+    display: block
+    margin: 0 auto

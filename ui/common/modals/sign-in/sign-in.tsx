@@ -12,6 +12,7 @@ import { FacebookClientResponsive } from '../../../../responsible';
 import { ButtonSocial } from '../../button-social/button-social';
 import { HrWithText } from '../../hr-with-text/hr-with-text';
 import { FormLogin } from '../../form-login/form-login';
+import { getIcon, LIST_ICON } from '../../icons';
 
 const b = block(style);
 
@@ -61,7 +62,7 @@ export class SignInModal extends React.Component<SignInModalProps, SignInModalSt
 
                 <div className='row'>
                   <div className='col-12 d-flex align-items-center'>
-
+                    {getIcon(LIST_ICON.FORM_1, b('icon'))}
                     <p className={b('paragraph')}>
                       Our system is built to guide you step-by-step from 0 to Pro+ level
                     </p>
@@ -70,7 +71,7 @@ export class SignInModal extends React.Component<SignInModalProps, SignInModalSt
                 <div className={b('divider')} />
                 <div className='row'>
                   <div className='col-12 d-flex align-items-center'>
-
+                    {getIcon(LIST_ICON.FORM_2, b('icon'))}
                     <p className={b('paragraph')}>
                       Intuitive & user-friendly interface, allowing you to enjoy the learning process
                     </p>
@@ -79,7 +80,7 @@ export class SignInModal extends React.Component<SignInModalProps, SignInModalSt
                 <div className={b('divider')} />
                 <div className='row'>
                   <div className='col-12 d-flex align-items-center'>
-
+                    {getIcon(LIST_ICON.FORM_3, b('icon'))}
                     <p className={b('paragraph')}>
                       Study at home or while traveling from your Mac/PC, Tab or Smartphone
                     </p>

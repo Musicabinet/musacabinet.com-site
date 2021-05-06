@@ -22,3 +22,4 @@ export { CabinetAvatar } from './cabinet-avatar/cabinet-avatar';
 export { CabinetMenu } from './cabinet-menu/cabinet-menu';
 export { CabinetSubscriptions } from './cabinet-subscriptions/cabinet-subscriptions';
 export { InstrumentIcon } from './instrument-icon/instrument-icon';
+export { Paragraph } from './paragraph/paragraph';

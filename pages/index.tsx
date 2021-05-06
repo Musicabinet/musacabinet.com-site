@@ -13,6 +13,7 @@ export default class IndexPage extends React.Component<IndexPageProps, IndexPage
 
   static async getInitialProps({ store }: CustomAppContext) {
     await store?.authStore.check();
+    await store?.instrumentsStore.getAll();
 
     return {
       title: 'Online music school. Comprehensive music education. ',
@@ -23,7 +24,7 @@ export default class IndexPage extends React.Component<IndexPageProps, IndexPage
 
   render() {
     return (
-      <BaseLayout>
+      <BaseLayout full>
         <MainPage/>
       </BaseLayout>
     );

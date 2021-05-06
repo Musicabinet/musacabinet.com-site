@@ -10,6 +10,7 @@ import { SystemStore } from './system';
 import { LessonStore } from './lesson';
 import { PlayerStore } from './player';
 import { LessonProgressStore } from './lesson-progress';
+import { InstrumentsStore } from './instruments';
 
 const isServer = typeof window === 'undefined';
 enableStaticRendering(isServer);
@@ -27,6 +28,7 @@ export class RootStore {
   public lessonStore: LessonStore;
   public playerStore: PlayerStore;
   public lessonProgress: LessonProgressStore;
+  public instrumentsStore: InstrumentsStore;
 
 
   constructor(initialData: RootStore | null) {
@@ -85,6 +87,10 @@ export class RootStore {
         lessonStore: this.lessonStore
       }
     );
+
+    this.instrumentsStore = new InstrumentsStore(
+      initialData && initialData.instrumentsStore ? initialData.instrumentsStore : null,
+    )
 
   }
 }
