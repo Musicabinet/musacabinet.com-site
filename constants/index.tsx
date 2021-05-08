@@ -69,3 +69,23 @@ export enum SCORE_TYPE {
 }
 
 export * from './modals';
+
+export const MAPPING_SERVICE_ID = {
+  'school-guitar': 1,
+  'school-keyboard': 1,
+  'school-saxophone': 1,
+  'college-guitar': 2,
+  'college-keyboard': 2,
+  'college-saxophone': 2,
+  'university-guitar': 3,
+  'university-keyboard': 3,
+  'university-saxophone': 3,
+};
+
+export const MAPPING_INSTRUMENT_ID = {
+  'school-guitar': 1,
+  'school-keyboard': 2,
+  'school-saxophone': 4,
+  'college-guitar': 3
+};
+

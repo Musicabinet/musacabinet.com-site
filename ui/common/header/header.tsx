@@ -10,7 +10,9 @@ import { ButtonProfile } from '../button-profile/button-profile';
 
 const b = block(style);
 
-type HeaderProps = {};
+type HeaderProps = {
+  noStick: boolean
+};
 type HeaderState = {};
 
 @inject(() => ({}))
@@ -40,8 +42,10 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
 
 
   render() {
+    const { noStick } = this.props;
+
     return (
-      <header className={b(null)}
+      <header className={b(null, { noStick })}
               ref={this.headerRef}>
         <div className='container-fluid'>
           <div className='row'>

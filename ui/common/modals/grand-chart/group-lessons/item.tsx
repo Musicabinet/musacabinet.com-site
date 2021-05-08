@@ -65,7 +65,7 @@ export class GroupLessonItem extends React.Component<GroupLessonItemProps & Grou
       onSetShowGroupLessonDetail
     } = this.props;
 
-    if(collection_id){
+    if (collection_id) {
       onSetCollectionId(collection_id);
     }
 
@@ -85,7 +85,7 @@ export class GroupLessonItem extends React.Component<GroupLessonItemProps & Grou
              [`active-${service_name}`]: selected_group_lesson_id === id
            })}>
         <div className={b('count-lessons')}>{lessons.length}</div>
-        <div className={b('title')}>{name}</div>
+        <div className={b('title')} dangerouslySetInnerHTML={{ __html: name.replace(/\(/g, '<br/>(') }} />
         <svg className={b('pie')} width={40} height={40} viewBox='0 0 40 40'>
           {/*
           // @ts-ignore */}

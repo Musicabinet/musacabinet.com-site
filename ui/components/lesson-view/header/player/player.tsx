@@ -8,35 +8,53 @@ import { BackTrack } from './back-track/back-track';
 import { PlayButton } from './play-button/play-button';
 import { ProgressLine } from './progress-line/progress-line';
 import { ButtonComposition } from './button-composition/button-composition';
+import { VolumeControl } from '../../../../common';
+import { Divider } from './divider/divider';
+import { Metronome } from './metronome/metronome';
 
 const b = block(style);
 
 type PlayerProps = {
   init: () => void,
-  selected_accompaniment: number
+  selected_accompaniment: number,
+  onSetVolume: (value: number) => void
 };
 type PlayerState = {};
 
 @inject((store: RootStore) => ({
   init: store.playerStore.init,
-  selected_accompaniment: store.lessonStore.selected_accompaniment
+  selected_accompaniment: store.lessonStore.selected_accompaniment,
+  onSetVolume: store.playerStore.setVolume
 }))
 @observer
 export class Player extends React.Component<PlayerProps, PlayerState> {
 
   static defaultProps = {
     init: () => console.log('Not set handler'),
-    selected_accompaniment: 0
+    selected_accompaniment: 0,
+    onSetVolume: () => console.log('Not set handler')
   };
 
-  state = {};
+  state = {
+    volume: -40
+  };
 
   componentDidMount() {
     const { init } = this.props;
     init();
   }
 
+  handleOnChangeVolume = (name: string, value: number) => {
+    const { onSetVolume } = this.props;
+    this.setState({
+      [name]: value
+    });
+    onSetVolume(value);
+  };
+
   render() {
+    const { volume } = this.state;
+
     return (
       <div className={b(null)}>
         <Toolbar />
@@ -44,6 +62,13 @@ export class Player extends React.Component<PlayerProps, PlayerState> {
           <BackTrack />
           <PlayButton />
           <ProgressLine />
+          <VolumeControl name={'volume'}
+                         min={-80}
+                         max={0}
+                         onChange={this.handleOnChangeVolume}
+                         defaultValue={volume} />
+          <Divider />
+          <Metronome />
           <ButtonComposition />
         </div>
       </div>

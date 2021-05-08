@@ -49,7 +49,7 @@ export default class LessonPage extends React.Component<LessonPageProps, LessonP
 
   render() {
     return (
-      <BaseLayout full>
+      <BaseLayout full noStick>
         <LessonView />
       </BaseLayout>
     );

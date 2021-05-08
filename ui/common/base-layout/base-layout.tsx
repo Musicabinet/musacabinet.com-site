@@ -6,7 +6,8 @@ import { ContainerMain } from '../container-main/container-main';
 
 type BaseLayoutProps = {
   background: 'default' | 'gray',
-  full: boolean
+  full: boolean,
+  noStick: boolean
 };
 type BaseLayoutState = {};
 
@@ -16,18 +17,19 @@ export class BaseLayout extends React.Component<BaseLayoutProps, BaseLayoutState
 
   static defaultProps = {
     background: 'default',
-    full: false
+    full: false,
+    noStick: false
   };
 
   render() {
-    const { children, background, full } = this.props;
+    const { children, background, full, noStick } = this.props;
     return (
       <>
-        <Header />
+        <Header noStick={noStick} />
 
         {
           full
-            ? (children)
+            ? <main style={{ flex: 1 }}>{children}</main>
             : (
               <ContainerMain background={background}>
                 {children}
@@ -39,4 +41,5 @@ export class BaseLayout extends React.Component<BaseLayoutProps, BaseLayoutState
       </>
     );
   }
+
 }

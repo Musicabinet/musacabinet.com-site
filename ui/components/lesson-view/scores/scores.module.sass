@@ -1,0 +1,37 @@
+@import "../../../../stylesheets/index"
+
+.scores
+  position: relative
+  padding: 20px 30px 70px
+
+  &__title
+    text-align: center
+    @include fontFuturaMedium(35px)
+    color: $gray60
+    padding: 0
+    margin-bottom: 20px
+    line-height: 45px
+
+  &__image
+    width: 100%
+    display: block
+    //cursor: pointer
+    object-fit: contain
+
+    &_is_college
+      position: relative
+
+  &__sub-title
+    @include fontFuturaDemic(22px)
+    color: $gray60
+    padding: 0
+    margin-top: 20px
+
+    &_left
+      text-align: left
+
+    &_right
+      text-align: right
+
+    &_center
+      text-align: center

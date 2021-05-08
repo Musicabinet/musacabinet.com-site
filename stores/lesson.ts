@@ -5,6 +5,7 @@ import { GroupLessonStore } from './group-lesson';
 import { ScoreStore } from './score';
 import { AccompanimentStore } from './accompaniment';
 import { SystemStore } from './system';
+import { METHODS_REQUEST } from '../constants';
 
 interface ImportStore {
   systemStore: SystemStore,
@@ -34,6 +35,9 @@ export class LessonStore implements LessonI {
   @observable prevModuleLesson: null | string = null;
   @observable nextModuleLesson: null | string = null;
   @observable selected_accompaniment: number = 0;
+  @observable video_iframe: string | null = null;
+
+  @observable currentScore: number = 0;
 
   public systemStore: SystemStore;
 
@@ -58,6 +62,23 @@ export class LessonStore implements LessonI {
       }
     } catch (e) {
       console.error(`Error im method LessonStore.get : `, e);
+    }
+  }
+
+  @action.bound
+  async getVideo(id_video: number) {
+    try {
+      const response = await API.request(`scores/get-video`, {
+        method: METHODS_REQUEST.POST,
+        body: API.getFormData({
+          id_video
+        })
+      });
+
+      // @ts-ignore
+      this.video_iframe = response.video.embed_code;
+    } catch (e) {
+      console.error(`Error in method getVideo : `, e);
     }
   }
 
@@ -186,6 +207,28 @@ export class LessonStore implements LessonI {
     } else {
       return false;
     }
+  }
+
+  @computed
+  get scoresTotal() {
+    return this.scores.length;
+  }
+
+  @computed
+  get scoresHasNext(): boolean {
+    const current = this.currentScore + 1;
+    return Boolean(this.scores && this.scores[current]);
+  }
+
+  @computed
+  get scoresHasPrev(): boolean {
+    const current = this.currentScore - 1;
+    return Boolean(this.scores && this.scores[current]);
+  }
+
+  @computed
+  get currentContentScore(): ScoreI | null {
+    return this.scores[this.currentScore] || null;
   }
 
   @action

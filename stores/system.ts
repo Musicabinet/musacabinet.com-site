@@ -73,6 +73,54 @@ export class SystemStore {
     return (this.selected_group_lesson_id !== undefined);
   }
 
+  @computed
+  get serviceNameLowerCase(): string {
+    return this.service_name?.toLowerCase() || 'Not found';
+  }
+
+  @computed
+  get title(): string {
+    const current = `${this.serviceNameLowerCase}-${this.instrument_name}`;
+
+    console.log({current});
+
+    const title = {
+      'school-saxophone': 'Let\'s start your saxophone<br/> playing together',
+      'school-keyboard': 'Let\'s start your keyboard<br/> playing together',
+      'school-guitar': 'Let\'s start your music<br/> together',
+
+      'college-saxophone': 'Take your saxophone<br/> playing to the next level',
+      'college-keyboard': 'Take your keyboard playing to<br/> the next level',
+      'college-guitar': 'Take your guitar playing to<br/> the next level',
+
+      'university-saxophone': 'Become a saxophone<br/> professional',
+      'university-keyboard': 'Become a keyboard<br/> professional',
+      'university-guitar': 'Become a guitar<br/> professional'
+    };
+    // @ts-ignore
+    return title[current] || '';
+  }
+
+  @computed
+  get subTitle() {
+    const subTitle = {
+      'school-saxophone': 'Your Saxophone  |  The Internet  |  30+ min a day',
+      'school-keyboard': 'Your Keyboard  |  The Internet  |  30+ min a day',
+      'school-guitar': 'Your Guitar  |  The Internet  |  30+ min a day',
+
+      'college-saxophone': 'Your Saxophone  |  The Internet  |  45+ min a day',
+      'college-keyboard': 'Your Keyboard  |  The Internet  |  45+ min a day',
+      'college-guitar': 'Your Guitar  |  The Internet  |  45+ min a day',
+
+      'university-saxophone': 'Your Saxophone  |  The Internet  |  60+ min a day',
+      'university-keyboard': 'Your Keyboard  |  The Internet  |  60+ min a day',
+      'university-guitar': 'Your Guitar  |  The Internet  |  60+ min a day'
+    };
+
+    // @ts-ignore
+    return subTitle[this.current];
+  }
+
   @action
   fillingStore(data: SystemStore) {
     const { service_id, service_name, instrument_id, instrument_name, instrument_icon } = data;

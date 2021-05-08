@@ -1,3 +1,4 @@
+import { configure } from "mobx"
 import { enableStaticRendering } from 'mobx-react';
 import { MenuListStore } from './menu-list';
 import { ModalsStore } from './modals';
@@ -14,6 +15,10 @@ import { InstrumentsStore } from './instruments';
 
 const isServer = typeof window === 'undefined';
 enableStaticRendering(isServer);
+
+configure({
+  enforceActions: "never",
+})
 
 export class RootStore {
 

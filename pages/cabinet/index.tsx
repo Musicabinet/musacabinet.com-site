@@ -18,7 +18,7 @@ export default class CabinetPage extends React.Component<CabinetPageProps, Cabin
   }
 
   render() {
-    return (<BaseLayout background={'gray'}>
+    return (<BaseLayout background={'gray'} noStick>
       <CabinetLayout>
         <CabinetSubscriptions />
       </CabinetLayout>

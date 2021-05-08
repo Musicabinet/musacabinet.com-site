@@ -126,12 +126,12 @@ export class PlayerStore {
       let currentSecond = Tone.Transport.toSeconds(Tone.Transport.ticks + 'i');
       let percent = Math.round((100 * currentSecond) / this.duration_time);
 
-      if(percent >=100){
+      if (percent >= 100) {
         Tone.Transport.ticks = 0;
       }
 
-      console.log('percent', percent);
-    }, 100);
+      this.current_percent = percent;
+    }, 60);
 
     this.is_playing = true;
   }
@@ -139,7 +139,7 @@ export class PlayerStore {
   @action.bound
   onStop() {
     this.player.forEach((player) => {
-      player.stop()
+      player.stop();
     });
     Tone.Transport.stop();
 
@@ -182,6 +182,20 @@ export class PlayerStore {
       this.keysMute = (!current_mute);
     }
   }
+
+  @action.bound
+  setVolume(value: number) {
+    console.log('value', value);
+    this.player.forEach((player) => {
+      player.volume.value = value;
+    });
+  }
+
+  @action.bound
+  setBpm(value: number) {
+    this.bpm = value;
+  }
+
 
   @action
   fillingStore(data: PlayerStore) {

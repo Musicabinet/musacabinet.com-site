@@ -25,8 +25,6 @@ export class Footer extends React.Component<FooterProps, FooterState> {
 
   render() {
     const { menu } = this.props;
-    console.log(menu);
-
     return (
       <footer className={b(null)}>
         <div className='container'>

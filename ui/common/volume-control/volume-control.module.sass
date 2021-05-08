@@ -1,0 +1,106 @@
+@import "../../../stylesheets/index"
+
+.volume-control
+  $root: &
+  position: relative
+
+  &_school
+    position: relative
+
+    #{$root}__icon
+      path
+        &:nth-child(1), &:nth-child(2)
+          fill: $school
+
+        &:nth-child(4),&:nth-child(5)
+          fill: transparent
+          stroke: $school
+          stroke-width: 2px
+
+      polygon
+        fill: $school
+
+    #{$root}__range
+      &::-webkit-slider-thumb
+        background: $school
+
+  &_college
+    position: relative
+
+    #{$root}__icon
+      path
+        &:nth-child(1), &:nth-child(2)
+          fill: $college
+
+        &:nth-child(4),&:nth-child(5)
+          fill: transparent
+          stroke: $college
+          stroke-width: 2px
+
+      polygon
+        fill: $college
+
+    #{$root}__range
+      &::-webkit-slider-thumb
+        background: $college
+
+  &__button
+    display: flex
+    position: relative
+    background: transparent
+    border: 0
+    cursor: pointer
+    transition: all .2s
+
+    &:active
+      transform: scale(0.90)
+
+
+  &__icon
+    position: relative
+    width: 32px
+    height: 25px
+
+  &__wrapper
+    display: none
+    width: 40px
+    height: 110px
+    background: rgba(255, 255, 255, 0.9)
+    z-index: 150
+    padding: 18px 0
+    border-radius: 10px
+    position: absolute
+    top: 35px
+    left: 50%
+    transform: translateX(-50%)
+
+    &_show
+      display: block
+
+  &__range
+    -webkit-appearance: none
+    height: 100%
+    width: 80px
+    background: transparent
+    transform: rotate(-90deg)
+    position: relative
+    left: -20px
+    cursor: pointer
+
+    &::-webkit-slider-thumb
+      -webkit-appearance: none
+      position: relative
+      border: 0
+      top: -8px
+      width: 10px
+      height: 20px
+      border-radius: 10px
+
+
+    &::-webkit-slider-runnable-track
+      height: 4px
+      background: $gray50
+      border: 0
+      box-shadow: none
+      border-radius: 10px
+
