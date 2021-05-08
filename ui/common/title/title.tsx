@@ -7,7 +7,7 @@ const b = block(style);
 
 type TitleProps = {
   size: TITLE_SIZE,
-  className: string
+  className: string,
 };
 type TitleState = {};
 
