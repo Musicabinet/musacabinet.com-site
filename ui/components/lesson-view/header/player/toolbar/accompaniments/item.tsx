@@ -9,6 +9,7 @@ const b = block(style);
 
 type AccompanimentItemProps = {
   selected: boolean,
+  selected_name_track: string,
   onChoose: (id: number) => void
 };
 type AccompanimentItemState = {
@@ -42,14 +43,14 @@ export class AccompanimentItem extends React.Component<AccompanimentItemProps & 
   handleOnToggle = () => this.setState((state) => ({ isShow: !state.isShow }));
 
   render() {
-    const { selected, name, libraries } = this.props;
+    const { selected, libraries, selected_name_track } = this.props;
     const { isShow } = this.state;
 
     return (
       <div className={b('item', { selected })}
            ref={this.containerAccompaniment}
            onClick={this.handleOnClick}>
-        {name}
+        {selected_name_track}
         <button className={b('arrow')}
                 onClick={this.handleOnToggle} />
         <TrackList show={isShow}

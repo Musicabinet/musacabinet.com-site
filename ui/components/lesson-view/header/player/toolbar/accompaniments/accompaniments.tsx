@@ -11,6 +11,7 @@ const b = block(style);
 type AccompanimentsProps = {
   list: AccompanimentI[],
   selected_accompaniment: number,
+  name_track: string,
   onChooseAccompaniment: (id: number) => void,
   onLoadTrack: () => void
 };
@@ -19,6 +20,7 @@ type AccompanimentsState = {};
 @inject((store: RootStore) => ({
   list: store.lessonStore.accompaniments,
   selected_accompaniment: store.lessonStore.selected_accompaniment,
+  name_track: store.playerStore.nameSelectedTrack,
   onChooseAccompaniment: store.lessonStore.setAccompaniment,
   onLoadTrack: store.playerStore.loadTrack
 }))
@@ -28,8 +30,9 @@ export class Accompaniments extends React.Component<AccompanimentsProps, Accompa
   static defaultProps = {
     list: [],
     selected_accompaniment: 0,
+    name_track: '',
     onChooseAccompaniment: () => console.log('Not set handler'),
-    onLoadTrack: () => console.log("Not set handler")
+    onLoadTrack: () => console.log('Not set handler')
   };
 
 
@@ -41,7 +44,7 @@ export class Accompaniments extends React.Component<AccompanimentsProps, Accompa
 
 
   render() {
-    const { list, selected_accompaniment } = this.props;
+    const { list, selected_accompaniment, name_track } = this.props;
 
     return (
       <div className={b(null)}>
@@ -53,7 +56,8 @@ export class Accompaniments extends React.Component<AccompanimentsProps, Accompa
                                      name={accompaniment.name}
                                      libraries={accompaniment.libraries}
                                      selected={(selected_accompaniment === accompaniment.id)}
-                                     onChoose={this.handleOnChooseAccompaniment} />);
+                                     onChoose={this.handleOnChooseAccompaniment}
+                                     selected_name_track={name_track} />);
         })}
       </div>
     );

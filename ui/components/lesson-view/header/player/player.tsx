@@ -69,6 +69,11 @@ export class Player extends React.Component<PlayerProps, PlayerState> {
                          defaultValue={volume} />
           <Divider />
           <Metronome />
+          <VolumeControl name={'volume'}
+                         min={-80}
+                         max={0}
+                         onChange={this.handleOnChangeVolume}
+                         defaultValue={volume} />
           <ButtonComposition />
         </div>
       </div>

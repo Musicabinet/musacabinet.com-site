@@ -1,4 +1,4 @@
-import { action, makeObservable, observable } from 'mobx';
+import { action, computed, makeObservable, observable } from 'mobx';
 import { SystemStore } from './system';
 import { LessonStore } from './lesson';
 import * as Tone from 'tone';
@@ -194,6 +194,25 @@ export class PlayerStore {
   @action.bound
   setBpm(value: number) {
     this.bpm = value;
+  }
+
+  @computed
+  get nameSelectedTrack(): string {
+    const findAccompaniments = this.lessonStore.accompaniments.find(
+      (accompaniment) => accompaniment.id === this.lessonStore.selected_accompaniment
+    );
+
+    if (findAccompaniments) {
+      const findLibrary = findAccompaniments.libraries.find((library) => library.id === this.selected_library_id);
+
+      if (findLibrary) {
+        return findLibrary.name;
+      } else {
+        return '';
+      }
+    } else {
+      return '';
+    }
   }
 
 
