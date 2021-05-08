@@ -1,7 +1,7 @@
 export { Portal } from './portal';
 
 export const getAvatarLink = (avatar_name: string): string => {
-  return avatar_name ? `${CONTENT_URL}${avatar_name}` : '';
+  return avatar_name ? `${CONTENT_URL}/avatars/${avatar_name}` : '';
 };
 
 export const handleDetectClick = (container: any, onClose: () => void, e: MouseEvent) => {
