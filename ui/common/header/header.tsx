@@ -54,7 +54,7 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
               <Motto />
             </div>
             <div
-              className={`col-lg-10 col-xl-7 col-8 d-flex justify-content-end align-items-center justify-content-start ${b('rightside')}`}>
+              className={`col-lg-10 col-xl-7 col-8 d-flex justify-content-lg-end align-items-center justify-content-start ${b('rightside')}`}>
               <Menu />
               <ButtonSignIn />
               <ButtonProfile />
