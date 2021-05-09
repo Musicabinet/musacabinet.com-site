@@ -1,4 +1,4 @@
-import { configure } from "mobx"
+import { configure } from 'mobx';
 import { enableStaticRendering } from 'mobx-react';
 import { MenuListStore } from './menu-list';
 import { ModalsStore } from './modals';
@@ -12,13 +12,14 @@ import { LessonStore } from './lesson';
 import { PlayerStore } from './player';
 import { LessonProgressStore } from './lesson-progress';
 import { InstrumentsStore } from './instruments';
+import { MetronomeStore } from './metronome';
 
 const isServer = typeof window === 'undefined';
 enableStaticRendering(isServer);
 
 configure({
-  enforceActions: "never",
-})
+  enforceActions: 'never'
+});
 
 export class RootStore {
 
@@ -34,6 +35,7 @@ export class RootStore {
   public playerStore: PlayerStore;
   public lessonProgress: LessonProgressStore;
   public instrumentsStore: InstrumentsStore;
+  public metronomeStore: MetronomeStore;
 
 
   constructor(initialData: RootStore | null) {
@@ -94,8 +96,12 @@ export class RootStore {
     );
 
     this.instrumentsStore = new InstrumentsStore(
-      initialData && initialData.instrumentsStore ? initialData.instrumentsStore : null,
-    )
+      initialData && initialData.instrumentsStore ? initialData.instrumentsStore : null
+    );
+
+    this.metronomeStore = new MetronomeStore(
+      initialData && initialData.metronomeStore ? initialData.metronomeStore : null
+    );
 
   }
 }

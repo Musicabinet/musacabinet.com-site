@@ -10,52 +10,68 @@ const b = block(style);
 type BpmProps = {
   service_name: SERVICE_NAME,
   current: number,
-  onIncrement: () => void,
-  onDecrement: () => void,
-  onSet: (value: number) => void
+  onSetBPM: (value: number) => void
 };
 type BpmState = {};
 
 @inject((store: RootStore) => ({
   service_name: store.systemStore.service_name,
-  onSet: store.playerStore.setBpm
+  current: store.metronomeStore.current,
+  onSetBPM: store.metronomeStore.setBPM
 }))
 @observer
 export class Bpm extends React.Component<BpmProps, BpmState> {
 
   interval: number = 0;
+  inputRef = React.createRef<HTMLInputElement>();
 
   static defaultProps = {
     service_name: SERVICE_NAME.SCHOOL,
-    current: 120,
-    onIncrement: () => console.log('Not set handler'),
-    onDecrement: () => console.log('Not set handler'),
-    onSet: () => console.log('Not set handler')
+    current: 80,
+    onSetBPM: () => console.log('Not set handler')
   };
 
-  handleOnIncrement = (e: React.FormEvent<HTMLButtonElement>) => {
+  constructor(props: BpmProps) {
+    super(props);
+  }
+
+  handleOnIncrement = (e: React.FormEvent<HTMLButtonElement> | React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
-    const { onIncrement } = this.props;
-    onIncrement();
+    const { current, onSetBPM } = this.props;
+    const updateValue = current + 1;
+
+    if (updateValue < 200) {
+      onSetBPM(Number(updateValue));
+
+      if (this.inputRef.current) {
+        this.inputRef.current.value = String(updateValue);
+      }
+    }
   };
 
-  handleOnDecrement = (e: React.FormEvent<HTMLButtonElement>) => {
+  handleOnDecrement = (e: React.FormEvent<HTMLButtonElement> | React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
-    const { onDecrement } = this.props;
-    onDecrement();
+    const { current, onSetBPM } = this.props;
+    const updateValue = current - 1;
+
+    if (updateValue > 20) {
+      onSetBPM(Number(updateValue));
+
+      if (this.inputRef.current) {
+        this.inputRef.current.value = String(updateValue);
+      }
+    }
   };
 
-  handleOnMouseDown = (type: string) => {
-    const { onIncrement, onDecrement } = this.props;
-
+  handleOnMouseDown = (type: string, e: React.MouseEvent<HTMLButtonElement>) => {
     if (type === 'increment') {
       this.interval = window.setInterval(() => {
-        onIncrement();
-      }, 100);
+        this.handleOnIncrement(e);
+      }, 150);
     } else if (type === 'decrement') {
       this.interval = window.setInterval(() => {
-        onDecrement();
-      }, 100);
+        this.handleOnDecrement(e);
+      }, 150);
     }
   };
 
@@ -63,10 +79,18 @@ export class Bpm extends React.Component<BpmProps, BpmState> {
     clearInterval(this.interval);
   };
 
-  handleOnChange = (e: React.FormEvent<HTMLInputElement>) => {
-    const { value } = e.currentTarget;
-    const { onSet } = this.props;
-    onSet(Number(value));
+  handleOnBlur = (e: React.FormEvent<HTMLInputElement>) => {
+    const currentValue = Number(e.currentTarget.value);
+
+    if (currentValue > 20 && currentValue < 200) {
+      const { onSetBPM } = this.props;
+      onSetBPM(currentValue);
+    } else {
+      if (this.inputRef.current) {
+        const { current } = this.props;
+        this.inputRef.current.value = String(current);
+      }
+    }
   };
 
   render() {
@@ -83,9 +107,10 @@ export class Bpm extends React.Component<BpmProps, BpmState> {
                 onMouseDown={this.handleOnMouseDown.bind(null, 'increment')}
                 onMouseUp={this.handleOnMouseUp} />
         <input type={'number'}
-               onChange={this.handleOnChange}
+               ref={this.inputRef}
+               onBlur={this.handleOnBlur}
                className={b('count')}
-               value={current} />
+               defaultValue={current} />
         <button className={b('button', {
           decrement: true
         })}
