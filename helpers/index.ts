@@ -15,3 +15,8 @@ export const handleDetectClick = (container: any, onClose: () => void, e: MouseE
     }
   }
 };
+
+
+export const ucFirst = (value: string): string => {
+  return value[0].toUpperCase() + value.slice(1).toLowerCase();
+};

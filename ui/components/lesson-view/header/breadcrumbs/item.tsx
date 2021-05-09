@@ -3,6 +3,7 @@ import { inject, observer } from 'mobx-react';
 import block from 'bem-css-modules';
 import style from './breadcrumbs.module.sass';
 import { BreadcrumbsI } from '../../../../../interfaces';
+import { ucFirst } from '../../../../../helpers';
 
 const b = block(style);
 
@@ -22,7 +23,7 @@ export class BreadcrumbsItem extends React.Component<BreadcrumbsItemProps & Brea
       <div className={b('item')}>
         {current === 1 ? <span className={b('first')}>/</span> : null}
         {(current < total)
-          ? <span>{type}: <span className={b('color')}>{name}</span></span>
+          ? <span>{type}: <span className={b('color')}>{ucFirst(name)}</span></span>
           : <span className={b('color')}>{name}</span>}
         {(current < total) ? '\u00A0 / \u00A0' : null}
       </div>

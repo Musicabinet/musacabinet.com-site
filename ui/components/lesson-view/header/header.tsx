@@ -40,7 +40,6 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
   handleOnShwGrandChard = () => {
     const { onShowModal } = this.props;
     onShowModal(MODALS.GRAND_CHART);
-    console.log('open');
   };
 
   render() {
