@@ -36,7 +36,7 @@ export class Player extends React.Component<PlayerProps, PlayerState> {
   };
 
   state = {
-    volume: -40
+    volume: -24
   };
 
   componentDidMount() {
@@ -63,14 +63,14 @@ export class Player extends React.Component<PlayerProps, PlayerState> {
           <PlayButton />
           <ProgressLine />
           <VolumeControl name={'volume'}
-                         min={-80}
+                         min={-48}
                          max={0}
                          onChange={this.handleOnChangeVolume}
                          defaultValue={volume} />
           <Divider />
           <Metronome />
           <VolumeControl name={'volume'}
-                         min={-80}
+                         min={-6}
                          max={0}
                          onChange={this.handleOnChangeVolume}
                          defaultValue={volume} />
