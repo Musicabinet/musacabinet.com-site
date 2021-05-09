@@ -43,7 +43,7 @@ export class PlayerStore {
   @action.bound
   loadTrack() {
 
-    console.log('load track');
+    this.current_percent = 0;
 
     // Останавливаем все треки
     this.onStop();
