@@ -2,7 +2,7 @@ import { action, computed, makeObservable, observable } from 'mobx';
 
 export class MetronomeStore {
 
-  @observable current: number = 0;
+  @observable current: number = 80;
   @observable volume: number = 0.5;
   @observable isPlay: boolean = false;
   @observable audioPlayer: HTMLAudioElement | null = null;
