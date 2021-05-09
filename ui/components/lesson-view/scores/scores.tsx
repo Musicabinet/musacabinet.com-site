@@ -61,12 +61,12 @@ export class Scores extends React.Component<ScoresProps, ScoresState> {
                 }
 
                 if (item.score_type_id === SCORE_TYPE.TITLE) {
-                  console.log('eheye');
-                  const align: string = item.content.align || 'center'
+                  const align: string = item.content.align || 'center';
                   return (
-                    <div className={b('sub-title', {
-                      [align]: true
-                    })}>{item.content.title}</div>
+                    <div key={item.id}
+                         className={b('sub-title', {
+                           [align]: true
+                         })}>{item.content.title}</div>
                   );
                 }
               })}

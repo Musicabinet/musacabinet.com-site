@@ -10,7 +10,7 @@ const b = block(style);
 type StartButtonProps = {
   service_name: SERVICE_NAME,
   disabled: boolean,
-  is_play: boolean,
+  isPlay: boolean,
   onPlayStop: () => void
 };
 type StartButtonState = {
@@ -18,7 +18,9 @@ type StartButtonState = {
 };
 
 @inject((store: RootStore) => ({
-  service_name: store.systemStore.service_name
+  service_name: store.systemStore.service_name,
+  isPlay: store.metronomeStore.isPlay,
+  onPlayStop: store.metronomeStore.onPlayStop
 }))
 @observer
 export class StartButton extends React.Component<StartButtonProps, StartButtonState> {
@@ -28,11 +30,11 @@ export class StartButton extends React.Component<StartButtonProps, StartButtonSt
   static defaultProps = {
     service_name: SERVICE_NAME.SCHOOL,
     disabled: false,
-    is_play: false,
+    isPlay: false,
     onPlayStop: () => console.log("Not set handler")
   }
 
-  getStatus = () => (this.props.is_play) ? 'Stop' : 'Start';
+  getStatus = () => (this.props.isPlay) ? 'Stop' : 'Start';
 
   handleOnFocus = () => {
     const { is_active } = this.state;
@@ -66,8 +68,8 @@ export class StartButton extends React.Component<StartButtonProps, StartButtonSt
 
     return (
       <button disabled={disabled}
-              onFocus={this.handleOnFocus}
-              onBlur={this.handleOnBlur}
+              //onFocus={this.handleOnFocus}
+              //onBlur={this.handleOnBlur}
               className={b(null, {
                 [service_name]: true
               })}
@@ -78,7 +80,7 @@ export class StartButton extends React.Component<StartButtonProps, StartButtonSt
                   this.buttonContainerRef.current.focus();
                   onPlayStop();
                 }
-              }}><span>{this.getStatus()}</span></button>
+              }}>{this.getStatus()}</button>
     );
   }
 }
