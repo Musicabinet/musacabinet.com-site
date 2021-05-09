@@ -30,8 +30,8 @@ type PreviewNotesState = {};
   previewCurrentNumber: store.lessonStore.currentPreviewScoreIndex,
   hasPrevScoreImage: store.lessonStore.hasPrevScoreImage,
   hasNextScoreImage: store.lessonStore.hasNextScoreImage,
+  setCurrentPreviewScoreIndex: store.lessonStore.setCurrentPreviewScoreIndex,
   onCloseModal: store.modalsStore.close,
-  setCurrentPreviewScoreIndex: store.lessonStore.setCurrentPreviewScoreIndex
 }))
 @observer
 export class PreviewNotes extends React.Component<PreviewNotesProps, PreviewNotesState> {

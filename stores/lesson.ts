@@ -149,11 +149,11 @@ export class LessonStore implements LessonI {
   }
 
   @computed
-  get showPreviewScorePath(){
+  get showPreviewScorePath() {
     const currentScoreImage = this.scoresImages[this.currentPreviewScoreIndex];
     return (currentScoreImage && currentScoreImage.content && currentScoreImage.content.image)
-        ? currentScoreImage.content.image
-        : '';
+      ? currentScoreImage.content.image
+      : '';
   }
 
   @computed
@@ -256,7 +256,13 @@ export class LessonStore implements LessonI {
 
   @computed
   get scoresImages(): ScoreItemStore[] {
-    return this.scores[this.currentScore].items.filter((item) => item.score_type_id === SCORE_TYPE.IMAGE);
+    const scoresCopy = [...this.scores];
+
+    if(Array.isArray(scoresCopy) && scoresCopy.length > 0){
+      return scoresCopy[this.currentScore].items.filter((item) => item.score_type_id === SCORE_TYPE.IMAGE);
+    }
+
+    return []
   }
 
   @computed
