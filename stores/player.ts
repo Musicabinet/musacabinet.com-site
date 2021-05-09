@@ -154,6 +154,7 @@ export class PlayerStore {
       player.stop(0);
     });
 
+    this.current_percent = 0;
     this.is_playing = false;
   }
 
