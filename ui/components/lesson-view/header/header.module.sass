@@ -6,6 +6,9 @@
   padding: 0 15px
   display: flex
 
+  @include breakpoint-phone
+    flex-direction: column
+
   &__left-side
     display: flex
     flex-direction: column
@@ -46,6 +49,9 @@
   &__container
     display: flex
     margin-bottom: 10px
+
+    @include breakpoint-phone
+      flex-direction: column
 
 
   &__right-side
