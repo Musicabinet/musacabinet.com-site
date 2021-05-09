@@ -14,6 +14,7 @@ type ProgressLineProps = {
 type ProgressLineState = {};
 
 @inject((store: RootStore) => ({
+  service_name: store.systemStore.service_name,
   current_percent: store.playerStore.current_percent
 }))
 @observer

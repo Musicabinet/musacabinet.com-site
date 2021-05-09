@@ -3,6 +3,7 @@ import { inject, observer } from 'mobx-react';
 import block from 'bem-css-modules';
 import style from './start.module.sass';
 import { SERVICE_NAME } from '../../../../../../../constants';
+import { RootStore } from '../../../../../../../stores';
 
 const b = block(style);
 
@@ -11,14 +12,13 @@ type StartButtonProps = {
   disabled: boolean,
   is_play: boolean,
   onPlayStop: () => void
-
 };
 type StartButtonState = {
   is_active: boolean
 };
 
-@inject(() => ({
-
+@inject((store: RootStore) => ({
+  service_name: store.systemStore.service_name
 }))
 @observer
 export class StartButton extends React.Component<StartButtonProps, StartButtonState> {

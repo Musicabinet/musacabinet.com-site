@@ -17,6 +17,7 @@ type BpmProps = {
 type BpmState = {};
 
 @inject((store: RootStore) => ({
+  service_name: store.systemStore.service_name,
   onSet: store.playerStore.setBpm
 }))
 @observer

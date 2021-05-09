@@ -6,7 +6,7 @@ import { BreadCrumbs } from './breadcrumbs/breadcrumbs';
 import { LessonList } from './lesson-list/lesson-list';
 import { InstrumentIcon } from '../../../common';
 import { RootStore } from '../../../../stores';
-import { SERVICE_NAME } from '../../../../constants';
+import { MODALS, SERVICE_NAME } from '../../../../constants';
 import { LIST_ICON } from '../../../common/icons';
 import { Module } from './module/module';
 import { Player } from './player/player';
@@ -16,14 +16,16 @@ const b = block(style);
 type HeaderProps = {
   instrument_name: string,
   instrument_icon: LIST_ICON.GUITAR | LIST_ICON.KEYBOARD | LIST_ICON.SAXOPHONE,
-  service_name: SERVICE_NAME
+  service_name: SERVICE_NAME,
+  onShowModal: (id_modal: MODALS) => void
 };
 type HeaderState = {};
 
 @inject((store: RootStore) => ({
   instrument_name: store.systemStore.instrument_name,
   instrument_icon: store.systemStore.instrument_icon,
-  service_name: store.systemStore.service_name
+  service_name: store.systemStore.service_name,
+  onShowModal: store.modalsStore.show
 }))
 @observer
 export class Header extends React.Component<HeaderProps, HeaderState> {
@@ -31,7 +33,14 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
   static defaultProps = {
     service_name: SERVICE_NAME.SCHOOL,
     instrument_name: '',
-    instrument_icon: LIST_ICON.GUITAR
+    instrument_icon: LIST_ICON.GUITAR,
+    onShowModal: () => console.log('Not set handler')
+  };
+
+  handleOnShwGrandChard = () => {
+    const { onShowModal } = this.props;
+    onShowModal(MODALS.GRAND_CHART);
+    console.log('open');
   };
 
   render() {
@@ -42,10 +51,12 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
       <div className={b('left-side')}>
         <div className={b('container')}>
           <div className={b('name-icon')}>
-            <div className={b('name-instrument', { [service_name]: true })}>
+            <div className={b('name-instrument', { [service_name]: true })}
+                 onClick={this.handleOnShwGrandChard}>
               {instrument_name}
             </div>
-            <div className={b('icon')}>
+            <div className={b('icon')}
+                 onClick={this.handleOnShwGrandChard}>
               <InstrumentIcon icon={instrument_icon} service={service_name} />
             </div>
           </div>

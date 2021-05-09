@@ -7,6 +7,7 @@ import { Cookie } from '../core';
 import { CustomAppContext } from '../interfaces';
 import HeadBlock from './head-block';
 import { Notifications } from '../ui';
+import { GrandChartModal } from '../ui/common/modals/grand-chart/grand-chart';
 
 interface Props {
   pageProps: any;
@@ -54,6 +55,7 @@ class MusiCabinetApp extends App<Props> {
           <HeadBlock />
           <Component {...pageProps} />
           <Notifications />
+          <GrandChartModal />
         </Provider>
       </>
     );
