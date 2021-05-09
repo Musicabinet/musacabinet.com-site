@@ -22,7 +22,8 @@ export class Lessons extends React.Component<LessonsProps, LessonsState> {
       <div className={b(null)}>
         {list.map((lesson) => {
           return (
-            <LessonItem id={lesson.id}
+            <LessonItem key={lesson.id}
+                        id={lesson.id}
                         isActive={false}
                         uuid={lesson.uuid}
                         group_lesson_id={lesson.group_lesson_id}

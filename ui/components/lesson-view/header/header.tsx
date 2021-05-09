@@ -17,7 +17,8 @@ type HeaderProps = {
   instrument_name: string,
   instrument_icon: LIST_ICON.GUITAR | LIST_ICON.KEYBOARD | LIST_ICON.SAXOPHONE,
   service_name: SERVICE_NAME,
-  onShowModal: (id_modal: MODALS) => void
+  onShowModal: (id_modal: MODALS) => void,
+  onGetGranChart: () => Promise<void>
 };
 type HeaderState = {};
 
@@ -25,7 +26,8 @@ type HeaderState = {};
   instrument_name: store.systemStore.instrument_name,
   instrument_icon: store.systemStore.instrument_icon,
   service_name: store.systemStore.service_name,
-  onShowModal: store.modalsStore.show
+  onShowModal: store.modalsStore.show,
+  onGetGranChart: store.grandChartStore.getList
 }))
 @observer
 export class Header extends React.Component<HeaderProps, HeaderState> {
@@ -34,12 +36,14 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
     service_name: SERVICE_NAME.SCHOOL,
     instrument_name: '',
     instrument_icon: LIST_ICON.GUITAR,
-    onShowModal: () => console.log('Not set handler')
+    onShowModal: () => console.log('Not set handler'),
+    onGetGranChart: () => console.log('Not set handler')
   };
 
-  handleOnShwGrandChard = () => {
-    const { onShowModal } = this.props;
+  handleOnShwGrandChard = async () => {
+    const { onShowModal, onGetGranChart } = this.props;
     onShowModal(MODALS.GRAND_CHART);
+    await onGetGranChart();
   };
 
   render() {

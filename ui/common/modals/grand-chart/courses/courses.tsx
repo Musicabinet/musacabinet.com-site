@@ -5,31 +5,41 @@ import style from './courses.module.sass';
 import { RootStore } from '../../../../../stores';
 import { CourseI } from '../../../../../interfaces';
 import { CourseItem } from './item';
+import { SERVICE_NAME } from '../../../../../constants';
 
 const b = block(style);
 
 type CoursesProps = {
-  list: CourseI[]
+  service_name: SERVICE_NAME,
+  list: CourseI[],
+  selected_course_id: number
 };
 type CoursesState = {};
 
 @inject((store: RootStore) => ({
-  list: store.grandChartStore.courses
+  service_name: store.systemStore.service_name,
+  list: store.grandChartStore.courses,
+  selected_course_id: store.systemStore.selected_course_id
 }))
 @observer
 export class Courses extends React.Component<CoursesProps, CoursesState> {
 
   static defaultProps = {
-    list: []
+    service_name: SERVICE_NAME.SCHOOL,
+    list: [],
+    selected_course_id: 0
   };
 
   render() {
-    const { list } = this.props;
+    const { service_name,  list, selected_course_id } = this.props;
 
     return (
-      <div className={b(null)}>
+      <div className={b(null, { [service_name]:true })}>
         {list.map((course) => {
-          return (<CourseItem id={course.id} name={course.name} />);
+          return (<CourseItem key={course.id}
+                              id={course.id}
+                              name={course.name}
+                              is_active={(selected_course_id === course.id)} />);
         })}
       </div>
     );

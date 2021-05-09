@@ -6,17 +6,24 @@ import { CourseI } from '../../../../../interfaces';
 
 const b = block(style);
 
-type CourseItemProps = {};
+type CourseItemProps = {
+  is_active: boolean
+};
 type CourseItemState = {};
 
 @inject(() => ({}))
 @observer
 export class CourseItem extends React.Component<CourseItemProps & CourseI, CourseItemState> {
+
   render() {
-    const { name } = this.props;
+    const { name, is_active } = this.props;
+
+    console.log('is_active', is_active);
 
     return (
-      <div className={b('item')}>
+      <div className={b('item', {
+        is_active
+      })}>
         {name}
       </div>
     );
