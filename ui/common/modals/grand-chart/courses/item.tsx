@@ -18,8 +18,6 @@ export class CourseItem extends React.Component<CourseItemProps & CourseI, Cours
   render() {
     const { name, is_active } = this.props;
 
-    console.log('is_active', is_active);
-
     return (
       <div className={b('item', {
         is_active

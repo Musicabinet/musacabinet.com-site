@@ -11,6 +11,11 @@
   top: 50%
   transform: translate(-50%, -50%) translateZ(0)
   z-index: 2500
+  display: flex
+
+
+  &_auto
+    height: auto
 
   &_middle
     z-index: 2500
@@ -55,7 +60,8 @@
     height: 100%
     overflow-y: auto
     display: flex
-    justify-content: center
+    align-self: center
+    flex: 1
 
   &__overlay
     position: fixed

@@ -5,7 +5,8 @@ import { GroupLessonStore } from './group-lesson';
 import { ScoreStore } from './score';
 import { AccompanimentStore } from './accompaniment';
 import { SystemStore } from './system';
-import { METHODS_REQUEST } from '../constants';
+import { METHODS_REQUEST, SCORE_TYPE } from '../constants';
+import { ScoreItemStore } from './score-item';
 
 interface ImportStore {
   systemStore: SystemStore,
@@ -38,6 +39,8 @@ export class LessonStore implements LessonI {
   @observable video_iframe: string | null = null;
 
   @observable currentScore: number = 0;
+  @observable currentPreviewScoreIndex: number = 0;
+  @observable currentPreviewScorePath: string = '';
 
   public systemStore: SystemStore;
 
@@ -131,6 +134,26 @@ export class LessonStore implements LessonI {
   @action.bound
   setAccompaniment(id: number) {
     this.selected_accompaniment = id;
+  }
+
+  @action.bound
+  showPreviewScore(score_image_id: number) {
+    if (this.currentContentScore) {
+      this.currentPreviewScoreIndex = this.scoresImages.findIndex((item) => item.id === score_image_id);
+    }
+  }
+
+  @action.bound
+  setCurrentPreviewScoreIndex(score_image_index: number) {
+    this.currentPreviewScoreIndex = score_image_index;
+  }
+
+  @computed
+  get showPreviewScorePath(){
+    const currentScoreImage = this.scoresImages[this.currentPreviewScoreIndex];
+    return (currentScoreImage && currentScoreImage.content && currentScoreImage.content.image)
+        ? currentScoreImage.content.image
+        : '';
   }
 
   @computed
@@ -229,6 +252,28 @@ export class LessonStore implements LessonI {
   @computed
   get currentContentScore(): ScoreI | null {
     return this.scores[this.currentScore] || null;
+  }
+
+  @computed
+  get scoresImages(): ScoreItemStore[] {
+    return this.scores[this.currentScore].items.filter((item) => item.score_type_id === SCORE_TYPE.IMAGE);
+  }
+
+  @computed
+  get totalScoresImages(): number {
+    return this.scoresImages.length;
+  }
+
+  @computed
+  get hasPrevScoreImage(): boolean {
+    const currentUpdate = this.currentPreviewScoreIndex - 1;
+    return Boolean(this.scoresImages[currentUpdate]);
+  }
+
+  @computed
+  get hasNextScoreImage(): boolean {
+    const currentUpdate = this.currentPreviewScoreIndex + 1;
+    return Boolean(this.scoresImages[currentUpdate]);
   }
 
   @action

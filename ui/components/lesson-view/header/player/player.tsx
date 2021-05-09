@@ -16,6 +16,7 @@ const b = block(style);
 
 type PlayerProps = {
   init: () => void,
+  noMR: boolean,
   selected_accompaniment: number,
   onSetVolume: (value: number) => void
 };
@@ -31,6 +32,7 @@ export class Player extends React.Component<PlayerProps, PlayerState> {
 
   static defaultProps = {
     init: () => console.log('Not set handler'),
+    noMR: false,
     selected_accompaniment: 0,
     onSetVolume: () => console.log('Not set handler')
   };
@@ -54,9 +56,10 @@ export class Player extends React.Component<PlayerProps, PlayerState> {
 
   render() {
     const { volume } = this.state;
+    const { noMR } = this.props;
 
     return (
-      <div className={b(null)}>
+      <div className={b(null, { noMR })}>
         <Toolbar />
         <div className={b('container')}>
           <BackTrack />

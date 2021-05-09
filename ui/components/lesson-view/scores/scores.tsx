@@ -4,7 +4,7 @@ import block from 'bem-css-modules';
 import style from './scores.module.sass';
 import { RootStore } from '../../../../stores';
 import { ScoreI } from '../../../../interfaces';
-import { SCORE_TYPE, SERVICE_NAME } from '../../../../constants';
+import { MODALS, SCORE_TYPE, SERVICE_NAME } from '../../../../constants';
 
 const b = block(style);
 
@@ -13,7 +13,9 @@ type ScoresProps = {
   total: number,
   nextScore: boolean,
   prevScore: boolean,
-  currentContentScore: ScoreI | null
+  currentContentScore: ScoreI | null,
+  onShowPreview: (score_image_id: number) => void,
+  onShowModal: (id_modal: MODALS) => void
 };
 type ScoresState = {};
 
@@ -22,7 +24,9 @@ type ScoresState = {};
   total: store.lessonStore.scoresTotal,
   nextScore: store.lessonStore.scoresHasNext,
   prevScore: store.lessonStore.scoresHasPrev,
-  currentContentScore: store.lessonStore.currentContentScore
+  currentContentScore: store.lessonStore.currentContentScore,
+  onShowPreview: store.lessonStore.showPreviewScore,
+  onShowModal: store.modalsStore.show
 }))
 @observer
 export class Scores extends React.Component<ScoresProps, ScoresState> {
@@ -32,7 +36,15 @@ export class Scores extends React.Component<ScoresProps, ScoresState> {
     total: 0,
     nextScore: false,
     prevScore: false,
-    currentContentScore: null
+    currentContentScore: null,
+    onShowPreview: () => console.log('Not set handler'),
+    onShowModal: () => console.log('Not set handler')
+  };
+
+  handleOnShow = (score_image_id: number) => {
+    const { onShowPreview, onShowModal } = this.props;
+    onShowPreview(score_image_id);
+    onShowModal(MODALS.PREVIEW_NOTES);
   };
 
   render() {
@@ -56,7 +68,8 @@ export class Scores extends React.Component<ScoresProps, ScoresState> {
                   return (
                     <img key={item.id}
                          className={b('image')}
-                         src={`${CONTENT_URL}${item.content.image}`} />
+                         src={`${CONTENT_URL}${item.content.image}`}
+                         onClick={this.handleOnShow.bind(null, item.id)} />
                   );
                 }
 

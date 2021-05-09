@@ -82,8 +82,6 @@ export class SystemStore {
   get title(): string {
     const current = `${this.serviceNameLowerCase}-${this.instrument_name}`;
 
-    console.log({current});
-
     const title = {
       'school-saxophone': 'Let\'s start your saxophone<br/> playing together',
       'school-keyboard': 'Let\'s start your keyboard<br/> playing together',
