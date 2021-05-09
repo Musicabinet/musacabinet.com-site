@@ -72,12 +72,6 @@ export class PreviewNotes extends React.Component<PreviewNotesProps, PreviewNote
         <div className={b(null, { [service_name]: true })}>
           <Player noMR />
 
-          <div className={b('images')}>
-            <img src={`${CONTENT_URL}${previewPath}`}
-                 className={b('image')}
-                 alt='' />
-          </div>
-
           <div className={b('arrows')}>
             <button className={b('arrow', { left: true })}
                     disabled={(!hasPrevScoreImage)}
@@ -86,6 +80,12 @@ export class PreviewNotes extends React.Component<PreviewNotesProps, PreviewNote
             <button className={b('arrow', { right: true })}
                     disabled={(!hasNextScoreImage)}
                     onClick={() => this.handleOnSetCurrentPreviewScoreIndex(previewCurrentNumber + 1)} />
+          </div>
+
+          <div className={b('images')}>
+            <img src={`${CONTENT_URL}${previewPath}`}
+                 className={b('image')}
+                 alt='' />
           </div>
         </div>
       </Modal>
