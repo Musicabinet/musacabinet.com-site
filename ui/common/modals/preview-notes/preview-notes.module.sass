@@ -1,0 +1,60 @@
+@import "../../../../stylesheets/index"
+
+.preview-notes
+  $root: &
+  position: relative
+  background: $white
+  width: 100%
+  padding: 25px 15px 30px
+
+  &_school
+    position: relative
+
+    #{$root}__arrow
+      &_left, &_right
+        border-color: $school
+
+  &_college
+    position: relative
+
+    #{$root}__arrow
+      &_left, &_right
+        border-color: $college
+
+  &__arrows
+    display: flex
+    margin: 25px 0 0
+    justify-content: center
+
+  &__arrow
+    width: 20px
+    height: 20px
+    border: 0
+    padding: 0
+    margin: 0
+    cursor: pointer
+    background: transparent
+
+    &_left
+      border-width: 2px 0 0 2px
+      border-style: solid
+      transform: rotate(-45deg)
+
+    &_right
+      border-width: 2px 0 0 2px
+      border-style: solid
+      transform: rotate(135deg)
+
+    &:disabled
+      cursor: not-allowed
+      opacity: 0.2
+
+  &__images
+    position: relative
+
+  &__image
+    width: 100%
+
+  &__total
+    span
+      font-weight: bold

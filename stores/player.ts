@@ -103,7 +103,6 @@ export class PlayerStore {
     if (current_accompaniment && current_accompaniment.libraries.length > 0) {
       this.selected_library_id = current_accompaniment.libraries[0].id;
     }
-    console.log('this.selected_library_id', this.selected_library_id);
   }
 
   @action.bound

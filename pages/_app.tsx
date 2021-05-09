@@ -6,7 +6,7 @@ import './app.global.sass';
 import { Cookie } from '../core';
 import { CustomAppContext } from '../interfaces';
 import HeadBlock from './head-block';
-import { Notifications } from '../ui';
+import { Notifications, PreviewNotes } from '../ui';
 import { GrandChartModal } from '../ui/common/modals/grand-chart/grand-chart';
 
 interface Props {
@@ -56,6 +56,7 @@ class MusiCabinetApp extends App<Props> {
           <Component {...pageProps} />
           <Notifications />
           <GrandChartModal />
+          <PreviewNotes />
         </Provider>
       </>
     );
