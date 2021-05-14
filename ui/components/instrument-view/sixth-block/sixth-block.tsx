@@ -52,9 +52,8 @@ export class SixthBlock extends React.Component<SixthBlockProps, SixthBlockState
                 <img src={`${imagePath}.png`} srcSet={`${imagePath}@2x.png 2x`} alt=""/>
               </picture>
             </div>
-            <div className='col-lg-8 offset-lg-2 text-center'>
+            <div className='col-lg-8 offset-lg-2'>
               <Title size={TITLE_SIZE.SERVICE_PAGE} className={b('title')}>Join us, if you're serious about education</Title>
-
             </div>
           </div>
         </div>
