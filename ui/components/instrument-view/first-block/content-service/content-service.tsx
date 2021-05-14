@@ -4,6 +4,7 @@ import block from 'bem-css-modules';
 import style from './content-service.module.sass';
 import { RootStore } from '../../../../../stores';
 import { SERVICE_NAME } from '../../../../../constants';
+import { ButtonFreeTrial } from '../../../../common';
 
 const b = block(style);
 
@@ -38,7 +39,8 @@ export class ContentService extends React.Component<ContentServiceProps, Content
     return (
       <div className={b(null)}>
         <picture className={b('logotype')}>
-          <source srcSet={`/images/logotype/${service_name}.webp, /images/logotype/${service_name}@2x.webp 2x`} type='image/webp' />
+          <source srcSet={`/images/logotype/${service_name}.webp, /images/logotype/${service_name}@2x.webp 2x`}
+                  type='image/webp' />
           <img src={`/images/logotype/${service_name}.png`} srcSet={`/images/logotype/${service_name}@2x.png 2x`} />
         </picture>
 
@@ -46,7 +48,7 @@ export class ContentService extends React.Component<ContentServiceProps, Content
         <div className={b('sub-title')} dangerouslySetInnerHTML={{ __html: sub_title }} />
 
         <div className={b('action')}>
-
+          <ButtonFreeTrial />
         </div>
       </div>
     );
