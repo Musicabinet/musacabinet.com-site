@@ -3,17 +3,33 @@ import { inject, observer } from 'mobx-react';
 import block from 'bem-css-modules';
 import style from './fifth-block.module.sass';
 import { Paragraph, Title } from '../../../common';
-import { TITLE_SIZE } from '../../../../constants';
+import { SERVICE_NAME, TITLE_SIZE } from '../../../../constants';
+import { RootStore } from '../../../../stores';
+import { AboutServiceItemI } from '../../../../stores/system';
 
 const b = block(style);
 
-type FifthBlockProps = {};
+type FifthBlockProps = {
+  service_name: SERVICE_NAME,
+  list: AboutServiceItemI[]
+};
 type FifthBlockState = {};
 
-@inject(() => ({}))
+@inject((store: RootStore) => ({
+  service_name: store.systemStore.service_name,
+  list: store.systemStore.aboutService
+}))
 @observer
 export class FifthBlock extends React.Component<FifthBlockProps, FifthBlockState> {
+
+  static defaultProps = {
+    service_name: SERVICE_NAME.SCHOOL,
+    list: []
+  };
+
   render() {
+    const { service_name, list } = this.props;
+
     return (
       <div className={b(null)}>
         <div className='container g-lg-0'>
@@ -32,6 +48,18 @@ export class FifthBlock extends React.Component<FifthBlockProps, FifthBlockState
                 you get to see your learning progress in real time.
               </Paragraph>
             </div>
+          </div>
+
+          <div className='row g-lg-0'>
+            {list.map((item) => {
+              return <div className='col-lg-4 d-flex'>
+                <div className={b('item', { [service_name]: true })}>
+                  <div className={b('count')}>{item.count}</div>
+                  <div className={b('title')}>{item.title}</div>
+                  <div className={b('description')}>{item.description}</div>
+                </div>
+              </div>;
+            })}
           </div>
         </div>
       </div>
