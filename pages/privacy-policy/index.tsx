@@ -3,7 +3,7 @@ import { inject, observer } from 'mobx-react';
 import { BaseLayout, Paragraph, Title } from '../../ui';
 import { TITLE_SIZE } from '../../constants';
 import block from 'bem-css-modules';
-import style from './privacy-policy.module.sass';
+import style from '../common.module.sass';
 
 const b = block(style);
 
@@ -19,7 +19,7 @@ export default class PrivacyPolicy extends React.Component<PrivacyPolicyProps, P
         <div className='container'>
           <div className='row'>
             <div className='col-12'>
-              <Title size={TITLE_SIZE.FIRST} className={b('title')}>Privacy Policy</Title>
+              <Title size={TITLE_SIZE.FIRST} className={b('header')}>Privacy Policy</Title>
             </div>
           </div>
 
