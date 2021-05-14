@@ -2,9 +2,9 @@ import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import block from 'bem-css-modules';
 import style from './lessons.module.sass';
-import { RootStore } from '../../../../../../stores';
-import { LessonI } from '../../../../../../interfaces';
-import { MODALS, SERVICE_NAME } from '../../../../../../constants';
+import { RootStore } from '../../../../../stores';
+import { LessonI } from '../../../../../interfaces';
+import { MODALS, SERVICE_NAME } from '../../../../../constants';
 import Router from 'next/router';
 
 const b = block(style);

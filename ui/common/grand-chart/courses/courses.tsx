@@ -2,10 +2,10 @@ import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import block from 'bem-css-modules';
 import style from './courses.module.sass';
-import { RootStore } from '../../../../../stores';
-import { CourseI } from '../../../../../interfaces';
+import { RootStore } from '../../../../stores';
+import { CourseI } from '../../../../interfaces';
 import { CourseItem } from './item';
-import { SERVICE_NAME } from '../../../../../constants';
+import { SERVICE_NAME } from '../../../../constants';
 
 const b = block(style);
 

@@ -2,9 +2,9 @@ import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import block from 'bem-css-modules';
 import style from './group-lesson-view.module.sass';
-import { RootStore } from '../../../../../stores';
-import { GroupLessonI } from '../../../../../interfaces/group-lesson';
-import { SERVICE_NAME } from '../../../../../constants';
+import { RootStore } from '../../../../stores';
+import { GroupLessonI } from '../../../../interfaces';
+import { SERVICE_NAME } from '../../../../constants';
 import * as moment from "moment"
 import { Lessons } from './lessons/lessons';
 

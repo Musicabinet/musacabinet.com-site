@@ -2,7 +2,7 @@ import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import block from 'bem-css-modules';
 import style from './fifth-block.module.sass';
-import { Paragraph, Title } from '../../../common';
+import { GrandChart, Paragraph, Title } from '../../../common';
 import { SERVICE_NAME, TITLE_SIZE } from '../../../../constants';
 import { RootStore } from '../../../../stores';
 import { AboutServiceItemI } from '../../../../stores/system';
@@ -11,12 +11,14 @@ const b = block(style);
 
 type FifthBlockProps = {
   service_name: SERVICE_NAME,
+  instrument_name: string,
   list: AboutServiceItemI[]
 };
 type FifthBlockState = {};
 
 @inject((store: RootStore) => ({
   service_name: store.systemStore.service_name,
+  instrument_name: store.systemStore.instrument_name,
   list: store.systemStore.aboutService
 }))
 @observer
@@ -24,8 +26,10 @@ export class FifthBlock extends React.Component<FifthBlockProps, FifthBlockState
 
   static defaultProps = {
     service_name: SERVICE_NAME.SCHOOL,
+    instrument_name: '',
     list: []
   };
+
 
   render() {
     const { service_name, list } = this.props;
@@ -49,10 +53,16 @@ export class FifthBlock extends React.Component<FifthBlockProps, FifthBlockState
               </Paragraph>
             </div>
           </div>
+        </div>
 
+        <div className={b('grand-chart')}>
+          <GrandChart is_transparent />
+        </div>
+
+        <div className='container'>
           <div className='row g-lg-0'>
             {list.map((item) => {
-              return <div className='col-lg-4 d-flex'>
+              return <div key={item.title} className='col-lg-4 d-flex'>
                 <div className={b('item', { [service_name]: true })}>
                   <div className={b('count')}>{item.count}</div>
                   <div className={b('title')}>{item.title}</div>

@@ -1,27 +1,24 @@
 import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import block from 'bem-css-modules';
-import style from './courses.module.sass';
-import { CourseI } from '../../../../../interfaces';
+import style from './modules.module.sass';
+import { ModuleI } from '../../../../interfaces';
 
 const b = block(style);
 
-type CourseItemProps = {
+type ModuleItemProps = {
   is_active: boolean
 };
-type CourseItemState = {};
+type ModuleItemState = {};
 
 @inject(() => ({}))
 @observer
-export class CourseItem extends React.Component<CourseItemProps & CourseI, CourseItemState> {
-
+export class ModuleItem extends React.Component<ModuleItemProps & ModuleI, ModuleItemState> {
   render() {
     const { name, is_active } = this.props;
 
     return (
-      <div className={b('item', {
-        is_active
-      })}>
+      <div className={b('item', { is_active })}>
         {name}
       </div>
     );

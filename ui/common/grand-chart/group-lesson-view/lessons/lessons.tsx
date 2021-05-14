@@ -2,7 +2,7 @@ import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import block from 'bem-css-modules';
 import style from './lessons.module.sass';
-import { LessonI } from '../../../../../../interfaces';
+import { LessonI } from '../../../../../interfaces';
 import { LessonItem } from './item';
 
 const b = block(style);
