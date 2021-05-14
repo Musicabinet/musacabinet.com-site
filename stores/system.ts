@@ -80,7 +80,6 @@ export class SystemStore {
 
   @computed
   get title(): string {
-    const current = `${this.serviceNameLowerCase}-${this.instrument_name}`;
 
     const title = {
       'school-saxophone': 'Let\'s start your saxophone<br/> playing together',
@@ -96,7 +95,7 @@ export class SystemStore {
       'university-guitar': 'Become a guitar<br/> professional'
     };
     // @ts-ignore
-    return title[current] || '';
+    return title[this.currentServiceInstrument] || 'Not found';
   }
 
   @computed
@@ -116,7 +115,241 @@ export class SystemStore {
     };
 
     // @ts-ignore
-    return subTitle[this.current];
+    return subTitle[this.currentServiceInstrument] || 'Not found';
+  }
+
+  @computed
+  get header() {
+    const headers = {
+      'school-saxophone': 'This saxophone school is for you if:',
+      'school-keyboard': 'This keyboard school is for you if:',
+      'school-guitar': 'This guitar school is for you if:',
+
+      'college-saxophone': 'This saxophone college is for you if:',
+      'college-keyboard': 'This keyboard college is for you if:',
+      'college-guitar': 'This guitar college is for you if:',
+
+      'university-saxophone': 'This saxophone university is for you if:',
+      'university-keyboard': 'This keyboard university is for you if:',
+      'university-guitar': 'This guitar university is for you if:'
+    };
+
+    // @ts-ignore
+    return headers[this.currentServiceInstrument] || '';
+  }
+
+
+  @computed
+  get columns() {
+    const columns = {
+      'school-guitar': [
+        'You already know ho to hold the guitar in your hands, but understand that it is not enough.',
+        'You can play several chords and want to move further.',
+        'You want to play your favorite songs and compose your own ones.'
+      ],
+      'school-keyboard': [
+        'You already know ho to hold the guitar in your hands, but understand that it is not enough.',
+        'You can play several chords and want to move further.',
+        'You want to play your favorite songs and compose your own ones.'
+      ],
+      'school-saxophone': [
+        'You already know ho to hold the guitar in your hands, but understand that it is not enough.',
+        'You can play several chords and want to move further.',
+        'You want to play your favorite songs and compose your own ones.'
+      ],
+
+      'college-guitar': [
+        'You want to play the guitar more consciously and technically',
+        'You are thinking about obtaining systematic knowledge',
+        'You strive to create new music using new methods and ways'
+      ],
+      'college-keyboard': [
+        'You want to play the keyboard more consciously and technically',
+        'You are thinking about obtaining systematic knowledge',
+        'You strive to create new music using new methods and ways'
+      ],
+      'college-saxophone': [
+        'You want to play the saxophone more consciously and technically',
+        'You are thinking about obtaining systematic knowledge',
+        'You strive to create new music using new methods and ways'
+      ],
+
+      'university-guitar': [
+        'Your guitar level is alreday high enough, but you feel that you\'ve hit the сeiling and can\'t move further to become a true professional',
+        'You are willing to enhance your theoretical and practical guitar knowledge to the maximum extent',
+        'You want to learn how to instantly improvise and compose absolutely unique music'
+      ],
+      'university-keyboard': [
+        'Your keyboard level is alreday high enough, but you feel that you\'ve hit the сeiling and can\'t move further to become a true professional',
+        'You are willing to enhance your theoretical and practical keyboard knowledge to the maximum extent',
+        'You want to learn how to instantly improvise and compose absolutely unique music'
+      ],
+      'university-saxophone': [
+        'Your saxophone level is alreday high enough, but you feel that you\'ve hit the сeiling and can\'t move further to become a true professional',
+        'You are willing to enhance your theoretical and practical saxophone knowledge to the maximum extent',
+        'You want to learn how to instantly improvise and compose absolutely unique music'
+      ]
+    };
+
+    // @ts-ignore
+    return columns[this.currentServiceInstrument] || [];
+  }
+
+  @computed
+  get playingImage() {
+    const data = {
+      'school-saxophone': 'playing-saxophone-school',
+      'school-keyboard': 'playing-keyboard-school',
+      'school-guitar': 'playing-guitar-school',
+
+      'college-saxophone': 'playing-saxophone-college',
+      'college-keyboard': 'playing-keyboard-college',
+      'college-guitar': 'playing-guitar-college',
+
+      'university-saxophone': 'playing-saxophone-university',
+      'university-keyboard': 'playing-keyboard-university',
+      'university-guitar': 'playing-guitar-university'
+    };
+
+    // @ts-ignore
+    return data[this.currentServiceInstrument] || '';
+  }
+
+  @computed
+  get headerPlaying() {
+    const data = {
+      school: 'The beginning of a bright music journey ',
+      college: 'Pursuing the bright music future',
+      university: 'Pursuing the bright music future'
+    };
+
+    // @ts-ignore
+    return data[this.service_name] || '';
+  }
+
+  @computed
+  get textPlaying() {
+    const data = {
+      'school-saxophone': [
+        'MUSICABINET | SAXOPHONE SCHOOL is made for those, who are eager to get high quality fundamental music education as fast as possible.',
+        'It is for those, who want to invest their time & money into the future smartly without having to spend the last dime on it. '
+      ],
+      'school-keyboard': [
+        'MUSICABINET | KEYS SCHOOL is made for those, who are eager to get high quality fundamental music education as fast as possible.',
+        'It is for those, who want to invest their time & money into the future smartly without having to spend the last dime on it. '
+      ],
+      'school-guitar': [
+        'MUSICABINET | GUITAR SCHOOL is made for those, who are eager to get high quality fundamental music education as fast as possible.',
+        'It is for those, who want to invest their time & money into the future smartly without having to spend the last dime on it. '
+      ],
+
+      'college-saxophone': [
+        'MUSICABINET | SAXOPHONE COLLEGE was created for those who want to get a fundamental musical education quickly and efficiently.',
+        'This is a story for someone who is ready to wisely invest their time in their future, without giving up the last shirt.'
+      ],
+      'college-keyboard': [
+        'MUSICABINET | KEYBOARD COLLEGE was created for those who want to get a fundamental musical education quickly and efficiently.',
+        'This is a story for someone who is ready to wisely invest their time in their future, without giving up the last shirt.'
+      ],
+      'college-guitar': [
+        'MUSICABINET | GUITAR COLLEGE was created for those who want to get a fundamental musical education quickly and efficiently.',
+        'This is a story for someone who is ready to wisely invest their time in their future, without giving up the last shirt.'
+      ],
+
+      'university-saxophone': [
+        'MUSICABINET | SAXOPHONE UNIVERSITY is made for those, who are striving to get the most out of fundamental music education in a systematic way.',
+        'It is for those, who want to invest time & money into the future smartly in order to fullfill the dream of becoming a true professional.'
+      ],
+      'university-keyboard': [
+        'MUSICABINET | KEYBOARD UNIVERSITY is made for those, who are striving to get the most out of fundamental music education in a systematic way.',
+        'It is for those, who want to invest time & money into the future smartly in order to fullfill the dream of becoming a true professional.\n'
+      ],
+      'university-guitar': [
+        'MUSICABINET | GUITAR UNIVERSITY is made for those, who are striving to get the most out of fundamental music education in a systematic way.',
+        'It is for those, who want to invest time & money into the future smartly in order to fullfill the dream of becoming a true professional.'
+      ]
+    };
+
+    // @ts-ignore
+    return data[this.currentServiceInstrument] || [];
+  }
+
+  @computed
+  get familiarHeader() {
+    const data = {
+      school: 'Get familiar with MUSICABINET | SCHOOL within 14 days',
+      college: 'Get familiar with MUSICABINET | COLLEGE within 14 days',
+      university: 'Get familiar with MUSICABINET | UNIVERSITY within 14 days'
+    };
+
+    // @ts-ignore
+    return data[this.service_name] || '';
+  }
+
+  @computed
+  get aboutService() {
+    const data = {
+      school: [{
+        count: 3,
+        title: 'courses',
+        description: 'Consists of 3 courses.  There are 6 modules in each course.'
+      }, {
+        count: 149,
+        title: 'lessons',
+        description: 'A total of 149 lessons for studying music theory and practical exercises'
+      }, {
+        count: 45,
+        title: 'backing tracks',
+        description: 'Practice to consolidate the knowledge gained or just for fun :-)'
+      }],
+      college: [{
+        count: 4,
+        title: 'courses',
+        description: 'Consists of 4 courses from simple to complex. Each course includes 4 modules.'
+      }, {
+        count: 192,
+        title: 'lessons',
+        description: 'A total of 192 lessons for learning music theory and practice'
+      }, {
+        count: 75,
+        title: 'backing tracks',
+        description: 'Practice to consolidate the knowledge gained or just for fun :-)'
+      }],
+      university: [{
+        count: 7,
+        title: 'courses',
+        description: 'Consists of 7 courses (from simple to complex).  There are 5 educational modules and 2 improvisational modules in each course.'
+      }, {
+        count: 1001,
+        title: 'lessons',
+        description: 'A total of 1001 lessons for studying music theory and practical exercises'
+      }, {
+        count: '300+',
+        title: 'backing tracks',
+        description: 'Practice to consolidate the knowledge gained to become a real professional'
+      }]
+    };
+
+    // @ts-ignore
+    return data[this.currentServiceInstrument] || [];
+  }
+
+
+  @computed
+  get gadgetImage() {
+    const paths = {
+      school: '/images/gadjects/school-gadjects',
+      college: '/images/gadjects/school-gadjects',
+      university: '/images/gadjects/school-gadjects'
+    };
+
+    // @ts-ignore
+    return paths[this.currentServiceInstrument] || '';
+  }
+
+  @computed
+  get currentServiceInstrument(): string {
+    return `${this.serviceNameLowerCase}-${this.instrument_name}`;
   }
 
   @action

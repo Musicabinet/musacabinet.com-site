@@ -1,0 +1,27 @@
+@import "../../../../stylesheets/index"
+
+.fourth-block
+  position: relative
+  background: $white
+  padding: 100px 0
+
+  &__header
+    margin: 0 0 50px
+
+  &__list
+    padding: 0
+    margin: 30px 0 0
+    list-style-position: inside
+
+  &__item
+    padding: 0
+    margin: 0 0 15px
+    @include fontMontserrat(18px)
+    line-height: 30px
+
+    &:last-child
+      margin-bottom: 0
+
+    &::marker
+      padding: 0
+      margin: 0
