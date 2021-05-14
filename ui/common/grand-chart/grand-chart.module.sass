@@ -15,15 +15,18 @@
     #{$root}__header
       justify-content: center
       margin-right: 0
+      flex-direction: column
 
       #{$root}__logotype
         flex: 0 0 auto
         margin-right: 10px
 
       &:after
-        content: 'Cooming soon'
+        content: 'Cooming soon...'
         display: flex
         color: $white
+        font-weight: 600
+        margin: 15px 0 0
 
 
   &_loading
