@@ -2,6 +2,16 @@ import { action, computed, makeObservable, observable } from 'mobx';
 import { SERVICE_NAME } from '../constants';
 import { LIST_ICON } from '../ui/common/icons';
 
+export interface AboutServiceItemI {
+  count: number | string,
+  title: string,
+  description: string
+}
+
+export interface AboutService {
+  [key: string]: AboutServiceItemI[]
+}
+
 export class SystemStore {
 
   @observable service_id = 0;
@@ -288,7 +298,7 @@ export class SystemStore {
 
   @computed
   get aboutService() {
-    const data = {
+    const data: AboutService = {
       school: [{
         count: 3,
         title: 'courses',
@@ -331,7 +341,7 @@ export class SystemStore {
     };
 
     // @ts-ignore
-    return data[this.currentServiceInstrument] || [];
+    return data[this.service_name] || [];
   }
 
 

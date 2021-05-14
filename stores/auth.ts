@@ -84,6 +84,9 @@ export class AuthStore implements AuthI {
 
   @action.bound
   async login(data: LoginRequestI) {
+
+    alert('click')
+
     try {
 
       const { access_token, user } = await API.request<LoginResponse>(`auth/sign-in`, {
@@ -95,7 +98,6 @@ export class AuthStore implements AuthI {
       this.fillingAfterSign(user, access_token);
 
     } catch (e) {
-
       this.notificationsStore.add({
         id: this.notificationsStore.generateID(),
         type: NOTIFICATION_TYPE.ERROR,

@@ -1,6 +1,7 @@
 @import "../../../../stylesheets/index"
 
 .fifth-block
+  $root: &
   position: relative
   background: $gray70
   padding: 100px 0
@@ -9,4 +10,40 @@
     @include fontMontserrat(22px)
     line-height: 35px
     margin: 50px 0
+    color: $white
+
+  &__item
+    border-left: 1px solid transparent
+    padding: 0 15px 0 40px
+    display: flex
+    flex-direction: column
+
+    &_school
+      border-color: $school
+
+      #{$root}__count, #{$root}__title
+        color: $school
+
+    &_college
+      border-color: $college
+
+      #{$root}__count, #{$root}__title
+        color: $college
+
+    &_university
+      border-color: $university
+
+      #{$root}__count, #{$root}__title
+        color: $university
+
+  &__count, &__title
+    @include fontMontserrat(42px, 700)
+    line-height: 53px
+
+  &__title
+    margin-bottom: 80px
+
+  &__description
+    margin-top: auto
+    line-height: 26px
     color: $white
