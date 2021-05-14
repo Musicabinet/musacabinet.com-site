@@ -354,7 +354,7 @@ export class SystemStore {
     };
 
     // @ts-ignore
-    return paths[this.currentServiceInstrument] || '';
+    return paths[this.service_name] || '';
   }
 
   @computed

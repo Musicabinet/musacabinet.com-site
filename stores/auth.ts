@@ -84,11 +84,7 @@ export class AuthStore implements AuthI {
 
   @action.bound
   async login(data: LoginRequestI) {
-
-    alert('click')
-
     try {
-
       const { access_token, user } = await API.request<LoginResponse>(`auth/sign-in`, {
         method: METHODS_REQUEST.POST,
         body: API.getFormData(data)

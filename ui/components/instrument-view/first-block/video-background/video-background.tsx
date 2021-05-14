@@ -17,6 +17,7 @@ export class VideoBackground extends React.Component<VideoBackgroundProps, Video
              autoPlay
              loop
              muted
+             playsInline
              poster={`/video-instruments/${url}.jpg`}
              className={b('player')}>
         <source src={`/video-instruments/${url}.mp4`} type='video/mp4' />
