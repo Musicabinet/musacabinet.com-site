@@ -5,6 +5,7 @@ import style from './first-block.module.sass';
 import { RootStore } from '../../../../stores';
 import { VideoBackground } from './video-background/video-background';
 import { ContentService } from './content-service/content-service';
+import ImageBackground from './image-background/image-background';
 
 const b = block(style);
 
@@ -34,13 +35,19 @@ export class FirstBlock extends React.Component<FirstBlockProps, FirstBlockState
         <ContentService />
       </VideoBackground>);
     } else {
-      return <div> not</div>;
+      return (<ImageBackground instrument={instrument_name}>
+        <ContentService/>
+      </ImageBackground>);
     }
   };
 
   render() {
     return (
-      <div className={b(null)}>First</div>
+      <div className={b(null)}>
+        <div className={b('container')}>
+          {this.getBackground()}
+        </div>
+      </div>
     );
   }
 }

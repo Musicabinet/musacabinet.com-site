@@ -8,7 +8,9 @@ export enum METHODS_REQUEST {
 export enum TITLE_SIZE {
   FIRST = 'first',
   SECOND = 'second',
-  THIRD = 'third'
+  THIRD = 'third',
+  FOURTH = 'fourth',
+  SERVICE_PAGE = 'service-page'
 }
 
 export enum SOCIAL_BUTTON_TYPE {
@@ -79,7 +81,7 @@ export const MAPPING_SERVICE_ID = {
   'college-saxophone': 2,
   'university-guitar': 3,
   'university-keyboard': 3,
-  'university-saxophone': 3,
+  'university-saxophone': 3
 };
 
 export const MAPPING_INSTRUMENT_ID = {

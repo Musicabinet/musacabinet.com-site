@@ -38,8 +38,8 @@ export class ContentService extends React.Component<ContentServiceProps, Content
     return (
       <div className={b(null)}>
         <picture className={b('logotype')}>
-          <source srcSet={`${service_name}.webp, ${service_name}@2x.webp 2x`} type='image/webp' />
-          <img src={`${service_name}.png`} srcSet={`${service_name}@2x.png 2x`} />
+          <source srcSet={`/images/logotype/${service_name}.webp, /images/logotype/${service_name}@2x.webp 2x`} type='image/webp' />
+          <img src={`/images/logotype/${service_name}.png`} srcSet={`/images/logotype/${service_name}@2x.png 2x`} />
         </picture>
 
         <div className={b('title')} dangerouslySetInnerHTML={{ __html: title }} />

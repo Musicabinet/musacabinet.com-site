@@ -2,7 +2,7 @@ import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import { CustomAppContext } from '../../../interfaces';
 import { BaseLayout } from '../../../ui';
-import { MAPPING_INSTRUMENT_ID, MAPPING_SERVICE_ID } from '../../../constants';
+import { MAPPING_INSTRUMENT_ID, MAPPING_SERVICE_ID, SERVICE_NAME } from '../../../constants';
 import { InstrumentView } from '../../../ui/components';
 
 
@@ -17,8 +17,7 @@ export default class InstrumentPage extends React.Component<InstrumentPageProps,
     const { service, instrument } = query;
     await store?.authStore.check();
 
-    // @ts-ignore
-    store?.systemStore.setServiceName(String(service).toUpperCase());
+    store?.systemStore.setServiceName(service as SERVICE_NAME);
     store?.systemStore.setInstrumentName(String(instrument));
 
     const key = `${service}-${instrument}`;

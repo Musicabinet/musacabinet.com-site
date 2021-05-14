@@ -4,6 +4,15 @@
   position: relative
   @include fontMontserrat()
 
+  &_school
+    color: $school
+
+  &_college
+    color: $college
+
+  &_university
+    color: $university
+
   &_first
     font-size: 60px
     font-weight: 700
@@ -15,7 +24,7 @@
 
   &_second
     font-size: 48px
-    font-weight: 800
+    font-weight: 700
     line-height: 43.88px
 
     @include breakpoint-phone
@@ -26,3 +35,12 @@
     font-size: 36px
     font-weight: 700
     line-height: 50px
+
+  &_service-page
+    @include fontMontserrat(42px, 700)
+    line-height: 56px
+
+  &_fourth
+    font-size: 22px
+    line-height: 30px
+
