@@ -4,7 +4,7 @@ import block from 'bem-css-modules';
 import style from './sixth-block.module.sass';
 import { RootStore } from '../../../../stores';
 import { SERVICE_NAME, TITLE_SIZE } from '../../../../constants';
-import { Paragraph, Title } from '../../../common';
+import { ButtonFreeTrial, Paragraph, Title } from '../../../common';
 
 const b = block(style);
 
@@ -54,6 +54,12 @@ export class SixthBlock extends React.Component<SixthBlockProps, SixthBlockState
             </div>
             <div className='col-lg-8 offset-lg-2'>
               <Title size={TITLE_SIZE.SERVICE_PAGE} className={b('title')}>Join us, if you're serious about education</Title>
+            </div>
+          </div>
+
+          <div className='row'>
+            <div className='col-lg-12 d-flex justify-content-center'>
+              <ButtonFreeTrial />
             </div>
           </div>
         </div>

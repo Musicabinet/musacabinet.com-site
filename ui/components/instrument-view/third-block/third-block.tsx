@@ -4,7 +4,7 @@ import block from 'bem-css-modules';
 import style from './third-block.module.sass';
 import { RootStore } from '../../../../stores';
 import { SERVICE_NAME, TITLE_SIZE } from '../../../../constants';
-import { Title } from '../../../common';
+import { ButtonFreeTrial, Title } from '../../../common';
 
 const b = block(style);
 
@@ -48,6 +48,12 @@ export class ThirdBlock extends React.Component<ThirdBlockProps, ThirdBlockState
                 <li className={b('item')}>Study every day</li>
                 <li className={b('item')}>You will feel the results in a week</li>
               </ul>
+            </div>
+          </div>
+
+          <div className='row'>
+            <div className='col-lg-12 d-flex justify-content-center'>
+              <ButtonFreeTrial />
             </div>
           </div>
         </div>
