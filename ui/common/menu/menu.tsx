@@ -60,6 +60,12 @@ export class Menu extends React.Component<MenuProps, MenuState> {
     });
   };
 
+  handleOnCloseMobileMenu = () => {
+    this.setState({
+      showMobileMenu: false
+    });
+  };
+
   render() {
     const { list } = this.props;
     const { showMobileMenu } = this.state;
@@ -77,7 +83,8 @@ export class Menu extends React.Component<MenuProps, MenuState> {
                                 link={item.link}
                                 type={item.type}
                                 is_active={item.is_active}
-                                children={item.children} />);
+                                children={item.children}
+                                onCloseMobile={this.handleOnCloseMobileMenu} />);
             })}
           </ul>
         </nav>

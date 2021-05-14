@@ -7,6 +7,7 @@ import SecondBlock from './second-block/second-block';
 import { ThirdBlock } from './third-block/third-block';
 import { FourthBlock } from './fourth-block/fourth-block';
 import { FifthBlock } from './fifth-block/fifth-block';
+import { SixthBlock } from './sixth-block/sixth-block';
 
 const b = block(style);
 
@@ -28,6 +29,7 @@ export class InstrumentView extends React.Component<InstrumentViewProps, Instrum
           <ThirdBlock />
           <FourthBlock />
           <FifthBlock />
+          <SixthBlock />
         </div>
       </div>
     );

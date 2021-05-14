@@ -1,0 +1,61 @@
+@import "../../../../stylesheets/index"
+
+.sixth-block
+  position: relative
+  padding: 50px 0 100px
+
+  &_school
+    background: $school
+
+  &_college
+    background: $college
+
+  &_university
+    background: $university
+
+  &__header
+    @include fontMontserrat(42px, 700)
+    line-height: 56px
+    margin: 0 0 50px
+    padding: 0
+    color: $white
+
+  &__header
+    color: $white
+
+  &__description
+    font-size: 22px
+    line-height: 30px
+    color: $white
+
+  &__picture
+    position: relative
+    display: flex
+    justify-content: flex-end
+    left: 100px
+    top: -100px
+
+    @include breakpoint-phone
+      left: auto
+      top: auto
+      justify-content: flex-start
+
+    img
+      display: flex
+
+      @include breakpoint-phone
+        width: 100%
+        height: 100%
+        object-fit: cover
+
+  &__title
+    @include fontMontserrat(42px, 700)
+    text-align: center
+    margin: 0 auto 40px
+    padding: 0
+    width: 600px
+    color: $white
+
+    @include breakpoint-phone
+      width: 100%
+      margin-top: 15px
