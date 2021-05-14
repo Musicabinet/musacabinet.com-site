@@ -18,6 +18,9 @@
     display: flex
     flex-direction: column
 
+    @include breakpoint-phone
+      margin-bottom: 45px
+
     &_school
       border-color: $school
 
@@ -43,11 +46,13 @@
   &__title
     margin-bottom: 80px
 
+    @include breakpoint-phone
+      margin-bottom: 20px
+
   &__description
     margin-top: auto
     line-height: 26px
     color: $white
-
 
   &__grand-chart
     display: flex
