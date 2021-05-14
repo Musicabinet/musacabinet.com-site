@@ -2,8 +2,8 @@ import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import block from 'bem-css-modules';
 import style from './group-lesson-view.module.sass';
-import { RootStore } from '../../../../../stores';
-import { GroupLessonI } from '../../../../../interfaces/group-lesson';
+import { RootStore } from '../../../../stores';
+import { GroupLessonI } from '../../../../interfaces';
 import { GroupLessonViewItem } from './item';
 
 const b = block(style);

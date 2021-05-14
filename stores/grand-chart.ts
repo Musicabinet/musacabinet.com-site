@@ -7,6 +7,9 @@ import { GrandChartResponse } from '../responsible';
 
 export class GrandChartStore {
 
+  @observable isFetch: boolean = false;
+  @observable isEmpty: boolean = false;
+
   @observable courses: CourseI[] = [];
   @observable modules: ModuleI[] = [];
   @observable collections: CollectionI[] = [];
@@ -29,7 +32,13 @@ export class GrandChartStore {
 
   @action.bound
   async getList() {
+
+    this.isFetch = true;
+
     try {
+
+      this.reset();
+
       const {
         courses,
         modules,
@@ -52,20 +61,34 @@ export class GrandChartStore {
         formationGroupLessons[key].push(group_lesson);
       });
 
-      this.finalData = formationGroupLessons;
-      this.courses = courses;
-      this.modules = modules;
-      this.collections = collections;
-      this.groupLessons = group_lessons;
+      this.finalData = JSON.parse(JSON.stringify(formationGroupLessons));
+      this.courses = [...courses];
+      this.modules = [...modules];
+      this.collections = [...collections];
+      this.groupLessons = [...group_lessons];
 
+      this.isEmpty = (this.modules.length === 0);
+
+      console.log('record grand chart', this.modules.length);
     } catch (e) {
       console.error(`Error in method GrandChartStore.getList : `, e);
+    } finally {
+      this.isFetch = false;
     }
   }
 
   @action.bound
   setShowGroupLessonDetail(show: boolean = true) {
     this.showGroupLessonDetail = show;
+  }
+
+  @action.bound
+  reset() {
+    this.finalData = {};
+    this.courses = [];
+    this.modules = [];
+    this.collections = [];
+    this.groupLessons = [];
   }
 
   @computed
@@ -79,7 +102,13 @@ export class GrandChartStore {
 
   @action
   fillingStore(data: GrandChartStore) {
-    const {} = data;
+    const { courses, modules, collections, groupLessons, finalData } = data;
+
+    this.courses = courses;
+    this.modules = modules;
+    this.collections = collections;
+    this.groupLessons = groupLessons;
+    this.finalData = finalData;
   }
 
 }

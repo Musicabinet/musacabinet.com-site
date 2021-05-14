@@ -1,12 +1,42 @@
-@import "../../../../stylesheets/index"
+@import "../../../stylesheets/index"
 
 .grand-chart
+  $root: &
   position: relative
   background: #E5E5E5
   //flex: 1
   overflow: auto
   padding-right: 40px
   padding-bottom: 20px
+
+  &_isEmpty
+    flex: 1
+
+    #{$root}__header
+      justify-content: center
+      margin-right: 0
+
+      #{$root}__logotype
+        flex: 0 0 auto
+        margin-right: 10px
+
+      &:after
+        content: 'Cooming soon'
+        display: flex
+        color: $white
+
+
+  &_loading
+    flex: 1
+
+    #{$root}__header
+      justify-content: center
+
+      &:after
+        display: none !important
+
+  &_is_transparent
+    background: transparent
 
   &__header
     height: 80px

@@ -2,10 +2,10 @@ import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import block from 'bem-css-modules';
 import style from './modules.module.sass';
-import { RootStore } from '../../../../../stores';
-import { ModuleI } from '../../../../../interfaces';
+import { RootStore } from '../../../../stores';
+import { ModuleI } from '../../../../interfaces';
 import { ModuleItem } from './item';
-import { SERVICE_NAME } from '../../../../../constants';
+import { SERVICE_NAME } from '../../../../constants';
 
 const b = block(style);
 
@@ -32,6 +32,8 @@ export class Modules extends React.Component<ModulesProps, ModulesState> {
 
   render() {
     const { list, service_name, selected_module_id } = this.props;
+
+    console.log('render', list, list.length);
 
     return (
       <div className={b(null, { [service_name]: true })}>

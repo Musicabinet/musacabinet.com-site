@@ -26,8 +26,13 @@ export default class InstrumentPage extends React.Component<InstrumentPageProps,
     // @ts-ignore
     const instrumentID = MAPPING_INSTRUMENT_ID[key];
 
+    // @ts-ignore
+    store?.systemStore.setInstrumentIcon(String(instrument).toUpperCase());
+    store?.systemStore.setInstrumentName(String(instrument));
     store?.systemStore.setServiceId(serviceID);
     store?.systemStore.setInstrumentId(instrumentID);
+
+    await store?.grandChartStore.getList();
 
     return {
       title: 'Online music school. Comprehensive music education. ',

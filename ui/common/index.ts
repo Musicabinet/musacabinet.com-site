@@ -25,3 +25,4 @@ export { InstrumentIcon } from './instrument-icon/instrument-icon';
 export { Paragraph } from './paragraph/paragraph';
 export { StudyAt } from './study-at/study-at';
 export { VolumeControl } from './volume-control/volume-control';
+export { GrandChart } from './grand-chart/grand-chart';

@@ -2,9 +2,8 @@ import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import block from 'bem-css-modules';
 import style from './group-lessons.module.sass';
-import { RootStore } from '../../../../../stores';
-import { CourseI, ModuleI } from '../../../../../interfaces';
-import { GroupLessonsFinal } from '../../../../../interfaces/group-lesson';
+import { RootStore } from '../../../../stores';
+import { CourseI, ModuleI, GroupLessonsFinal } from '../../../../interfaces';
 import { GroupLessonItem } from './item';
 
 const b = block(style);
@@ -19,7 +18,7 @@ type GroupLessonsState = {};
 @inject((store: RootStore) => ({
   course_list: store.grandChartStore.courses,
   module_list: store.grandChartStore.modules,
-  list: store.grandChartStore.finalData,
+  list: store.grandChartStore.finalData
 }))
 @observer
 export class GroupLessons extends React.Component<GroupLessonsProps, GroupLessonsState> {
