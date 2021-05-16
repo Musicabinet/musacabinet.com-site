@@ -364,13 +364,20 @@ export class SystemStore {
 
   @action
   fillingStore(data: SystemStore) {
-    const { service_id, service_name, instrument_id, instrument_name, instrument_icon } = data;
+    const {
+      service_id, service_name, instrument_id, instrument_name, instrument_icon,
+      selected_collection_id, selected_course_id, selected_group_lesson_id, selected_module_id
+    } = data;
 
     this.service_id = service_id;
     this.service_name = service_name;
     this.instrument_id = instrument_id;
     this.instrument_name = instrument_name;
     this.instrument_icon = instrument_icon;
+    this.selected_collection_id = selected_collection_id;
+    this.selected_course_id = selected_course_id;
+    this.selected_group_lesson_id = selected_group_lesson_id;
+    this.selected_module_id = selected_module_id;
   }
 
 }

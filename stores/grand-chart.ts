@@ -1,7 +1,6 @@
 import { action, computed, makeObservable, observable } from 'mobx';
 import { SystemStore } from './system';
-import { CollectionI, CourseI, ModuleI } from '../interfaces';
-import { GroupLessonI, GroupLessonsFinal } from '../interfaces/group-lesson';
+import { CollectionI, CourseI, ModuleI, GroupLessonI, GroupLessonsFinal  } from '../interfaces';
 import { API } from '../core';
 import { GrandChartResponse } from '../responsible';
 
@@ -69,7 +68,6 @@ export class GrandChartStore {
 
       this.isEmpty = (this.modules.length === 0);
 
-      console.log('record grand chart', this.modules.length);
     } catch (e) {
       console.error(`Error in method GrandChartStore.getList : `, e);
     } finally {
