@@ -74,7 +74,7 @@ export class AccompanimentItem extends React.Component<AccompanimentItemProps & 
 
         {
           (service_name === SERVICE_NAME.SCHOOL)
-            ? selected_name_track
+            ? `${name} - ${selected_name_track}`
             : name
         }
 
