@@ -258,6 +258,17 @@ export class LessonStore implements LessonI {
   }
 
   @computed
+  get currentSubTitleScore(): string {
+    const current = this.scores[this.currentScore];
+
+    if (current && Array.isArray(current.items) && current.items[0] && current.items[0].content.title) {
+      return current.items[0].content.title;
+    }
+
+    return '';
+  }
+
+  @computed
   get currentContentChart(): ChartI | null {
     return this.charts[this.currentScore] || null;
   }
@@ -266,11 +277,11 @@ export class LessonStore implements LessonI {
   get scoresImages(): ScoreItemStore[] {
     const scoresCopy = [...this.scores];
 
-    if(Array.isArray(scoresCopy) && scoresCopy.length > 0){
+    if (Array.isArray(scoresCopy) && scoresCopy.length > 0) {
       return scoresCopy[this.currentScore].items.filter((item) => item.score_type_id === SCORE_TYPE.IMAGE);
     }
 
-    return []
+    return [];
   }
 
 

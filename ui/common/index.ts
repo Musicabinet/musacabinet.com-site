@@ -27,3 +27,4 @@ export { StudyAt } from './study-at/study-at';
 export { VolumeControl } from './volume-control/volume-control';
 export { GrandChart } from './grand-chart/grand-chart';
 export { ButtonFreeTrial } from './button-free-trial/button-free-trial';
+export { Switcher } from './switcher/switcher';
