@@ -2,7 +2,8 @@ import { action, computed, makeObservable, observable } from 'mobx';
 import { SystemStore } from './system';
 import { LessonStore } from './lesson';
 import * as Tone from 'tone';
-import { LibraryType } from '../constants';
+import { LibraryTrackType, LibraryType } from '../constants';
+import { LibraryTrackI } from '../interfaces';
 
 interface ImportStore {
   systemStore: SystemStore,
@@ -40,6 +41,17 @@ export class PlayerStore {
     }
   }
 
+  getMuteTrack = (track: LibraryTrackI): boolean => {
+    if (track.type === LibraryTrackType.BASS) {
+      return this.bassMute;
+    } else if (track.type === LibraryTrackType.DRUMS) {
+      return this.drumsMute;
+    } else if (track.type === LibraryTrackType.KEYBOARDS) {
+      return this.keysMute;
+    }
+    return false;
+  };
+
   @action.bound
   loadTrack() {
 
@@ -76,6 +88,7 @@ export class PlayerStore {
         new Tone.Player({
           url: `${CONTENT_URL}${track.path}`,
           loop: true,
+          mute: this.getMuteTrack(track),
           volume: -12, // -100 0
           onload: () => {
             this.setDurationTime(this.player[0].buffer.duration);
@@ -107,7 +120,6 @@ export class PlayerStore {
 
   @action.bound
   init() {
-    console.log(this.lessonStore.accompaniments);
   }
 
   @action.bound
