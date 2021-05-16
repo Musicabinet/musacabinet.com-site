@@ -70,6 +70,11 @@ export enum SCORE_TYPE {
   IMAGE = 2
 }
 
+export enum CHART_TYPE {
+  TITLE = 1,
+  IMAGE = 2
+}
+
 export * from './modals';
 
 export const MAPPING_SERVICE_ID = {

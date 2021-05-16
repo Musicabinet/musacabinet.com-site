@@ -2,6 +2,7 @@ import { ScoreI } from './score';
 import { AccompanimentI } from './accompaniment';
 import { GroupLessonStore } from '../stores/group-lesson';
 import { BreadcrumbsI } from './breadcrumbs';
+import { ChartI } from './chart';
 
 export interface LessonI {
   id: number,
@@ -17,6 +18,7 @@ export interface LessonI {
   duration_minute: number,
   is_active: boolean,
   scores: ScoreI[],
+  charts: ChartI[],
   group_lesson?: GroupLessonStore | undefined,
   accompaniments: AccompanimentI[],
   breadcrumbs: BreadcrumbsI[]

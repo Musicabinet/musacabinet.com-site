@@ -7,6 +7,8 @@ import { AccompanimentStore } from './accompaniment';
 import { SystemStore } from './system';
 import { METHODS_REQUEST, SCORE_TYPE } from '../constants';
 import { ScoreItemStore } from './score-item';
+import { ChartI } from '../interfaces/chart';
+import { ChartStore } from './chart';
 
 interface ImportStore {
   systemStore: SystemStore,
@@ -27,6 +29,7 @@ export class LessonStore implements LessonI {
   @observable duration_minute = 0;
   @observable is_active = false;
   @observable scores: ScoreI[] = [];
+  @observable charts: ChartI[] = [];
   @observable group_lesson: GroupLessonStore | undefined = undefined;
   @observable accompaniments: AccompanimentI[] = [];
   @observable breadcrumbs: BreadcrumbsI[] = [];
@@ -255,6 +258,11 @@ export class LessonStore implements LessonI {
   }
 
   @computed
+  get currentContentChart(): ChartI | null {
+    return this.charts[this.currentScore] || null;
+  }
+
+  @computed
   get scoresImages(): ScoreItemStore[] {
     const scoresCopy = [...this.scores];
 
@@ -264,6 +272,7 @@ export class LessonStore implements LessonI {
 
     return []
   }
+
 
   @computed
   get totalScoresImages(): number {
@@ -285,7 +294,7 @@ export class LessonStore implements LessonI {
   @action
   fillingStore(data: LessonStore | LessonI) {
     const {
-      id, uuid, group_lesson_id, sort, slug, group_lesson, scores, accompaniments,
+      id, uuid, group_lesson_id, sort, slug, group_lesson, scores, charts, accompaniments,
       meta_title, meta_description, meta_keywords, name, description, duration_minute, is_active, breadcrumbs,
       lesson_list, prevModuleLesson, nextModuleLesson, selected_accompaniment
     } = data;
@@ -304,6 +313,7 @@ export class LessonStore implements LessonI {
     this.is_active = is_active;
     this.group_lesson = (group_lesson) ? new GroupLessonStore(group_lesson) : undefined;
     this.scores = (scores || []).map((score) => new ScoreStore(score));
+    this.charts = (charts || []).map((chart) => new ChartStore(chart));
     this.accompaniments = (accompaniments || []).map((accompaniment) => new AccompanimentStore(accompaniment));
     this.breadcrumbs = [...breadcrumbs];
     this.lesson_list = (lesson_list || []);
