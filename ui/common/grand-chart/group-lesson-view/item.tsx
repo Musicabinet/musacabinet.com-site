@@ -5,8 +5,9 @@ import style from './group-lesson-view.module.sass';
 import { RootStore } from '../../../../stores';
 import { GroupLessonI } from '../../../../interfaces';
 import { SERVICE_NAME } from '../../../../constants';
-import * as moment from "moment"
+import * as moment from 'moment';
 import { Lessons } from './lessons/lessons';
+import { getIcon, LIST_ICON } from '../../icons';
 
 const b = block(style);
 
@@ -54,7 +55,7 @@ export class GroupLessonViewItem extends React.Component<GroupLessonViewItemProp
       })}>
         <div className={b('back', { show: isFirst })}
              onClick={this.handleOnBack}>
-
+          {getIcon(LIST_ICON.BACK, '')}
         </div>
 
         <div className={b('body')}>
