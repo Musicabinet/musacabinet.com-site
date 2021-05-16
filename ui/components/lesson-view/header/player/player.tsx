@@ -11,10 +11,13 @@ import { ButtonComposition } from './button-composition/button-composition';
 import { VolumeControl } from '../../../../common';
 import { Divider } from './divider/divider';
 import { Metronome } from './metronome/metronome';
+import { SERVICE_NAME } from '../../../../../constants';
 
 const b = block(style);
 
 type PlayerProps = {
+  service_name: SERVICE_NAME,
+  isLoading: boolean,
   init: () => void,
   noMR: boolean,
   selected_accompaniment: number,
@@ -23,6 +26,8 @@ type PlayerProps = {
 type PlayerState = {};
 
 @inject((store: RootStore) => ({
+  service_name: store.systemStore.service_name,
+  isLoading: store.playerStore.isFetch,
   init: store.playerStore.init,
   selected_accompaniment: store.lessonStore.selected_accompaniment,
   onSetVolume: store.playerStore.setVolume
@@ -31,6 +36,8 @@ type PlayerState = {};
 export class Player extends React.Component<PlayerProps, PlayerState> {
 
   static defaultProps = {
+    service_name: SERVICE_NAME.SCHOOL,
+    isLoading: false,
     init: () => console.log('Not set handler'),
     noMR: false,
     selected_accompaniment: 0,
@@ -56,10 +63,13 @@ export class Player extends React.Component<PlayerProps, PlayerState> {
 
   render() {
     const { volume } = this.state;
-    const { noMR } = this.props;
+    const { service_name, noMR, isLoading } = this.props;
 
     return (
-      <div className={b(null, { noMR })}>
+      <div className={b(null, { noMR, [service_name]: true })}>
+        <div className={b('loading', { show: isLoading })}>
+          Loading track <span>.</span><span>.</span><span>.</span>
+        </div>
         <Toolbar />
         <div className={b('container')}>
           <BackTrack />

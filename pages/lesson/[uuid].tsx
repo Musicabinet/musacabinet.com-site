@@ -7,12 +7,16 @@ import { redirectToWrapper } from '../../core';
 import { RootStore } from '../../stores';
 
 type LessonPageProps = {
+  uuid: string,
+  isFetch: boolean,
   onLoadTrack: () => void,
   onSetFirstLibrary: () => void
 };
 type LessonPageState = {};
 
 @inject((store: RootStore) => ({
+  uuid: store.lessonStore.uuid,
+  isFetch: store.lessonStore.isFetch,
   onLoadTrack: store.playerStore.loadTrack,
   onSetFirstLibrary: store.playerStore.setFirstLibrary
 }))
@@ -36,15 +40,43 @@ export default class LessonPage extends React.Component<LessonPageProps, LessonP
       // @ts-ignore
       store?.systemStore.setInstrumentIcon(instrument_name.toUpperCase());
 
+      // Course id
+      if (store?.lessonStore.group_lesson?.collections?.course_id) {
+        store?.systemStore.setCourseId(store?.lessonStore.group_lesson?.collections?.course_id);
+      }
+
+      // Module id
+      if (store?.lessonStore.group_lesson?.collections?.module_id) {
+        store?.systemStore.setModuleId(store?.lessonStore.group_lesson?.collections?.module_id);
+      }
+
+      // Group lesson id
+      if (store?.lessonStore.group_lesson?.id) {
+        store?.systemStore.setGroupLessonId(store?.lessonStore.group_lesson?.id);
+      }
+
       await store?.lessonStore.getModuleMapping();
     }
     return {};
   }
 
+  static defaultProps = {
+    uuid: '',
+    isFetch: false
+  };
+
   componentDidMount() {
     const { onLoadTrack, onSetFirstLibrary } = this.props;
     onSetFirstLibrary();
     onLoadTrack();
+  }
+
+  componentDidUpdate() {
+    if (!this.props.isFetch) {
+      const { onLoadTrack, onSetFirstLibrary } = this.props;
+      onSetFirstLibrary();
+      onLoadTrack();
+    }
   }
 
   render() {

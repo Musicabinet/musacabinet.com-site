@@ -16,6 +16,8 @@ interface ImportStore {
 
 export class LessonStore implements LessonI {
 
+  @observable isFetch: boolean = false;
+
   @observable id = 0;
   @observable uuid = '';
   @observable group_lesson_id: number | undefined = undefined;
@@ -58,6 +60,9 @@ export class LessonStore implements LessonI {
 
   @action.bound
   async get(uuid: string) {
+
+    this.isFetch = true;
+
     try {
       const response = await API.request<LessonI>(`lessons/${uuid}`);
       this.fillingStore(response);
@@ -68,6 +73,8 @@ export class LessonStore implements LessonI {
       }
     } catch (e) {
       console.error(`Error im method LessonStore.get : `, e);
+    } finally {
+      this.isFetch = false;
     }
   }
 

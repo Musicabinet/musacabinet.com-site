@@ -12,6 +12,8 @@ interface ImportStore {
 
 export class PlayerStore {
 
+  @observable isFetch: boolean = false;
+
   @observable is_playing: boolean = false;
   @observable bpm: number = 0;
   @observable selected_library_id: number = 0;
@@ -55,47 +57,57 @@ export class PlayerStore {
   @action.bound
   loadTrack() {
 
-    this.current_percent = 0;
+    this.isFetch = true;
 
-    // Останавливаем все треки
-    this.onStop();
+    try {
+      // Останавливаем все треки
+      this.onStop();
 
-    // Очищаем плеер
-    this.player = [];
+      // Очищаем плеер
+      this.player = [];
 
-    const selected_accompaniment = this.lessonStore.selected_accompaniment;
-    if (selected_accompaniment === 0) {
-      console.warn(`Not selected accompaniment`);
-      return false;
+      const selected_accompaniment = this.lessonStore.selected_accompaniment;
+      if (selected_accompaniment === 0) {
+        console.warn(`Not selected accompaniment`);
+        return false;
+      }
+      const current_accompaniment = this.lessonStore.accompaniments.find((accompaniment) => accompaniment.id === selected_accompaniment);
+      // Получаем треки
+      const current_library = (current_accompaniment)
+        ? current_accompaniment.libraries.find((library) => library.id === this.selected_library_id)
+        : null;
+
+      if (!current_library) {
+        console.warn(`Not selected current library`);
+        return null;
+      }
+
+      // Записываем тип
+      this.library_type = current_library.type;
+
+      // В зависимости от типа загружаем дорожку
+      current_library.tracks.forEach((track) => {
+        this.player.push(
+          new Tone.Player({
+            url: `${CONTENT_URL}${track.path}`,
+            loop: true,
+            mute: this.getMuteTrack(track),
+            volume: -12, // -100 0
+            onload: () => {
+              this.setDurationTime(this.player[0].buffer.duration);
+              this.isFetch = false;
+            }
+          }).toDestination()
+        );
+      });
+
+      this.current_percent = 0;
+    } catch (e) {
+      console.error(`Error in method loadTrack : `, e);
+    } finally {
+
     }
-    const current_accompaniment = this.lessonStore.accompaniments.find((accompaniment) => accompaniment.id === selected_accompaniment);
-    // Получаем треки
-    const current_library = (current_accompaniment)
-      ? current_accompaniment.libraries.find((library) => library.id === this.selected_library_id)
-      : null;
 
-    if (!current_library) {
-      console.warn(`Not selected current library`);
-      return null;
-    }
-
-    // Записываем тип
-    this.library_type = current_library.type;
-
-    // В зависимости от типа загружаем дорожку
-    current_library.tracks.forEach((track) => {
-      this.player.push(
-        new Tone.Player({
-          url: `${CONTENT_URL}${track.path}`,
-          loop: true,
-          mute: this.getMuteTrack(track),
-          volume: -12, // -100 0
-          onload: () => {
-            this.setDurationTime(this.player[0].buffer.duration);
-          }
-        }).toDestination()
-      );
-    });
   }
 
   @action.bound
@@ -106,6 +118,7 @@ export class PlayerStore {
   @action.bound
   setFirstLibrary() {
     const selected_accompaniment = this.lessonStore.selected_accompaniment;
+
     if (selected_accompaniment === 0) {
       console.warn(`Not selected accompaniment`);
       return false;
