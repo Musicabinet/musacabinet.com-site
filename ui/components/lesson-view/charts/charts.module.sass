@@ -1,0 +1,52 @@
+@import "../../../../stylesheets/index"
+
+.charts
+  position: relative
+  padding: 20px 30px 70px
+
+  &__header
+    position: relative
+
+  &__information
+    position: relative
+
+  &__title
+    text-align: center
+    @include fontFuturaMedium(35px)
+    color: $gray60
+    padding: 0
+    margin-bottom: 20px
+    line-height: 45px
+
+  &__image
+    width: 100%
+    display: block
+    object-fit: contain
+    cursor: pointer
+
+    &_is_college
+      position: relative
+
+  &__sub-title
+    @include fontFuturaDemic(22px)
+    color: $gray60
+    padding: 0
+    margin-top: 20px
+
+    &_left
+      text-align: left
+
+    &_right
+      text-align: right
+
+    &_center
+      text-align: center
+
+  &__list
+    position: relative
+
+    &_school
+      position: relative
+
+    &_college
+      position: relative
