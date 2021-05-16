@@ -4,19 +4,28 @@ import block from 'bem-css-modules';
 import style from './lessons.module.sass';
 import { LessonI } from '../../../../../interfaces';
 import { LessonItem } from './item';
+import { RootStore } from '../../../../../stores';
 
 const b = block(style);
 
 type LessonsProps = {
+  selected_uuid: string,
   list: LessonI[]
 };
 type LessonsState = {};
 
-@inject(() => ({}))
+@inject((store: RootStore) => ({
+  selected_uuid: store.lessonStore.uuid
+}))
 @observer
 export class Lessons extends React.Component<LessonsProps, LessonsState> {
+
+  static defaultProps = {
+    selected_uuid: ''
+  };
+
   render() {
-    const { list } = this.props;
+    const { selected_uuid, list } = this.props;
 
     return (
       <div className={b(null)}>
@@ -24,7 +33,7 @@ export class Lessons extends React.Component<LessonsProps, LessonsState> {
           return (
             <LessonItem key={lesson.id}
                         id={lesson.id}
-                        isActive={false}
+                        isActive={(lesson.uuid === selected_uuid)}
                         uuid={lesson.uuid}
                         group_lesson_id={lesson.group_lesson_id}
                         sort={lesson.sort}
