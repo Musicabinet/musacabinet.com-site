@@ -31,6 +31,7 @@
     cursor: pointer
     background: transparent
     border-radius: 10px
+    border: 2px solid transparent
 
     &_school
       position: relative
@@ -42,13 +43,7 @@
         color: $school
 
       &:hover
-        background: $school
-
-        #{$root}__id
-          color: $white
-
-        #{$root}__fill
-          stroke: $white
+        border-color: $school
 
     &_college
       position: relative
@@ -60,13 +55,7 @@
         color: $college
 
       &:hover
-        background: $college
-
-        #{$root}__id
-          color: $white
-
-        #{$root}__fill
-          stroke: $white
+        border-color: $college
 
     &_active-school
       background: $school
@@ -97,7 +86,7 @@
     position: relative
     width: 40px
     height: 40px
-    margin: 3px 0 0 3px
+    margin: 1px 0 0 1px
 
   &__circle
     stroke-dasharray: 0 113
