@@ -41,7 +41,7 @@ export class AccompanimentItem extends React.Component<AccompanimentItemProps & 
     isShow: false
   };
 
-  handleOnClick = () => {
+  handleOnClick = (e: React.FormEvent<HTMLDivElement>) => {
     const { service_name, id, selected, libraries, onSetLibrary, onLoadTrack, onChoose } = this.props;
 
     if (selected) {
@@ -50,7 +50,7 @@ export class AccompanimentItem extends React.Component<AccompanimentItemProps & 
 
     if (selected) {
       // Закрываем окно
-      this.handleOnToggle();
+      this.handleOnToggle(e);
     }
 
     if (service_name !== SERVICE_NAME.SCHOOL && Array.isArray(libraries) && libraries.length > 0) {
@@ -61,10 +61,17 @@ export class AccompanimentItem extends React.Component<AccompanimentItemProps & 
     onChoose(id);
   };
 
-  handleOnToggle = () => this.setState((state) => ({ isShow: !state.isShow }));
+  handleOnToggle = (e: React.FormEvent<HTMLButtonElement> | React.FormEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+    this.setState((state) => ({ isShow: !state.isShow }));
+  };
+
+  handleOnClose = () => {
+    this.setState({ isShow: false });
+  };
 
   render() {
-    const { service_name, selected, libraries, name, selected_name_track } = this.props;
+    const { service_name, selected, libraries, name } = this.props;
     const { isShow } = this.state;
 
     return (
@@ -74,7 +81,7 @@ export class AccompanimentItem extends React.Component<AccompanimentItemProps & 
 
         {
           (service_name === SERVICE_NAME.SCHOOL)
-            ? `${name} - ${selected_name_track}`
+            ? `${name}`
             : name
         }
 
@@ -84,7 +91,7 @@ export class AccompanimentItem extends React.Component<AccompanimentItemProps & 
                     onClick={this.handleOnToggle} />
             <TrackList show={isShow}
                        list={libraries}
-                       onCloseList={this.handleOnToggle} />
+                       onCloseList={this.handleOnClose} />
           </>
         )}
       </div>
