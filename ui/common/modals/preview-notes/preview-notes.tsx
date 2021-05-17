@@ -6,6 +6,7 @@ import { RootStore } from '../../../../stores';
 import { Modal } from '../../modal/modal';
 import { Player } from '../../../components/lesson-view/header/player/player';
 import { MODALS, SERVICE_NAME } from '../../../../constants';
+import { AccompanimentI } from '../../../../interfaces';
 
 const b = block(style);
 
@@ -17,8 +18,11 @@ type PreviewNotesProps = {
   previewCurrentNumber: number,
   hasPrevScoreImage: boolean,
   hasNextScoreImage: boolean,
+  accompaniments: AccompanimentI[],
   onCloseModal: (id_modal: MODALS) => void,
-  setCurrentPreviewScoreIndex: (score_preview_index: number) => void
+  setCurrentPreviewScoreIndex: (score_preview_index: number) => void,
+  onChooseAccompaniment: (id: number) => void,
+  onLoadTrack: () => void
 };
 type PreviewNotesState = {};
 
@@ -30,8 +34,11 @@ type PreviewNotesState = {};
   previewCurrentNumber: store.lessonStore.currentPreviewScoreIndex,
   hasPrevScoreImage: store.lessonStore.hasPrevScoreImage,
   hasNextScoreImage: store.lessonStore.hasNextScoreImage,
+  accompaniments: store.lessonStore.accompaniments,
   setCurrentPreviewScoreIndex: store.lessonStore.setCurrentPreviewScoreIndex,
   onCloseModal: store.modalsStore.close,
+  onChooseAccompaniment: store.lessonStore.setAccompaniment,
+  onLoadTrack: store.playerStore.loadTrack
 }))
 @observer
 export class PreviewNotes extends React.Component<PreviewNotesProps, PreviewNotesState> {
@@ -44,8 +51,11 @@ export class PreviewNotes extends React.Component<PreviewNotesProps, PreviewNote
     previewCurrentNumber: 0,
     hasPrevScoreImage: false,
     hasNextScoreImage: false,
+    accompaniments: [],
     onCloseModal: () => console.log('Not set handler'),
-    setCurrentPreviewScoreIndex: () => console.log('Not set handler')
+    setCurrentPreviewScoreIndex: () => console.log('Not set handler'),
+    onChooseAccompaniment: () => console.log('Not set handler'),
+    onLoadTrack: () => console.log('Not set handler')
   };
 
   handleOnClose = () => {
@@ -54,8 +64,15 @@ export class PreviewNotes extends React.Component<PreviewNotesProps, PreviewNote
   };
 
   handleOnSetCurrentPreviewScoreIndex = (previewCurrentNumber: number) => {
-    const { setCurrentPreviewScoreIndex } = this.props;
+    const { setCurrentPreviewScoreIndex, accompaniments, onChooseAccompaniment, onLoadTrack } = this.props;
     setCurrentPreviewScoreIndex(previewCurrentNumber);
+
+    if (previewCurrentNumber) {
+      if (accompaniments[previewCurrentNumber]) {
+        onChooseAccompaniment(accompaniments[previewCurrentNumber].id);
+        onLoadTrack();
+      }
+    }
   };
 
   render() {

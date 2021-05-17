@@ -13,6 +13,7 @@ interface ImportStore {
 export class PlayerStore {
 
   @observable isFetch: boolean = false;
+  @observable isDisabled: boolean = false;
 
   @observable is_playing: boolean = false;
   @observable bpm: number = 0;
@@ -57,6 +58,7 @@ export class PlayerStore {
   @action.bound
   loadTrack() {
 
+    this.isDisabled = false;
     this.isFetch = true;
 
     try {
@@ -69,6 +71,7 @@ export class PlayerStore {
       const selected_accompaniment = this.lessonStore.selected_accompaniment;
 
       if (selected_accompaniment === 0) {
+        this.isFetch = false;
         console.warn(`Not selected accompaniment`);
         return false;
       }
@@ -85,6 +88,8 @@ export class PlayerStore {
 
 
       if (!current_library) {
+        this.isDisabled = true;
+        this.isFetch = false;
         console.warn(`Not selected current library`);
         return null;
       }
@@ -95,21 +100,42 @@ export class PlayerStore {
       // Записываем тип
       this.library_type = current_library.type;
 
-      // В зависимости от типа загружаем дорожку
-      current_library.tracks.forEach((track) => {
-        this.player.push(
-          new Tone.Player({
-            url: `${CONTENT_URL}${track.path}`,
-            loop: true,
-            mute: this.getMuteTrack(track),
-            volume: -12, // -100 0
-            onload: () => {
-              this.setDurationTime(this.player[0].buffer.duration);
+      let promise_list: any[] = [];
+
+      if (current_library.tracks.length > 0) {
+        // В зависимости от типа загружаем дорожку
+        current_library.tracks.forEach((track) => {
+          promise_list.push(
+            new Promise((resolve, reject) => {
+              this.player.push(
+                new Tone.Player({
+                  url: `${CONTENT_URL}${track.path}`,
+                  loop: true,
+                  mute: this.getMuteTrack(track),
+                  volume: -12, // -100 0
+                  onload: () => {
+                    this.setDurationTime(this.player[0].buffer.duration);
+                    resolve(1);
+                  },
+                  onerror: () => {
+                    reject();
+                  }
+                }).toDestination()
+              );
+            })
+          );
+
+
+          Promise.all(promise_list).then((result) => {
+            if (this.player.length === result.length) {
               this.isFetch = false;
             }
-          }).toDestination()
-        );
-      });
+          });
+        });
+      } else {
+        this.isFetch = false;
+      }
+
 
       this.current_percent = 0;
     } catch (e) {
@@ -149,7 +175,6 @@ export class PlayerStore {
   onPlay() {
     Tone.Transport.stop();
     Tone.Transport.cancel(0);
-
     let now = Tone.now();
     Tone.Transport.start(now);
     this.player.forEach((player) => {

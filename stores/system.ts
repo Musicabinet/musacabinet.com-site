@@ -1,5 +1,5 @@
 import { action, computed, makeObservable, observable } from 'mobx';
-import { SERVICE_NAME } from '../constants';
+import { SERVICE_ID, SERVICE_NAME, SERVICE_SECOND_NEXT_MODULE } from '../constants';
 import { LIST_ICON } from '../ui/common/icons';
 
 export interface AboutServiceItemI {
@@ -360,6 +360,17 @@ export class SystemStore {
   @computed
   get currentServiceInstrument(): string {
     return `${this.serviceNameLowerCase}-${this.instrument_name}`;
+  }
+
+  @computed
+  get secondNextModule() {
+    if(this.service_id){
+      if([SERVICE_ID.SCHOOL, SERVICE_ID.COLLEGE, SERVICE_ID.UNIVERSITY].includes(this.service_id)){
+        // @ts-ignore
+        return SERVICE_SECOND_NEXT_MODULE[this.service_id]
+      }
+    }
+
   }
 
   @action

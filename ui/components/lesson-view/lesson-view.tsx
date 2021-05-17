@@ -8,6 +8,7 @@ import { Method } from './method/method';
 import { RootStore } from '../../../stores';
 import { SERVICE_NAME } from '../../../constants';
 import { Charts } from './charts/charts';
+import { NextModule } from '../../common';
 
 const b = block(style);
 
@@ -30,18 +31,20 @@ export class LessonView extends React.Component<LessonViewProps, LessonViewState
     const { service_name } = this.props;
 
     return (
-      <div className={b(null)}>
-        <Header />
-
-        <div className={b('content')}>
-          <div className={b('left')}>
-            {(service_name !== SERVICE_NAME.SCHOOL) ? <Charts /> : <Scores />}
-          </div>
-          <div className={b('right')}>
-            <Method />
+      <>
+        <div className={b(null)}>
+          <Header />
+          <div className={b('content')}>
+            <div className={b('left')}>
+              {(service_name !== SERVICE_NAME.SCHOOL) ? <Charts /> : <Scores />}
+            </div>
+            <div className={b('right')}>
+              <Method />
+            </div>
           </div>
         </div>
-      </div>
+        <NextModule />
+      </>
     );
   }
 }
