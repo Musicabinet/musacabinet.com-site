@@ -14,6 +14,7 @@ import { LessonProgressStore } from './lesson-progress';
 import { InstrumentsStore } from './instruments';
 import { MetronomeStore } from './metronome';
 import { NextModuleStore } from './next-module';
+import { WebsocketStore } from './websocket';
 
 const isServer = typeof window === 'undefined';
 enableStaticRendering(isServer);
@@ -38,6 +39,7 @@ export class RootStore {
   public instrumentsStore: InstrumentsStore;
   public metronomeStore: MetronomeStore;
   public nextModule: NextModuleStore;
+  public websocketStore: WebsocketStore;
 
 
   constructor(initialData: RootStore | null) {
@@ -53,6 +55,10 @@ export class RootStore {
     this.userStore = new UserStore(
       initialData && initialData.userStore ? initialData.userStore : null
     );
+
+    this.websocketStore = new WebsocketStore({
+      userStore: this.userStore
+    });
 
     this.notificationsStore = new NotificationsStore(
       initialData && initialData.notificationsStore ? initialData.notificationsStore : null
@@ -77,8 +83,10 @@ export class RootStore {
     );
 
     this.lessonStore = new LessonStore(
-      initialData && initialData.lessonStore ? initialData.lessonStore : null,
-      { systemStore: this.systemStore }
+      initialData && initialData.lessonStore ? initialData.lessonStore : null, {
+        systemStore: this.systemStore,
+        websocketStore: this.websocketStore
+      }
     );
 
     this.playerStore = new PlayerStore(
@@ -93,7 +101,8 @@ export class RootStore {
     this.lessonProgress = new LessonProgressStore(
       initialData && initialData.lessonProgress ? initialData.lessonProgress : null,
       {
-        lessonStore: this.lessonStore
+        lessonStore: this.lessonStore,
+        websocketStore: this.websocketStore
       }
     );
 
