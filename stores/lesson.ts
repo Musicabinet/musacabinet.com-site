@@ -81,6 +81,11 @@ export class LessonStore implements LessonI {
   @action.bound
   async getVideo(id_video: number) {
     try {
+
+      if (!id_video) {
+        return false;
+      }
+
       const response = await API.request(`scores/get-video`, {
         method: METHODS_REQUEST.POST,
         body: API.getFormData({
@@ -164,6 +169,14 @@ export class LessonStore implements LessonI {
     return (currentScoreImage && currentScoreImage.content && currentScoreImage.content.image)
       ? currentScoreImage.content.image
       : '';
+  }
+
+  @computed
+  get showPreviewScoreId(): number {
+    const currentScoreImage = this.scoresImages[this.currentPreviewScoreIndex];
+    return (currentScoreImage && currentScoreImage.content && currentScoreImage.content.image)
+      ? currentScoreImage.id
+      : 0;
   }
 
   @computed

@@ -3,7 +3,7 @@ import { inject, observer } from 'mobx-react';
 import block from 'bem-css-modules';
 import style from './scores.module.sass';
 import { RootStore } from '../../../../stores';
-import { ScoreI } from '../../../../interfaces';
+import { AccompanimentI, ScoreI } from '../../../../interfaces';
 import { MODALS, SCORE_TYPE, SERVICE_NAME } from '../../../../constants';
 
 const b = block(style);
@@ -14,8 +14,11 @@ type ScoresProps = {
   nextScore: boolean,
   prevScore: boolean,
   currentContentScore: ScoreI | null,
+  accompaniments: AccompanimentI[],
   onShowPreview: (score_image_id: number) => void,
-  onShowModal: (id_modal: MODALS) => void
+  onShowModal: (id_modal: MODALS) => void,
+  onChooseAccompaniment: (id: number) => void,
+  onLoadTrack: () => void
 };
 type ScoresState = {};
 
@@ -25,8 +28,11 @@ type ScoresState = {};
   nextScore: store.lessonStore.scoresHasNext,
   prevScore: store.lessonStore.scoresHasPrev,
   currentContentScore: store.lessonStore.currentContentScore,
+  accompaniments: store.lessonStore.accompaniments,
   onShowPreview: store.lessonStore.showPreviewScore,
-  onShowModal: store.modalsStore.show
+  onShowModal: store.modalsStore.show,
+  onChooseAccompaniment: store.lessonStore.setAccompaniment,
+  onLoadTrack: store.playerStore.loadTrack
 }))
 @observer
 export class Scores extends React.Component<ScoresProps, ScoresState> {
@@ -37,14 +43,33 @@ export class Scores extends React.Component<ScoresProps, ScoresState> {
     nextScore: false,
     prevScore: false,
     currentContentScore: null,
+    accompaniments: [],
     onShowPreview: () => console.log('Not set handler'),
-    onShowModal: () => console.log('Not set handler')
+    onShowModal: () => console.log('Not set handler'),
+    onChooseAccompaniment: () => console.log('Not set handler'),
+    onLoadTrack: () => console.log('Not set handler')
   };
 
   handleOnShow = (score_image_id: number) => {
-    const { onShowPreview, onShowModal } = this.props;
+    const {
+      currentContentScore, accompaniments, onShowPreview, onShowModal,
+      onChooseAccompaniment, onLoadTrack
+    } = this.props;
+
     onShowPreview(score_image_id);
     onShowModal(MODALS.PREVIEW_NOTES);
+
+    // Получаем индекс выбранной партитуры
+    const findIndex = currentContentScore?.items
+      .filter((item) => item.score_type_id === SCORE_TYPE.IMAGE)
+      .findIndex((score) => score.id === score_image_id);
+
+    if (findIndex) {
+      if (accompaniments[findIndex]) {
+        onChooseAccompaniment(accompaniments[findIndex].id);
+        onLoadTrack();
+      }
+    }
   };
 
   render() {

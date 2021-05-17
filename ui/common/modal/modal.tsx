@@ -8,7 +8,7 @@ const b = block(style);
 type ModalProps = {
   isOpen: boolean,
   onClose: () => void,
-  size: 'middle' | 'large',
+  size: 'middle' | 'large' | 'small',
   auto: boolean
 };
 type ModalState = {};

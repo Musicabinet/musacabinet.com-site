@@ -96,3 +96,8 @@ export const MAPPING_INSTRUMENT_ID = {
   'college-guitar': 3
 };
 
+export const SERVICE_SECOND_NEXT_MODULE = {
+  [SERVICE_ID.SCHOOL]: 300,
+  [SERVICE_ID.COLLEGE]: 600,
+  [SERVICE_ID.UNIVERSITY]: 900
+}

@@ -79,7 +79,7 @@ export class Method extends React.Component<MethodProps, MethodState> {
             </>)}
         </div>
 
-        {(!isNotes && video_iframe && (
+        {(!isNotes && video_iframe && currentContentScore?.video_url && (
           <div className={`${b(null)} embed-container`}
                dangerouslySetInnerHTML={{ __html: video_iframe }} />
         ))}
