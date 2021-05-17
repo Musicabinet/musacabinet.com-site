@@ -26,7 +26,7 @@ export class WebsocketStore {
 
         if (this.connect) {
           console.log(`Exist connection.`);
-          resolve();
+          resolve(`Exist connection.`);
         }
 
         // Подключаемся к WS
@@ -36,7 +36,7 @@ export class WebsocketStore {
         this.connection.onopen = () => {
           console.log(`[OPEN] Success connection.`);
           this.connect = true;
-          resolve();
+          resolve(`[OPEN] Success connection.`);
         };
 
         // Закрываем соедеинение
