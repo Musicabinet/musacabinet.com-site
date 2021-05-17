@@ -22,7 +22,7 @@ export interface LessonI {
   group_lesson?: GroupLessonStore | undefined,
   accompaniments: AccompanimentI[],
   breadcrumbs: BreadcrumbsI[]
-  progress_second?: number,
+  progress_second: number,
   lesson_list: LessonListI[],
   prevModuleLesson?: null | string,
   nextModuleLesson?: null | string,

@@ -340,7 +340,7 @@ export class LessonStore implements LessonI {
     const {
       id, uuid, group_lesson_id, sort, slug, group_lesson, scores, charts, accompaniments,
       meta_title, meta_description, meta_keywords, name, description, duration_minute, is_active, breadcrumbs,
-      lesson_list, prevModuleLesson, nextModuleLesson, selected_accompaniment
+      lesson_list, prevModuleLesson, nextModuleLesson, selected_accompaniment, progress_second
     } = data;
 
     this.id = id;
@@ -361,6 +361,7 @@ export class LessonStore implements LessonI {
     this.accompaniments = (accompaniments || []).map((accompaniment) => new AccompanimentStore(accompaniment));
     this.breadcrumbs = [...breadcrumbs];
     this.lesson_list = (lesson_list || []);
+    this.progress_second = progress_second;
 
     this.prevModuleLesson = prevModuleLesson || null;
     this.nextModuleLesson = nextModuleLesson || null;

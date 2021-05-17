@@ -48,7 +48,8 @@ export class Lessons extends React.Component<LessonsProps, LessonsState> {
                         scores={lesson.scores}
                         charts={lesson.charts}
                         accompaniments={lesson.accompaniments}
-                        lesson_list={lesson.lesson_list} />
+                        lesson_list={lesson.lesson_list}
+                        progress_second={lesson.progress_second} />
           );
         })}
       </div>
