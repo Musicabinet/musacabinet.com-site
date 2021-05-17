@@ -9,9 +9,11 @@ import { METHODS_REQUEST, SCORE_TYPE } from '../constants';
 import { ScoreItemStore } from './score-item';
 import { ChartI } from '../interfaces/chart';
 import { ChartStore } from './chart';
+import { WebsocketStore } from './websocket';
 
 interface ImportStore {
   systemStore: SystemStore,
+  websocketStore: WebsocketStore
 }
 
 export class LessonStore implements LessonI {
@@ -48,10 +50,12 @@ export class LessonStore implements LessonI {
   @observable currentPreviewScorePath: string = '';
 
   public systemStore: SystemStore;
+  public websocketStore: WebsocketStore;
 
-  constructor(initialData: LessonStore | null, { systemStore }: ImportStore) {
+  constructor(initialData: LessonStore | null, { systemStore, websocketStore }: ImportStore) {
     makeObservable(this);
     this.systemStore = systemStore;
+    this.websocketStore = websocketStore;
 
     if (initialData) {
       this.fillingStore(initialData);
@@ -161,6 +165,15 @@ export class LessonStore implements LessonI {
   @action.bound
   setCurrentPreviewScoreIndex(score_image_index: number) {
     this.currentPreviewScoreIndex = score_image_index;
+  }
+
+  @action.bound
+  incrementProgress() {
+    try {
+      this.progress_second += 1;
+    } catch (e) {
+      console.error(`Error in method incrementProgress : `, e);
+    }
   }
 
   @computed

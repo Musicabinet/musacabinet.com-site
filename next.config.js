@@ -10,7 +10,8 @@ const nextConfig = withImage({
         CURRENT_DOMAIN: JSON.stringify(process.env.CURRENT_DOMAIN),
         DOMAIN_URL: JSON.stringify(process.env.DOMAIN_URL),
         API_URL: JSON.stringify(process.env.API_URL),
-        CONTENT_URL: JSON.stringify(process.env.CONTENT_URL)
+        CONTENT_URL: JSON.stringify(process.env.CONTENT_URL),
+        WEBSOCKET_URL: JSON.stringify(process.env.WEBSOCKET_URL),
       })
     );
 

@@ -11,16 +11,20 @@ const b = block(style);
 type PlayProps = {
   service_name: SERVICE_NAME,
   status: boolean,
+  connect: boolean,
   onStart: () => void,
   onStop: () => void,
+  onInit: () => void
 };
 type PlayState = {};
 
 @inject((store: RootStore) => ({
   service_name: store.systemStore.service_name,
+  connect: store.websocketStore.connect,
   status: store.lessonProgress.timer,
   onStart: store.lessonProgress.start,
-  onStop: store.lessonProgress.stop
+  onStop: store.lessonProgress.stop,
+  onInit: store.lessonProgress.init
 }))
 @observer
 export class Play extends React.Component<PlayProps, PlayState> {
@@ -28,9 +32,18 @@ export class Play extends React.Component<PlayProps, PlayState> {
   static defaultProps = {
     service_name: SERVICE_NAME.SCHOOL,
     status: false,
+    connect: false,
     onStart: () => console.log('Not set handler'),
-    onStop: () => console.log('Not set handler')
+    onStop: () => console.log('Not set handler'),
+    onInit: () => console.log('Not set handler')
   };
+
+  async componentDidUpdate(prevProps: Readonly<PlayProps>) {
+    if(this.props.connect && this.props.connect !== prevProps.connect){
+      const {onInit} = this.props;
+      await onInit();
+    }
+  }
 
   handleOnChangeToggle = (e: React.FormEvent<HTMLButtonElement>) => {
     e.stopPropagation();

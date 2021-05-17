@@ -10,7 +10,10 @@ type LessonPageProps = {
   uuid: string,
   isFetch: boolean,
   onLoadTrack: () => void,
-  onSetFirstLibrary: () => void
+  onSetFirstLibrary: () => void,
+  onInitWebSocket: () => Promise<void>,
+  onSendMessageWebSocket: (data: {}) => void,
+  onDisconnectWebSocket: () => void
 };
 type LessonPageState = {};
 
@@ -18,7 +21,10 @@ type LessonPageState = {};
   uuid: store.lessonStore.uuid,
   isFetch: store.lessonStore.isFetch,
   onLoadTrack: store.playerStore.loadTrack,
-  onSetFirstLibrary: store.playerStore.setFirstLibrary
+  onSetFirstLibrary: store.playerStore.setFirstLibrary,
+  onInitWebSocket: store.websocketStore.init,
+  onSendMessageWebSocket: store.websocketStore.sendMessage,
+  onDisconnectWebSocket: store.websocketStore.disconnect
 }))
 @observer
 export default class LessonPage extends React.Component<LessonPageProps, LessonPageState> {
@@ -62,21 +68,39 @@ export default class LessonPage extends React.Component<LessonPageProps, LessonP
 
   static defaultProps = {
     uuid: '',
-    isFetch: false
+    isFetch: false,
+    onInitWebSocket: () => console.log('Not set handler'),
+    onSendMessageWebSocket: () => console.log('Not set handler'),
+    onDisconnectWebSocket: () => console.log('Not set handler')
   };
 
-  componentDidMount() {
-    const { onLoadTrack, onSetFirstLibrary } = this.props;
+  async componentDidMount() {
+    const { uuid, onLoadTrack, onSetFirstLibrary, onInitWebSocket, onSendMessageWebSocket } = this.props;
     onSetFirstLibrary();
     onLoadTrack();
+    await onInitWebSocket();
+    onSendMessageWebSocket({ uuid });
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps: LessonPageProps) {
     if (!this.props.isFetch) {
       const { onLoadTrack, onSetFirstLibrary } = this.props;
       onSetFirstLibrary();
       onLoadTrack();
     }
+
+    const { uuid, onSendMessageWebSocket } = this.props;
+    if (prevProps.uuid !== uuid) {
+      // Устанавливаем трек
+      onSendMessageWebSocket({
+        uuid
+      });
+    }
+  }
+
+  componentWillUnmount() {
+    const { onDisconnectWebSocket } = this.props;
+    onDisconnectWebSocket();
   }
 
   render() {
