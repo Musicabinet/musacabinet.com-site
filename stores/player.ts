@@ -67,20 +67,30 @@ export class PlayerStore {
       this.player = [];
 
       const selected_accompaniment = this.lessonStore.selected_accompaniment;
+
       if (selected_accompaniment === 0) {
         console.warn(`Not selected accompaniment`);
         return false;
       }
       const current_accompaniment = this.lessonStore.accompaniments.find((accompaniment) => accompaniment.id === selected_accompaniment);
+
       // Получаем треки
-      const current_library = (current_accompaniment)
+      let current_library = (current_accompaniment)
         ? current_accompaniment.libraries.find((library) => library.id === this.selected_library_id)
         : null;
+
+      if (!current_library && current_accompaniment) {
+        current_library = current_accompaniment.libraries[0];
+      }
+
 
       if (!current_library) {
         console.warn(`Not selected current library`);
         return null;
       }
+
+      // Записываем выбранный трек
+      this.selected_library_id = current_library.id;
 
       // Записываем тип
       this.library_type = current_library.type;
@@ -210,7 +220,6 @@ export class PlayerStore {
 
   @action.bound
   setVolume(value: number) {
-    console.log('value', value);
     this.player.forEach((player) => {
       player.volume.value = value;
     });

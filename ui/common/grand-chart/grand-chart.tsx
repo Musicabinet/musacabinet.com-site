@@ -48,6 +48,7 @@ export class GrandChart extends React.Component<GrandChartProps, GrandChartState
     return (
 
       <div className={b(null, { is_transparent, loading: isFetch, isEmpty })}>
+
         <header className={b('header')}>
           <div className={b('logotype')}>
             <InstrumentIcon service={service_name} icon={instrument_icon} />
