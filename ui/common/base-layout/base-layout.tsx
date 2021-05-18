@@ -6,6 +6,7 @@ import { ContainerMain } from '../container-main/container-main';
 
 type BaseLayoutProps = {
   background: 'default' | 'gray',
+  headerBackground: 'default' | 'gray',
   full: boolean,
   noStick: boolean
 };
@@ -17,6 +18,7 @@ export class BaseLayout extends React.Component<BaseLayoutProps, BaseLayoutState
 
   static defaultProps = {
     background: 'default',
+    headerBackground: 'default',
     full: false,
     noStick: false
   };

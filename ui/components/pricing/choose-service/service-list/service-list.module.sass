@@ -1,0 +1,57 @@
+@import "../../../../../stylesheets/index"
+
+.service-list
+  position: relative
+
+  &__item
+    position: relative
+    width: 300px
+    height: 300px
+    border-radius: 10px
+    box-shadow: 6px 6px 8px rgba(0, 0, 0, 0.25)
+    display: flex
+    flex-direction: column
+    align-items: center
+    justify-content: center
+    cursor: pointer
+    transition: all 0.2s
+    user-select: none
+    border: 4px solid transparent
+
+    &_selected
+      border-color: $white
+      box-shadow: inset 6px 6px 8px rgba(0, 0, 0, 0.5)
+
+    &_school
+      background: $school
+
+    &_college
+      background: $college
+
+    &_university
+      background: $university
+
+    &:active
+      transform: scale(0.97)
+
+  &__title
+    @include fontMontserrat(36px)
+    line-height: 43.88px
+    text-transform: uppercase
+    color: $white
+    padding: 2px 0 25px
+
+  &__icon
+    svg
+      width: 100px
+
+      path
+        stroke: $white
+
+  &__description
+    padding: 0 50px
+    text-align: center
+    color: $white
+    @include fontMontserrat(18px)
+    line-height: 25px
+

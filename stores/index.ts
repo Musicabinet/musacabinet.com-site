@@ -49,7 +49,8 @@ export class RootStore {
     );
 
     this.servicesStore = new ServicesStore(
-      initialData && initialData.servicesStore ? initialData.servicesStore : null
+      initialData && initialData.servicesStore ? initialData.servicesStore : null,
+      { systemStore: this.systemStore }
     );
 
     this.userStore = new UserStore(
