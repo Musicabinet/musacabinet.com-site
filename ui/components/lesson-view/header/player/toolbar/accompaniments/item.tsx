@@ -3,7 +3,6 @@ import { inject, observer } from 'mobx-react';
 import block from 'bem-css-modules';
 import style from './accompaniments.module.sass';
 import { AccompanimentI } from '../../../../../../../interfaces';
-import { TrackList } from './track-list/track-list';
 import { RootStore } from '../../../../../../../stores';
 import { SERVICE_NAME } from '../../../../../../../constants';
 
@@ -71,8 +70,7 @@ export class AccompanimentItem extends React.Component<AccompanimentItemProps & 
   };
 
   render() {
-    const { service_name, selected, libraries, name } = this.props;
-    const { isShow } = this.state;
+    const { service_name, selected, name } = this.props;
 
     return (
       <div className={b('item', { selected })}
@@ -85,7 +83,7 @@ export class AccompanimentItem extends React.Component<AccompanimentItemProps & 
             : name
         }
 
-        {(service_name === SERVICE_NAME.SCHOOL) && (
+        {/*{(service_name === SERVICE_NAME.SCHOOL) && (
           <>
             <button className={b('arrow')}
                     onClick={this.handleOnToggle} />
@@ -93,7 +91,7 @@ export class AccompanimentItem extends React.Component<AccompanimentItemProps & 
                        list={libraries}
                        onCloseList={this.handleOnClose} />
           </>
-        )}
+        )}*/}
       </div>
     );
   }
