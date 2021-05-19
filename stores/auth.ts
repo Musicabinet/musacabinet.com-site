@@ -146,6 +146,19 @@ export class AuthStore implements AuthI {
     }
   };
 
+  @action.bound
+  async signUp() {
+    try {
+      const response = await API.request<LoginResponse>(`auth/sign-up`);
+
+      // Заполнякем сторы
+      this.fillingAfterSign(response.user, response.access_token);
+
+    } catch (e) {
+      console.error(`Error in method signUp : `, e);
+    }
+  }
+
   @action
   fillingStore(data: AuthStore) {
     const { isAuth } = data;

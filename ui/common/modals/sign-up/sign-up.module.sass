@@ -1,0 +1,53 @@
+@import "../../../../stylesheets/index"
+
+.sign-in
+  position: relative
+
+  &__left, &__right
+    display: flex
+    flex-direction: column
+    height: 100%
+
+  &__left
+    background: $gray80
+    padding: 40px 30px 46.15px 50px
+
+    @include breakpoint-phone
+      padding: 20px
+
+  &__right
+    background: $white
+    padding: 50px 40px 60px
+
+  &__title
+    color: $white
+    margin-bottom: 35px
+
+    @include breakpoint-phone
+      text-align: center
+
+  &__icon
+    flex: 0 0 90px
+    margin-right: 20px
+
+  &__paragraph
+    color: $gold
+    padding-right: 15px
+
+  &__divider
+    height: 18px
+
+  &__footer
+    margin: 43px 0 0
+    @include fontMontserrat(14px)
+    line-height: 17px
+    color: $white
+
+  &__text-middle
+    @include fontMontserrat(14px)
+    line-height: 17.07px
+    display: flex
+    align-items: center
+    justify-content: center
+    padding: 30px 15px 40px
+    color: $gray50

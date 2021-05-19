@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import block from 'bem-css-modules';
-import style from '../sign-up/sign-up.module.sass';
+import style from './sign-up.module.sass';
 import { RootStore } from '../../../../stores';
 import { Modal } from '../../modal/modal';
 import { Title } from '../../title/title';
@@ -11,42 +11,42 @@ import GoogleLogin from 'react-google-login';
 import { FacebookClientResponsive } from '../../../../responsible';
 import { ButtonSocial } from '../../button-social/button-social';
 import { HrWithText } from '../../hr-with-text/hr-with-text';
-import { FormLogin } from '../../form-login/form-login';
 import { getIcon, LIST_ICON } from '../../icons';
+import { FormSignUp } from '../../form-sign-up/form-sign-up';
 
 const b = block(style);
 
-type SignInModalProps = {
+type SignUpModalProps = {
   show: boolean,
   isFetchFacebook: boolean,
-  onSignInFacebook: (data: FacebookClientResponsive) => void,
+  onSignUpFacebook: (data: FacebookClientResponsive) => void,
   onClose: (id_window: MODALS) => void
 };
-type SignInModalState = {};
+type SignUpModalState = {};
 
 @inject((store: RootStore) => ({
-  show: store.modalsStore.list[MODALS.SIGN_IN],
+  show: store.modalsStore.list[MODALS.SIGN_UP],
   isFetchFacebook: store.authStore.isFetchFacebook,
-  onSignInFacebook: store.authStore.loginFacebook,
+  onSignUpFacebook: store.authStore.loginFacebook,
   onClose: store.modalsStore.close
 }))
 @observer
-export class SignInModal extends React.Component<SignInModalProps, SignInModalState> {
+export class SignUpModal extends React.Component<SignUpModalProps, SignUpModalState> {
 
   static defaultProps = {
     show: false,
     isFetchFacebook: false,
-    onSignInFacebook: () => console.log('Not set handler'),
+    onSignUpFacebook: () => console.log('Not set handler'),
     onClose: () => console.log('Not set handler')
   };
 
   handleOnClose = () => {
     const { onClose } = this.props;
-    onClose(MODALS.SIGN_IN);
+    onClose(MODALS.SIGN_UP);
   };
 
   render() {
-    const { show, isFetchFacebook, onSignInFacebook } = this.props;
+    const { show, isFetchFacebook, onSignUpFacebook } = this.props;
 
 
     return (
@@ -102,7 +102,7 @@ export class SignInModal extends React.Component<SignInModalProps, SignInModalSt
                 <div className='row'>
                   <div className='col-12'>
                     <ReactFacebookLogin appId={'514163569493257'}
-                                        callback={onSignInFacebook}
+                                        callback={onSignUpFacebook}
                                         disableMobileRedirect
                                         isMobile={false}
                                         render={(renderProps) => {
@@ -151,7 +151,7 @@ export class SignInModal extends React.Component<SignInModalProps, SignInModalSt
                   </div>
                 </div>
 
-                <FormLogin />
+                <FormSignUp />
               </div>
             </div>
           </div>

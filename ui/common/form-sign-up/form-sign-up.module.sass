@@ -1,0 +1,54 @@
+@import "../../../stylesheets/index"
+
+.form-login
+  position: relative
+
+  &__space
+    position: relative
+
+    &_15
+      height: 15px
+
+    &_20
+      height: 20px
+
+  &__link
+    @include fontMontserrat(14px)
+    line-height: 17.07px
+    display: flex
+    background: transparent
+    border: 0
+    margin: 0 0 6.5px
+    color: $red50
+    padding: 6.5px 0 0
+    cursor: pointer
+    transition: all 0.2s
+    border-bottom: 1px solid $red50
+
+    &:hover
+      color: $red100
+      border-color: transparent
+
+  &__text
+    text-align: center
+    @include fontMontserrat(14px)
+    line-height: 17.07px
+    color: $gray50
+    padding: 6.5px 0
+
+  &__action
+    @include fontMontserrat(18px, 700)
+    line-height: 17.07px
+    display: flex
+    background: transparent
+    border: 0
+    margin: 0 0 6.5px
+    color: $red50
+    padding: 6.5px 0 0
+    cursor: pointer
+    transition: all 0.2s
+    border-bottom: 1px solid $red50
+
+    &:hover
+      color: $red100
+      border-bottom-color: transparent
