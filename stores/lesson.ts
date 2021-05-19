@@ -5,9 +5,9 @@ import { GroupLessonStore } from './group-lesson';
 import { ScoreStore } from './score';
 import { AccompanimentStore } from './accompaniment';
 import { SystemStore } from './system';
-import { METHODS_REQUEST, SCORE_TYPE } from '../constants';
+import { CHART_TYPE, METHODS_REQUEST, SCORE_TYPE } from '../constants';
 import { ScoreItemStore } from './score-item';
-import { ChartI } from '../interfaces/chart';
+import { ChartI, ChartItemI } from '../interfaces/chart';
 import { ChartStore } from './chart';
 import { WebsocketStore } from './websocket';
 
@@ -48,6 +48,10 @@ export class LessonStore implements LessonI {
   @observable currentScore: number = 0;
   @observable currentPreviewScoreIndex: number = 0;
   @observable currentPreviewScorePath: string = '';
+
+  @observable currentChart: number = 0;
+  @observable currentPreviewChartIndex: number = 0;
+  @observable currentPreviewChartPath: string = '';
 
   public systemStore: SystemStore;
   public websocketStore: WebsocketStore;
@@ -304,6 +308,56 @@ export class LessonStore implements LessonI {
   @computed
   get currentContentChart(): ChartI | null {
     return this.charts[this.currentScore] || null;
+  }
+
+  @computed
+  get chartImages(): ChartItemI[] {
+    const chartsCopy = [...this.charts];
+
+    if (Array.isArray(chartsCopy) && chartsCopy.length > 0) {
+      return chartsCopy[this.currentChart].items.filter((item) => item.chart_type_id === CHART_TYPE.IMAGE);
+    }
+
+    return [];
+  }
+
+  @computed
+  get showPreviewChartPath() {
+    const currentChartImage = this.chartImages[this.currentPreviewChartIndex];
+    return (currentChartImage && currentChartImage.content && currentChartImage.content.image)
+      ? currentChartImage.content.image
+      : '';
+  }
+
+
+  @computed
+  get totalChartImages(): number {
+    return this.chartImages.length;
+  }
+
+  @computed
+  get hasPrevChartImage(): boolean {
+    const currentUpdate = this.currentPreviewScoreIndex - 1;
+    return Boolean(this.chartImages[currentUpdate]);
+  }
+
+  @computed
+  get hasNextChartImage(): boolean {
+    const currentUpdate = this.currentPreviewScoreIndex + 1;
+    return Boolean(this.chartImages[currentUpdate]);
+  }
+
+  @action.bound
+  setCurrentPreviewChartIndex(chart_image_index: number) {
+    this.currentPreviewChartIndex = chart_image_index;
+  }
+
+
+  @action.bound
+  showPreviewChart(chart_image_id: number) {
+    if (this.currentContentChart) {
+      this.currentPreviewChartIndex = this.chartImages.findIndex((item) => item.id === chart_image_id);
+    }
   }
 
   @computed
