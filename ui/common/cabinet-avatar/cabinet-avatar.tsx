@@ -3,6 +3,7 @@ import { inject, observer } from 'mobx-react';
 import block from 'bem-css-modules';
 import style from './cabinet-avatar.module.sass';
 import { RootStore } from '../../../stores';
+import Link from 'next/link';
 
 const b = block(style);
 
@@ -70,7 +71,7 @@ export class CabinetAvatar extends React.Component<CabinetAvatarProps, CabinetAv
 
 
         <div className={b('fullName')}>{fullName}</div>
-        <a className={b('link')}>Edit profile</a>
+        <Link href={'/cabinet/profile'}><a className={b('link')}>Edit profile</a></Link>
       </div>
     );
   }
