@@ -6,6 +6,7 @@ import { RootStore } from '../../../stores';
 import { Button } from '../button/button';
 import { SignInModal } from '../modals';
 import { MODALS } from '../../../constants';
+import { SignUpModal } from '../modals/sign-up/sign-up';
 
 const b = block(style);
 
@@ -48,6 +49,7 @@ export class ButtonSignIn extends React.Component<ButtonSignInProps, ButtonSignI
           Sign In
         </Button>
         <SignInModal />
+        <SignUpModal />
       </>
     );
   }
