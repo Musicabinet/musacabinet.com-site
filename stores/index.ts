@@ -44,6 +44,11 @@ export class RootStore {
 
   constructor(initialData: RootStore | null) {
 
+
+    this.notificationsStore = new NotificationsStore(
+      initialData && initialData.notificationsStore ? initialData.notificationsStore : null
+    );
+
     this.systemStore = new SystemStore(
       initialData && initialData.systemStore ? initialData.systemStore : null
     );
@@ -54,16 +59,15 @@ export class RootStore {
     );
 
     this.userStore = new UserStore(
-      initialData && initialData.userStore ? initialData.userStore : null
+      initialData && initialData.userStore ? initialData.userStore : null,
+      {
+        notificationsStore: this.notificationsStore
+      }
     );
 
     this.websocketStore = new WebsocketStore({
       userStore: this.userStore
     });
-
-    this.notificationsStore = new NotificationsStore(
-      initialData && initialData.notificationsStore ? initialData.notificationsStore : null
-    );
 
     this.menuListStore = new MenuListStore(
       initialData && initialData.menuListStore ? initialData.menuListStore : null

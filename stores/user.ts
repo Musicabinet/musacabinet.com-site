@@ -1,5 +1,13 @@
 import { action, computed, makeObservable, observable } from 'mobx';
 import { UserI } from '../interfaces';
+import { NotificationsStore } from './notifications';
+import { METHODS_REQUEST, NOTIFICATION_TYPE } from '../constants';
+import { API } from '../core';
+import { UploadAvatarResponse } from '../responsible';
+
+interface ImportStore {
+  notificationsStore: NotificationsStore
+}
 
 export class UserStore implements UserI {
 
@@ -21,11 +29,43 @@ export class UserStore implements UserI {
   @observable updated_at = new Date;
   @observable created_at = new Date;
 
-  constructor(initialData: UserStore | UserI | null) {
+  notificationsStore: NotificationsStore;
+
+  constructor(initialData: UserStore | UserI | null, { notificationsStore }: ImportStore) {
     makeObservable(this);
+
+    this.notificationsStore = notificationsStore;
 
     if (initialData) {
       this.fillingStore(initialData);
+    }
+  }
+
+  @action.bound
+  async upload(file: File) {
+    try {
+
+      const {path} = await API.request<UploadAvatarResponse>(`user/upload`, {
+        method: METHODS_REQUEST.POST,
+        body: API.getFormData({ file })
+      });
+
+      this.avatar = path;
+
+      this.notificationsStore.add({
+        type: NOTIFICATION_TYPE.SUCCESS,
+        id: this.notificationsStore.generateID(),
+        title: 'Success',
+        message: 'You avatar upload.'
+      });
+    } catch (e) {
+      this.notificationsStore.add({
+        type: NOTIFICATION_TYPE.ERROR,
+        id: this.notificationsStore.generateID(),
+        title: 'Error',
+        message: 'Not upload avatar. Please repeat.'
+      });
+      console.error(`Error in method upload : `, e);
     }
   }
 

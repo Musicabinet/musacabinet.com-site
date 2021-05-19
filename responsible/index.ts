@@ -25,3 +25,7 @@ export interface ServiceListResponse {
   success: boolean,
   data: ServiceI[]
 }
+
+export interface UploadAvatarResponse {
+  path: string
+}
