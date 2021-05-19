@@ -172,6 +172,11 @@ export class LessonStore implements LessonI {
   }
 
   @action.bound
+  setCurrentScore(value: number) {
+    this.currentScore = value;
+  }
+
+  @action.bound
   incrementProgress() {
     try {
       this.progress_second += 1;

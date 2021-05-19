@@ -5,6 +5,7 @@ import style from './scores.module.sass';
 import { RootStore } from '../../../../stores';
 import { AccompanimentI, ScoreI } from '../../../../interfaces';
 import { MODALS, SCORE_TYPE, SERVICE_NAME } from '../../../../constants';
+import { Pagination } from './pagination/pagination';
 
 const b = block(style);
 
@@ -77,6 +78,7 @@ export class Scores extends React.Component<ScoresProps, ScoresState> {
 
     return (
       <div className={b(null)}>
+        <Pagination />
         {currentContentScore && (
           <>
             {service_name !== SERVICE_NAME.COLLEGE && (
