@@ -7,23 +7,36 @@ import { Formik } from 'formik';
 import { signUpValidationSchema } from '../../../validation-scheme';
 import { InputText } from '../input-text/input-text';
 import { Button } from '../button/button';
-import { LoginRequestI } from '../../../interfaces';
+import { SignUpRequestI } from '../../../interfaces';
+import { MODALS } from '../../../constants';
 
 const b = block(style);
 
 type FormSignUpProps = {
-  onSignUp: (data: LoginRequestI) => void
+  onSignUp: (data: SignUpRequestI) => void,
+  onShowModal: (id_modal: MODALS) => void,
+  onCloseModal: (id_modal: MODALS) => void
 };
 type FormSignUpState = {};
 
 @inject((store: RootStore) => ({
-  onSignUp: store.authStore.signUp
+  onSignUp: store.authStore.signUp,
+  onShowModal: store.modalsStore.show,
+  onCloseModal: store.modalsStore.close
 }))
 @observer
 export class FormSignUp extends React.Component<FormSignUpProps, FormSignUpState> {
 
   static defaultProps = {
-    onSignUp: () => console.log('Not set handler')
+    onSignUp: () => console.log('Not set handler'),
+    onShowModal: () => console.log('Not set handler'),
+    onCloseModal: () => console.log('Not set handler')
+  };
+
+  handleOnSignIn = () => {
+    const { onCloseModal, onShowModal } = this.props;
+    onCloseModal(MODALS.SIGN_UP);
+    onShowModal(MODALS.SIGN_IN);
   };
 
   render() {
@@ -70,7 +83,7 @@ export class FormSignUp extends React.Component<FormSignUpProps, FormSignUpState
 
                 <div className={b('text')}>Already have an account?</div>
                 <div className='col-12 d-flex justify-content-center'>
-                  <button className={b('action')}>Log In</button>
+                  <button onClick={this.handleOnSignIn} className={b('action')}>Log In</button>
                 </div>
               </div>
 
