@@ -1,5 +1,5 @@
 import { action, makeObservable, observable } from 'mobx';
-import { AuthI, LoginRequestI, UserI } from '../interfaces';
+import { AuthI, LoginRequestI, SignUpRequestI, UserI } from '../interfaces';
 import { FacebookClientResponsive, LoginResponse } from '../responsible';
 import { API, Cookie } from '../core';
 import { NotificationsStore } from './notifications';
@@ -147,14 +147,24 @@ export class AuthStore implements AuthI {
   };
 
   @action.bound
-  async signUp() {
+  async signUp(data: SignUpRequestI) {
     try {
-      const response = await API.request<LoginResponse>(`auth/sign-up`);
+      const response = await API.request<LoginResponse>(`auth/sign-up`, {
+        method: METHODS_REQUEST.POST,
+        body: API.getFormData(data)
+      });
 
       // Заполнякем сторы
       this.fillingAfterSign(response.user, response.access_token);
 
     } catch (e) {
+      this.notificationsStore.add({
+        id: this.notificationsStore.generateID(),
+        type: NOTIFICATION_TYPE.ERROR,
+        title: 'Error',
+        message: e.errors.join('<br/>')
+      });
+
       console.error(`Error in method signUp : `, e);
     }
   }
