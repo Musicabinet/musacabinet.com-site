@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import { BaseLayout } from '../../ui';
-import { Pricing } from '../../ui/components';
 import { CustomAppContext } from '../../interfaces';
 import { SERVICE_NAME } from '../../constants';
 
@@ -21,7 +20,7 @@ export default class PricingPage extends React.Component<PricingPageProps, Prici
   render() {
     return (
       <BaseLayout noStick full>
-        <Pricing />
+        {/*<Pricing />*/}
       </BaseLayout>
     );
   }

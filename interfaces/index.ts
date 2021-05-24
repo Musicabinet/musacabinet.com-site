@@ -37,3 +37,4 @@ export * from './library';
 export * from './score';
 export * from './group-lesson';
 export * from './breadcrumbs';
+export * from './price';
