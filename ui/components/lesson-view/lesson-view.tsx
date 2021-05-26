@@ -13,19 +13,28 @@ import { NextModule } from '../../common';
 const b = block(style);
 
 type LessonViewProps = {
-  service_name: SERVICE_NAME
+  service_name: SERVICE_NAME,
+  onReset: () => void
 };
 type LessonViewState = {};
 
 @inject((store: RootStore) => ({
-  service_name: store.systemStore.service_name
+  service_name: store.systemStore.service_name,
+  onReset: store.lessonStore.reset
 }))
 @observer
 export class LessonView extends React.Component<LessonViewProps, LessonViewState> {
 
   static defaultProps = {
-    service_name: SERVICE_NAME.SCHOOL
+    service_name: SERVICE_NAME.SCHOOL,
+    onReset: () => console.log('Not set handler')
   };
+
+  componentWillUnmount() {
+    const { onReset } = this.props;
+    onReset();
+    console.log('unmount lesson');
+  }
 
   render() {
     const { service_name } = this.props;

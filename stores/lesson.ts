@@ -67,6 +67,41 @@ export class LessonStore implements LessonI {
   }
 
   @action.bound
+  reset(){
+    this.id = 0;
+    this.uuid = '';
+    this.group_lesson_id = 0;
+    this.sort = 0;
+    this.slug = '';
+    this.meta_title = '';
+    this.meta_description = '';
+    this.meta_keywords = '';
+    this.name = '';
+    this.description = '';
+    this.duration_minute = 0;
+    this.is_active = false;
+    this.group_lesson = undefined;
+    this.scores = [];
+    this.charts = [];
+    this.accompaniments = [];
+    this.breadcrumbs = [];
+    this.lesson_list = [];
+    this.progress_second = 0;
+
+    this.prevModuleLesson =  null;
+    this.nextModuleLesson = null;
+    this.selected_accompaniment = 0;
+    this.video_iframe = null;
+    this.currentScore = 0;
+    this.currentPreviewScoreIndex = 0;
+    this.currentPreviewScorePath = '';
+
+    this.currentChart = 0;
+    this.currentPreviewChartIndex = 0;
+    this.currentPreviewChartPath = '';
+  }
+
+  @action.bound
   async get(uuid: string) {
 
     this.isFetch = true;
@@ -369,7 +404,7 @@ export class LessonStore implements LessonI {
   get scoresImages(): ScoreItemStore[] {
     const scoresCopy = [...this.scores];
 
-    if (Array.isArray(scoresCopy) && scoresCopy.length > 0) {
+    if (Array.isArray(scoresCopy) && scoresCopy.length > 0 && scoresCopy[this.currentScore]) {
       return scoresCopy[this.currentScore].items.filter((item) => item.score_type_id === SCORE_TYPE.IMAGE);
     }
 

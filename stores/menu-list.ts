@@ -89,9 +89,9 @@ export class MenuListStore {
     is_active: false
   }, {
     title: 'Your subscriptions',
-    link: '',
+    link: '/cabinet',
     type: MenuType.DEFAULT,
-    is_active: true
+    is_active: false
   }, {
     title: 'Your statistics',
     link: '',
