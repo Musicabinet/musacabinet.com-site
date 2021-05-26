@@ -71,8 +71,6 @@ export class Method extends React.Component<MethodProps, MethodState> {
     const { currentContentScore, video_iframe, service_name, instrument_name } = this.props;
     const { isNotes } = this.state;
 
-    console.log({ instrument_name });
-
     return (
       <>
         <div className={b('header', { [service_name]: true })}>

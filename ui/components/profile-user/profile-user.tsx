@@ -37,6 +37,12 @@ export class ProfileUser extends React.Component<ProfileUserProps & UserUpdateI,
   };
 
   static defaultProps = {
+    first_name: '',
+    last_name: '',
+    country: '',
+    city: '',
+    education: '',
+    music_education: '',
     onUpdate: () => console.log('Not set handler')
   };
 
