@@ -14,12 +14,14 @@ const b = block(style);
 
 type LessonViewProps = {
   service_name: SERVICE_NAME,
+  instrument_name: '',
   onReset: () => void
 };
 type LessonViewState = {};
 
 @inject((store: RootStore) => ({
   service_name: store.systemStore.service_name,
+  instrument_name: store.systemStore.instrument_name,
   onReset: store.lessonStore.reset
 }))
 @observer
@@ -27,6 +29,7 @@ export class LessonView extends React.Component<LessonViewProps, LessonViewState
 
   static defaultProps = {
     service_name: SERVICE_NAME.SCHOOL,
+    instrument_name: '',
     onReset: () => console.log('Not set handler')
   };
 
@@ -37,7 +40,7 @@ export class LessonView extends React.Component<LessonViewProps, LessonViewState
   }
 
   render() {
-    const { service_name } = this.props;
+    const { service_name, instrument_name } = this.props;
 
     return (
       <>
@@ -45,7 +48,7 @@ export class LessonView extends React.Component<LessonViewProps, LessonViewState
           <Header />
           <div className={b('content')}>
             <div className={b('left')}>
-              {(service_name !== SERVICE_NAME.SCHOOL) ? <Charts /> : <Scores />}
+              {(service_name === SERVICE_NAME.COLLEGE && (instrument_name !== '' && instrument_name == 'Guitar')) ? <Charts /> : <Scores />}
             </div>
             <div className={b('right')}>
               <Method />
