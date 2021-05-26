@@ -97,7 +97,7 @@ export class CabinetSubscriptionItem extends React.Component<CabinetSubscription
               </ButtonGrandChart>
 
               <div className={b('count', { [SERVICE_MAPPING[service_id]]: true })}>
-                3 months
+                14 days
               </div>
 
               <div className={b('progress-line')}>
