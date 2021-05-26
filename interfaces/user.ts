@@ -1,4 +1,4 @@
-export interface UserI{
+export interface UserI {
   id: number,
   avatar: string,
   birthday: Date | undefined,
@@ -16,4 +16,13 @@ export interface UserI{
   tools_own: string,
   updated_at: Date,
   created_at: Date,
+}
+
+export interface UserUpdateI {
+  first_name: string,
+  last_name: string,
+  country: string,
+  city: string,
+  education: string,
+  music_education: string
 }

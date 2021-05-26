@@ -1,5 +1,5 @@
 import { action, computed, makeObservable, observable } from 'mobx';
-import { UserI } from '../interfaces';
+import { UserI, UserUpdateI } from '../interfaces';
 import { NotificationsStore } from './notifications';
 import { METHODS_REQUEST, NOTIFICATION_TYPE } from '../constants';
 import { API } from '../core';
@@ -45,7 +45,7 @@ export class UserStore implements UserI {
   async upload(file: File) {
     try {
 
-      const {path} = await API.request<UploadAvatarResponse>(`user/upload`, {
+      const { path } = await API.request<UploadAvatarResponse>(`user/upload`, {
         method: METHODS_REQUEST.POST,
         body: API.getFormData({ file })
       });
@@ -66,6 +66,33 @@ export class UserStore implements UserI {
         message: 'Not upload avatar. Please repeat.'
       });
       console.error(`Error in method upload : `, e);
+    }
+  }
+
+  @action.bound
+  async update(values: UserUpdateI) {
+    try {
+      await API.request(`user/update`, {
+        method: METHODS_REQUEST.POST,
+        body: API.getFormData(values)
+      });
+
+      this.notificationsStore.add({
+        type: NOTIFICATION_TYPE.SUCCESS,
+        id: this.notificationsStore.generateID(),
+        title: 'Success',
+        message: 'Your profile update'
+      });
+
+    } catch (e) {
+      console.error(`Error in method update : `, e);
+
+      this.notificationsStore.add({
+        type: NOTIFICATION_TYPE.ERROR,
+        id: this.notificationsStore.generateID(),
+        title: 'Error',
+        message: (e && Array.isArray(e.errors) && e.errors.join('<br/>')) || 'Repeat please'
+      });
     }
   }
 

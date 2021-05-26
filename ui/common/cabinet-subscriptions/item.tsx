@@ -77,11 +77,12 @@ export class CabinetSubscriptionItem extends React.Component<CabinetSubscription
 
     return (
       <div className={b('item', {
-        'not_active': (!is_active)
+        'not_active': (!is_active),
+        [SERVICE_MAPPING[service_id]]: true
       })}>
         <div className={b('inside', { [SERVICE_MAPPING[service_id]]: true })}>
           <div className={b('icon')}>
-            <InstrumentIcon icon={icon} service={SERVICE_MAPPING[service_id]}/>
+            <InstrumentIcon icon={icon} service={SERVICE_MAPPING[service_id]} />
           </div>
 
           <div className={b('name')}>
@@ -97,6 +98,26 @@ export class CabinetSubscriptionItem extends React.Component<CabinetSubscription
 
               <div className={b('count', { [SERVICE_MAPPING[service_id]]: true })}>
                 3 months
+              </div>
+
+              <div className={b('progress-line')}>
+                <div className={b('line')} />
+              </div>
+
+              <div className={b('days')}>
+                <div className={b('passed-days')}>
+                  <div className={b('count-days', { [SERVICE_MAPPING[service_id]]: true })}>14</div>
+                  <div className={b('description')}>
+                    Days<br/> passed
+                  </div>
+                </div>
+
+                <div className={b('remain-days')}>
+                  <div className={b('count-days')}>0</div>
+                  <div className={b('description')}>
+                    Days<br/> remain
+                  </div>
+                </div>
               </div>
             </>
           ) : (

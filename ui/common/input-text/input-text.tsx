@@ -11,6 +11,7 @@ type InputTextProps = {
   value: string | number,
   errors: string | undefined,
   placeholder: string,
+  label: string,
   onChange: (e: React.FormEvent<HTMLInputElement>) => void,
   onBlur: (e: React.FormEvent<HTMLInputElement>) => void,
 };
@@ -21,21 +22,29 @@ export class InputText extends React.Component<InputTextProps, InputTextState> {
   static defaultProps = {
     type: 'text',
     placeholder: '',
-    errors: undefined
+    errors: undefined,
+    label: '',
+    onBlur: () => ({})
   };
 
   render() {
-    const { name, type, value, placeholder, isValid, onChange, onBlur } = this.props;
+    const { name, type, value, placeholder, isValid, label, onChange, onBlur } = this.props;
+
     return (
-      <input placeholder={placeholder}
-             className={b(null, {
-               notValid: !isValid
-             })}
-             type={type}
-             name={name}
-             value={value}
-             onChange={onChange}
-             onBlur={onBlur} />
+      <>
+        <label className={b('label', {
+          show: label.length > 0
+        })}>{label}</label>
+        <input placeholder={placeholder}
+               className={b(null, {
+                 notValid: !isValid
+               })}
+               type={type}
+               name={name}
+               value={value}
+               onChange={onChange}
+               onBlur={onBlur} />
+      </>
     );
   }
 }

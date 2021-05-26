@@ -1,12 +1,31 @@
 @import "../../../../../stylesheets/index"
 
 .pagination
+  $root: &
   position: absolute
   display: flex
   align-items: stretch
   left: 30px
   top: 23px
   z-index: 100
+
+  &_school
+    display: flex
+
+    #{$root}__btn
+      background: $school
+
+  &_college
+    display: flex
+
+    #{$root}__btn
+      background: $college
+
+  &_university
+    display: flex
+
+    #{$root}__btn
+      background: $university
 
   &_hidden
     display: none
@@ -22,7 +41,6 @@
 
   &__btn
     position: relative
-    background: $school
     border: 0
     width: 30px
     height: 30px

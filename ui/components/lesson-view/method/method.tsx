@@ -12,6 +12,7 @@ const b = block(style);
 
 type MethodProps = {
   service_name: SERVICE_NAME,
+  instrument_name: '',
   uuid: string,
   currentContentScore: ScoreI | null,
   video_iframe: string | null,
@@ -23,6 +24,7 @@ type MethodState = {
 
 @inject((store: RootStore) => ({
   service_name: store.systemStore.service_name,
+  instrument_name: store.systemStore.instrument_name,
   uuid: store.lessonStore.uuid,
   currentContentScore: store.lessonStore.currentContentScore,
   video_iframe: store.lessonStore.video_iframe,
@@ -37,6 +39,7 @@ export class Method extends React.Component<MethodProps, MethodState> {
 
   static defaultProps = {
     service_name: SERVICE_NAME.SCHOOL,
+    instrument_name: '',
     uuid: '',
     video_iframe: null,
     currentContentScore: null,
@@ -65,14 +68,16 @@ export class Method extends React.Component<MethodProps, MethodState> {
   handleOnChangeNotes = (value: boolean) => this.setState(() => ({ isNotes: value }));
 
   render() {
-    const { currentContentScore, video_iframe, service_name } = this.props;
+    const { currentContentScore, video_iframe, service_name, instrument_name } = this.props;
     const { isNotes } = this.state;
+
+    console.log({ instrument_name });
 
     return (
       <>
         <div className={b('header', { [service_name]: true })}>
           <span className={b('header-text')}>Method</span>
-          {(service_name === SERVICE_NAME.COLLEGE) && (
+          {(service_name === SERVICE_NAME.COLLEGE) && (instrument_name !== '' && instrument_name == 'Guitar') && (
             <>
               <Switcher checked={isNotes} onChange={this.handleOnChangeNotes} />
               <span className={b('header-text')}>Notes</span>
