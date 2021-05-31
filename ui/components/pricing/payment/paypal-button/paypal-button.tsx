@@ -3,23 +3,31 @@ import { inject, observer } from 'mobx-react';
 import block from 'bem-css-modules';
 import style from './paypal-button.module.sass';
 import { RootStore } from '../../../../../stores';
+import { PayPalButton as PayPalModule } from 'react-paypal-button-v2';
 
 const b = block(style);
 
 type PayPalButtonProps = {
+  currentPrice: number,
+  currencyConverter: number,
   currency: string,
   onGetGeo: () => Promise<void>
 };
 type PayPalButtonState = {};
 
 @inject((store: RootStore) => ({
+  currentPrice: store.pricingStore.price,
+  currencyConverter: store.systemStore.currencyConverter,
   currency: store.systemStore.getCurrency,
-  onGetGeo: store.systemStore.getGEO
+  onGetGeo: store.systemStore.getGEO,
+  generateButtonPayPal: store.pricingStore.generateButtonPayPal
 }))
 @observer
 export class PayPalButton extends React.Component<PayPalButtonProps, PayPalButtonState> {
 
   static defaultProps = {
+    currentPrice: 0,
+    currencyConverter: 1,
     currency: 'USD',
     onGetGeo: () => console.log('Not set handler')
   };
@@ -27,10 +35,11 @@ export class PayPalButton extends React.Component<PayPalButtonProps, PayPalButto
   async componentDidMount() {
     const { onGetGeo } = this.props;
     await onGetGeo();
+    await this.addPayPalScript();
   }
 
   addPayPalScript = async () => {
-    const {currency} = this.props;
+    const { currency } = this.props;
 
     return new Promise((resolve, reject) => {
       let payPalScript = document.createElement('script');
@@ -43,10 +52,22 @@ export class PayPalButton extends React.Component<PayPalButtonProps, PayPalButto
     });
   };
 
-  render() {
-    return (
-      <div className={b(null)}>
+  getPrice = (): number => {
+    const { currencyConverter, currentPrice } = this.props;
+    return Number((currentPrice * currencyConverter).toFixed(2));
+  };
 
+
+  render() {
+    const {currency} = this.props;
+
+    return (
+      <div className={b(null)} data-pay-pal={true}>
+        <PayPalModule amount={this.getPrice()}
+                      currency={currency}
+                      options={{
+                        clientId: PAY_PAY_CLIENT_ID
+                      }} />
       </div>
     );
   }

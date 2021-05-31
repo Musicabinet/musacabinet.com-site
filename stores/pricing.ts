@@ -62,6 +62,15 @@ export class PricingStore {
     this.selected_instrument = instrument;
   }
 
+  @action.bound
+  async generateButtonPayPal() {
+    try {
+
+    } catch (e) {
+      console.error(`Error in method generateButtonPayPal : `, e);
+    }
+  }
+
   @computed
   get prices(): PriceI[] {
     if (this.systemStore.service_name) {
