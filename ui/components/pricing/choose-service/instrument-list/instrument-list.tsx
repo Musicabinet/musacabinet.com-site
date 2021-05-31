@@ -6,6 +6,7 @@ import { RootStore } from '../../../../../stores';
 import { InstrumentI } from '../../../../../interfaces';
 import { InstrumentItem } from './instrument-item';
 import { Paragraph } from '../../../../common';
+import { Ribbon } from './ribbon/ribbon';
 
 const b = block(style);
 
@@ -31,7 +32,8 @@ export class InstrumentList extends React.Component<InstrumentListProps, Instrum
       <div className={b(null)}>
         <div className='container'>
           <div className='row'>
-            <div className='col-lg-12'>
+            <div className='col-lg-12 position-relative'>
+              <Ribbon />
               <div className={b('list')}>
                 {list.map((instrument) => {
                   return <InstrumentItem key={instrument.id}

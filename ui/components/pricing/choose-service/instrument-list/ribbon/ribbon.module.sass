@@ -1,0 +1,58 @@
+@import "../../../../../../stylesheets/index"
+
+.ribbon
+  position: absolute
+  background: $gold
+  height: 160px
+  width: 200px
+  left: 0
+  top: 0
+  display: flex
+  flex-direction: column
+  align-items: center
+  justify-content: center
+
+  @include breakpoint-phone
+    top: 45px
+    width: 120px
+    height: 100px
+
+  &:before, &:after
+    content: ''
+    position: absolute
+    border-top: 60px solid $gold
+    height: 0
+    width: 0
+    top: 100%
+
+    @include breakpoint-phone
+      border-top-width: 30px
+
+  &:before
+    border-right: 110px solid transparent
+    left: 0
+
+  &:after
+    border-left: 110px solid transparent
+    right: 0
+
+  &__text
+    @include fontMontserrat(18px)
+    line-height: 25px
+    color: $white
+    width: 75%
+    text-align: center
+    margin-bottom: 6px
+
+    @include breakpoint-phone
+      font-size: 16px
+      line-height: 20px
+
+  &__discount
+    @include fontMontserrat(36px, 700)
+    line-height: 44px
+    color: $white
+
+    @include breakpoint-phone
+      font-size: 20px
+      line-height: 20px
