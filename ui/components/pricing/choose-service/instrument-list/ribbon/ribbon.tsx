@@ -2,14 +2,13 @@ import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import block from 'bem-css-modules';
 import style from './ribbon.module.sass';
-import { RootStore } from '../../../../../../stores';
 
 const b = block(style);
 
 type RibbonProps = {};
 type RibbonState = {};
 
-@inject((store: RootStore) => ({}))
+@inject(() => ({}))
 @observer
 export class Ribbon extends React.Component<RibbonProps, RibbonState> {
   render() {
