@@ -39,6 +39,7 @@ export class PricingStore {
   };
 
   @observable month = 0;
+  @observable selected_instrument = 'guitar';
 
   systemStore: SystemStore;
 
@@ -56,11 +57,16 @@ export class PricingStore {
     this.month = month;
   }
 
+  @action.bound
+  setInstrument(instrument: string) {
+    this.selected_instrument = instrument;
+  }
+
   @computed
   get prices(): PriceI[] {
-    if(this.systemStore.service_name){
+    if (this.systemStore.service_name) {
       return this.list[this.systemStore.service_name] || [];
-    }else{
+    } else {
       return this.list[SERVICE_NAME.SCHOOL] || [];
     }
   }
