@@ -32,7 +32,7 @@ export class Payment extends React.Component<PaymentProps, PaymentState> {
         <div className='container'>
           <div className='row mb-5'>
             <div className='col-lg-6 d-flex justify-content-center align-items-start'>
-              <Button>Pay by card</Button>
+              <Button full>Pay by card</Button>
             </div>
             <div className='col-lg-6'>
               <PayPalButton />
