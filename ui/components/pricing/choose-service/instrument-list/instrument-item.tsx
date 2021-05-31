@@ -25,12 +25,14 @@ export class InstrumentItem extends React.Component<InstrumentItemProps & Instru
   };
 
   render() {
-    const { icon, service_name } = this.props;
-
+    const { icon, service_name, is_active } = this.props;
     return (
-      <div className={b('item')}>
-        <InstrumentIcon icon={icon} service={service_name} />
-      </div>
+      <>
+        <button disabled={!is_active}
+                className={b('item')}>
+          <InstrumentIcon icon={icon} service={service_name} />
+        </button>
+      </>
     );
   }
 }

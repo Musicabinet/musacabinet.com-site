@@ -4,6 +4,8 @@ import block from 'bem-css-modules';
 import style from './choose-service.module.sass';
 import { ServiceList } from './service-list/service-list';
 import { InstrumentList } from './instrument-list/instrument-list';
+import { CurrentPrice } from './current-price/current-price';
+import { CountMonth } from './count-month/count-month';
 
 const b = block(style);
 
@@ -17,6 +19,8 @@ export class ChooseService extends React.Component<ChooseServiceProps, ChooseSer
     return (
       <div className={b(null)}>
         <InstrumentList />
+        <CurrentPrice />
+        <CountMonth />
         <ServiceList />
       </div>
     );
