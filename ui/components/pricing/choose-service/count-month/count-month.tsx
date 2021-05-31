@@ -29,6 +29,10 @@ export class CountMonth extends React.Component<CountMonthProps, CountMonthState
   render() {
     const { list, month } = this.props;
 
+    if (list.length === 0) {
+      return null;
+    }
+
     return (
       <div className='container'>
         <div className='row'>
