@@ -38,7 +38,6 @@ export class PricingStore {
     }]
   };
 
-  @observable service: SERVICE_NAME = SERVICE_NAME.SCHOOL;
   @observable month = 0;
 
   systemStore: SystemStore;
@@ -59,17 +58,21 @@ export class PricingStore {
 
   @computed
   get prices(): PriceI[] {
-    return this.list[this.service] || [];
+    if(this.systemStore.service_name){
+      return this.list[this.systemStore.service_name] || [];
+    }else{
+      return this.list[SERVICE_NAME.SCHOOL] || [];
+    }
   }
 
   @computed
   get price() {
-    return (this.list[this.service]) ? this.list[this.service][this.month].price : '';
+    return (this.prices && this.prices.length > 0) ? this.prices[this.month].price : '';
   }
 
   @computed
   get oldPrice() {
-    return (this.list[this.service]) ? this.list[this.service][this.month].old_price : '';
+    return (this.prices && this.prices.length > 0) ? this.prices[this.month].old_price : '';
   }
 
   @action
