@@ -3,6 +3,7 @@ import { inject, observer } from 'mobx-react';
 import { BaseLayout } from '../../ui';
 import { CustomAppContext } from '../../interfaces';
 import { SERVICE_NAME } from '../../constants';
+import { Pricing } from '../../ui/components';
 
 type PricingPageProps = {};
 type PricingPageState = {};
@@ -20,7 +21,7 @@ export default class PricingPage extends React.Component<PricingPageProps, Prici
   render() {
     return (
       <BaseLayout noStick full>
-        {/*<Pricing />*/}
+        <Pricing />
       </BaseLayout>
     );
   }

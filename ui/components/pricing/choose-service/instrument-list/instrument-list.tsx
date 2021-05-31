@@ -5,6 +5,7 @@ import style from './instrument-list.module.sass';
 import { RootStore } from '../../../../../stores';
 import { InstrumentI } from '../../../../../interfaces';
 import { InstrumentItem } from './instrument-item';
+import { Paragraph } from '../../../../common';
 
 const b = block(style);
 
@@ -48,6 +49,13 @@ export class InstrumentList extends React.Component<InstrumentListProps, Instrum
 
                 })}
               </div>
+            </div>
+          </div>
+          <div className='row'>
+            <div className='col-lg-4 offset-lg-4'>
+              <Paragraph className={b('paragraph')}>
+                Choose levels of education and duration of your subscription
+              </Paragraph>
             </div>
           </div>
         </div>
