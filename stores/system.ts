@@ -25,6 +25,10 @@ export class SystemStore {
   @observable selected_module_id: number | undefined = undefined;
   @observable selected_group_lesson_id: number | undefined = undefined;
 
+  @observable isLoadGeo: boolean = false;
+  @observable currentCountry: string = '';
+  @observable currencyConverter: number = 1;
+
   constructor(initialData: SystemStore | null) {
     makeObservable(this);
 
@@ -76,6 +80,25 @@ export class SystemStore {
   @action.bound
   setGroupLessonId(id: number) {
     this.selected_group_lesson_id = id;
+  }
+
+  @action.bound
+  async getGEO() {
+    try {
+      const response = await fetch('https://ssl.geoplugin.net/json.gp?k=72bcdc86ca893e41');
+      const responseJSON = await response.json();
+
+      this.currentCountry = responseJSON.geoplugin_countryName;
+      this.currencyConverter = responseJSON.geoplugin_currencyConverter;
+      this.isLoadGeo = true;
+    } catch (e) {
+      console.error(`Error in method in getGEO : `, e);
+    }
+  }
+
+  @computed
+  get getCurrency() {
+    return (this.currentCountry === 'Russian') ? 'RUB' : 'USD';
   }
 
   @computed
@@ -364,10 +387,10 @@ export class SystemStore {
 
   @computed
   get secondNextModule() {
-    if(this.service_id){
-      if([SERVICE_ID.SCHOOL, SERVICE_ID.COLLEGE, SERVICE_ID.UNIVERSITY].includes(this.service_id)){
+    if (this.service_id) {
+      if ([SERVICE_ID.SCHOOL, SERVICE_ID.COLLEGE, SERVICE_ID.UNIVERSITY].includes(this.service_id)) {
         // @ts-ignore
-        return SERVICE_SECOND_NEXT_MODULE[this.service_id]
+        return SERVICE_SECOND_NEXT_MODULE[this.service_id];
       }
     }
 

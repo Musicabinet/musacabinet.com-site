@@ -12,6 +12,7 @@ const nextConfig = withImage({
         API_URL: JSON.stringify(process.env.API_URL),
         CONTENT_URL: JSON.stringify(process.env.CONTENT_URL),
         WEBSOCKET_URL: JSON.stringify(process.env.WEBSOCKET_URL),
+        PAY_PAY_CLIENT_ID: JSON.stringify(process.env.PAY_PAY_CLIENT_ID),
       })
     );
 
