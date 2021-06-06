@@ -14,7 +14,11 @@ export default class ProfilePage extends React.Component<ProfilePageProps, Profi
 
   static async getInitialProps({ store, ctx: { res } }: CustomAppContext) {
     await store?.authStore.check(() => redirectToWrapper(res, '/'));
-    return {};
+    return {
+      title: 'MC | Profile Settings',
+      description: '',
+      keywords: ''
+    };
   }
 
   render() {

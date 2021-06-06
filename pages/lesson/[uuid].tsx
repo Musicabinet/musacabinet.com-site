@@ -5,6 +5,7 @@ import { LessonView } from '../../ui/components';
 import { CustomAppContext } from '../../interfaces';
 import { redirectToWrapper } from '../../core';
 import { RootStore } from '../../stores';
+import { ucFirst } from '../../helpers';
 
 type LessonPageProps = {
   uuid: string,
@@ -63,7 +64,11 @@ export default class LessonPage extends React.Component<LessonPageProps, LessonP
 
       await store?.lessonStore.getModuleMapping();
     }
-    return {};
+    return {
+      title: `MC | ${store?.lessonStore.name} ${ucFirst(String(store?.systemStore.service_name))} ${ucFirst(String(store?.systemStore.instrument_name))}`,
+      description: '',
+      keywords: ''
+    };
   }
 
   static defaultProps = {

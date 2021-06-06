@@ -15,7 +15,11 @@ export default class PricingPage extends React.Component<PricingPageProps, Prici
   static async getInitialProps({ store }: CustomAppContext) {
     store?.systemStore.setServiceName(SERVICE_NAME.SCHOOL);
     await store?.servicesStore.getList();
-    return {};
+    return {
+      title: 'MUSICABINET | Pricing',
+      description: '',
+      keywords: ''
+    };
   }
 
   render() {
