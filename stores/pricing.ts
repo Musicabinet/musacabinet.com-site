@@ -13,28 +13,28 @@ export class PricingStore {
     [SERVICE_NAME.SCHOOL]: [{
       name: '1 month',
       old_price: 30,
-      price: 14.99
+      price: 21
     }, {
       name: '3 months',
-      old_price: 70,
-      price: 34.99
+      old_price: 75,
+      price: 55
     }, {
       name: '6 months',
       old_price: 120,
-      price: 54.99
+      price: 89
     }],
     [SERVICE_NAME.COLLEGE]: [{
       name: '1 month',
-      old_price: 99,
-      price: 49
-    }, {
-      name: '3 months',
-      old_price: 299,
-      price: 119
+      old_price: 100,
+      price: 75
     }, {
       name: '6 months',
-      old_price: 599,
-      price: 249
+      old_price: 480,
+      price: 360
+    }, {
+      name: '12 months',
+      old_price: 720,
+      price: 540
     }]
   };
 
