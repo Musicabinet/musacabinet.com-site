@@ -38,16 +38,21 @@ export class PayPalButton extends React.Component<PayPalButtonProps, PayPalButto
   }
 
   getPrice = (): number => {
-    const { currencyConverter, currentPrice } = this.props;
-    return Number((currentPrice * currencyConverter).toFixed(2));
+    const { currencyConverter, currentPrice, currency } = this.props;
+    if (currency === 'RUB') {
+      return Number((currentPrice * currencyConverter).toFixed(2));
+    } else {
+      return Number(currentPrice.toFixed(2));
+    }
   };
 
 
   render() {
-    const {currency} = this.props;
+    const { currency } = this.props;
 
     return (
       <div className={b(null)} data-pay-pal={true}>
+        <div className={b('description')}>No recurring payments</div>
         <PayPalModule amount={this.getPrice()}
                       currency={currency}
                       options={{
