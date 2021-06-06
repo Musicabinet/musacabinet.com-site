@@ -4,6 +4,7 @@ import { CustomAppContext } from '../../../interfaces';
 import { BaseLayout } from '../../../ui';
 import { MAPPING_INSTRUMENT_ID, MAPPING_SERVICE_ID, SERVICE_NAME } from '../../../constants';
 import { InstrumentView } from '../../../ui/components';
+import { ucFirst } from '../../../helpers';
 
 
 type InstrumentPageProps = {};
@@ -35,7 +36,7 @@ export default class InstrumentPage extends React.Component<InstrumentPageProps,
     await store?.grandChartStore.getList();
 
     return {
-      title: 'Online music school. Comprehensive music education. ',
+      title: `MUSICABINET | ${ucFirst(String(store?.systemStore.service_name))} ${ucFirst(String(store?.systemStore.instrument_name))}`,
       description: '',
       keywords: ''
     };

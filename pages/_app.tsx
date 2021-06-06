@@ -12,6 +12,7 @@ import { GrandChartModal } from '../ui/common/modals/grand-chart/grand-chart';
 interface Props {
   pageProps: any;
   initialMobxState: RootStore;
+  title: string,
 }
 
 class MusiCabinetApp extends App<Props> {
@@ -29,7 +30,9 @@ class MusiCabinetApp extends App<Props> {
 
     appContext.store = ctx.store;
 
-    let pageProps = {};
+    let pageProps: { title: string } = {
+      title: ''
+    };
     if (appContext.Component && appContext.Component.getInitialProps) {
       // @ts-ignore
       pageProps = await appContext.Component.getInitialProps(appContext);
@@ -49,10 +52,11 @@ class MusiCabinetApp extends App<Props> {
 
   render() {
     const { pageProps, Component } = this.props;
+
     return (
       <>
         <Provider {...this.mobxStore}>
-          <HeadBlock />
+          <HeadBlock title={this.props.title} />
           <Component {...pageProps} />
           <Notifications />
           <GrandChartModal />

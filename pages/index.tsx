@@ -16,8 +16,10 @@ export default class IndexPage extends React.Component<IndexPageProps, IndexPage
     await store?.servicesStore.getAll();
     await store?.instrumentsStore.getAll();
 
+
+    console.log('getInitialProps');
     return {
-      title: 'Online music school. Comprehensive music education. ',
+      title: 'MUSICABINET | Online Music Education Platform',
       description: '',
       keywords: ''
     };
