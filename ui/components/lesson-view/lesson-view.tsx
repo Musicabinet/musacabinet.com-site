@@ -9,12 +9,14 @@ import { RootStore } from '../../../stores';
 import { SERVICE_NAME } from '../../../constants';
 import { Charts } from './charts/charts';
 import { NextModule } from '../../common';
+import { LocalStorage } from '../../../core';
 
 const b = block(style);
 
 type LessonViewProps = {
   service_name: SERVICE_NAME,
   instrument_name: '',
+  uuid: '',
   onReset: () => void
 };
 type LessonViewState = {};
@@ -22,6 +24,7 @@ type LessonViewState = {};
 @inject((store: RootStore) => ({
   service_name: store.systemStore.service_name,
   instrument_name: store.systemStore.instrument_name,
+  uuid: store.lessonStore.uuid,
   onReset: store.lessonStore.reset
 }))
 @observer
@@ -30,6 +33,7 @@ export class LessonView extends React.Component<LessonViewProps, LessonViewState
   static defaultProps = {
     service_name: SERVICE_NAME.SCHOOL,
     instrument_name: '',
+    uuid: '',
     onReset: () => console.log('Not set handler')
   };
 
@@ -37,6 +41,20 @@ export class LessonView extends React.Component<LessonViewProps, LessonViewState
     const { onReset } = this.props;
     onReset();
     console.log('unmount lesson');
+  }
+
+  componentDidMount() {
+    const { uuid } = this.props;
+
+    if (uuid) {
+      LocalStorage.set('lesson_id_q', uuid);
+    }
+  }
+
+  componentDidUpdate(prevProps: Readonly<LessonViewProps>) {
+    if(prevProps.uuid !== this.props.uuid){
+      LocalStorage.set('lesson_id_q', this.props.uuid);
+    }
   }
 
   render() {
@@ -48,7 +66,8 @@ export class LessonView extends React.Component<LessonViewProps, LessonViewState
           <Header />
           <div className={b('content')}>
             <div className={b('left')}>
-              {(service_name === SERVICE_NAME.COLLEGE && (instrument_name !== '' && instrument_name == 'Guitar')) ? <Charts /> : <Scores />}
+              {(service_name === SERVICE_NAME.COLLEGE && (instrument_name !== '' && instrument_name == 'Guitar')) ?
+                <Charts /> : <Scores />}
             </div>
             <div className={b('right')}>
               <Method />
