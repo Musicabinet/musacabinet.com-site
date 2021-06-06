@@ -50,14 +50,14 @@ export class ButtonProfile extends React.Component<ButtonProfileProps, ButtonPro
     document.addEventListener('mousedown', this.handleClickOutside);
 
     this.setState({
-      uuid: LocalStorage.get('lesson_id')
+      uuid: LocalStorage.get('lesson_id_q')
     });
   }
 
   componentDidUpdate({}, prevState: ButtonProfileState) {
     if (this.state.show !== prevState.show) {
       this.setState({
-        uuid: LocalStorage.get('lesson_id')
+        uuid: LocalStorage.get('lesson_id_q')
       });
     }
   }
