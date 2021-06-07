@@ -76,8 +76,8 @@ export class StripeButton extends React.Component<StripeButtonProps, StripeButto
         ],
         mode: 'subscription',
         locale: 'en',
-        successUrl: `${CURRENT_DOMAIN}pricing?session_id={CHECKOUT_SESSION_ID}&system=${service_name}&instrument=${selected_instrument}`,
-        cancelUrl: `${CURRENT_DOMAIN}pricing`,
+        successUrl: `https://musicabinet.com/pricing?session_id={CHECKOUT_SESSION_ID}&system=${service_name}&instrument=${selected_instrument}`,
+        cancelUrl: `https://musicabinet.com/pricing`,
       });
     } catch (e) {
       console.error(`Error in method handleOnPay : `, e);
