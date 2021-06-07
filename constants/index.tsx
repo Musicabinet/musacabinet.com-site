@@ -1,3 +1,6 @@
+export * from './modals';
+export * from './stripe-prices';
+
 export enum METHODS_REQUEST {
   GET = 'GET',
   POST = 'POST',
@@ -75,8 +78,6 @@ export enum CHART_TYPE {
   IMAGE = 2
 }
 
-export * from './modals';
-
 export const MAPPING_SERVICE_ID = {
   'school-guitar': 1,
   'school-keyboard': 1,
@@ -101,3 +102,4 @@ export const SERVICE_SECOND_NEXT_MODULE = {
   [SERVICE_ID.COLLEGE]: 600,
   [SERVICE_ID.UNIVERSITY]: 900
 }
+

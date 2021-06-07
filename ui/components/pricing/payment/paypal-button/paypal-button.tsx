@@ -39,6 +39,11 @@ export class PayPalButton extends React.Component<PayPalButtonProps, PayPalButto
 
   getPrice = (): number => {
     const { currencyConverter, currentPrice, currency } = this.props;
+
+    if(!currentPrice){
+      return 0;
+    }
+
     if (currency === 'RUB') {
       return Number((currentPrice * currencyConverter).toFixed(2));
     } else {

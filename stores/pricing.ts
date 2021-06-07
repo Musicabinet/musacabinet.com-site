@@ -13,28 +13,34 @@ export class PricingStore {
     [SERVICE_NAME.SCHOOL]: [{
       name: '1 month',
       old_price: 30,
-      price: 21
+      price: 21,
+      count_mount: 1
     }, {
       name: '3 months',
       old_price: 75,
-      price: 55
+      price: 55,
+      count_mount: 3
     }, {
       name: '6 months',
       old_price: 120,
-      price: 89
+      price: 89,
+      count_mount: 6
     }],
     [SERVICE_NAME.COLLEGE]: [{
       name: '1 month',
       old_price: 100,
-      price: 75
+      price: 75,
+      count_mount: 1
     }, {
       name: '6 months',
       old_price: 480,
-      price: 360
+      price: 360,
+      count_mount: 6
     }, {
       name: '12 months',
       old_price: 720,
-      price: 540
+      price: 540,
+      count_mount: 12
     }]
   };
 
@@ -88,6 +94,11 @@ export class PricingStore {
   @computed
   get oldPrice() {
     return (this.prices && this.prices.length > 0) ? this.prices[this.month].old_price : '';
+  }
+
+  @computed
+  get countMonth(): number {
+    return (this.prices && this.prices.length > 0) ? this.prices[this.month].count_mount : 0;
   }
 
   @action
