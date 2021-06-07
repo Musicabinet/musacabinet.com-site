@@ -11,9 +11,9 @@ export const STRIPE_PRICES: { [key: string]: string } = {
   school_sax_3: 'price_1HpAN5HTf8fYJsx53tfblIU5',
   school_sax_6: 'price_1HpAMPHTf8fYJsx5hynugpD8',
 
-  college_guitar_1: 'price_1HpACvHTf8fYJsx5YSbNUScB',
-  college_guitar_6: 'price_1HpAA7HTf8fYJsx5MlV6hgBP',
-  college_guitar_12: 'price_1HpA8sHTf8fYJsx57wn2GZg0',
+  college_guitar_1: 'price_1IzeZjHTf8fYJsx5qbkXV6aN',
+  college_guitar_6: 'price_1IzeYQHTf8fYJsx5PM2hFLkg',
+  college_guitar_12: 'price_1IzeZAHTf8fYJsx5XFQV1eiq',
 
   college_keys_1: 'price_1HpAL2HTf8fYJsx5xEpb2qD8',
   college_keys_6: 'price_1HpAK3HTf8fYJsx508GXG2mk',
