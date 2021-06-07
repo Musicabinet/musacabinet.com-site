@@ -45,7 +45,8 @@ export class CountMonth extends React.Component<CountMonthProps, CountMonthState
                                           index={index}
                                           name={itemPrice.name}
                                           price={itemPrice.price}
-                                          old_price={itemPrice.old_price} />);
+                                          old_price={itemPrice.old_price}
+                                          count_mount={itemPrice.count_mount} />);
                 })}
               </div>
             </div>

@@ -2,11 +2,12 @@ import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import block from 'bem-css-modules';
 import style from './payment.module.sass';
-import { Button, Paragraph } from '../../../common';
+import { Paragraph } from '../../../common';
 import { PayPalButton } from './paypal-button/paypal-button';
 import { RootStore } from '../../../../stores';
 import { SERVICE_NAME } from '../../../../constants';
 import { ucFirst } from '../../../../helpers';
+import { StripeButton } from './stripe-button/stripe-button';
 
 const b = block(style);
 
@@ -36,7 +37,7 @@ export class Payment extends React.Component<PaymentProps, PaymentState> {
         <div className='container'>
           <div className='row mb-5'>
             <div className='col-lg-6 d-flex justify-content-center align-items-start'>
-              <Button full className={b('btn-by-card')}>Pay by card</Button>
+              <StripeButton />
             </div>
             <div className='col-lg-6'>
               <PayPalButton />
