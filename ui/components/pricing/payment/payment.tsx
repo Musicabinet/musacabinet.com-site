@@ -8,6 +8,7 @@ import { RootStore } from '../../../../stores';
 import { MODALS, SERVICE_NAME } from '../../../../constants';
 import { ucFirst } from '../../../../helpers';
 import { StripeButton } from './stripe-button/stripe-button';
+import { PayPalTestButton } from './paypal-test-button/paypal-test-button';
 
 const b = block(style);
 
@@ -17,7 +18,9 @@ type PaymentProps = {
   instrument: string,
   onShow: (id_window: MODALS) => void
 };
-type PaymentState = {};
+type PaymentState = {
+  isTest: boolean
+};
 
 @inject((store: RootStore) => ({
   isAuth: store.authStore.isAuth,
@@ -35,17 +38,43 @@ export class Payment extends React.Component<PaymentProps, PaymentState> {
     onShow: () => console.log('Not set handler')
   };
 
+  state = {
+    isTest: false
+  }
+
+  componentDidMount() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const testPay = urlParams.get('test-pay');
+
+    if(testPay === 'true'){
+      this.setState({
+        isTest: true
+      })
+    }
+  }
+
   handleOnShow = () => {
     const { onShow } = this.props;
     onShow(MODALS.SIGN_IN);
   };
 
   render() {
+    const {isTest} = this.state;
     const { service_name, instrument, isAuth } = this.props;
 
     return (
       <div className={b(null)}>
         <div className='container'>
+
+          {isTest
+            ? (
+              <div className='row'>
+                <div className='col-lg-6 offset-lg-3'>
+                  <PayPalTestButton />
+                </div>
+              </div>
+            )
+            : null}
 
           {isAuth
           ? (
