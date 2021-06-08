@@ -1,7 +1,7 @@
 import * as React from 'react';
-import {inject, observer} from 'mobx-react';
+import { inject, observer } from 'mobx-react';
 import block from 'bem-css-modules';
-import style from "./paypal-test-button.module.sass";
+import style from './paypal-test-button.module.sass';
 import { RootStore } from '../../../../../stores';
 import { PayPalButton as PayPalModule } from 'react-paypal-button-v2';
 
@@ -15,7 +15,7 @@ type PayPalTestButtonProps = {
 };
 type PayPalTestButtonState = {};
 
-@inject((store:RootStore) => ({
+@inject((store: RootStore) => ({
   currencyConverter: store.systemStore.currencyConverter,
   currency: store.systemStore.getCurrency,
   onGetGeo: store.systemStore.getGEO,
@@ -38,8 +38,7 @@ export class PayPalTestButton extends React.Component<PayPalTestButtonProps, Pay
 
   getPrice = (): number => {
     const { currencyConverter, currentPrice, currency } = this.props;
-
-    if(!currentPrice){
+    if (!currentPrice) {
       return 0;
     }
 
@@ -53,7 +52,7 @@ export class PayPalTestButton extends React.Component<PayPalTestButtonProps, Pay
   render() {
     const { currency } = this.props;
 
-    return  (
+    return (
       <div className={b(null)} data-pay-pal={true}>
         <div className={b('description')}>No recurring payments (TEST !!!)</div>
         <PayPalModule amount={this.getPrice()}
@@ -62,6 +61,7 @@ export class PayPalTestButton extends React.Component<PayPalTestButtonProps, Pay
                         clientId: PAY_PAY_CLIENT_ID
                       }} />
       </div>
-    );;
+    );
+    ;
   }
 }
