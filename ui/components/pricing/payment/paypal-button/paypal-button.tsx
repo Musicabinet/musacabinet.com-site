@@ -61,6 +61,7 @@ export class PayPalButton extends React.Component<PayPalButtonProps, PayPalButto
         <PayPalModule amount={this.getPrice()}
                       currency={currency}
                       options={{
+                        currency: currency,
                         clientId: PAY_PAY_CLIENT_ID
                       }} />
       </div>
