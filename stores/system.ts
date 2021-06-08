@@ -88,6 +88,8 @@ export class SystemStore {
       const response = await fetch('https://ssl.geoplugin.net/json.gp?k=72bcdc86ca893e41');
       const responseJSON = await response.json();
 
+      console.log('eheye', responseJSON);
+
       this.currentCountry = responseJSON.geoplugin_countryName;
       this.currencyConverter = responseJSON.geoplugin_currencyConverter;
       this.isLoadGeo = true;
@@ -98,7 +100,7 @@ export class SystemStore {
 
   @computed
   get getCurrency() {
-    return (this.currentCountry === 'Russian') ? 'RUB' : 'USD';
+    return (this.currentCountry === 'Russia') ? 'RUB' : 'USD';
   }
 
   @computed
