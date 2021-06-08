@@ -11,7 +11,8 @@ const b = block(style);
 type StripeButtonProps = {
   service_name: SERVICE_NAME,
   selected_instrument: string,
-  count_month: number
+  count_month: number,
+  email: string
 };
 type StripeButtonState = {
   stripe: any
@@ -20,7 +21,8 @@ type StripeButtonState = {
 @inject((store: RootStore) => ({
   service_name: store.systemStore.service_name,
   selected_instrument: store.pricingStore.selected_instrument,
-  count_month: store.pricingStore.countMonth
+  count_month: store.pricingStore.countMonth,
+  email: store.userStore.email
 }))
 @observer
 export class StripeButton extends React.Component<StripeButtonProps, StripeButtonState> {
@@ -28,7 +30,8 @@ export class StripeButton extends React.Component<StripeButtonProps, StripeButto
   static defaultProps = {
     service_name: SERVICE_NAME.SCHOOL,
     selected_instrument: '',
-    count_month: 0
+    count_month: 0,
+    email: ''
   };
 
   async componentDidMount() {
@@ -56,12 +59,7 @@ export class StripeButton extends React.Component<StripeButtonProps, StripeButto
 
   handleOnPay = () => {
 
-    const { service_name, selected_instrument, count_month } = this.props;
-
-    /*const price_id = (isDev())
-      ? 'price_1HqXLMHTf8fYJsx5NT87zyca'
-      : getStipePrice(`${service_name}_${selected_instrument}_${count}`);*/
-
+    const { service_name, selected_instrument, count_month, email } = this.props;
     const price_id = getStripePrice(`${service_name}_${selected_instrument}_${count_month}`);
 
     if(!price_id){
@@ -78,6 +76,7 @@ export class StripeButton extends React.Component<StripeButtonProps, StripeButto
         locale: 'en',
         successUrl: `https://musicabinet.com/pricing?session_id={CHECKOUT_SESSION_ID}&system=${service_name}&instrument=${selected_instrument}`,
         cancelUrl: `https://musicabinet.com/pricing`,
+        customerEmail: email
       });
     } catch (e) {
       console.error(`Error in method handleOnPay : `, e);
