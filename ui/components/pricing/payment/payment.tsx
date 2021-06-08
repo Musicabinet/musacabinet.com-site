@@ -9,6 +9,7 @@ import { MODALS, SERVICE_NAME } from '../../../../constants';
 import { ucFirst } from '../../../../helpers';
 import { StripeButton } from './stripe-button/stripe-button';
 import { PayPalTestButton } from './paypal-test-button/paypal-test-button';
+import { StripeTestButton } from './stripe-test-button/stripe-test-button';
 
 const b = block(style);
 
@@ -40,16 +41,16 @@ export class Payment extends React.Component<PaymentProps, PaymentState> {
 
   state = {
     isTest: false
-  }
+  };
 
   componentDidMount() {
     const urlParams = new URLSearchParams(window.location.search);
     const testPay = urlParams.get('test-pay');
 
-    if(testPay === 'true'){
+    if (testPay === 'true') {
       this.setState({
         isTest: true
-      })
+      });
     }
   }
 
@@ -59,12 +60,21 @@ export class Payment extends React.Component<PaymentProps, PaymentState> {
   };
 
   render() {
-    const {isTest} = this.state;
+    const { isTest } = this.state;
     const { service_name, instrument, isAuth } = this.props;
 
     return (
       <div className={b(null)}>
         <div className='container'>
+          {isTest
+            ? (
+              <div className='row'>
+                <div className='col-lg-6 offset-lg-3'>
+                  <StripeTestButton />
+                </div>
+              </div>
+            )
+            : null}
 
           {isTest
             ? (
@@ -77,7 +87,7 @@ export class Payment extends React.Component<PaymentProps, PaymentState> {
             : null}
 
           {isAuth
-          ? (
+            ? (
               <div className='row mb-5'>
                 <div className='col-lg-6 d-flex justify-content-center align-items-start'>
                   <StripeButton />
@@ -87,7 +97,7 @@ export class Payment extends React.Component<PaymentProps, PaymentState> {
                 </div>
               </div>
             )
-          : (
+            : (
               <div className='row mb-5'>
                 <div className='col-lg-12 d-flex justify-content-center align-items-start'>
                   <Button onClick={this.handleOnShow}>Sign in</Button>
