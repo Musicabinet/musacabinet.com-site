@@ -30,6 +30,8 @@ class MusiCabinetApp extends App<Props> {
 
     appContext.store = ctx.store;
 
+    await appContext.store?.authStore.check();
+
     let pageProps: { title: string } = {
       title: ''
     };
