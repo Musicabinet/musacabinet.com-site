@@ -120,8 +120,13 @@ export class MenuListStore {
     type: MenuType.DEFAULT,
     is_active: false
   }, {
-    title: 'Contact us',
+    title: 'Contact Us',
     link: 'contact',
+    type: MenuType.DEFAULT,
+    is_active: false
+  }, {
+    title: 'Company Information',
+    link: 'company-information',
     type: MenuType.DEFAULT,
     is_active: false
   }];

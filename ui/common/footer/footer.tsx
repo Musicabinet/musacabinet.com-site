@@ -40,7 +40,7 @@ export class Footer extends React.Component<FooterProps, FooterState> {
             <div className='row'>
               {menu.map((item) => {
                 const { title, link } = item;
-                return (<div key={link} className='col-lg-4 text-center'>
+                return (<div key={link} className='col-lg-3 text-center'>
                   <Link href={`/${link}`}><a className={b('link')}>{title}</a></Link>
                 </div>);
               })}
