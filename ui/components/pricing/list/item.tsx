@@ -5,26 +5,35 @@ import style from './list.module.sass';
 import { ServiceI } from '../../../../interfaces';
 import { InstrumentIcon } from '../../../common';
 import { LIST_ICON } from '../../../common/icons';
+import { RootStore } from '../../../../stores';
 
 const b = block(style);
 
-type ItemProps = {};
+type ItemProps = {
+  information: any
+};
 type ItemState = {};
 
-@inject(() => ({}))
+@inject((store: RootStore) => ({
+  information: store.pricingStore.information
+}))
 @observer
 export class Item extends React.Component<ItemProps & ServiceI, ItemState> {
   render() {
-    const { slug } = this.props;
+    const { slug, information } = this.props;
+    const service_name = slug;
+
+    console.log(information[service_name]);
 
     return (
       <div className={b('item')}>
         <div className={b('icon')}>
           {/*
            // @ts-ignore */}
-          <InstrumentIcon icon={slug.toUpperCase() as LIST_ICON} service={'white'} />
+          <InstrumentIcon icon={service_name.toUpperCase() as LIST_ICON} service={'white'} />
         </div>
         <div className={b('name')}>{slug}</div>
+        <div className={b('description')}>{information[service_name].title}</div>
         <div className={b('error')}>
           Error. Not found price
         </div>
