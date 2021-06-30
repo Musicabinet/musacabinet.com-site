@@ -8,7 +8,7 @@ const b = block(style);
 
 type InstrumentIconProps = {
   icon: LIST_ICON.GUITAR | LIST_ICON.SAXOPHONE | LIST_ICON.KEYBOARD,
-  service: SERVICE_NAME | 'default' | 'selected',
+  service: SERVICE_NAME | 'default' | 'selected' | 'white',
   size: 'small',
   className: string
 };
