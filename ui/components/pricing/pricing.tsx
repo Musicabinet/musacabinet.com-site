@@ -33,11 +33,16 @@ export class Pricing extends React.Component<PricingProps, PricingState> {
                 <p>MUSICABINET is specially designed for those looking to start, continue, or perfect their music career and
                   music instruments playing skills at ease.</p>
                 <p>MUSICABINET is a Strong Education System containing over 200 000 handmade sheets of Learning Materials.</p>
+
+                <ul className={b('list')}>
+                  <li className={b('item')}><sup>1</sup> SRM — Sight Reading Machine</li>
+                  <li className={b('item')}><sup>2</sup> REM — Rhythm Exercise Machine</li>
+                  <li className={b('item')}><sup>3</sup> GYM — Technique Exercises</li>
+                </ul>
               </div>
             </div>
           </div>
         </div>
-
       </div>
     );
   }
