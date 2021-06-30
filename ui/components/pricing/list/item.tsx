@@ -91,12 +91,18 @@ export class Item extends React.Component<ItemProps & ServiceI, ItemState> {
     let current = 0;
     let old = 0;
     let list = [];
+    let plans = [];
+    let extra = '';
 
     if (information[service_name].prices) {
       current = information[service_name]?.prices[selected_term].current;
       old = information[service_name]?.prices[selected_term].old;
       list = information[service_name].list[selected_instrument];
+      plans = information[service_name].plans;
+      extra = information[service_name].extra;
     }
+
+    console.log('extra', extra);
 
     return (
       <div className={b('item')}>
@@ -107,13 +113,20 @@ export class Item extends React.Component<ItemProps & ServiceI, ItemState> {
         </div>
         <div className={b('name')}>{slug}</div>
         <div className={b('description')}>{information[service_name].title}</div>
-        <div className={b('price')}>$ <span>{current}</span></div>
-        <div className={b('old')}>${old}</div>
-        <div className={b('action')}>
-          <button onClick={this.onPay}
-                  className={b('button', { [slug]: true })}>Buy plan
-          </button>
-        </div>
+
+        {plans.includes(selected_term) && (
+          <>
+            <div className={b('price')}>$ <span>{current}</span></div>
+            <div className={b('old')}>${old}</div>
+            <div className={b('action')}>
+              <button onClick={this.onPay}
+                      className={b('button', { [slug]: true })}>Buy plan
+              </button>
+            </div>
+          </>
+        )}
+
+
         <div className={b('list')}>
           {list.map((item: any) => {
             return <div className={b('list-item')}><i
@@ -123,7 +136,9 @@ export class Item extends React.Component<ItemProps & ServiceI, ItemState> {
         </div>
 
         <div className={b('divider', { [service_name]: true })} />
+        <div className={b('extra')}>{extra}</div>
       </div>
     );
   }
+
 }
