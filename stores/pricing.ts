@@ -75,23 +75,23 @@ export class PricingStore {
       list: {
         'guitar': [
           '149 Lessons',
-          '190 Miditracks',
-          '150 Backingtrack',
+          '190 Midi Tracks',
+          '150 Backing Tracks',
           '50 SRM1 Sheets',
           '50 REM Sheets',
           '12 GYM Exercises'
         ],
         'keyboard': [
           '135 Lessons',
-          '190 Miditracks',
-          '145 Backingtrack',
+          '190 Midi Tracks',
+          '145 Backing Tracks',
           '50 SRM Sheets',
           '50 REM Sheets'
         ],
         'saxophone': [
           '115 Lessons',
-          '210 Miditracks',
-          '130 Backingtrack',
+          '210 Midi Tracks',
+          '130 Backing Tracks',
           '50 SRM Sheets',
           '50 REM Sheets'
         ]
@@ -118,23 +118,23 @@ export class PricingStore {
       list: {
         'guitar': [
           '192 Lessons',
-          '180 Miditracks',
-          '240 Backingtrack',
+          '180 Midi Tracks',
+          '240 Backing Tracks',
           '50 SRM1 Sheets',
           '50 REM Sheets',
           '12 GYM Exercises'
         ],
         'keyboard': [
           '135 Lessons',
-          '190 Miditracks',
-          '145 Backingtrack',
+          '190 Midi Tracks',
+          '145 Backing Tracks',
           '50 SRM Sheets',
           '50 REM Sheets'
         ],
         'saxophone': [
           '115 Lessons',
-          '210 Miditracks',
-          '130 Backingtrack',
+          '210 Midi Tracks',
+          '130 Backing Tracks',
           '50 SRM Sheets',
           '50 REM Sheets'
         ]
@@ -161,23 +161,24 @@ export class PricingStore {
       list: {
         'guitar': [
           '1001 Lessons',
-          '420 Backingtrack',
-          '110 000 Sheets',
+          '420 Backing Tracks',
+          '110 000 IGM Sheets',
           '50 SRM1 Sheets',
           '50 REM2 Sheets',
           '12 GYM Exercises'
         ],
         'keyboard': [
           '135 Lessons',
-          '190 Miditracks',
-          '145 Backingtrack',
+          '190 Midi Tracks',
+          '145 Backing Tracks',
+          '70 000 IGM Sheets',
           '50 SRM Sheets',
           '50 REM Sheets'
         ],
         'saxophone': [
           '115 Lessons',
-          '210 Miditracks',
-          '130 Backingtrack',
+          '210 Midi Tracks',
+          '130 Backing Tracks',
           '50 SRM Sheets',
           '50 REM Sheets'
         ]

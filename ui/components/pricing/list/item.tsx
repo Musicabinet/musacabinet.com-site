@@ -92,20 +92,18 @@ export class Item extends React.Component<ItemProps & ServiceI, ItemState> {
     let old = 0;
     let list = [];
     let plans = [];
-    let extra = '';
+    let extract = '';
 
     if (information[service_name].prices) {
       current = information[service_name]?.prices[selected_term].current;
       old = information[service_name]?.prices[selected_term].old;
       list = information[service_name].list[selected_instrument];
       plans = information[service_name].plans;
-      extra = information[service_name].extra;
+      extract = information[service_name].extract;
     }
 
-    console.log('extra', extra);
-
     return (
-      <div className={b('item')}>
+      <div className={b('item', { [service_name]: true })}>
         <div className={b('icon')}>
           {/*
            // @ts-ignore */}
@@ -130,13 +128,13 @@ export class Item extends React.Component<ItemProps & ServiceI, ItemState> {
         <div className={b('list')}>
           {list.map((item: any) => {
             return <div className={b('list-item')}><i
-              className={b('check', { [service_name]: true })}>{getIcon(LIST_ICON.CHECK, '')}</i>{item}
+              className={b('check', { [service_name]: true })}>{getIcon(LIST_ICON.CHECK,'')}</i>{item}
             </div>;
           })}
         </div>
 
         <div className={b('divider', { [service_name]: true })} />
-        <div className={b('extra')}>{extra}</div>
+        <div className={b('extra')}>{extract}</div>
       </div>
     );
   }
