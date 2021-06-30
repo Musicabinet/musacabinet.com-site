@@ -1,13 +1,17 @@
 import { action, computed, makeObservable, observable } from 'mobx';
-import { PriceI, PriceListI } from '../interfaces';
+import { PriceI, PriceListI, TERM_LIST } from '../interfaces';
 import { SystemStore } from './system';
 import { SERVICE_NAME } from '../constants';
+import { LIST_ICON } from '../ui/common/icons';
 
 interface ImportStore {
   systemStore: SystemStore,
 }
 
 export class PricingStore {
+
+  @observable selected_instrument_icon: LIST_ICON = LIST_ICON.GUITAR;
+  @observable selected_term: TERM_LIST = TERM_LIST.MONTHLY;
 
   @observable list: PriceListI = {
     [SERVICE_NAME.SCHOOL]: [{
@@ -75,6 +79,17 @@ export class PricingStore {
     } catch (e) {
       console.error(`Error in method generateButtonPayPal : `, e);
     }
+  }
+
+  @action.bound
+  setSelectedInstrumentIcon(value: LIST_ICON) {
+    this.selected_instrument_icon = value;
+    this.selected_term = TERM_LIST.MONTHLY;
+  }
+
+  @action.bound
+  setSelectedTerm(value: TERM_LIST) {
+    this.selected_term = value;
   }
 
   @computed

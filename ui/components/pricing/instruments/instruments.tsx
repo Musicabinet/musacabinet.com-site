@@ -10,29 +10,37 @@ import { LIST_ICON } from '../../../common/icons';
 const b = block(style);
 
 type InstrumentsProps = {
-  list: InstrumentI[]
+  list: InstrumentI[],
+  selected_instrument_icon: LIST_ICON,
+  onSetInstrument: (value: LIST_ICON) => void
 };
 type InstrumentsState = {};
 
 @inject((store: RootStore) => ({
-  list: store.servicesStore.instruments
+  list: store.servicesStore.instruments,
+  selected_instrument_icon: store.pricingStore.selected_instrument_icon,
+  onSetInstrument: store.pricingStore.setSelectedInstrumentIcon
 }))
 @observer
 export class Instruments extends React.Component<InstrumentsProps, InstrumentsState> {
 
   static defaultProps = {
-    list: []
+    list: [],
+    selected_instrument_icon: LIST_ICON.GUITAR,
+    onSetInstrument: () => console.log('Not set handler')
   };
 
   render() {
-    const { list } = this.props;
+    const { list, selected_instrument_icon, onSetInstrument } = this.props;
 
     return (
       <div className={b(null)}>
         <div className='container'>
           <div className='row'>
             {list.map((instrument) => {
-              return (<InstrumentItem key={instrument.id} {...instrument} selected={instrument.icon === LIST_ICON.KEYBOARD} />);
+              return (<InstrumentItem key={instrument.id} {...instrument}
+                                      selected={instrument.icon === selected_instrument_icon}
+                                      onSetInstrument={onSetInstrument} />);
             })}
           </div>
         </div>
