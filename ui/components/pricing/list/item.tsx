@@ -121,6 +121,8 @@ export class Item extends React.Component<ItemProps & ServiceI, ItemState> {
             </div>;
           })}
         </div>
+
+        <div className={b('divider', { [service_name]: true })} />
       </div>
     );
   }
