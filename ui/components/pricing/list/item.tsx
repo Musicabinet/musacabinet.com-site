@@ -103,7 +103,10 @@ export class Item extends React.Component<ItemProps & ServiceI, ItemState> {
     }
 
     return (
-      <div className={b('item', { [service_name]: true })}>
+      <div className={b('item', {
+        [service_name]: true,
+        'not-hover': (!plans.includes(selected_term))
+      })}>
         <div className={b('icon')}>
           {/*
            // @ts-ignore */}
@@ -112,23 +115,21 @@ export class Item extends React.Component<ItemProps & ServiceI, ItemState> {
         <div className={b('name')}>{slug}</div>
         <div className={b('description')}>{information[service_name].title}</div>
 
-        {plans.includes(selected_term) && (
-          <>
-            <div className={b('price')}>$ <span>{current}</span></div>
-            <div className={b('old')}>${old}</div>
-            <div className={b('action')}>
-              <button onClick={this.onPay}
-                      className={b('button', { [slug]: true })}>Buy plan
-              </button>
-            </div>
-          </>
-        )}
+        <div className={b('price', { hidden: !plans.includes(selected_term) })}>$ <span>{current}</span></div>
+        <div className={b('old', { hidden: !plans.includes(selected_term) })}>${old}</div>
+
+        <div className={b('action')}>
+          <button onClick={this.onPay}
+                  disabled={(!plans.includes(selected_term))}
+                  className={b('button', { [slug]: true })}>{(plans.includes(selected_term)) ? 'Buy plan' : 'Unavailable'}
+          </button>
+        </div>
 
 
         <div className={b('list')}>
           {list.map((item: any) => {
             return <div className={b('list-item')}><i
-              className={b('check', { [service_name]: true })}>{getIcon(LIST_ICON.CHECK,'')}</i>{item}
+              className={b('check', { [service_name]: true })}>{getIcon(LIST_ICON.CHECK, '')}</i>{item}
             </div>;
           })}
         </div>

@@ -30,6 +30,10 @@
       &:hover
         background: linear-gradient(180deg, #00A871 0%, #000000 100%), #4D4D4D
 
+    &_not-hover
+      &:hover
+        background: $gray50 !important
+
 
     &:last-child
       margin-right: 0
@@ -81,12 +85,18 @@
       @include fontMontserrat(36px, 700)
       line-height: 43.88px
 
+    &_hidden
+      opacity: 0
+
   &__old
     @include fontMontserrat(18px)
     color: $white
     text-align: center
     padding: 15px 0
     text-decoration: line-through
+
+    &_hidden
+      opacity: 0
 
   &__action
     margin: 15px 0 40px
@@ -109,6 +119,10 @@
 
     &_university
       background: $university
+
+    &:disabled
+      cursor: not-allowed
+      opacity: 0.8
 
   &__list
     position: relative
