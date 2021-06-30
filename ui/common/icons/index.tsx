@@ -16,6 +16,7 @@ import ICON_PLAY from './play.svg';
 import ICON_VOLUME from './icon-volume.svg';
 import ICON_BACK_BUTTON from './icon-back.svg';
 import ICON_PROFILE from './profile-icon.svg';
+import ICON_CHECK from './check.svg';
 import React from 'react';
 import { ReactSVG } from 'react-svg';
 
@@ -38,6 +39,7 @@ export enum LIST_ICON {
   VOLUME = 'VOLUME',
   BACK_BUTTON = 'BACK_BUTTON',
   PROFILE = 'PROFILE',
+  CHECK = 'CHECK',
 }
 
 export const ICON_MAPPING = {
@@ -58,7 +60,8 @@ export const ICON_MAPPING = {
   [LIST_ICON.PLAY]: ICON_PLAY,
   [LIST_ICON.VOLUME]: ICON_VOLUME,
   [LIST_ICON.BACK_BUTTON]: ICON_BACK_BUTTON,
-  [LIST_ICON.PROFILE]: ICON_PROFILE
+  [LIST_ICON.PROFILE]: ICON_PROFILE,
+  [LIST_ICON.CHECK]: ICON_CHECK
 };
 
 export const getIcon = (icon: LIST_ICON, className: string): React.ReactNode => {

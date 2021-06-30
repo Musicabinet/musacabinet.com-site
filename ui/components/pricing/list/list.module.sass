@@ -75,7 +75,7 @@
     text-decoration: line-through
 
   &__action
-    margin: 15px 0
+    margin: 15px 0 40px
 
   &__button
     border-radius: 10px
@@ -95,4 +95,29 @@
 
     &_university
       background: $university
+
+  &__list
+    position: relative
+    line-height: 30px
+
+  &__list-item
+    @include fontMontserrat(14px)
+    color: $white
+    display: flex
+    align-items: center
+
+  &__check
+    margin-right: 10px
+
+    &_school
+      path
+        stroke: $school
+
+    &_college
+      path
+        stroke: $college
+
+    &_university
+      path
+        stroke: $university
 
