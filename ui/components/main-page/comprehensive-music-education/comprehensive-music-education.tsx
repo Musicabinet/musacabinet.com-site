@@ -22,10 +22,8 @@ export class ComprehensiveMusicEducation extends React.Component<ComprehensiveMu
 
         <div className={b('content')}>
           <picture>
-            <source srcSet='/images/logotype/common-big.webp, /images/logotype/common-big@2x.webp 2x'
-                    type='image/webp' />
-            <img src='/images/logotype/common-big.png'
-                 srcSet='/images/logotype/common-big@2x.png 2x'
+            <img src='/images/MC_logo_platform.png'
+                 srcSet='/images/MC_logo_platform@2x.png 2x'
                  className={b('logotype')} />
           </picture>
 
