@@ -65,8 +65,13 @@ export class PricingStore {
           current: 120,
           old: 240,
           id: 'price_1J7GqhHTf8fYJsx56Pyh6tvo'
+        },
+        [TERM_LIST.FOREVER]: {
+          current: 0,
+          old: 0
         }
       },
+      plans: [TERM_LIST.MONTHLY, TERM_LIST.YEARLY],
       list: {
         'guitar': [
           '149 Lessons',
@@ -90,8 +95,8 @@ export class PricingStore {
           '50 SRM Sheets',
           '50 REM Sheets'
         ]
-      }
-
+      },
+      extract: 'Includes 4 COLLEGE Lessons'
     },
     [SERVICE_NAME.COLLEGE]: {
       title: 'Advanced',
@@ -103,8 +108,13 @@ export class PricingStore {
         [TERM_LIST.YEARLY]: {
           current: 630,
           old: 840
+        },
+        [TERM_LIST.FOREVER]: {
+          current: 0,
+          old: 0
         }
       },
+      plans: [TERM_LIST.MONTHLY, TERM_LIST.YEARLY],
       list: {
         'guitar': [
           '192 Lessons',
@@ -128,7 +138,8 @@ export class PricingStore {
           '50 SRM Sheets',
           '50 REM Sheets'
         ]
-      }
+      },
+      extract: 'Includes SCHOOL subscription'
     },
     [SERVICE_NAME.UNIVERSITY]: {
       title: 'Professional',
@@ -140,8 +151,13 @@ export class PricingStore {
         [TERM_LIST.YEARLY]: {
           current: 1159,
           old: 1549
+        },
+        [TERM_LIST.FOREVER]: {
+          current: 2997,
+          old: 3997
         }
       },
+      plans: [TERM_LIST.MONTHLY, TERM_LIST.YEARLY, TERM_LIST.FOREVER],
       list: {
         'guitar': [
           '1001 Lessons',
@@ -165,7 +181,8 @@ export class PricingStore {
           '50 SRM Sheets',
           '50 REM Sheets'
         ]
-      }
+      },
+      extract: 'Includes SCHOOL and COLLEGE'
     }
   };
 
