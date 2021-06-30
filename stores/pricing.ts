@@ -66,19 +66,68 @@ export class PricingStore {
           old: 240,
           id: 'price_1J7GqhHTf8fYJsx56Pyh6tvo'
         }
+      },
+      list: {
+        'guitar': [
+          '149 Lessons',
+          '190 Miditracks',
+          '150 Backingtrack',
+          '50 SRM1 Sheets',
+          '50 REM Sheets',
+          '12 GYM Exercises'
+        ],
+        'keyboard': [
+          '135 Lessons',
+          '190 Miditracks',
+          '145 Backingtrack',
+          '50 SRM Sheets',
+          '50 REM Sheets'
+        ],
+        'saxophone': [
+          '115 Lessons',
+          '210 Miditracks',
+          '130 Backingtrack',
+          '50 SRM Sheets',
+          '50 REM Sheets'
+        ]
       }
+
     },
     [SERVICE_NAME.COLLEGE]: {
       title: 'Advanced',
       prices: {
         [TERM_LIST.MONTHLY]: {
           current: 75,
-          old: 100,
+          old: 100
         },
         [TERM_LIST.YEARLY]: {
           current: 630,
           old: 840
         }
+      },
+      list: {
+        'guitar': [
+          '149 Lessons',
+          '190 Miditracks',
+          '150 Backingtrack',
+          '50 SRM1 Sheets',
+          '50 REM Sheets',
+          '12 GYM Exercises'
+        ],
+        'keyboard': [
+          '135 Lessons',
+          '190 Miditracks',
+          '145 Backingtrack',
+          '50 SRM Sheets',
+          '50 REM Sheets'
+        ],
+        'saxophone': [
+          '115 Lessons',
+          '210 Miditracks',
+          '130 Backingtrack',
+          '50 SRM Sheets',
+          '50 REM Sheets'
+        ]
       }
     },
     [SERVICE_NAME.UNIVERSITY]: {
@@ -86,16 +135,39 @@ export class PricingStore {
       prices: {
         [TERM_LIST.MONTHLY]: {
           current: 149,
-          old: 199,
+          old: 199
         },
         [TERM_LIST.YEARLY]: {
           current: 1159,
           old: 1549
         }
+      },
+      list: {
+        'guitar': [
+          '149 Lessons',
+          '190 Miditracks',
+          '150 Backingtrack',
+          '50 SRM1 Sheets',
+          '50 REM Sheets',
+          '12 GYM Exercises'
+        ],
+        'keyboard': [
+          '135 Lessons',
+          '190 Miditracks',
+          '145 Backingtrack',
+          '50 SRM Sheets',
+          '50 REM Sheets'
+        ],
+        'saxophone': [
+          '115 Lessons',
+          '210 Miditracks',
+          '130 Backingtrack',
+          '50 SRM Sheets',
+          '50 REM Sheets'
+        ]
       }
     }
   };
-
 
 
   systemStore: SystemStore;
