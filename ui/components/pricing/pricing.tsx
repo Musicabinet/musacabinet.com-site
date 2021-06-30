@@ -5,6 +5,7 @@ import style from './pricing.module.sass';
 import { Instruments } from './instruments/instruments';
 import { InstrumentsName } from './instruments-name/instruments-name';
 import { Types } from './types/types';
+import { List } from './list/list';
 
 const b = block(style);
 
@@ -20,6 +21,7 @@ export class Pricing extends React.Component<PricingProps, PricingState> {
         <Instruments />
         <InstrumentsName />
         <Types />
+        <List />
       </div>
     );
   }
