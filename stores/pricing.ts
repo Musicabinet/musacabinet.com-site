@@ -57,12 +57,14 @@ export class PricingStore {
       title: 'Beginner',
       prices: {
         [TERM_LIST.MONTHLY]: {
-          current: 21,
-          old: 30
+          current: 15,
+          old: 30,
+          id: 'price_1J7GoWHTf8fYJsx5Q62KZJrA'
         },
         [TERM_LIST.YEARLY]: {
-          current: 179,
-          old: 240
+          current: 120,
+          old: 240,
+          id: 'price_1J7GqhHTf8fYJsx56Pyh6tvo'
         }
       }
     },
@@ -71,7 +73,7 @@ export class PricingStore {
       prices: {
         [TERM_LIST.MONTHLY]: {
           current: 75,
-          old: 100
+          old: 100,
         },
         [TERM_LIST.YEARLY]: {
           current: 630,
@@ -80,9 +82,21 @@ export class PricingStore {
       }
     },
     [SERVICE_NAME.UNIVERSITY]: {
-      title: 'Professional'
+      title: 'Professional',
+      prices: {
+        [TERM_LIST.MONTHLY]: {
+          current: 149,
+          old: 199,
+        },
+        [TERM_LIST.YEARLY]: {
+          current: 1159,
+          old: 1549
+        }
+      }
     }
   };
+
+
 
   systemStore: SystemStore;
 
