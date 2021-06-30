@@ -22,8 +22,7 @@ export class Item extends React.Component<ItemProps & ServiceI, ItemState> {
   render() {
     const { slug, information } = this.props;
     const service_name = slug;
-
-    console.log(information[service_name]);
+;
 
     return (
       <div className={b('item')}>
