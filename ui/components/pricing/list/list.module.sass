@@ -58,9 +58,41 @@
     padding-bottom: 45px
 
   &__price
-    @include fontMontserrat(24px)
+    @include fontMontserrat(24px, 700)
     line-height: 29.26px
+    color: $white
+    text-align: center
 
     span
-      @include fontMontserrat(36px)
+      @include fontMontserrat(36px, 700)
       line-height: 43.88px
+
+  &__old
+    @include fontMontserrat(18px)
+    color: $white
+    text-align: center
+    padding: 15px 0
+    text-decoration: line-through
+
+  &__action
+    margin: 15px 0
+
+  &__button
+    border-radius: 10px
+    @include fontMontserrat(24px, 700)
+    line-height: 30px
+    border: 0
+    width: 100%
+    padding: 10px 0
+    color: $white
+    cursor: pointer
+
+    &_school
+      background: $school
+
+    &_college
+      background: $college
+
+    &_university
+      background: $university
+

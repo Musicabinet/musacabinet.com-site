@@ -26,6 +26,8 @@ export class List extends React.Component<ListProps, ListState> {
   render() {
     const { list } = this.props;
 
+    console.log('list', list);
+
     return (
       <div className='container'>
         <div className='row'>
@@ -33,7 +35,7 @@ export class List extends React.Component<ListProps, ListState> {
             <div className={b(null)}>
               {list.map((service) => {
                 // @ts-ignore
-                return <Item key={service.id} {...service}  />;
+                return <Item key={service.id} {...service} />;
               })}
             </div>
           </div>
