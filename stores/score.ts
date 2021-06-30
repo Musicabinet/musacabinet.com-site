@@ -1,5 +1,5 @@
 import { action, makeObservable, observable } from 'mobx';
-import { ScoreI} from '../interfaces';
+import { ScoreI } from '../interfaces';
 import { ScoreItemStore } from './score-item';
 
 export class ScoreStore implements ScoreI {

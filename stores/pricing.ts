@@ -51,6 +51,39 @@ export class PricingStore {
   @observable month = 0;
   @observable selected_instrument = 'guitar';
 
+
+  @observable information: any = {
+    [SERVICE_NAME.SCHOOL]: {
+      title: 'Beginner',
+      prices: {
+        [TERM_LIST.MONTHLY]: {
+          current: 21,
+          old: 30
+        },
+        [TERM_LIST.YEARLY]: {
+          current: 179,
+          old: 240
+        }
+      }
+    },
+    [SERVICE_NAME.COLLEGE]: {
+      title: 'Advanced',
+      prices: {
+        [TERM_LIST.MONTHLY]: {
+          current: 75,
+          old: 100
+        },
+        [TERM_LIST.YEARLY]: {
+          current: 630,
+          old: 840
+        }
+      }
+    },
+    [SERVICE_NAME.UNIVERSITY]: {
+      title: 'Professional'
+    }
+  };
+
   systemStore: SystemStore;
 
   constructor(initialData: PricingStore | null, { systemStore }: ImportStore) {
