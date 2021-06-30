@@ -111,7 +111,7 @@ export class Item extends React.Component<ItemProps & ServiceI, ItemState> {
         <div className={b('old')}>${old}</div>
         <div className={b('action')}>
           <button onClick={this.onPay}
-                  className={b('button', { [slug]: true })}>Buy plain
+                  className={b('button', { [slug]: true })}>Buy plan
           </button>
         </div>
         <div className={b('list')}>

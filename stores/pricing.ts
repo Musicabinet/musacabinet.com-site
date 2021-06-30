@@ -107,9 +107,9 @@ export class PricingStore {
       },
       list: {
         'guitar': [
-          '149 Lessons',
-          '190 Miditracks',
-          '150 Backingtrack',
+          '192 Lessons',
+          '180 Miditracks',
+          '240 Backingtrack',
           '50 SRM1 Sheets',
           '50 REM Sheets',
           '12 GYM Exercises'
@@ -144,11 +144,11 @@ export class PricingStore {
       },
       list: {
         'guitar': [
-          '149 Lessons',
-          '190 Miditracks',
-          '150 Backingtrack',
+          '1001 Lessons',
+          '420 Backingtrack',
+          '110 000 Sheets',
           '50 SRM1 Sheets',
-          '50 REM Sheets',
+          '50 REM2 Sheets',
           '12 GYM Exercises'
         ],
         'keyboard': [
