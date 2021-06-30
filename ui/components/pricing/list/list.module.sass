@@ -3,3 +3,48 @@
 .list
   position: relative
   margin: 50px 0
+  display: flex
+  justify-content: space-between
+
+  &__item
+    position: relative
+    flex: 1
+    flex-direction: column
+    display: flex
+    margin-right: 30px
+    border: 2px solid $white
+    border-radius: 30px
+    padding: 45px 30px 30px
+    background: $gray50
+
+    &:last-child
+      margin-right: 0
+
+  &__icon
+    position: relative
+    display: flex
+    flex-direction: column
+    justify-content: center
+
+    div
+      text-align: center
+      display: flex
+      justify-content: center
+
+    svg
+      width: 80px
+      height: 80px
+
+      path
+        stroke: $white
+
+  &__name
+    @include fontMontserrat(36px)
+    line-height: 43.88px
+    color: $white
+    text-transform: uppercase
+    text-align: center
+
+  &__error
+    color: $red50
+    padding: 15px 0
