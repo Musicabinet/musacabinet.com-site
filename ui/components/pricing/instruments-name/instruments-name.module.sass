@@ -1,0 +1,27 @@
+@import "../../../../stylesheets/index"
+
+.instruments-name
+  position: relative
+  border: 2px solid $gold
+  border-radius: 30px
+  display: flex
+  justify-content: space-between
+
+  &__button
+    background: transparent
+    border: 0
+    @include fontMontserrat(36px)
+    line-height: 43.88px
+    color: $gold
+    padding: 8.5px 0
+    text-align: center
+    flex: 1
+    cursor: pointer
+
+    &_selected
+      background: $gold
+      color: $gray80
+      border-radius: 30px
+      font-weight: 700
+
+

@@ -8,3 +8,9 @@ export interface PriceI {
 export interface PriceListI {
   [key: string]: PriceI[]
 }
+
+export enum TERM_LIST{
+  MONTHLY = 'MONTHLY',
+  YEARLY = 'YEARLY',
+  FOREVER = 'FOREVER'
+}
