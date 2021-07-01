@@ -7,6 +7,10 @@
   align-items: center
   justify-content: center
 
+  @include breakpoint-phone
+    margin: 0 0 40px
+    justify-content: space-between
+
   &__button
     display: flex
     min-width: 180px
@@ -19,9 +23,16 @@
     cursor: pointer
     padding: 5.5px
 
+    @include breakpoint-phone
+      min-width: 90px
+      margin-right: 0
+      font-size: 12px
+      font-weight: 700
+
     &:last-child
       margin-right: 0
 
     &_selected
       background: $gold
       color: $gray80
+

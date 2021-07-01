@@ -6,6 +6,11 @@
   display: flex
   justify-content: space-between
 
+  @include breakpoint-phone
+    flex-direction: column
+    margin: 0
+    justify-content: center
+
   &__item
     position: relative
     flex: 1
@@ -17,6 +22,10 @@
     padding: 45px 30px 30px
     background: $gray50
     transition: all 0.2s
+
+    @include breakpoint-phone
+      margin-right: 0
+      margin-bottom: 30px
 
     &_school
       &:hover
