@@ -36,7 +36,7 @@ export class Instruments extends React.Component<InstrumentsProps, InstrumentsSt
     return (
       <div className={b(null)}>
         <div className='container'>
-          <div className='row'>
+          <div className='row position-relative'>
             {list.map((instrument) => {
               return (<InstrumentItem key={instrument.id} {...instrument}
                                       selected={instrument.icon === selected_instrument_icon}
