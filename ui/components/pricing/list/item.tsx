@@ -14,7 +14,7 @@ type ItemProps = {
   isAuth: boolean,
   information: PriceInformationType,
   selected_term: TERM_LIST,
-  selected_instrument: 'guitar' | 'keyboard' | 'saxophone',
+  selected_instrument: LIST_ICON.GUITAR | LIST_ICON.SAXOPHONE | LIST_ICON.KEYBOARD,
   onShowModal: (id_modal: MODALS) => void
 };
 type ItemState = {
@@ -25,7 +25,7 @@ type ItemState = {
   isAuth: store.authStore.isAuth,
   information: store.pricingStore.information,
   selected_term: store.pricingStore.selected_term,
-  selected_instrument: store.pricingStore.selected_instrument,
+  selected_instrument: store.pricingStore.selected_instrument_icon,
   onShowModal: store.modalsStore.show
 }))
 @observer
@@ -63,7 +63,7 @@ export class Item extends React.Component<ItemProps & ServiceI, ItemState> {
   }
 
   onPay = () => {
-    const { slug, information, selected_term, selected_instrument, isAuth, onShowModal } = this.props;
+    let { slug, information, selected_term, selected_instrument, isAuth, onShowModal } = this.props;
 
     if (!isAuth) {
       onShowModal(MODALS.SIGN_UP);
@@ -150,8 +150,11 @@ export class Item extends React.Component<ItemProps & ServiceI, ItemState> {
 
         <div className={b('list')}>
           {list.map((item: any) => {
-            return <div className={b('list-item')}><i
-              className={b('check', { [service_name]: true })}>{getIcon(LIST_ICON.CHECK, '')}</i>{item}
+            return <div className={b('list-item')}>
+              <i className={b('check', { [service_name]: true })}>
+                {getIcon(LIST_ICON.CHECK, '')}
+              </i>
+              <span dangerouslySetInnerHTML={{ __html: item }} />
             </div>;
           })}
         </div>

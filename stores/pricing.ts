@@ -56,7 +56,7 @@ export class PricingStore {
     [SERVICE_NAME.SCHOOL]: {
       title: 'Beginner',
       prices: {
-        guitar: {
+        [LIST_ICON.GUITAR]: {
           discount: {
             [TERM_LIST.MONTHLY]: {
               current: 15,
@@ -92,7 +92,7 @@ export class PricingStore {
             }
           }
         },
-        saxophone: {
+        [LIST_ICON.SAXOPHONE]: {
           discount: {
             [TERM_LIST.MONTHLY]: {
               current: 15,
@@ -128,7 +128,7 @@ export class PricingStore {
             }
           }
         },
-        keyboard: {
+        [LIST_ICON.KEYBOARD]: {
           discount: {
             [TERM_LIST.MONTHLY]: {
               current: 15,
@@ -168,27 +168,27 @@ export class PricingStore {
       },
       plans: [TERM_LIST.MONTHLY, TERM_LIST.YEARLY],
       list: {
-        'guitar': [
-          '149 Lessons',
-          '190 Midi Tracks',
-          '150 Backing Tracks',
-          '50 SRM1 Sheets',
-          '50 REM Sheets',
-          '12 GYM Exercises'
+        [LIST_ICON.GUITAR]: [
+          `149 Lessons <b></b>`,
+          `190 Midi Tracks`,
+          `150 Backing Tracks`,
+          `50 SRM <sup>1</sup> Sheets`,
+          `50 REM <sup>2</sup> Sheets`,
+          `12 GYM Exercises`
         ],
-        'keyboard': [
-          '135 Lessons',
-          '190 Midi Tracks',
-          '145 Backing Tracks',
-          '50 SRM Sheets',
-          '50 REM Sheets'
+        [LIST_ICON.KEYBOARD]: [
+          `135 Lessons`,
+          `190 Midi Tracks`,
+          `145 Backing Tracks`,
+          `50 SRM <sup>1</sup> Sheets`,
+          `50 REM <sup>2</sup> Sheets`,
         ],
-        'saxophone': [
-          '115 Lessons',
-          '210 Midi Tracks',
-          '130 Backing Tracks',
-          '50 SRM Sheets',
-          '50 REM Sheets'
+        [LIST_ICON.SAXOPHONE]: [
+          `115 Lessons`,
+          `210 Midi Tracks`,
+          `130 Backing Tracks`,
+          `50 SRM <sup>1</sup> Sheets`,
+          `50 REM <sup>2</sup> Sheets`,
         ]
       },
       extra: 'Includes 4 COLLEGE Lessons'
@@ -196,7 +196,7 @@ export class PricingStore {
     [SERVICE_NAME.COLLEGE]: {
       title: 'Advanced',
       prices: {
-        guitar: {
+        [LIST_ICON.GUITAR]: {
           discount: {
             [TERM_LIST.MONTHLY]: {
               current: 50,
@@ -232,7 +232,7 @@ export class PricingStore {
             }
           }
         },
-        saxophone: {
+        [LIST_ICON.SAXOPHONE]: {
           discount: {
             [TERM_LIST.MONTHLY]: {
               current: 50,
@@ -268,7 +268,7 @@ export class PricingStore {
             }
           }
         },
-        keyboard: {
+        [LIST_ICON.KEYBOARD]: {
           discount: {
             [TERM_LIST.MONTHLY]: {
               current: 50,
@@ -307,27 +307,25 @@ export class PricingStore {
       },
       plans: [TERM_LIST.MONTHLY, TERM_LIST.YEARLY],
       list: {
-        'guitar': [
-          '192 Lessons',
-          '180 Midi Tracks',
-          '240 Backing Tracks',
-          '50 SRM1 Sheets',
-          '50 REM Sheets',
-          '12 GYM Exercises'
+        [LIST_ICON.GUITAR]: [
+          `192 Lessons`,
+          `180 Midi Tracks`,
+          `240 Backing Tracks`,
+          `50 SRM <sup>1</sup> Sheets`,
+          `50 REM Sheets`,
+          `12 GYM Exercises`,
         ],
-        'keyboard': [
-          '135 Lessons',
-          '190 Midi Tracks',
-          '145 Backing Tracks',
-          '50 SRM Sheets',
-          '50 REM Sheets'
+        [LIST_ICON.KEYBOARD]: [
+          `175 Lessons`,
+          `160 Backing Tracks`,
+          `50 SRM <sup>1</sup> Sheets`,
+          `50 REM <sup>2</sup> Sheets`,
         ],
-        'saxophone': [
-          '115 Lessons',
-          '210 Midi Tracks',
-          '130 Backing Tracks',
-          '50 SRM Sheets',
-          '50 REM Sheets'
+        [LIST_ICON.SAXOPHONE]: [
+          `188 Lessons`,
+          `145 Backing Tracks`,
+          `50 SRM <sup>1</sup> Sheets`,
+          `50 REM <sup>2</sup> Sheets`,
         ]
       },
       extra: 'Includes SCHOOL subscription'
@@ -335,7 +333,7 @@ export class PricingStore {
     [SERVICE_NAME.UNIVERSITY]: {
       title: 'Professional',
       prices: {
-        guitar: {
+        [LIST_ICON.GUITAR]: {
           discount: {
             [TERM_LIST.MONTHLY]: {
               current: 99,
@@ -371,7 +369,7 @@ export class PricingStore {
             }
           }
         },
-        saxophone: {
+        [LIST_ICON.SAXOPHONE]: {
           discount: {
             [TERM_LIST.MONTHLY]: {
               current: 99,
@@ -407,7 +405,7 @@ export class PricingStore {
             }
           }
         },
-        keyboard: {
+        [LIST_ICON.KEYBOARD]: {
           discount: {
             [TERM_LIST.MONTHLY]: {
               current: 99,
@@ -446,28 +444,27 @@ export class PricingStore {
       },
       plans: [TERM_LIST.MONTHLY, TERM_LIST.YEARLY, TERM_LIST.FOREVER],
       list: {
-        'guitar': [
-          '1001 Lessons',
-          '420 Backing Tracks',
-          '110 000 IGM Sheets',
-          '50 SRM1 Sheets',
-          '50 REM2 Sheets',
-          '12 GYM Exercises'
+        [LIST_ICON.GUITAR]: [
+          `1001 Lessons`,
+          `420 Backing Tracks`,
+          `110 000 IGM Sheets`,
+          `50 SRM <sup>1</sup> Sheets`,
+          `50 REM2 <sup>2</sup> Sheets`,
+          `12 GYM Exercises`
         ],
-        'keyboard': [
-          '135 Lessons',
-          '190 Midi Tracks',
-          '145 Backing Tracks',
-          '70 000 IGM Sheets',
-          '50 SRM Sheets',
-          '50 REM Sheets'
+        [LIST_ICON.KEYBOARD]: [
+          `760 Lessons`,
+          `890 Backing Tracks`,
+          `70 000 IGM Sheets`,
+          `50 SRM <sup>1</sup> Sheets`,
+          `50 REM2 <sup>2</sup> Sheets`,
         ],
-        'saxophone': [
-          '115 Lessons',
-          '210 Midi Tracks',
-          '130 Backing Tracks',
-          '50 SRM Sheets',
-          '50 REM Sheets'
+        [LIST_ICON.SAXOPHONE]: [
+          `460 Lessons`,
+          `750 Backing Tracks`,
+          `70 000 IGM Sheets`,
+          `50 SRM <sup>1</sup> Sheets`,
+          `50 REM2 <sup>2</sup> Sheets`,
         ]
       },
       extra: 'Includes SCHOOL and COLLEGE'
@@ -493,6 +490,7 @@ export class PricingStore {
 
   @action.bound
   setInstrument(instrument: string) {
+    console.log('change instrument', instrument);
     this.selected_instrument = instrument;
   }
 
