@@ -1,5 +1,5 @@
 import { action, computed, makeObservable, observable } from 'mobx';
-import { PriceI, PriceListI, TERM_LIST } from '../interfaces';
+import { PriceI, PriceInformationType, PriceListI, TERM_LIST } from '../interfaces';
 import { SystemStore } from './system';
 import { SERVICE_NAME } from '../constants';
 import { LIST_ICON } from '../ui/common/icons';
@@ -52,24 +52,119 @@ export class PricingStore {
   @observable selected_instrument = 'guitar';
 
 
-  @observable information: any = {
+  @observable information: PriceInformationType = {
     [SERVICE_NAME.SCHOOL]: {
       title: 'Beginner',
       prices: {
-        [TERM_LIST.MONTHLY]: {
-          current: 15,
-          old: 30,
-          id: 'price_1J7GoWHTf8fYJsx5Q62KZJrA'
+        guitar: {
+          discount: {
+            [TERM_LIST.MONTHLY]: {
+              current: 15,
+              old: 30,
+              id: 'price_1J7GoWHTf8fYJsx5Q62KZJrA'
+            },
+            [TERM_LIST.YEARLY]: {
+              current: 120,
+              old: 240,
+              id: 'price_1J7GqhHTf8fYJsx56Pyh6tvo'
+            },
+            [TERM_LIST.FOREVER]: {
+              current: 0,
+              old: 0,
+              id: ''
+            }
+          },
+          standard: {
+            [TERM_LIST.MONTHLY]: {
+              current: 21,
+              old: 30,
+              id: 'price_1IzeXVHTf8fYJsx5dWO88a6Z'
+            },
+            [TERM_LIST.YEARLY]: {
+              current: 179,
+              old: 240,
+              id: 'price_1J7GqhHTf8fYJsx5jiDGH33l'
+            },
+            [TERM_LIST.FOREVER]: {
+              current: 0,
+              old: 0,
+              id: ''
+            }
+          }
         },
-        [TERM_LIST.YEARLY]: {
-          current: 120,
-          old: 240,
-          id: 'price_1J7GqhHTf8fYJsx56Pyh6tvo'
+        saxophone: {
+          discount: {
+            [TERM_LIST.MONTHLY]: {
+              current: 15,
+              old: 30,
+              id: 'price_1J7Gz8HTf8fYJsx5wBZxTfq5'
+            },
+            [TERM_LIST.YEARLY]: {
+              current: 120,
+              old: 240,
+              id: 'price_1J7H0DHTf8fYJsx5wwR2Onkg'
+            },
+            [TERM_LIST.FOREVER]: {
+              current: 0,
+              old: 0,
+              id: ''
+            }
+          },
+          standard: {
+            [TERM_LIST.MONTHLY]: {
+              current: 21,
+              old: 30,
+              id: 'price_1IzevkHTf8fYJsx55wnEQwUQ'
+            },
+            [TERM_LIST.YEARLY]: {
+              current: 179,
+              old: 240,
+              id: 'price_1IzetoHTf8fYJsx5aDaSohAs'
+            },
+            [TERM_LIST.FOREVER]: {
+              current: 0,
+              old: 0,
+              id: ''
+            }
+          }
         },
-        [TERM_LIST.FOREVER]: {
-          current: 0,
-          old: 0
+        keyboard: {
+          discount: {
+            [TERM_LIST.MONTHLY]: {
+              current: 15,
+              old: 30,
+              id: 'price_1J7GwjHTf8fYJsx5zAHuhs4N'
+            },
+            [TERM_LIST.YEARLY]: {
+              current: 120,
+              old: 240,
+              id: 'price_1J7GyNHTf8fYJsx5IIIcWNNW'
+            },
+            [TERM_LIST.FOREVER]: {
+              current: 0,
+              old: 0,
+              id: ''
+            }
+          },
+          standard: {
+            [TERM_LIST.MONTHLY]: {
+              current: 21,
+              old: 30,
+              id: 'price_1IzepZHTf8fYJsx5vG1Vnitk'
+            },
+            [TERM_LIST.YEARLY]: {
+              current: 179,
+              old: 240,
+              id: 'price_1IzenfHTf8fYJsx5WDNAuw2W'
+            },
+            [TERM_LIST.FOREVER]: {
+              current: 0,
+              old: 0,
+              id: ''
+            }
+          }
         }
+
       },
       plans: [TERM_LIST.MONTHLY, TERM_LIST.YEARLY],
       list: {
@@ -96,22 +191,118 @@ export class PricingStore {
           '50 REM Sheets'
         ]
       },
-      extract: 'Includes 4 COLLEGE Lessons'
+      extra: 'Includes 4 COLLEGE Lessons'
     },
     [SERVICE_NAME.COLLEGE]: {
       title: 'Advanced',
       prices: {
-        [TERM_LIST.MONTHLY]: {
-          current: 75,
-          old: 100
+        guitar: {
+          discount: {
+            [TERM_LIST.MONTHLY]: {
+              current: 50,
+              old: 75,
+              id: 'price_1J7H1eHTf8fYJsx5zCqxjNPN'
+            },
+            [TERM_LIST.YEARLY]: {
+              current: 420,
+              old: 630,
+              id: 'price_1J7H4XHTf8fYJsx5hGfw18MM'
+            },
+            [TERM_LIST.FOREVER]: {
+              current: 0,
+              old: 0,
+              id: ''
+            }
+          },
+          standard: {
+            [TERM_LIST.MONTHLY]: {
+              current: 75,
+              old: 100,
+              id: 'price_1IzeZjHTf8fYJsx5qbkXV6aN'
+            },
+            [TERM_LIST.YEARLY]: {
+              current: 630,
+              old: 840,
+              id: 'price_1J7H4XHTf8fYJsx5HWiykIyJ'
+            },
+            [TERM_LIST.FOREVER]: {
+              current: 0,
+              old: 0,
+              id: ''
+            }
+          }
         },
-        [TERM_LIST.YEARLY]: {
-          current: 630,
-          old: 840
+        saxophone: {
+          discount: {
+            [TERM_LIST.MONTHLY]: {
+              current: 50,
+              old: 75,
+              id: 'price_1J7H7ZHTf8fYJsx5Kx8qXBe0'
+            },
+            [TERM_LIST.YEARLY]: {
+              current: 420,
+              old: 630,
+              id: 'price_1J7H79HTf8fYJsx5mjIiM2xe'
+            },
+            [TERM_LIST.FOREVER]: {
+              current: 0,
+              old: 0,
+              id: ''
+            }
+          },
+          standard: {
+            [TERM_LIST.MONTHLY]: {
+              current: 75,
+              old: 100,
+              id: 'price_1HpAPqHTf8fYJsx5cFUx3B1A'
+            },
+            [TERM_LIST.YEARLY]: {
+              current: 630,
+              old: 840,
+              id: 'price_1HpAOZHTf8fYJsx5vxEIUHz2'
+            },
+            [TERM_LIST.FOREVER]: {
+              current: 0,
+              old: 0,
+              id: ''
+            }
+          }
         },
-        [TERM_LIST.FOREVER]: {
-          current: 0,
-          old: 0
+        keyboard: {
+          discount: {
+            [TERM_LIST.MONTHLY]: {
+              current: 50,
+              old: 75,
+              id: 'price_1J7H68HTf8fYJsx5M0T9CkEq'
+            },
+            [TERM_LIST.YEARLY]: {
+              current: 420,
+              old: 630,
+              id: 'price_1J7H5aHTf8fYJsx5vWKCcpRG'
+            },
+            [TERM_LIST.FOREVER]: {
+              current: 0,
+              old: 0,
+              id: ''
+            }
+          },
+          standard: {
+            [TERM_LIST.MONTHLY]: {
+              current: 75,
+              old: 100,
+              id: 'price_1HpAL2HTf8fYJsx5xEpb2qD8'
+            },
+            [TERM_LIST.YEARLY]: {
+              current: 630,
+              old: 840,
+              id: 'price_1HpAJYHTf8fYJsx5pQg2FLU9'
+            },
+            [TERM_LIST.FOREVER]: {
+              current: 0,
+              old: 0,
+              id: ''
+            }
+          }
         }
       },
       plans: [TERM_LIST.MONTHLY, TERM_LIST.YEARLY],
@@ -139,22 +330,118 @@ export class PricingStore {
           '50 REM Sheets'
         ]
       },
-      extract: 'Includes SCHOOL subscription'
+      extra: 'Includes SCHOOL subscription'
     },
     [SERVICE_NAME.UNIVERSITY]: {
       title: 'Professional',
       prices: {
-        [TERM_LIST.MONTHLY]: {
-          current: 149,
-          old: 199
+        guitar: {
+          discount: {
+            [TERM_LIST.MONTHLY]: {
+              current: 99,
+              old: 149,
+              id: 'price_1J7HDSHTf8fYJsx5oF9PHmFr'
+            },
+            [TERM_LIST.YEARLY]: {
+              current: 769,
+              old: 1159,
+              id: 'price_1J7HElHTf8fYJsx5qzYZg52u'
+            },
+            [TERM_LIST.FOREVER]: {
+              current: 1997,
+              old: 2997,
+              id: 'price_1J7HFuHTf8fYJsx55x1hmfHy'
+            }
+          },
+          standard: {
+            [TERM_LIST.MONTHLY]: {
+              current: 149,
+              old: 199,
+              id: 'price_1J7HDSHTf8fYJsx5hTvQa1rT'
+            },
+            [TERM_LIST.YEARLY]: {
+              current: 1159,
+              old: 1549,
+              id: 'price_1J7HElHTf8fYJsx56GNVuoKA'
+            },
+            [TERM_LIST.FOREVER]: {
+              current: 2997,
+              old: 3997,
+              id: 'price_1J7HFuHTf8fYJsx5xlWCQRJG'
+            }
+          }
         },
-        [TERM_LIST.YEARLY]: {
-          current: 1159,
-          old: 1549
+        saxophone: {
+          discount: {
+            [TERM_LIST.MONTHLY]: {
+              current: 99,
+              old: 149,
+              id: 'price_1J7HNfHTf8fYJsx5KxonLDRN'
+            },
+            [TERM_LIST.YEARLY]: {
+              current: 769,
+              old: 1159,
+              id: 'price_1J7HMzHTf8fYJsx5bi4231lC'
+            },
+            [TERM_LIST.FOREVER]: {
+              current: 1997,
+              old: 2997,
+              id: 'price_1J7HOFHTf8fYJsx5aiB3XOSr'
+            }
+          },
+          standard: {
+            [TERM_LIST.MONTHLY]: {
+              current: 149,
+              old: 199,
+              id: 'price_1J7HNfHTf8fYJsx5Y552n6Mk'
+            },
+            [TERM_LIST.YEARLY]: {
+              current: 1159,
+              old: 1549,
+              id: 'price_1J7HMzHTf8fYJsx5d4p1XMcJ'
+            },
+            [TERM_LIST.FOREVER]: {
+              current: 2997,
+              old: 3997,
+              id: 'price_1J7HOFHTf8fYJsx5LK8kJL0R'
+            }
+          }
         },
-        [TERM_LIST.FOREVER]: {
-          current: 2997,
-          old: 3997
+        keyboard: {
+          discount: {
+            [TERM_LIST.MONTHLY]: {
+              current: 99,
+              old: 149,
+              id: 'price_1J7HHiHTf8fYJsx5oj002HnY'
+            },
+            [TERM_LIST.YEARLY]: {
+              current: 769,
+              old: 1159,
+              id: 'price_1J7HIUHTf8fYJsx5vRhKWFA3'
+            },
+            [TERM_LIST.FOREVER]: {
+              current: 1997,
+              old: 2997,
+              id: 'price_1J7HLOHTf8fYJsx5vtEZgbaR'
+            }
+          },
+          standard: {
+            [TERM_LIST.MONTHLY]: {
+              current: 149,
+              old: 199,
+              id: 'price_1J7HHiHTf8fYJsx5iK9AHSh3'
+            },
+            [TERM_LIST.YEARLY]: {
+              current: 1159,
+              old: 1549,
+              id: 'price_1J7HIUHTf8fYJsx50Hz1VoMd'
+            },
+            [TERM_LIST.FOREVER]: {
+              current: 2997,
+              old: 3997,
+              id: 'price_1J7HLOHTf8fYJsx5Pm3S60Js'
+            }
+          }
         }
       },
       plans: [TERM_LIST.MONTHLY, TERM_LIST.YEARLY, TERM_LIST.FOREVER],
@@ -183,7 +470,7 @@ export class PricingStore {
           '50 REM Sheets'
         ]
       },
-      extract: 'Includes SCHOOL and COLLEGE'
+      extra: 'Includes SCHOOL and COLLEGE'
     }
   };
 

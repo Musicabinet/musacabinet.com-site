@@ -26,8 +26,6 @@ export class List extends React.Component<ListProps, ListState> {
   render() {
     const { list } = this.props;
 
-    console.log('list', list);
-
     return (
       <div className='container'>
         <div className='row'>
