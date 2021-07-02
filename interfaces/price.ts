@@ -1,4 +1,5 @@
 import { SERVICE_NAME } from '../constants';
+import { LIST_ICON } from '../ui/common/icons';
 
 export interface PriceI {
   name: string,
@@ -21,11 +22,11 @@ export type PriceInformationType = {
   [key in SERVICE_NAME]: {
     title: string,
     prices: {
-      [key in 'guitar' | 'keyboard' | 'saxophone']: PlansPrice
+      [key in LIST_ICON.GUITAR | LIST_ICON.KEYBOARD | LIST_ICON.SAXOPHONE]: PlansPrice
     }
     plans: TERM_LIST[],
     list: {
-      [key in 'guitar' | 'keyboard' | 'saxophone']: string[]
+      [key in LIST_ICON.GUITAR | LIST_ICON.KEYBOARD | LIST_ICON.SAXOPHONE]: string[]
     },
     extra: string
   }
