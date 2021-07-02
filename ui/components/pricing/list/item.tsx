@@ -2,33 +2,41 @@ import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import block from 'bem-css-modules';
 import style from './list.module.sass';
-import { ServiceI, TERM_LIST } from '../../../../interfaces';
+import { PriceInformationType, ServiceI, TERM_LIST } from '../../../../interfaces';
 import { InstrumentIcon } from '../../../common';
 import { getIcon, LIST_ICON } from '../../../common/icons';
 import { RootStore } from '../../../../stores';
+import { MODALS, SERVICE_NAME } from '../../../../constants';
 
 const b = block(style);
 
 type ItemProps = {
-  information: any,
+  isAuth: boolean,
+  information: PriceInformationType,
   selected_term: TERM_LIST,
-  selected_instrument: string
+  selected_instrument: 'guitar' | 'keyboard' | 'saxophone',
+  onShowModal: (id_modal: MODALS) => void
 };
 type ItemState = {
   stripe: any
 };
 
 @inject((store: RootStore) => ({
+  isAuth: store.authStore.isAuth,
   information: store.pricingStore.information,
   selected_term: store.pricingStore.selected_term,
-  selected_instrument: store.pricingStore.selected_instrument
+  selected_instrument: store.pricingStore.selected_instrument,
+  onShowModal: store.modalsStore.show
 }))
 @observer
 export class Item extends React.Component<ItemProps & ServiceI, ItemState> {
 
   static defaultProps = {
+    isAuth: false,
+    information: {},
     selected_term: TERM_LIST.MONTHLY,
-    selected_instrument: 'guitar'
+    selected_instrument: 'guitar',
+    onShowModal: () => console.log('Not set handler')
   };
 
   async componentDidMount() {
@@ -55,52 +63,66 @@ export class Item extends React.Component<ItemProps & ServiceI, ItemState> {
   }
 
   onPay = () => {
-    const { slug, information, selected_term } = this.props;
-    const service_name = slug;
+    const { slug, information, selected_term, selected_instrument, isAuth, onShowModal } = this.props;
 
-    if (information[service_name].prices) {
-      const price_id = information[service_name].prices[selected_term].id;
-      if (!price_id) {
-        throw ('Not found price_id');
-        return false;
-      }
-
-      try {
-        // @ts-ignore
-        this.state.stripe.redirectToCheckout({
-          lineItems: [
-            { price: price_id, quantity: 1 }
-          ],
-          mode: 'subscription',
-          locale: 'en',
-          successUrl: `https://musicabinet.com/pricing?session_id={CHECKOUT_SESSION_ID}&system=${service_name}`,
-          cancelUrl: `https://musicabinet.com/pricing`
-        });
-      } catch (e) {
-        console.error(`Error in method handleOnPay : `, e);
-      }
+    if (!isAuth) {
+      onShowModal(MODALS.SIGN_UP);
+      return;
     }
 
+    const service_name = slug as SERVICE_NAME;
+
+    if (!information[service_name].prices) {
+      return false;
+    }
+
+    const selectedInstrumentPrice = information[service_name];
+    const selectedPrices = selectedInstrumentPrice.prices[selected_instrument];
+    const currentPrices = (isAuth) ? selectedPrices.discount : selectedPrices.standard;
+    const price_id = currentPrices[selected_term].id;
+
+    if (!price_id) {
+      throw ('Not found price_id');
+      return;
+    }
+
+    try {
+      // @ts-ignore
+      this.state.stripe.redirectToCheckout({
+        lineItems: [
+          { price: price_id, quantity: 1 }
+        ],
+        mode: 'subscription',
+        locale: 'en',
+        successUrl: `https://musicabinet.com/pricing?session_id={CHECKOUT_SESSION_ID}&system=${service_name}`,
+        cancelUrl: `https://musicabinet.com/pricing`
+      });
+    } catch (e) {
+      console.error(`Error in method handleOnPay : `, e);
+    }
 
   };
 
 
   render() {
-    const { slug, information, selected_term, selected_instrument } = this.props;
-    const service_name = slug;
-    let current = 0;
-    let old = 0;
-    let list = [];
-    let plans = [];
-    let extract = '';
+    const { slug, information, selected_term, selected_instrument, isAuth } = this.props;
+    const service_name = slug as SERVICE_NAME;
 
-    if (information[service_name].prices) {
-      current = information[service_name]?.prices[selected_term].current;
-      old = information[service_name]?.prices[selected_term].old;
-      list = information[service_name].list[selected_instrument];
-      plans = information[service_name].plans;
-      extract = information[service_name].extract;
+    if (!information[service_name].prices) {
+      return false;
     }
+
+    const selectedInstrumentPrice = information[service_name];
+    const selectedPrices = selectedInstrumentPrice.prices[selected_instrument];
+    const currentPrices = (isAuth) ? selectedPrices.discount : selectedPrices.standard;
+    const currentPeriod = currentPrices[selected_term];
+
+    const current_sum = currentPeriod.current;
+    const old_sum = currentPeriod.old;
+    const extra = information[service_name].extra;
+    const plans = selectedInstrumentPrice.plans;
+    const list = selectedInstrumentPrice.list[selected_instrument];
+
 
     return (
       <div className={b('item', {
@@ -115,8 +137,8 @@ export class Item extends React.Component<ItemProps & ServiceI, ItemState> {
         <div className={b('name')}>{slug}</div>
         <div className={b('description')}>{information[service_name].title}</div>
 
-        <div className={b('price', { hidden: !plans.includes(selected_term) })}>$ <span>{current}</span></div>
-        <div className={b('old', { hidden: !plans.includes(selected_term) })}>${old}</div>
+        <div className={b('price', { hidden: !plans.includes(selected_term) })}>$ <span>{current_sum}</span></div>
+        <div className={b('old', { hidden: !plans.includes(selected_term) })}>${old_sum}</div>
 
         <div className={b('action')}>
           <button onClick={this.onPay}
@@ -135,7 +157,7 @@ export class Item extends React.Component<ItemProps & ServiceI, ItemState> {
         </div>
 
         <div className={b('divider', { [service_name]: true })} />
-        <div className={b('extra')}>{extract}</div>
+        <div className={b('extra')}>{extra}</div>
       </div>
     );
   }
