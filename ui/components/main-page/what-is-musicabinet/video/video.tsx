@@ -14,7 +14,7 @@ export class Video extends React.Component<VideoProps, VideoState> {
   render() {
     return (
       <div className={b(null)}>
-        <video controls preload={'metadata'}>
+        <video controls preload={'metadata'} poster={'/images/MC_logo_platform.png'}>
           <source src="/video/muscabinet.com.mp4" type="video/mp4"/>
         </video>
       </div>
