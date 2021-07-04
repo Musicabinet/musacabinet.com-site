@@ -33,7 +33,7 @@ export class TimeLeft extends React.Component<TimeLeftProps, TimeLeftState> {
     return <div className={b(null, {
       [service_name]: true
     })}>
-      <div className={b('text')}>Lesson's time left</div>
+      <div className={b('text')}>Lesson’s Total Time</div>
       <Play />
       <div className={b('time')}>
         <div className={b('time-block')}>{hour}</div>
