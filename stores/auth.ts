@@ -136,10 +136,10 @@ export class AuthStore implements AuthI {
 
       if (response.isNew) {
         // @ts-ignore
-        window.fbq('track', 'CompleteRegistration');
+        //window.fbq('track', 'CompleteRegistration');
       } else {
         // @ts-ignore
-        window.fbq('trackCustom', 'LoginSuccess');
+        //window.fbq('trackCustom', 'LoginSuccess');
       }
 
       // Заполнякем сторы
