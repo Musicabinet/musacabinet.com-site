@@ -126,6 +126,29 @@ export class AuthStore implements AuthI {
     }
   }
 
+  @action.bound
+  async signInGoogle(data: any) {
+    try {
+      const response = await API.request<LoginResponse>(`auth/sign-in-google`, {
+        method: 'POST',
+        body: API.getFormData(data)
+      });
+
+      if (response.isNew) {
+        // @ts-ignore
+        window.fbq('track', 'CompleteRegistration');
+      } else {
+        // @ts-ignore
+        window.fbq('trackCustom', 'LoginSuccess');
+      }
+
+      // Заполнякем сторы
+      this.fillingAfterSign(response.user, response.access_token);
+    } catch (e) {
+      console.log(`Error method in signInGoogle: `, e);
+    }
+  }
+
   @action
   logout = async () => {
     try {
