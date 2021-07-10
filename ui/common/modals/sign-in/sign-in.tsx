@@ -20,6 +20,7 @@ type SignInModalProps = {
   show: boolean,
   isFetchFacebook: boolean,
   onSignInFacebook: (data: FacebookClientResponsive) => void,
+  onSignInGoogle: (data: any) => void,
   onClose: (id_window: MODALS) => void
 };
 type SignInModalState = {};
@@ -28,6 +29,7 @@ type SignInModalState = {};
   show: store.modalsStore.list[MODALS.SIGN_IN],
   isFetchFacebook: store.authStore.isFetchFacebook,
   onSignInFacebook: store.authStore.loginFacebook,
+  onSignInGoogle: store.authStore.signInGoogle,
   onClose: store.modalsStore.close
 }))
 @observer
@@ -37,6 +39,7 @@ export class SignInModal extends React.Component<SignInModalProps, SignInModalSt
     show: false,
     isFetchFacebook: false,
     onSignInFacebook: () => console.log('Not set handler'),
+    onSignInGoogle: () => console.log('Not set handler'),
     onClose: () => console.log('Not set handler')
   };
 
@@ -46,7 +49,7 @@ export class SignInModal extends React.Component<SignInModalProps, SignInModalSt
   };
 
   render() {
-    const { show, isFetchFacebook, onSignInFacebook } = this.props;
+    const { show, isFetchFacebook, onSignInFacebook, onSignInGoogle } = this.props;
 
 
     return (
@@ -136,7 +139,7 @@ export class SignInModal extends React.Component<SignInModalProps, SignInModalSt
                         </ButtonSocial>
                       )}
                       buttonText='Login'
-                      onSuccess={(data) => console.log(data)}
+                      onSuccess={onSignInGoogle}
                       onFailure={(responseError) => console.log('responseError', responseError)}
                       cookiePolicy={'single_host_origin'}
                     />
