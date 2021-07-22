@@ -54,6 +54,12 @@ export class GroupLessonItem extends React.Component<GroupLessonItemProps & Grou
   }
 
   handleOnClick = () => {
+    const { isTrialShow } = this.props;
+
+    if (!isTrialShow) {
+      return false;
+    }
+
     const {
       collection_id,
       course_id,
