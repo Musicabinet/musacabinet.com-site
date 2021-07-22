@@ -1,3 +1,5 @@
+import { TrialVersionStore } from '../stores/trial-version';
+
 export interface UserI {
   id: number,
   avatar: string,
@@ -16,6 +18,7 @@ export interface UserI {
   tools_own: string,
   updated_at: Date,
   created_at: Date,
+  trial_version: TrialVersionStore
 }
 
 export interface UserUpdateI {

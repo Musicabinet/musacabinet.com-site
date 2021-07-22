@@ -4,6 +4,7 @@ import { NotificationsStore } from './notifications';
 import { METHODS_REQUEST, NOTIFICATION_TYPE } from '../constants';
 import { API } from '../core';
 import { UploadAvatarResponse } from '../responsible';
+import { TrialVersionStore } from './trial-version';
 
 interface ImportStore {
   notificationsStore: NotificationsStore
@@ -28,6 +29,7 @@ export class UserStore implements UserI {
   @observable tools_own = '';
   @observable updated_at = new Date;
   @observable created_at = new Date;
+  @observable trial_version = new TrialVersionStore(null);
 
   notificationsStore: NotificationsStore;
 
@@ -120,7 +122,8 @@ export class UserStore implements UserI {
       portfolio_link,
       tools_own,
       created_at,
-      updated_at
+      updated_at,
+      trial_version
     } = data;
 
     this.id = id;
@@ -140,6 +143,7 @@ export class UserStore implements UserI {
     this.tools_own = tools_own;
     this.created_at = created_at;
     this.updated_at = updated_at;
+    this.trial_version = new TrialVersionStore(trial_version);
   }
 
 }

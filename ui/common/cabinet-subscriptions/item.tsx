@@ -11,6 +11,10 @@ import { InstrumentIcon } from '../instrument-icon/instrument-icon';
 const b = block(style);
 
 type CabinetSubscriptionItemProps = {
+  totalDayPassed: number,
+  totalDayRemain: number,
+  totalDays: number,
+
   onSetServiceId: (id: number) => void,
   onSetServiceName: (name: string) => void,
   onSetInstrumentId: (id: number) => void,
@@ -22,6 +26,10 @@ type CabinetSubscriptionItemProps = {
 type CabinetSubscriptionItemState = {};
 
 @inject((store: RootStore) => ({
+  totalDayPassed: store.userStore.trial_version.totalDayPassed,
+  totalDayRemain: store.userStore.trial_version.totalDayRemain,
+  totalDays: store.userStore.trial_version.totalDays,
+
   onSetServiceId: store.systemStore.setServiceId,
   onSetServiceName: store.systemStore.setServiceName,
   onSetInstrumentId: store.systemStore.setInstrumentId,
@@ -35,6 +43,10 @@ type CabinetSubscriptionItemState = {};
 export class CabinetSubscriptionItem extends React.Component<CabinetSubscriptionItemProps & InstrumentI, CabinetSubscriptionItemState> {
 
   static defaultProps = {
+    totalDayPassed: 0,
+    totalDayRemain: 0,
+    totalDays: 0,
+
     onSetServiceId: () => console.log('Not set handler'),
     onSetServiceName: () => console.log('Not set handler'),
     onSetInstrumentId: () => console.log('Not set handler'),
@@ -73,7 +85,7 @@ export class CabinetSubscriptionItem extends React.Component<CabinetSubscription
   };
 
   render() {
-    const { service_id, name, is_active, icon } = this.props;
+    const { service_id, name, is_active, icon, totalDayPassed, totalDayRemain, totalDays } = this.props;
 
     return (
       <div className={b('item', {
@@ -97,7 +109,7 @@ export class CabinetSubscriptionItem extends React.Component<CabinetSubscription
               </ButtonGrandChart>
 
               <div className={b('count', { [SERVICE_MAPPING[service_id]]: true })}>
-                14 days
+                {totalDays} days
               </div>
 
               <div className={b('progress-line')}>
@@ -106,16 +118,16 @@ export class CabinetSubscriptionItem extends React.Component<CabinetSubscription
 
               <div className={b('days')}>
                 <div className={b('passed-days')}>
-                  <div className={b('count-days', { [SERVICE_MAPPING[service_id]]: true })}>14</div>
+                  <div className={b('count-days', { [SERVICE_MAPPING[service_id]]: true })}>{totalDayPassed}</div>
                   <div className={b('description')}>
-                    Days<br/> passed
+                    Days<br /> passed
                   </div>
                 </div>
 
                 <div className={b('remain-days')}>
-                  <div className={b('count-days')}>0</div>
+                  <div className={b('count-days')}>{totalDayRemain}</div>
                   <div className={b('description')}>
-                    Days<br/> remain
+                    Days<br /> remain
                   </div>
                 </div>
               </div>
