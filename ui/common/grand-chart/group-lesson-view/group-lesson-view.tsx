@@ -9,6 +9,7 @@ import { GroupLessonViewItem } from './item';
 const b = block(style);
 
 type GroupLessonViewProps = {
+  isTrialValid: boolean,
   show: boolean,
   list: GroupLessonI[],
   setShowGroupLessonDetail: (show: boolean) => void
@@ -16,6 +17,7 @@ type GroupLessonViewProps = {
 type GroupLessonViewState = {};
 
 @inject((store: RootStore) => ({
+  isTrialValid: store.userStore.trial_version.isValid,
   show: store.grandChartStore.showGroupLessonDetail,
   setShowGroupLessonDetail: store.grandChartStore.setShowGroupLessonDetail,
   list: store.grandChartStore.groupLessonDetail
@@ -24,6 +26,7 @@ type GroupLessonViewState = {};
 export class GroupLessonView extends React.Component<GroupLessonViewProps, GroupLessonViewState> {
 
   static defaultProps = {
+    isTrialValid: false,
     show: false,
     list: [],
     setShowGroupLessonDetail: () => console.log('Not set handler')
@@ -35,7 +38,7 @@ export class GroupLessonView extends React.Component<GroupLessonViewProps, Group
   }
 
   render() {
-    const { show, list } = this.props;
+    const { show, list, isTrialValid } = this.props;
 
     if (!show) {
       return false;
@@ -60,7 +63,8 @@ export class GroupLessonView extends React.Component<GroupLessonViewProps, Group
                                  meta_title={groupLesson.meta_title}
                                  meta_description={groupLesson.meta_description}
                                  meta_keywords={groupLesson.meta_keywords}
-                                 slug={groupLesson.slug} />
+                                 slug={groupLesson.slug}
+                                 isShowTrial={(index === 0 && isTrialValid)} />
           );
         })}
       </div>

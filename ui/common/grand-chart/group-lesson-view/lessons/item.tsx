@@ -10,6 +10,7 @@ import Router from 'next/router';
 const b = block(style);
 
 type LessonItemProps = {
+  isShowTrial: boolean,
   isActive: boolean,
   service_name: SERVICE_NAME,
   onCloseModal: (id_modal: string) => void
@@ -45,13 +46,16 @@ export class LessonItem extends React.Component<LessonItemProps & LessonI, Lesso
   };
 
   render() {
-    const { id, name, service_name, isActive } = this.props;
+    const { id, name, service_name, isActive, isShowTrial } = this.props;
+
+    console.log({ isShowTrial });
 
     return (
       <div onClick={this.handleOnClick}
            className={b('item', {
              [service_name]: true,
-             [`active-${service_name}`]: isActive
+             [`active-${service_name}`]: isActive,
+             ['blocked']: !isShowTrial
            })}>
 
         <div className={b('id')}>{name.replace(/\D+/g, '')}</div>

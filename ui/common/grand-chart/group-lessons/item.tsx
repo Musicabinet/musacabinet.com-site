@@ -9,6 +9,7 @@ import { SERVICE_NAME } from '../../../../constants';
 const b = block(style);
 
 type GroupLessonItemProps = {
+  isTrialShow: boolean,
   service_name: SERVICE_NAME,
   selected_group_lesson_id: number,
   onSetCollectionId: (id: number) => void,
@@ -53,6 +54,12 @@ export class GroupLessonItem extends React.Component<GroupLessonItemProps & Grou
   }
 
   handleOnClick = () => {
+    const { isTrialShow } = this.props;
+
+    if (!isTrialShow) {
+      return false;
+    }
+
     const {
       collection_id,
       course_id,
@@ -76,13 +83,14 @@ export class GroupLessonItem extends React.Component<GroupLessonItemProps & Grou
   };
 
   render() {
-    const { id, service_name, lessons, name, selected_group_lesson_id } = this.props;
+    const { id, service_name, lessons, name, selected_group_lesson_id, isTrialShow } = this.props;
 
     return (
       <div onClick={this.handleOnClick}
            className={b('item', {
              [service_name]: true,
-             [`active-${service_name}`]: selected_group_lesson_id === id
+             [`active-${service_name}`]: selected_group_lesson_id === id,
+             [`trial-blocked`]: !isTrialShow
            })}>
         <div className={b('count-lessons')}>{lessons.length}</div>
         <div className={b('title')} dangerouslySetInnerHTML={{ __html: name.replace(/\(/g, '<br/>(') }} />
