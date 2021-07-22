@@ -11,6 +11,7 @@ import { InstrumentIcon } from '../instrument-icon/instrument-icon';
 const b = block(style);
 
 type CabinetSubscriptionItemProps = {
+  isValidTrial: boolean,
   totalDayPassed: number,
   totalDayRemain: number,
   totalDays: number,
@@ -26,6 +27,7 @@ type CabinetSubscriptionItemProps = {
 type CabinetSubscriptionItemState = {};
 
 @inject((store: RootStore) => ({
+  isValidTrial: store.userStore.trial_version.isValid,
   totalDayPassed: store.userStore.trial_version.totalDayPassed,
   totalDayRemain: store.userStore.trial_version.totalDayRemain,
   totalDays: store.userStore.trial_version.totalDays,
@@ -43,6 +45,7 @@ type CabinetSubscriptionItemState = {};
 export class CabinetSubscriptionItem extends React.Component<CabinetSubscriptionItemProps & InstrumentI, CabinetSubscriptionItemState> {
 
   static defaultProps = {
+    isValidTrial: false,
     totalDayPassed: 0,
     totalDayRemain: 0,
     totalDays: 0,
@@ -85,7 +88,9 @@ export class CabinetSubscriptionItem extends React.Component<CabinetSubscription
   };
 
   render() {
-    const { service_id, name, is_active, icon, totalDayPassed, totalDayRemain, totalDays } = this.props;
+    const { service_id, name, is_active, icon, totalDayPassed, totalDayRemain, totalDays, isValidTrial } = this.props;
+
+    console.log('isValidTrial', isValidTrial);
 
     return (
       <div className={b('item', {

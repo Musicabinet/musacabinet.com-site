@@ -12,6 +12,7 @@ import { getIcon, LIST_ICON } from '../../icons';
 const b = block(style);
 
 type GroupLessonViewItemProps = {
+  isShowTrial: boolean,
   isFirst: boolean,
   service_name: SERVICE_NAME,
   onSetShowGroupLessonDetail: (show: boolean) => void,
@@ -47,7 +48,7 @@ export class GroupLessonViewItem extends React.Component<GroupLessonViewItemProp
   };
 
   render() {
-    const { isFirst, service_name, name, lessons } = this.props;
+    const { isFirst, service_name, name, lessons,isShowTrial } = this.props;
 
     return (
       <div className={b('item', {
@@ -86,7 +87,7 @@ export class GroupLessonViewItem extends React.Component<GroupLessonViewItemProp
           </div>
         </div>
 
-        <Lessons list={lessons} />
+        <Lessons list={lessons} isShowTrial={isShowTrial}/>
       </div>
     );
   }

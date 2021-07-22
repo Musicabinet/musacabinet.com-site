@@ -9,6 +9,7 @@ import { GroupLessonItem } from './item';
 const b = block(style);
 
 type GroupLessonsProps = {
+  isTrialValid: boolean,
   course_list: CourseI[],
   module_list: ModuleI[],
   list: GroupLessonsFinal
@@ -16,6 +17,7 @@ type GroupLessonsProps = {
 type GroupLessonsState = {};
 
 @inject((store: RootStore) => ({
+  isTrialValid: store.userStore.trial_version.isValid,
   course_list: store.grandChartStore.courses,
   module_list: store.grandChartStore.modules,
   list: store.grandChartStore.finalData
@@ -24,6 +26,7 @@ type GroupLessonsState = {};
 export class GroupLessons extends React.Component<GroupLessonsProps, GroupLessonsState> {
 
   static defaultProps = {
+    isTrialValid: false,
     course_list: [],
     module_list: [],
     list: {}
@@ -35,7 +38,8 @@ export class GroupLessons extends React.Component<GroupLessonsProps, GroupLesson
   };
 
   render() {
-    const { course_list, module_list } = this.props;
+    const { course_list, module_list, isTrialValid } = this.props;
+    let row = 0;
 
     return (
       <div className={b(null)}
@@ -43,6 +47,7 @@ export class GroupLessons extends React.Component<GroupLessonsProps, GroupLesson
              width: `${module_list.length * 230}px`
            }}>
         {course_list.map((course) => {
+          row++;
           return module_list.map((module) => {
             return (<div key={module.id} className={b('block')}>
 
@@ -61,7 +66,8 @@ export class GroupLessons extends React.Component<GroupLessonsProps, GroupLesson
                                         meta_description={group_lesson.meta_description}
                                         meta_keywords={group_lesson.meta_keywords}
                                         description={group_lesson.description}
-                                        is_active={group_lesson.is_active} />;
+                                        is_active={group_lesson.is_active}
+                                        isTrialShow={row === 1 && isTrialValid} />;
               })}
 
             </div>);

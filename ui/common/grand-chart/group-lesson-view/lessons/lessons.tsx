@@ -9,6 +9,7 @@ import { RootStore } from '../../../../../stores';
 const b = block(style);
 
 type LessonsProps = {
+  isShowTrial: boolean,
   selected_uuid: string,
   list: LessonI[]
 };
@@ -25,11 +26,11 @@ export class Lessons extends React.Component<LessonsProps, LessonsState> {
   };
 
   render() {
-    const { selected_uuid, list } = this.props;
+    const { selected_uuid, list, isShowTrial } = this.props;
 
     return (
       <div className={b(null)}>
-        {list.map((lesson) => {
+        {list.map((lesson, index) => {
           return (
             <LessonItem key={lesson.id}
                         id={lesson.id}
@@ -49,7 +50,8 @@ export class Lessons extends React.Component<LessonsProps, LessonsState> {
                         charts={lesson.charts}
                         accompaniments={lesson.accompaniments}
                         lesson_list={lesson.lesson_list}
-                        progress_second={lesson.progress_second} />
+                        progress_second={lesson.progress_second}
+                        isShowTrial={isShowTrial && (index === 0)} />
           );
         })}
       </div>

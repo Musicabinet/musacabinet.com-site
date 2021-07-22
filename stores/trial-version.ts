@@ -16,6 +16,11 @@ export class TrialVersionStore implements TrialVersionI {
   }
 
   @computed
+  get isValid(): boolean {
+    return (this.totalDayRemain > 0);
+  }
+
+  @computed
   get totalDayRemain(): number {
     const currentDate = moment().set({ hours: 0, minutes: 0, second: 0 });
     const result = this.date_end.diff(currentDate, 'days');
@@ -26,13 +31,18 @@ export class TrialVersionStore implements TrialVersionI {
   @computed
   get totalDayPassed(): number {
     const currentDate = moment().set({ hours: 0, minutes: 0, second: 0 });
-    const result = currentDate.diff(this.date_start, 'days');
+    const format = 'dMY';
 
+    if(currentDate.format(format) === this.date_start.format(format)){
+      return 0;
+    }
+
+    const result = currentDate.diff(this.date_start, 'days');
     return result > 0 ? result <= this.totalDayRemain ? result : this.totalDays : this.totalDays;
   }
 
   @computed
-  get totalDays(): number{
+  get totalDays(): number {
     return this.date_end.diff(this.date_start, 'days');
   }
 
