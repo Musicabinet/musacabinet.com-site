@@ -8,6 +8,7 @@ import { CustomAppContext } from '../interfaces';
 import HeadBlock from './head-block';
 import { Notifications, PreviewChart, PreviewNotes } from '../ui';
 import { GrandChartModal } from '../ui/common/modals/grand-chart/grand-chart';
+import TagManager from 'react-gtm-module';
 
 interface Props {
   pageProps: any;
@@ -50,6 +51,12 @@ class MusiCabinetApp extends App<Props> {
     super(props);
     const isServer = typeof window === 'undefined';
     this.mobxStore = isServer ? props.initialMobxState : initializeStore(props.initialMobxState);
+  }
+
+  componentDidMount() {
+    TagManager.initialize({
+      gtmId: 'GTM-PPT365K'
+    })
   }
 
   render() {
