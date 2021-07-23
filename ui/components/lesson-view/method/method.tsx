@@ -55,13 +55,18 @@ export class Method extends React.Component<MethodProps, MethodState> {
   }
 
   componentDidUpdate(prevProps: MethodProps) {
+    const { onGetVideo } = this.props;
+
     if (
       prevProps.uuid !== this.props.uuid
     ) {
-      const { onGetVideo } = this.props;
       if (this.props.currentContentScore) {
         onGetVideo(Number(this.props.currentContentScore.video_url.replace(/\D/g, '')));
       }
+    }
+
+    if(this.props.currentContentScore?.id !== prevProps.currentContentScore?.id){
+      onGetVideo(Number(this.props.currentContentScore?.video_url.replace(/\D/g, '')));
     }
   }
 
