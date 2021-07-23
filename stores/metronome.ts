@@ -1,4 +1,5 @@
 import { action, computed, makeObservable, observable } from 'mobx';
+import { Cookie } from '../core';
 
 export class MetronomeStore {
 
@@ -19,7 +20,8 @@ export class MetronomeStore {
   @action.bound
   async init() {
     try {
-      this.current = Number(window.localStorage.getItem('bpm')) || 80;
+      const cookieInstance = Cookie.getInstance();
+      this.current = Number(cookieInstance.get('bpm')) || 80;
       this.volume = Number(localStorage.getItem('volume-metronome')) || 0.5;
       this.worker = new Worker('/workers/metronome-worker.js');
       this.audioPlayer = new Audio('/metronome/metronome.mp3');
@@ -40,7 +42,9 @@ export class MetronomeStore {
       this.onStop();
     }
     this.current = value;
-    window.localStorage.setItem('bpm', String(value));
+    const cookieInstance = Cookie.getInstance();
+    cookieInstance.set('bpm', String(value));
+
     if (isContinue) {
       this.onStart();
     }
@@ -86,7 +90,7 @@ export class MetronomeStore {
   changeVolume(_name: string, volume: number) {
     this.volume = volume;
 
-    if(this.audioPlayer){
+    if (this.audioPlayer) {
       this.audioPlayer.volume = volume;
     }
   }
