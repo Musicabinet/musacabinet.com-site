@@ -46,3 +46,23 @@
 
     &:last-child
       margin-right: 0
+
+  &__toolbar
+    position: absolute
+    width: calc(100% - 20px)
+    top: 0
+    left: 50%
+    transform: translateX(-50%)
+    margin: 0 auto
+    @include fontMontserrat(12px)
+    line-height: 15px
+    padding: 2.5px 0
+    border-radius:  0  0 10px 10px
+    text-align: center
+    background: $gray50
+
+    &_school
+      background: $school
+
+    &_college
+      background: $college

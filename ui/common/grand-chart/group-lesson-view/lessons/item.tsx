@@ -48,8 +48,6 @@ export class LessonItem extends React.Component<LessonItemProps & LessonI, Lesso
   render() {
     const { id, name, service_name, isActive, isShowTrial } = this.props;
 
-    console.log({ isShowTrial });
-
     return (
       <div onClick={this.handleOnClick}
            className={b('item', {
