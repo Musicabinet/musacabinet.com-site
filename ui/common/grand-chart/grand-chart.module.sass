@@ -78,6 +78,7 @@
       color: $university
 
   &__container
+    position: relative
     display: flex
     flex: 1
 
@@ -90,3 +91,17 @@
     flex: 1
     margin-left: 10px
 
+  &__gold-line
+    display: none
+    position: absolute
+    top: -105px
+    right: -15px
+    border-radius: 10px
+    height: calc(100% + 90px)
+    background: $gold
+
+    &_show
+      display: block
+
+    &_isFetch
+      display: none !important

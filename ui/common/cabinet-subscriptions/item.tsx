@@ -88,9 +88,7 @@ export class CabinetSubscriptionItem extends React.Component<CabinetSubscription
   };
 
   render() {
-    const { service_id, name, is_active, icon, totalDayPassed, totalDayRemain, totalDays, isValidTrial } = this.props;
-
-    console.log('isValidTrial', isValidTrial);
+    const { service_id, name, is_active, icon, totalDayPassed, totalDayRemain, totalDays } = this.props;
 
     return (
       <div className={b('item', {

@@ -32,11 +32,13 @@ export class Courses extends React.Component<CoursesProps, CoursesState> {
 
   render() {
     const { service_name,  list, selected_course_id } = this.props;
+    let number = 1;
 
     return (
       <div className={b(null, { [service_name]:true })}>
         {list.map((course) => {
           return (<CourseItem key={course.id}
+                              number={number++}
                               id={course.id}
                               name={course.name}
                               is_active={(selected_course_id === course.id)} />);

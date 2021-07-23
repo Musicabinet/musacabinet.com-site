@@ -45,6 +45,9 @@ export class GrandChart extends React.Component<GrandChartProps, GrandChartState
 
   render() {
     const { isFetch, isEmpty, service_name, instrument_icon, is_transparent } = this.props;
+
+    console.log(service_name, instrument_icon);
+
     return (
 
       <div className={b(null, { is_transparent, loading: isFetch, isEmpty })}>
@@ -61,6 +64,11 @@ export class GrandChart extends React.Component<GrandChartProps, GrandChartState
         </header>
 
         <div className={b('container')}>
+
+          <div className={b('gold-line', {
+            isFetch,
+            show: (!isFetch && service_name === 'college' && instrument_icon === LIST_ICON.GUITAR)
+          })} />
           <div className={b('sidebar')}>
             <Courses />
           </div>

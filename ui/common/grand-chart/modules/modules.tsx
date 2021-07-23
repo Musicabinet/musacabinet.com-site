@@ -32,8 +32,7 @@ export class Modules extends React.Component<ModulesProps, ModulesState> {
 
   render() {
     const { list, service_name, selected_module_id } = this.props;
-
-    console.log('render', list, list.length);
+    let number = 1;
 
     return (
       <div className={b(null, { [service_name]: true })}>
@@ -41,6 +40,7 @@ export class Modules extends React.Component<ModulesProps, ModulesState> {
           return (
             <ModuleItem key={module.id}
                         id={module.id}
+                        number={number++}
                         sort={module.sort}
                         name={module.name}
                         is_active={(selected_module_id === module.id)} />
