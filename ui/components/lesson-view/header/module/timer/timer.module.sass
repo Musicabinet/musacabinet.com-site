@@ -10,6 +10,17 @@
   height: 72.6px
   margin: 0 0 11.91px
 
+  &:after
+    position: absolute
+    content: ""
+    background-size: 63px
+    background-repeat: no-repeat
+    z-index: 500
+    width: 100px
+    height: 100px
+    top: 8px
+    left: 8px
+
   &_school
     position: relative
 
@@ -49,8 +60,8 @@
 
   &__current-time
     position: absolute
-    top: 50%
-    left: 50%
+    top: 54%
+    left: 54%
     transform: translate(-50%, -50%)
     @include fontMontserrat(15px, 400)
     color: $gray50
@@ -63,20 +74,32 @@
     #{$root}__circle
       stroke-dashoffset: 146
 
+    &:after
+      background-image: url('/images/circle/15_Timer.png')
+
   &_time-30
     position: relative
 
     #{$root}__circle
       stroke-dashoffset: 97.3
 
+    &:after
+      background-image: url('/images/circle/30_Timer.png')
+
   &_time-45
     position: relative
+
+    &:after
+      background-image: url('/images/circle/45_Timer.png')
 
     #{$root}__circle
       stroke-dashoffset: 48.6
 
   &_time-60
     position: relative
+
+    &:after
+      background-image: url('/images/circle/60_Timer.png')
 
     #{$root}__circle
       stroke-dashoffset: 0

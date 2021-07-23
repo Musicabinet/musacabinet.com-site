@@ -9,7 +9,6 @@ import { PlayButton } from './play-button/play-button';
 import { ProgressLine } from './progress-line/progress-line';
 import { ButtonComposition } from './button-composition/button-composition';
 import { VolumeControl } from '../../../../common';
-import { Divider } from './divider/divider';
 import { Metronome } from './metronome/metronome';
 import { SERVICE_NAME } from '../../../../../constants';
 
@@ -80,7 +79,6 @@ export class Player extends React.Component<PlayerProps, PlayerState> {
                          max={0}
                          onChange={this.handleOnChangeVolume}
                          defaultValue={volume} />
-          <Divider />
           <Metronome />
           <ButtonComposition />
         </div>

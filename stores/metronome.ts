@@ -83,8 +83,7 @@ export class MetronomeStore {
   };
 
   @action.bound
-  changeVolume(name: string, volume: number) {
-    console.log('volume', name);
+  changeVolume(_name: string, volume: number) {
     this.volume = volume;
 
     if(this.audioPlayer){

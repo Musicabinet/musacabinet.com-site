@@ -94,7 +94,7 @@ export class MenuListStore {
     is_active: false
   }, {
     title: 'Your statistics',
-    link: '',
+    link: '/cabinet/your-statistics',
     type: MenuType.DEFAULT,
     is_active: false
   }, {

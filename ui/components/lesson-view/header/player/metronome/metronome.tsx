@@ -63,7 +63,8 @@ export class Metronome extends React.Component<MetronomeProps, MetronomeState> {
                        max={1}
                        defaultValue={volume}
                        step={0.1}
-                       onChange={onChangeVolume} />
+                       onChange={onChangeVolume}
+                       circle />
       </div>
     );
   }
