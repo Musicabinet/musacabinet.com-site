@@ -10,7 +10,7 @@ type ExtraLessonsPageState = {};
 export default class ExtraLessonsPage extends React.Component<ExtraLessonsPageProps, ExtraLessonsPageState> {
   render() {
     return (
-      <BaseLayout>
+      <BaseLayout background={'gray'} noStick>
         <CabinetLayout>
 
         </CabinetLayout>
