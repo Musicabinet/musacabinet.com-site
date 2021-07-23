@@ -10,7 +10,7 @@ type TutorialsPageState = {};
 export default class TutorialsPage extends React.Component<TutorialsPageProps, TutorialsPageState> {
   render() {
     return (
-      <BaseLayout>
+      <BaseLayout background={'gray'} noStick>
         <CabinetLayout>
 
         </CabinetLayout>
