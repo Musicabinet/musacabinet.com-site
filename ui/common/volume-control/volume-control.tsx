@@ -5,11 +5,11 @@ import style from './volume-control.module.sass';
 import { RootStore } from '../../../stores';
 import { SERVICE_NAME } from '../../../constants';
 import { handleDetectClick } from '../../../helpers';
-import { getIcon, LIST_ICON } from '../icons';
 
 const b = block(style);
 
 type VolumeControlProps = {
+  circle: boolean,
   service_name: SERVICE_NAME,
   name: string,
   min: number,
@@ -31,6 +31,7 @@ export class VolumeControl extends React.Component<VolumeControlProps, VolumeCon
   controlVolumeRef = React.createRef<HTMLDivElement>();
 
   static defaultProps = {
+    circle: false,
     service_name: SERVICE_NAME.SCHOOL,
     min: 0,
     max: 1,
@@ -73,8 +74,7 @@ export class VolumeControl extends React.Component<VolumeControlProps, VolumeCon
   };
 
   render() {
-    const { service_name, name, max, min, step, defaultValue } = this.props;
-    const { show } = this.state;
+    const { service_name, name, max, min, step, defaultValue, circle } = this.props;
 
     return (
       <div ref={this.controlVolumeRef}
@@ -82,12 +82,14 @@ export class VolumeControl extends React.Component<VolumeControlProps, VolumeCon
              [service_name]: true
            })}>
 
-        <button className={b('button')}
-                onClick={this.handleOnShow}>
-          {getIcon(LIST_ICON.VOLUME, b('icon'))}
-        </button>
-
-        <div className={b('wrapper', { show })}>
+        <div className={b('wrapper')}>
+          <div className={b('lines')}>
+            <div className={b('line')} />
+            <div className={b('line')} />
+            <div className={b('line')} />
+            <div className={b('line')} />
+            <div className={b('line')} />
+          </div>
           <input type='range'
                  name={name}
                  max={max}
@@ -95,10 +97,9 @@ export class VolumeControl extends React.Component<VolumeControlProps, VolumeCon
                  step={step}
                  defaultValue={defaultValue}
                  aria-orientation='vertical'
-                 className={b('range')}
+                 className={b('range', { circle })}
                  onChange={this.handlerOnChange} />
         </div>
-
       </div>
     );
   }
