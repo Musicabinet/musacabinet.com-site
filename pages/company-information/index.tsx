@@ -21,7 +21,11 @@ export default class CompanyInformationPage extends React.Component<CompanyInfor
 
           <div className='row'>
             <div className='col-lg-12 mt-4 mb-4'>
-              ghdfh
+              <p>Kazan, Russia</p>
+              <p>Musicabinet Ltd</p>
+              <p>TIN: 1660299477</p>
+              <p>Patrisa Lumumbi street, building 49A, office 12</p>
+              <p>Kazan, Russian Federation</p>
             </div>
           </div>
         </div>
