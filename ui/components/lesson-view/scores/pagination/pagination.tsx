@@ -50,9 +50,13 @@ export class Pagination extends React.Component<PaginationProps, PaginationState
         hidden: total_list < 2
       })}>
         <button onClick={this.handlePrevPage}
-                className={b('btn', { left: true })} />
+                disabled={0 === current_list}
+                className={b('btn', {
+                  left: true
+                })} />
         <div className={b('current')}>{current_list + 1} of {total_list}</div>
         <button onClick={this.handleNextPage}
+                disabled={total_list === current_list + 1}
                 className={b('btn', { right: true })} />
       </div>
     );
