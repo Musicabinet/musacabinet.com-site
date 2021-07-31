@@ -79,7 +79,7 @@ export class ButtonProfile extends React.Component<ButtonProfileProps, ButtonPro
     const { isAuth, avatar, fullName, email, onLogout } = this.props;
     const { uuid, show } = this.state;
 
-    if(!isAuth){
+    if (!isAuth) {
       return null;
     }
 
@@ -108,7 +108,12 @@ export class ButtonProfile extends React.Component<ButtonProfileProps, ButtonPro
 
             <li className={b('item', { noPadding: true })}>
               <Link href={'/cabinet'} as={`/cabinet`}>
-                <a className={b('link', { musicabinet: true })}>My MUSICABINET</a>
+                <a className={b('link', { musicabinet: true })}>My profile</a>
+              </Link>
+            </li>
+            <li className={b('item', { borderBottom: true })}>
+              <Link href={'/cabinet/tutorials'} as={`/cabinet/tutorials`}>
+                <a className={b('link')} target={'_blank'}>Tutorials</a>
               </Link>
             </li>
             <li className={b('item')}>

@@ -5,7 +5,7 @@ import style from './method.module.sass';
 import { RootStore } from '../../../../stores';
 import { ScoreI } from '../../../../interfaces';
 import { SERVICE_NAME } from '../../../../constants';
-import { Switcher } from '../../../common';
+import { ButtonBurger, Switcher } from '../../../common';
 import { Scores } from '../scores/scores';
 
 const b = block(style);
@@ -65,7 +65,7 @@ export class Method extends React.Component<MethodProps, MethodState> {
       }
     }
 
-    if(this.props.currentContentScore?.id !== prevProps.currentContentScore?.id){
+    if (this.props.currentContentScore?.id !== prevProps.currentContentScore?.id) {
       onGetVideo(Number(this.props.currentContentScore?.video_url.replace(/\D/g, '')));
     }
   }
@@ -79,6 +79,7 @@ export class Method extends React.Component<MethodProps, MethodState> {
     return (
       <>
         <div className={b('header', { [service_name]: true })}>
+          <ButtonBurger active onClick={() => ({})} />
           <span className={b('header-text')}>Method</span>
           {(service_name === SERVICE_NAME.COLLEGE) && (instrument_name !== '' && instrument_name == 'Guitar') && (
             <>

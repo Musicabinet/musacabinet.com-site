@@ -53,7 +53,7 @@ export class TrialVersionStore implements TrialVersionI {
     this.id = id;
     this.user_id = user_id;
     this.date_start = moment(date_start);
-    this.date_end = moment(date_end);
+    this.date_end = moment(date_end).add('day', 1);
   }
 
 }

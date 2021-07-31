@@ -1,3 +1,6 @@
+import { UserStore } from '../stores/user';
+import { SERVICE_ID } from '../constants';
+
 export { Portal } from './portal';
 
 export const getAvatarLink = (avatar_name: string): string => {
@@ -19,4 +22,12 @@ export const handleDetectClick = (container: any, onClose: () => void, e: MouseE
 
 export const ucFirst = (value: string): string => {
   return value[0].toUpperCase() + value.slice(1).toLowerCase();
+};
+
+export const checkSubscription = (user: UserStore, service_id: SERVICE_ID, instrument_id: number) => {
+  const isPurchase = user.purchases.filter((purchase) => {
+    return (purchase.service_id === service_id && purchase.instrument_id === instrument_id);
+  });
+
+  return (isPurchase.length > 0);
 };

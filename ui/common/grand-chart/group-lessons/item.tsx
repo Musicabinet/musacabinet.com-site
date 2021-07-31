@@ -5,10 +5,14 @@ import style from './group-lessons.module.sass';
 import { RootStore } from '../../../../stores';
 import { GroupLessonI } from '../../../../interfaces';
 import { SERVICE_NAME } from '../../../../constants';
+import { UserStore } from '../../../../stores/user';
+import { SystemStore } from '../../../../stores/system';
 
 const b = block(style);
 
 type GroupLessonItemProps = {
+  systemStore: SystemStore,
+  user: UserStore,
   isTrialShow: boolean,
   service_name: SERVICE_NAME,
   selected_group_lesson_id: number,
@@ -21,6 +25,8 @@ type GroupLessonItemProps = {
 type GroupLessonItemState = {};
 
 @inject((store: RootStore) => ({
+  systemStore: store.systemStore,
+  user: store.userStore,
   service_name: store.systemStore.service_name,
 
   selected_group_lesson_id: store.systemStore.selected_group_lesson_id,
@@ -35,6 +41,8 @@ type GroupLessonItemState = {};
 export class GroupLessonItem extends React.Component<GroupLessonItemProps & GroupLessonI, GroupLessonItemState> {
 
   static defaultProps = {
+    systemStore: {},
+    user: {},
     selected_group_lesson_id: 0,
     service_name: SERVICE_NAME.SCHOOL,
     onSetCollectionId: () => console.log('Not set handler'),
@@ -54,9 +62,11 @@ export class GroupLessonItem extends React.Component<GroupLessonItemProps & Grou
   }
 
   handleOnClick = () => {
-    const { isTrialShow } = this.props;
+    const { isTrialShow, user, systemStore } = this.props;
 
-    if (!isTrialShow) {
+    const isPurchaseUser = user.checkSubscription(systemStore.service_id, systemStore.instrument_id);
+
+    if (isPurchaseUser.length === 0 && !isTrialShow) {
       return false;
     }
 
@@ -83,14 +93,15 @@ export class GroupLessonItem extends React.Component<GroupLessonItemProps & Grou
   };
 
   render() {
-    const { id, service_name, lessons, name, selected_group_lesson_id, isTrialShow } = this.props;
+    const { user, systemStore, id, service_name, lessons, name, selected_group_lesson_id, isTrialShow } = this.props;
+    const isPurchaseUser = user.checkSubscription(systemStore.service_id, systemStore.instrument_id);
 
     return (
       <div onClick={this.handleOnClick}
            className={b('item', {
              [service_name]: true,
              [`active-${service_name}`]: selected_group_lesson_id === id,
-             [`trial-blocked`]: !isTrialShow
+             [`trial-blocked`]: isPurchaseUser.length > 0 ? false : !isTrialShow
            })}>
         <div className={b('count-lessons')}>{lessons.length}</div>
         <div className={b('title')} dangerouslySetInnerHTML={{ __html: name.replace(/\(/g, '<br/>(') }} />

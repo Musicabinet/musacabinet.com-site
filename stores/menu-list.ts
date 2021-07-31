@@ -98,13 +98,13 @@ export class MenuListStore {
     type: MenuType.DEFAULT,
     is_active: false
   }, {
-    title: 'Tutorials',
-    link: '/cabinet/tutorials',
+    title: 'Extra lessons',
+    link: '/cabinet/extra-lessons',
     type: MenuType.DEFAULT,
     is_active: false
   }, {
-    title: 'Extra lessons',
-    link: '/cabinet/extra-lessons',
+    title: 'Tutorials',
+    link: '/cabinet/tutorials',
     type: MenuType.DEFAULT,
     is_active: false
   }];

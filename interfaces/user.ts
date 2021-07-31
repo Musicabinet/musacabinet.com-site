@@ -1,4 +1,5 @@
 import { TrialVersionStore } from '../stores/trial-version';
+import { PurchaseStore } from '../stores/purchase';
 
 export interface UserI {
   id: number,
@@ -19,6 +20,7 @@ export interface UserI {
   updated_at: Date,
   created_at: Date,
   trial_version: TrialVersionStore
+  purchases: PurchaseStore[]
 }
 
 export interface UserUpdateI {
