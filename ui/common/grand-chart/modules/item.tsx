@@ -31,7 +31,7 @@ export class ModuleItem extends React.Component<ModuleItemProps & ModuleI, Modul
     return (
       <div className={b('item', { is_active })}>
         <div className={b('toolbar', { [service_name]: !is_active})}>Module {number}</div>
-        {name}
+        {name.replace(/[0-9]./g, '')}
       </div>
     );
   }

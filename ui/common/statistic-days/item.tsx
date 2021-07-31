@@ -14,7 +14,7 @@ export default class Item extends React.Component<ItemProps, ItemState> {
   render() {
     return (
       <div className={b('item')}>
-        Stats are abailable on paid subscriptions only. Apologies for an inconvenience.
+        Stats are available on paid subscriptions only. Apologies for any inconvenience.
       </div>
     );
   }

@@ -6,10 +6,14 @@ import { RootStore } from '../../../../../stores';
 import { LessonI } from '../../../../../interfaces';
 import { MODALS, SERVICE_NAME } from '../../../../../constants';
 import Router from 'next/router';
+import { SystemStore } from '../../../../../stores/system';
+import { UserStore } from '../../../../../stores/user';
 
 const b = block(style);
 
 type LessonItemProps = {
+  systemStore: SystemStore,
+  user: UserStore,
   isShowTrial: boolean,
   isActive: boolean,
   service_name: SERVICE_NAME,
@@ -18,6 +22,8 @@ type LessonItemProps = {
 type LessonItemState = {};
 
 @inject((store: RootStore) => ({
+  systemStore: store.systemStore,
+  user: store.userStore,
   service_name: store.systemStore.service_name,
   onCloseModal: store.modalsStore.close
 }))
@@ -28,6 +34,8 @@ export class LessonItem extends React.Component<LessonItemProps & LessonI, Lesso
   circleFill = React.createRef<SVGSVGElement>();
 
   static defaultProps = {
+    systemStore: {},
+    user: {},
     breadcrumbs: [],
     service_name: SERVICE_NAME.SCHOOL,
     onCloseModal: () => console.log('Not set handler')
@@ -40,20 +48,27 @@ export class LessonItem extends React.Component<LessonItemProps & LessonI, Lesso
   }
 
   handleOnClick = async () => {
-    const { uuid, onCloseModal } = this.props;
+    const { uuid, onCloseModal, user, systemStore, isShowTrial } = this.props;
+    const isPurchaseUser = user.checkSubscription(systemStore.service_id, systemStore.instrument_id);
+
+    if (isPurchaseUser.length > 0 ? false : !isShowTrial) {
+      return false;
+    }
+
     await Router.push('/lesson/[uuid]', `/lesson/${uuid}`);
     onCloseModal(MODALS.GRAND_CHART);
   };
 
   render() {
-    const { id, name, service_name, isActive, isShowTrial } = this.props;
+    const { id, name, service_name, isActive, isShowTrial, user, systemStore } = this.props;
+    const isPurchaseUser = user.checkSubscription(systemStore.service_id, systemStore.instrument_id);
 
     return (
       <div onClick={this.handleOnClick}
            className={b('item', {
              [service_name]: true,
              [`active-${service_name}`]: isActive,
-             ['blocked']: !isShowTrial
+             ['blocked']: (isPurchaseUser.length > 0 ? false : !isShowTrial)
            })}>
 
         <div className={b('id')}>{name.replace(/\D+/g, '')}</div>

@@ -1,10 +1,11 @@
 import { action, computed, makeObservable, observable } from 'mobx';
 import { UserI, UserUpdateI } from '../interfaces';
 import { NotificationsStore } from './notifications';
-import { METHODS_REQUEST, NOTIFICATION_TYPE } from '../constants';
+import { METHODS_REQUEST, NOTIFICATION_TYPE, SERVICE_ID } from '../constants';
 import { API } from '../core';
 import { UploadAvatarResponse } from '../responsible';
 import { TrialVersionStore } from './trial-version';
+import { PurchaseStore } from './purchase';
 
 interface ImportStore {
   notificationsStore: NotificationsStore
@@ -30,6 +31,7 @@ export class UserStore implements UserI {
   @observable updated_at = new Date;
   @observable created_at = new Date;
   @observable trial_version = new TrialVersionStore(null);
+  @observable purchases: PurchaseStore[] = [];
 
   notificationsStore: NotificationsStore;
 
@@ -98,9 +100,23 @@ export class UserStore implements UserI {
     }
   }
 
+  @action.bound
+  checkSubscription(service_id: SERVICE_ID, instrument_id: number): PurchaseStore[] {
+    return this.purchases.filter((purchase) => {
+      return (purchase.service_id === service_id && purchase.instrument_id === instrument_id);
+    });
+  };
+
+
   @computed
   get fullName(): string {
     return (this.first_name.length > 0 && this.last_name.length > 0) ? `${this.first_name} ${this.last_name}` : '';
+  }
+
+  @computed
+  get isPurchases(): any {
+    console.log('pur', this.purchases);
+    return '';
   }
 
   @action
@@ -123,7 +139,8 @@ export class UserStore implements UserI {
       tools_own,
       created_at,
       updated_at,
-      trial_version
+      trial_version,
+      purchases
     } = data;
 
     this.id = id;
@@ -144,6 +161,7 @@ export class UserStore implements UserI {
     this.created_at = created_at;
     this.updated_at = updated_at;
     this.trial_version = new TrialVersionStore(trial_version);
+    this.purchases = (purchases || []).map((purchase) => new PurchaseStore(purchase));
   }
 
 }
