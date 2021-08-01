@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {inject, observer} from 'mobx-react';
-import { BaseLayout, CabinetLayout } from '../../../ui';
+import { BaseLayout, CabinetLayout, StatisticDays } from '../../../ui';
 
 type YourStatisticsProps = {};
 type YourStatisticsState = {};
@@ -12,7 +12,7 @@ export default class YourStatistics extends React.Component<YourStatisticsProps,
     return (
       <BaseLayout background={'gray'} noStick>
         <CabinetLayout>
-
+          <StatisticDays />
         </CabinetLayout>
       </BaseLayout>
     );

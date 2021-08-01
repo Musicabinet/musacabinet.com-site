@@ -57,6 +57,11 @@ export class Scores extends React.Component<ScoresProps, ScoresState> {
       onChooseAccompaniment, onLoadTrack
     } = this.props;
 
+    // Если это музыкальные лекции то не даем увеличивать
+    if (currentContentScore?.name.toLowerCase().match(/music literature/)) {
+      return false;
+    }
+
     onShowPreview(score_image_id);
     onShowModal(MODALS.PREVIEW_NOTES);
 
