@@ -7,10 +7,12 @@ import { InstrumentIcon } from '../../../common';
 import { getIcon, LIST_ICON } from '../../../common/icons';
 import { RootStore } from '../../../../stores';
 import { MODALS, SERVICE_NAME } from '../../../../constants';
+import { UserStore } from '../../../../stores/user';
 
 const b = block(style);
 
 type ItemProps = {
+  user: UserStore,
   isAuth: boolean,
   information: PriceInformationType,
   selected_term: TERM_LIST,
@@ -22,6 +24,7 @@ type ItemState = {
 };
 
 @inject((store: RootStore) => ({
+  user: store.userStore,
   isAuth: store.authStore.isAuth,
   information: store.pricingStore.information,
   selected_term: store.pricingStore.selected_term,
@@ -32,6 +35,7 @@ type ItemState = {
 export class Item extends React.Component<ItemProps & ServiceI, ItemState> {
 
   static defaultProps = {
+    user: {},
     isAuth: false,
     information: {},
     selected_term: TERM_LIST.MONTHLY,
@@ -63,7 +67,7 @@ export class Item extends React.Component<ItemProps & ServiceI, ItemState> {
   }
 
   onPay = () => {
-    let { slug, information, selected_term, selected_instrument, isAuth, onShowModal } = this.props;
+    let { slug, information, selected_term, selected_instrument, isAuth, onShowModal, user } = this.props;
 
     if (!isAuth) {
       onShowModal(MODALS.SIGN_UP);
@@ -94,13 +98,13 @@ export class Item extends React.Component<ItemProps & ServiceI, ItemState> {
         ],
         mode: 'subscription',
         locale: 'en',
-        successUrl: `https://musicabinet.com/pricing?session_id={CHECKOUT_SESSION_ID}&system=${service_name}`,
-        cancelUrl: `https://musicabinet.com/pricing`
+        customerEmail: user.email,
+        successUrl: `${CURRENT_DOMAIN}pricing?session_id={CHECKOUT_SESSION_ID}&system=${service_name}`,
+        cancelUrl: `${CURRENT_DOMAIN}pricing`
       });
     } catch (e) {
       console.error(`Error in method handleOnPay : `, e);
     }
-
   };
 
 
