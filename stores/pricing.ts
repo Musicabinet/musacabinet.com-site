@@ -61,7 +61,7 @@ export class PricingStore {
             [TERM_LIST.MONTHLY]: {
               current: 15,
               old: 30,
-              id: 'price_1J7GoWHTf8fYJsx5Q62KZJrA'
+              id: 'price_1HpXheHTf8fYJsx5idMLUyeF'//'price_1J7GoWHTf8fYJsx5Q62KZJrA'
             },
             [TERM_LIST.YEARLY]: {
               current: 120,
