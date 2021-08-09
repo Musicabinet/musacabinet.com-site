@@ -181,14 +181,14 @@ export class PricingStore {
           `190 Midi Tracks`,
           `145 Backing Tracks`,
           `50 SRM <sup>1</sup> Sheets`,
-          `50 REM <sup>2</sup> Sheets`,
+          `50 REM <sup>2</sup> Sheets`
         ],
         [LIST_ICON.SAXOPHONE]: [
           `115 Lessons`,
           `210 Midi Tracks`,
           `130 Backing Tracks`,
           `50 SRM <sup>1</sup> Sheets`,
-          `50 REM <sup>2</sup> Sheets`,
+          `50 REM <sup>2</sup> Sheets`
         ]
       },
       extra: 'Includes 4 COLLEGE Lessons'
@@ -313,19 +313,19 @@ export class PricingStore {
           `240 Backing Tracks`,
           `50 SRM <sup>1</sup> Sheets`,
           `50 REM Sheets`,
-          `12 GYM Exercises`,
+          `12 GYM Exercises`
         ],
         [LIST_ICON.KEYBOARD]: [
           `175 Lessons`,
           `160 Backing Tracks`,
           `50 SRM <sup>1</sup> Sheets`,
-          `50 REM <sup>2</sup> Sheets`,
+          `50 REM <sup>2</sup> Sheets`
         ],
         [LIST_ICON.SAXOPHONE]: [
           `188 Lessons`,
           `145 Backing Tracks`,
           `50 SRM <sup>1</sup> Sheets`,
-          `50 REM <sup>2</sup> Sheets`,
+          `50 REM <sup>2</sup> Sheets`
         ]
       },
       extra: 'Includes SCHOOL subscription'
@@ -457,14 +457,14 @@ export class PricingStore {
           `890 Backing Tracks`,
           `70 000 IGM Sheets`,
           `50 SRM <sup>1</sup> Sheets`,
-          `50 REM2 <sup>2</sup> Sheets`,
+          `50 REM2 <sup>2</sup> Sheets`
         ],
         [LIST_ICON.SAXOPHONE]: [
           `460 Lessons`,
           `750 Backing Tracks`,
           `70 000 IGM Sheets`,
           `50 SRM <sup>1</sup> Sheets`,
-          `50 REM2 <sup>2</sup> Sheets`,
+          `50 REM2 <sup>2</sup> Sheets`
         ]
       },
       extra: 'Includes SCHOOL and COLLEGE'
