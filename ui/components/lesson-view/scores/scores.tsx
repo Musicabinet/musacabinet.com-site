@@ -61,7 +61,7 @@ export class Scores extends React.Component<ScoresProps, ScoresState> {
 
   handleOnShow = (score_image_id: number) => {
     const {
-      currentContentScore, accompaniments, onShowPreview, onShowModal,
+      currentContentScore, onShowPreview, onShowModal,
       playerStore, lessonStore
     } = this.props;
 
@@ -73,17 +73,19 @@ export class Scores extends React.Component<ScoresProps, ScoresState> {
     onShowPreview(score_image_id);
     onShowModal(MODALS.PREVIEW_NOTES);
 
+    const selected_accompaniment = lessonStore.selected_accompaniment;
+
+    const findAccompaniment = lessonStore.accompaniments.find(
+      (item) => item.id === selected_accompaniment
+    );
+
     // Получаем индекс выбранной партитуры
     const findIndex = currentContentScore?.items
       .filter((item) => item.score_type_id === SCORE_TYPE.IMAGE)
       .findIndex((score) => score.id === score_image_id);
 
     if (findIndex) {
-      if (accompaniments[findIndex]) {
-        const findAccompaniment = lessonStore.accompaniments.find(
-          (item) => item.id === lessonStore.selected_accompaniment
-        );
-
+      if (findAccompaniment) {
         if (findAccompaniment && findAccompaniment.libraries[findIndex]) {
           playerStore.setLibrary(findAccompaniment.libraries[findIndex].id);
           playerStore.loadTrack();
