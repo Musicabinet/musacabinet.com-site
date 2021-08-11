@@ -1,8 +1,8 @@
 import { ScoreI } from './score';
-import { AccompanimentI } from './accompaniment';
 import { GroupLessonStore } from '../stores/group-lesson';
 import { BreadcrumbsI } from './breadcrumbs';
 import { ChartI } from './chart';
+import { AccompanimentStore } from '../stores/accompaniment';
 
 export interface LessonI {
   id: number,
@@ -20,7 +20,7 @@ export interface LessonI {
   scores: ScoreI[],
   charts: ChartI[],
   group_lesson?: GroupLessonStore | undefined,
-  accompaniments: AccompanimentI[],
+  accompaniments: AccompanimentStore[],
   breadcrumbs: BreadcrumbsI[]
   progress_second: number,
   lesson_list: LessonListI[],

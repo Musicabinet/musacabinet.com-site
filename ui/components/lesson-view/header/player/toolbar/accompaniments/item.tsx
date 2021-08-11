@@ -5,10 +5,12 @@ import style from './accompaniments.module.sass';
 import { AccompanimentI } from '../../../../../../../interfaces';
 import { RootStore } from '../../../../../../../stores';
 import { SERVICE_NAME } from '../../../../../../../constants';
+import { AccompanimentStore } from '../../../../../../../stores/accompaniment';
 
 const b = block(style);
 
 type AccompanimentItemProps = {
+  accompaniment: AccompanimentStore,
   service_name: SERVICE_NAME,
   selected: boolean,
   selected_name_track: string,
@@ -70,7 +72,9 @@ export class AccompanimentItem extends React.Component<AccompanimentItemProps & 
   };
 
   render() {
-    const { service_name, selected, name } = this.props;
+    const { service_name, selected, name, accompaniment } = this.props;
+
+    console.log('accompaniment', accompaniment);
 
     return (
       <div className={b('item', { selected })}

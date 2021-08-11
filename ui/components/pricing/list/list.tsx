@@ -32,7 +32,6 @@ export class List extends React.Component<ListProps, ListState> {
           <div className='col-lg-12'>
             <div className={b(null)}>
               {list.map((service) => {
-                // @ts-ignore
                 return <Item key={service.id} {...service} />;
               })}
             </div>

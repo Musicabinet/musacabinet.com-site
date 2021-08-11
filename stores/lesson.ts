@@ -1,5 +1,5 @@
 import { action, computed, makeObservable, observable } from 'mobx';
-import { AccompanimentI, BreadcrumbsI, LessonI, LessonListI, ScoreI } from '../interfaces';
+import { BreadcrumbsI, LessonI, LessonListI, ScoreI } from '../interfaces';
 import { API } from '../core';
 import { GroupLessonStore } from './group-lesson';
 import { ScoreStore } from './score';
@@ -35,7 +35,7 @@ export class LessonStore implements LessonI {
   @observable scores: ScoreI[] = [];
   @observable charts: ChartI[] = [];
   @observable group_lesson: GroupLessonStore | undefined = undefined;
-  @observable accompaniments: AccompanimentI[] = [];
+  @observable accompaniments: AccompanimentStore[] = [];
   @observable breadcrumbs: BreadcrumbsI[] = [];
   @observable progress_second = 0;
   @observable lesson_list: LessonListI[] = [];
@@ -209,6 +209,7 @@ export class LessonStore implements LessonI {
   @action.bound
   setCurrentScore(value: number) {
     this.currentScore = value;
+    this.selected_accompaniment = this.accompaniments[value].id
   }
 
   @action.bound

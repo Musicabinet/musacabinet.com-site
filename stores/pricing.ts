@@ -13,6 +13,8 @@ export class PricingStore {
   @observable selected_instrument_icon: LIST_ICON = LIST_ICON.GUITAR;
   @observable selected_term: TERM_LIST = TERM_LIST.MONTHLY;
 
+  @observable disabledScreen: boolean = false;
+
   @observable list: PriceListI = {
     [SERVICE_NAME.SCHOOL]: [{
       name: '1 month',
@@ -61,7 +63,7 @@ export class PricingStore {
             [TERM_LIST.MONTHLY]: {
               current: 15,
               old: 30,
-              id: 'price_1HpXheHTf8fYJsx5idMLUyeF'//'price_1J7GoWHTf8fYJsx5Q62KZJrA'
+              id: 'price_1HqXLMHTf8fYJsx5NT87zyca'//'price_1J7GoWHTf8fYJsx5Q62KZJrA'
             },
             [TERM_LIST.YEARLY]: {
               current: 120,
@@ -512,6 +514,11 @@ export class PricingStore {
   @action.bound
   setSelectedTerm(value: TERM_LIST) {
     this.selected_term = value;
+  }
+
+  @action.bound
+  setDisabledScreen(value: boolean) {
+    this.disabledScreen = value;
   }
 
   @computed
