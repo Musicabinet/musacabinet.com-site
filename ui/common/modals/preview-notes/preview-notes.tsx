@@ -72,23 +72,22 @@ export class PreviewNotes extends React.Component<PreviewNotesProps, PreviewNote
   };
 
   handleOnSetCurrentPreviewScoreIndex = (previewCurrentNumber: number) => {
-    const { setCurrentPreviewScoreIndex, accompaniments, playerStore, lessonStore } = this.props;
+    const { setCurrentPreviewScoreIndex, playerStore, lessonStore } = this.props;
     setCurrentPreviewScoreIndex(previewCurrentNumber);
 
-    if (previewCurrentNumber) {
-      if (accompaniments[previewCurrentNumber]) {
-        const findAccompaniment = lessonStore.accompaniments.find(
-          (item) => item.id === lessonStore.selected_accompaniment
-        );
+    const selected_accompaniment = lessonStore.selected_accompaniment;
 
-        if (findAccompaniment && findAccompaniment.libraries[previewCurrentNumber]) {
-          playerStore.setLibrary(findAccompaniment.libraries[previewCurrentNumber].id);
-          playerStore.loadTrack();
+    const findAccompaniment = lessonStore.accompaniments.find(
+      (item) => item.id === selected_accompaniment
+    );
 
-        } else {
-          console.warn(`Error handleOnSetCurrentPreviewScoreIndex Not found library : `, previewCurrentNumber);
-        }
+    if(previewCurrentNumber && findAccompaniment){
+      if (findAccompaniment.libraries[previewCurrentNumber]) {
+        playerStore.setLibrary(findAccompaniment.libraries[previewCurrentNumber].id);
+        playerStore.loadTrack();
 
+      } else {
+        console.warn(`Error handleOnSetCurrentPreviewScoreIndex Not found library : `, previewCurrentNumber);
       }
     }
   };
