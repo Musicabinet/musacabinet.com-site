@@ -6,10 +6,14 @@ import { RootStore } from '../../../../stores';
 import { AccompanimentI, ScoreI } from '../../../../interfaces';
 import { MODALS, SCORE_TYPE, SERVICE_NAME } from '../../../../constants';
 import { Pagination } from './pagination/pagination';
+import { LessonStore } from '../../../../stores/lesson';
+import { PlayerStore } from '../../../../stores/player';
 
 const b = block(style);
 
 type ScoresProps = {
+  lessonStore: LessonStore,
+  playerStore: PlayerStore,
   service_name: SERVICE_NAME,
   total: number,
   nextScore: boolean,
@@ -24,6 +28,8 @@ type ScoresProps = {
 type ScoresState = {};
 
 @inject((store: RootStore) => ({
+  lessonStore: store.lessonStore,
+  playerStore: store.playerStore,
   service_name: store.systemStore.service_name,
   total: store.lessonStore.scoresTotal,
   nextScore: store.lessonStore.scoresHasNext,
@@ -39,6 +45,8 @@ type ScoresState = {};
 export class Scores extends React.Component<ScoresProps, ScoresState> {
 
   static defaultProps = {
+    lessonStore: {},
+    playerStore: {},
     service_name: SERVICE_NAME.SCHOOL,
     total: 0,
     nextScore: false,
@@ -54,7 +62,7 @@ export class Scores extends React.Component<ScoresProps, ScoresState> {
   handleOnShow = (score_image_id: number) => {
     const {
       currentContentScore, accompaniments, onShowPreview, onShowModal,
-      onChooseAccompaniment, onLoadTrack
+      playerStore, lessonStore
     } = this.props;
 
     // Если это музыкальные лекции то не даем увеличивать
@@ -72,8 +80,17 @@ export class Scores extends React.Component<ScoresProps, ScoresState> {
 
     if (findIndex) {
       if (accompaniments[findIndex]) {
-        onChooseAccompaniment(accompaniments[findIndex].id);
-        onLoadTrack();
+        const findAccompaniment = lessonStore.accompaniments.find(
+          (item) => item.id === lessonStore.selected_accompaniment
+        );
+
+        if (findAccompaniment && findAccompaniment.libraries[findIndex]) {
+          playerStore.setLibrary(findAccompaniment.libraries[findIndex].id);
+          playerStore.loadTrack();
+        } else {
+          console.warn(`Not found library : `, findIndex);
+        }
+
       }
     }
   };
