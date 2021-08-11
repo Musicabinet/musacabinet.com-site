@@ -4,59 +4,73 @@ import block from 'bem-css-modules';
 import style from './pagination.module.sass';
 import { RootStore } from '../../../../../stores';
 import { SERVICE_NAME } from '../../../../../constants';
+import { LessonStore } from '../../../../../stores/lesson';
+import { PlayerStore } from '../../../../../stores/player';
 
 const b = block(style);
 
 type PaginationProps = {
-  service_name: SERVICE_NAME,
-  current_list: number,
-  total_list: number,
-  onChangeList: (value: number) => void,
+  lessonStore: LessonStore,
+  playerStore: PlayerStore,
+  service_name: SERVICE_NAME
 };
 type PaginationState = {};
 
 @inject((store: RootStore) => ({
-  service_name: store.systemStore.service_name,
-  current_list: store.lessonStore.currentScore,
-  total_list: store.lessonStore.scoresTotal,
-  onChangeList: store.lessonStore.setCurrentScore
+  lessonStore: store.lessonStore,
+  playerStore: store.playerStore,
+  service_name: store.systemStore.service_name
 }))
 @observer
 export class Pagination extends React.Component<PaginationProps, PaginationState> {
 
   static defaultProps = {
-    service_name: SERVICE_NAME.SCHOOL,
-    current_list: 0,
-    total_list: 0,
-    onChangeList: () => console.log('Not set handler')
+    lessonStore: {},
+    playerStore: {},
+    service_name: SERVICE_NAME.SCHOOL
   };
 
   handleNextPage = () => {
-    const { current_list, onChangeList } = this.props;
-    onChangeList(current_list + 1);
+    const { lessonStore } = this.props;
+    lessonStore.setCurrentScore(lessonStore.currentScore + 1);
+    this.handleSetFirstTrack();
   };
 
   handlePrevPage = () => {
-    const { current_list, onChangeList } = this.props;
-    onChangeList(current_list - 1);
+    const { lessonStore } = this.props;
+    lessonStore.setCurrentScore(lessonStore.currentScore - 1);
+    this.handleSetFirstTrack();
+  };
+
+  handleSetFirstTrack = () => {
+    const { lessonStore, playerStore } = this.props;
+    const findAccompaniment = lessonStore.accompaniments.find(
+      (item) => item.id === lessonStore.selected_accompaniment
+    );
+
+    if (findAccompaniment && findAccompaniment.libraries.length > 0) {
+      const library_id = findAccompaniment.libraries[0].id;
+      playerStore.setLibrary(library_id);
+      playerStore.loadTrack();
+    }
   };
 
   render() {
-    const { current_list, total_list, service_name } = this.props;
+    const { lessonStore, service_name } = this.props;
 
     return (
       <div className={b(null, {
         [service_name]: true,
-        hidden: total_list < 2
+        hidden: lessonStore.scoresTotal < 2
       })}>
         <button onClick={this.handlePrevPage}
-                disabled={0 === current_list}
+                disabled={0 === lessonStore.currentScore}
                 className={b('btn', {
                   left: true
                 })} />
-        <div className={b('current')}>{current_list + 1} of {total_list}</div>
+        <div className={b('current')}>{lessonStore.currentScore + 1} of {lessonStore.scoresTotal}</div>
         <button onClick={this.handleNextPage}
-                disabled={total_list === current_list + 1}
+                disabled={lessonStore.scoresTotal === lessonStore.currentScore + 1}
                 className={b('btn', { right: true })} />
       </div>
     );

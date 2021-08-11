@@ -69,6 +69,8 @@ export class Item extends React.Component<ItemProps & ServiceI, ItemState> {
   onPay = () => {
     let { slug, information, selected_term, selected_instrument, isAuth, onShowModal, user } = this.props;
 
+    console.log(user.trial_version);
+
     if (!isAuth) {
       onShowModal(MODALS.SIGN_UP);
       return;
@@ -99,7 +101,7 @@ export class Item extends React.Component<ItemProps & ServiceI, ItemState> {
         mode: 'subscription',
         locale: 'en',
         customerEmail: user.email,
-        successUrl: `${CURRENT_DOMAIN}pricing?session_id={CHECKOUT_SESSION_ID}&system=${service_name}`,
+        successUrl: `${CURRENT_DOMAIN}pricing?session_id={CHECKOUT_SESSION_ID}&service_name=${service_name}&type_name=${selected_instrument.toLowerCase()}&price_id=${price_id}`,
         cancelUrl: `${CURRENT_DOMAIN}pricing`
       });
     } catch (e) {
@@ -109,8 +111,10 @@ export class Item extends React.Component<ItemProps & ServiceI, ItemState> {
 
 
   render() {
-    const { slug, information, selected_term, selected_instrument, isAuth } = this.props;
+    const { slug, information, selected_term, selected_instrument, isAuth, user } = this.props;
     const service_name = slug as SERVICE_NAME;
+    const trialVersionIsValid: boolean = user.trial_version.isValid;
+
 
     if (!information[service_name].prices) {
       return false;
@@ -118,7 +122,10 @@ export class Item extends React.Component<ItemProps & ServiceI, ItemState> {
 
     const selectedInstrumentPrice = information[service_name];
     const selectedPrices = selectedInstrumentPrice.prices[selected_instrument];
-    const currentPrices = (isAuth) ? selectedPrices.discount : selectedPrices.standard;
+    const currentPrices = (isAuth)
+      ? trialVersionIsValid
+        ? selectedPrices.discount : selectedPrices.standard
+      : selectedPrices.standard;
     const currentPeriod = currentPrices[selected_term];
 
     const current_sum = currentPeriod.current;
@@ -154,7 +161,7 @@ export class Item extends React.Component<ItemProps & ServiceI, ItemState> {
 
         <div className={b('list')}>
           {list.map((item: any) => {
-            return <div className={b('list-item')}>
+            return <div key={item} className={b('list-item')}>
               <i className={b('check', { [service_name]: true })}>
                 {getIcon(LIST_ICON.CHECK, '')}
               </i>

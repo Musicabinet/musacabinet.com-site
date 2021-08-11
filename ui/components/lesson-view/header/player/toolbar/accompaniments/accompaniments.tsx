@@ -3,13 +3,13 @@ import { inject, observer } from 'mobx-react';
 import block from 'bem-css-modules';
 import style from './accompaniments.module.sass';
 import { RootStore } from '../../../../../../../stores';
-import { AccompanimentItem } from './item';
-import { AccompanimentI } from '../../../../../../../interfaces';
+import { AccompanimentStore } from '../../../../../../../stores/accompaniment';
+import { LibraryItem } from './library-item';
 
 const b = block(style);
 
 type AccompanimentsProps = {
-  list: AccompanimentI[],
+  list: AccompanimentStore[],
   selected_accompaniment: number,
   name_track: string,
   onChooseAccompaniment: (id: number) => void,
@@ -44,22 +44,16 @@ export class Accompaniments extends React.Component<AccompanimentsProps, Accompa
 
 
   render() {
-    const { list, selected_accompaniment, name_track } = this.props;
+    const { list, selected_accompaniment } = this.props;
+    const findAccompaniment = list.find((item) => item.id === selected_accompaniment);
 
     return (
       <div className={b(null)}>
-        {list.map((accompaniment) => {
-          return (<AccompanimentItem key={accompaniment.id}
-                                     id={accompaniment.id}
-                                     lesson_id={accompaniment.lesson_id}
-                                     sort={accompaniment.sort}
-                                     name={accompaniment.name}
-                                     libraries={accompaniment.libraries}
-                                     selected={(selected_accompaniment === accompaniment.id)}
-                                     onChoose={this.handleOnChooseAccompaniment}
-                                     selected_name_track={name_track} />);
+        {findAccompaniment && findAccompaniment.libraries.length > 0 && findAccompaniment.libraries.map((library) => {
+          return (<LibraryItem key={library.id} library={library} />);
         })}
       </div>
     );
   }
+
 }
