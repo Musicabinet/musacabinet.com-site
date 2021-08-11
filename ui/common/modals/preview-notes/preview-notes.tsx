@@ -7,10 +7,14 @@ import { Modal } from '../../modal/modal';
 import { Player } from '../../../components/lesson-view/header/player/player';
 import { MODALS, SERVICE_NAME } from '../../../../constants';
 import { AccompanimentI } from '../../../../interfaces';
+import { LessonStore } from '../../../../stores/lesson';
+import { PlayerStore } from '../../../../stores/player';
 
 const b = block(style);
 
 type PreviewNotesProps = {
+  lessonStore: LessonStore,
+  playerStore: PlayerStore,
   service_name: SERVICE_NAME,
   show: boolean,
   totalScoresImages: number,
@@ -27,6 +31,8 @@ type PreviewNotesProps = {
 type PreviewNotesState = {};
 
 @inject((store: RootStore) => ({
+  lessonStore: store.lessonStore,
+  playerStore: store.playerStore,
   service_name: store.systemStore.service_name,
   show: store.modalsStore.list[MODALS.PREVIEW_NOTES],
   totalScoresImages: store.lessonStore.totalScoresImages,
@@ -44,6 +50,8 @@ type PreviewNotesState = {};
 export class PreviewNotes extends React.Component<PreviewNotesProps, PreviewNotesState> {
 
   static defaultProps = {
+    lessonStore: {},
+    playerStore: {},
     service_name: SERVICE_NAME.SCHOOL,
     show: false,
     totalScoresImages: 0,
@@ -64,13 +72,23 @@ export class PreviewNotes extends React.Component<PreviewNotesProps, PreviewNote
   };
 
   handleOnSetCurrentPreviewScoreIndex = (previewCurrentNumber: number) => {
-    const { setCurrentPreviewScoreIndex, accompaniments, onChooseAccompaniment, onLoadTrack } = this.props;
+    const { setCurrentPreviewScoreIndex, accompaniments, playerStore, lessonStore } = this.props;
     setCurrentPreviewScoreIndex(previewCurrentNumber);
 
     if (previewCurrentNumber) {
       if (accompaniments[previewCurrentNumber]) {
-        onChooseAccompaniment(accompaniments[previewCurrentNumber].id);
-        onLoadTrack();
+        const findAccompaniment = lessonStore.accompaniments.find(
+          (item) => item.id === lessonStore.selected_accompaniment
+        );
+
+        if (findAccompaniment && findAccompaniment.libraries[previewCurrentNumber]) {
+          playerStore.setLibrary(findAccompaniment.libraries[previewCurrentNumber].id);
+          playerStore.loadTrack();
+
+        } else {
+          console.warn(`Error handleOnSetCurrentPreviewScoreIndex Not found library : `, previewCurrentNumber);
+        }
+
       }
     }
   };
