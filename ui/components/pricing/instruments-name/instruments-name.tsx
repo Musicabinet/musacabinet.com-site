@@ -5,33 +5,30 @@ import style from './instruments-name.module.sass';
 import { RootStore } from '../../../../stores';
 import { InstrumentI } from '../../../../interfaces';
 import { InstrumentItem } from './instrument-item';
-import { LIST_ICON } from '../../../common/icons';
+import { PricingStore } from '../../../../stores/pricing';
 
 const b = block(style);
 
 type InstrumentsNameProps = {
-  list: InstrumentI[],
-  selected_instrument_icon: LIST_ICON,
-  onSetInstrument: (value: LIST_ICON) => void
+  priceStore: PricingStore,
+  list: InstrumentI[]
 };
 type InstrumentsNameState = {};
 
 @inject((store: RootStore) => ({
+  priceStore: store.pricingStore,
   list: store.servicesStore.instruments,
-  selected_instrument_icon: store.pricingStore.selected_instrument_icon,
-  onSetInstrument: store.pricingStore.setSelectedInstrumentIcon
 }))
 @observer
 export class InstrumentsName extends React.Component<InstrumentsNameProps, InstrumentsNameState> {
 
   static defaultProps = {
-    list: [],
-    selected_instrument_icon: LIST_ICON.GUITAR,
-    onSetInstrument: () => console.log('Not set handler')
+    priceStore: {},
+    list: []
   };
 
   render() {
-    const { list, selected_instrument_icon, onSetInstrument } = this.props;
+    const { priceStore, list } = this.props;
 
     return (
       <div className='container'>
@@ -41,8 +38,8 @@ export class InstrumentsName extends React.Component<InstrumentsNameProps, Instr
               {list.map((instrument) => {
                 return (<InstrumentItem key={instrument.id}
                                         {...instrument}
-                                        selected={instrument.icon === selected_instrument_icon}
-                                        onSetInstrument={onSetInstrument} />);
+                                        selected={instrument.icon === priceStore.selected_instrument_icon}
+                                        onSetInstrument={priceStore.setSelectedInstrumentIcon} />);
               })}
             </div>
           </div>

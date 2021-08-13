@@ -8,10 +8,12 @@ import { getIcon, LIST_ICON } from '../../../common/icons';
 import { RootStore } from '../../../../stores';
 import { MODALS, SERVICE_NAME } from '../../../../constants';
 import { UserStore } from '../../../../stores/user';
+import { PricingStore } from '../../../../stores/pricing';
 
 const b = block(style);
 
 type ItemProps = {
+  pricingStore: PricingStore,
   user: UserStore,
   isAuth: boolean,
   information: PriceInformationType,
@@ -24,6 +26,7 @@ type ItemState = {
 };
 
 @inject((store: RootStore) => ({
+  pricingStore: store.pricingStore,
   user: store.userStore,
   isAuth: store.authStore.isAuth,
   information: store.pricingStore.information,
@@ -35,6 +38,7 @@ type ItemState = {
 export class Item extends React.Component<ItemProps & ServiceI, ItemState> {
 
   static defaultProps = {
+    pricingStore: {},
     user: {},
     isAuth: false,
     information: {},
@@ -67,9 +71,16 @@ export class Item extends React.Component<ItemProps & ServiceI, ItemState> {
   }
 
   onPay = () => {
-    let { slug, information, selected_term, selected_instrument, isAuth, onShowModal, user } = this.props;
-
-    console.log(user.trial_version);
+    let {
+      slug,
+      information,
+      selected_term,
+      selected_instrument,
+      isAuth,
+      onShowModal,
+      user,
+      id: service_id
+    } = this.props;
 
     if (!isAuth) {
       onShowModal(MODALS.SIGN_UP);
@@ -101,7 +112,7 @@ export class Item extends React.Component<ItemProps & ServiceI, ItemState> {
         mode: 'subscription',
         locale: 'en',
         customerEmail: user.email,
-        successUrl: `${CURRENT_DOMAIN}pricing?session_id={CHECKOUT_SESSION_ID}&service_name=${service_name}&type_name=${selected_instrument.toLowerCase()}&price_id=${price_id}`,
+        successUrl: `${CURRENT_DOMAIN}pricing?session_id={CHECKOUT_SESSION_ID}&service_name=${service_name}&type_name=${selected_instrument.toLowerCase()}&price_id=${price_id}&service_id=${service_id}`,
         cancelUrl: `${CURRENT_DOMAIN}pricing`
       });
     } catch (e) {
@@ -111,10 +122,18 @@ export class Item extends React.Component<ItemProps & ServiceI, ItemState> {
 
 
   render() {
-    const { slug, information, selected_term, selected_instrument, isAuth, user } = this.props;
+    const {
+      slug,
+      information,
+      selected_term,
+      selected_instrument,
+      isAuth,
+      user,
+      pricingStore,
+      id: service_id
+    } = this.props;
     const service_name = slug as SERVICE_NAME;
     const trialVersionIsValid: boolean = user.trial_version.isValid;
-
 
     if (!information[service_name].prices) {
       return false;
@@ -134,6 +153,7 @@ export class Item extends React.Component<ItemProps & ServiceI, ItemState> {
     const plans = selectedInstrumentPrice.plans;
     const list = selectedInstrumentPrice.list[selected_instrument];
 
+    const hiddenPayButton = user.purchases.some((item) => item.service_id === service_id && item.instrument_id === pricingStore.selected_instrument_id);
 
     return (
       <div className={b('item', {
@@ -151,12 +171,14 @@ export class Item extends React.Component<ItemProps & ServiceI, ItemState> {
         <div className={b('price', { hidden: !plans.includes(selected_term) })}>$ <span>{current_sum}</span></div>
         <div className={b('old', { hidden: !plans.includes(selected_term) })}>${old_sum}</div>
 
-        <div className={b('action')}>
-          <button onClick={this.onPay}
-                  disabled={(!plans.includes(selected_term))}
-                  className={b('button', { [slug]: true })}>{(plans.includes(selected_term)) ? 'Buy plan' : 'Unavailable'}
-          </button>
-        </div>
+        {!hiddenPayButton && (
+          <div className={b('action')}>
+            <button onClick={this.onPay}
+                    disabled={(!plans.includes(selected_term))}
+                    className={b('button', { [slug]: true })}>{(plans.includes(selected_term)) ? 'Buy plan' : 'Unavailable'}
+            </button>
+          </div>
+        )}
 
 
         <div className={b('list')}>

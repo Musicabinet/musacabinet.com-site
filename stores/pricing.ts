@@ -1,8 +1,11 @@
 import { action, computed, makeObservable, observable } from 'mobx';
 import { PriceI, PriceInformationType, PriceListI, TERM_LIST } from '../interfaces';
 import { SystemStore } from './system';
-import { SERVICE_NAME } from '../constants';
+import { METHODS_REQUEST, SERVICE_NAME } from '../constants';
 import { LIST_ICON } from '../ui/common/icons';
+import { API } from '../core';
+import { DefaultResponse } from '../responsible';
+import Router from 'next/router';
 
 interface ImportStore {
   systemStore: SystemStore,
@@ -12,6 +15,7 @@ export class PricingStore {
 
   @observable selected_instrument_icon: LIST_ICON = LIST_ICON.GUITAR;
   @observable selected_term: TERM_LIST = TERM_LIST.MONTHLY;
+  @observable selected_instrument_id: number = 1;
 
   @observable disabledScreen: boolean = false;
 
@@ -63,7 +67,7 @@ export class PricingStore {
             [TERM_LIST.MONTHLY]: {
               current: 15,
               old: 30,
-              id: 'price_1HqXLMHTf8fYJsx5NT87zyca'//'price_1J7GoWHTf8fYJsx5Q62KZJrA'
+              id: 'price_1J7GoWHTf8fYJsx5Q62KZJrA'
             },
             [TERM_LIST.YEARLY]: {
               current: 120,
@@ -492,7 +496,6 @@ export class PricingStore {
 
   @action.bound
   setInstrument(instrument: string) {
-    console.log('change instrument', instrument);
     this.selected_instrument = instrument;
   }
 
@@ -506,9 +509,10 @@ export class PricingStore {
   }
 
   @action.bound
-  setSelectedInstrumentIcon(value: LIST_ICON) {
+  setSelectedInstrumentIcon(value: LIST_ICON, id: number) {
     this.selected_instrument_icon = value;
     this.selected_term = TERM_LIST.MONTHLY;
+    this.selected_instrument_id = id;
   }
 
   @action.bound
@@ -519,6 +523,27 @@ export class PricingStore {
   @action.bound
   setDisabledScreen(value: boolean) {
     this.disabledScreen = value;
+  }
+
+  @action.bound
+  async checkSession(data: any) {
+    try {
+      const result = await API.request<DefaultResponse>(`purchase/check`, {
+        method: METHODS_REQUEST.POST,
+        body: API.getFormData(data)
+      });
+
+      if (result.success) {
+        await Router.push(`/cabinet`);
+      }else{
+        alert('Error. Repeat please.')
+      }
+    } catch (e) {
+      alert('Error. Repeat please.')
+      console.error(`Error in method PricingStore.checkSession : `, e);
+    } finally {
+      this.setDisabledScreen(false);
+    }
   }
 
   @computed
