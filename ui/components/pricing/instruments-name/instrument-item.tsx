@@ -9,7 +9,7 @@ const b = block(style);
 
 type InstrumentItemProps = {
   selected: boolean,
-  onSetInstrument: (value: LIST_ICON) => void
+  onSetInstrument: (value: LIST_ICON, id: number) => void
 };
 type InstrumentItemState = {};
 
@@ -18,8 +18,8 @@ type InstrumentItemState = {};
 export class InstrumentItem extends React.Component<InstrumentItemProps & InstrumentI, InstrumentItemState> {
 
   handleOnChange = () => {
-    const { icon, onSetInstrument } = this.props;
-    onSetInstrument(icon);
+    const { icon, id, onSetInstrument } = this.props;
+    onSetInstrument(icon, id);
   };
 
   render() {

@@ -29,3 +29,8 @@ export interface ServiceListResponse {
 export interface UploadAvatarResponse {
   path: string
 }
+
+export interface DefaultResponse {
+  success: boolean,
+  errors?: string[]
+}
