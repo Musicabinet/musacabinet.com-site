@@ -23,6 +23,7 @@
     "dotenv": "^8.2.0",
     "form-data": "^4.0.0",
     "formik": "^2.2.6",
+    "is-mobile": "^3.0.0",
     "mobx": "^6.2.0",
     "mobx-react": "^7.1.0",
     "moment": "^2.29.1",

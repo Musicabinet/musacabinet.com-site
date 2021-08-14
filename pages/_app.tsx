@@ -7,7 +7,7 @@ import { Cookie } from '../core';
 import { CustomAppContext } from '../interfaces';
 import HeadBlock from './head-block';
 import { Notifications, PreviewChart, PreviewNotes } from '../ui';
-import { GrandChartModal } from '../ui/common/modals/grand-chart/grand-chart';
+import { GrandChartModal } from '../ui';
 import TagManager from 'react-gtm-module';
 
 interface Props {
