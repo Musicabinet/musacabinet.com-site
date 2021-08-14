@@ -6,6 +6,7 @@ import { NotificationsStore } from './notifications';
 import { METHODS_REQUEST, NOTIFICATION_TYPE } from '../constants';
 import { UserStore } from './user';
 import Router from 'next/router';
+import isMobile from 'is-mobile';
 
 export class AuthStore implements AuthI {
 
@@ -90,6 +91,14 @@ export class AuthStore implements AuthI {
         body: API.getFormData(data)
       });
 
+      if(isMobile()){
+        // @ts-ignore
+        window.dataLayer.push('Login_success_mobile');
+      }else{
+        // @ts-ignore
+        window.dataLayer.push('Login_success_pc');
+      }
+
       // Заполнякем сторы
       this.fillingAfterSign(user, access_token);
 
@@ -116,6 +125,14 @@ export class AuthStore implements AuthI {
         body: API.getFormData(data)
       });
 
+      if(isMobile()){
+        // @ts-ignore
+        window.dataLayer.push('Login_success_mobile');
+      }else{
+        // @ts-ignore
+        window.dataLayer.push('Login_success_pc');
+      }
+
       // Заполнякем сторы
       this.fillingAfterSign(response.user, response.access_token);
 
@@ -135,12 +152,30 @@ export class AuthStore implements AuthI {
       });
 
       if (response.isNew) {
+
+        if(isMobile()){
+          // @ts-ignore
+          window.dataLayer.push('Register_mobile');
+        }else{
+          // @ts-ignore
+          window.dataLayer.push('Register_pc');
+        }
+
         // @ts-ignore
         if(window && window.fbq){
           // @ts-ignore
           window.fbq('track', 'CompleteRegistration');
         }
       } else {
+
+        if(isMobile()){
+          // @ts-ignore
+          window.dataLayer.push('Login_success_mobile');
+        }else{
+          // @ts-ignore
+          window.dataLayer.push('Login_success_pc');
+        }
+
         // @ts-ignore
         if(window && window.fbq) {
           // @ts-ignore
@@ -182,6 +217,14 @@ export class AuthStore implements AuthI {
         method: METHODS_REQUEST.POST,
         body: API.getFormData(data)
       });
+
+      if(isMobile()){
+        // @ts-ignore
+        window.dataLayer.push('Register_mobile');
+      }else{
+        // @ts-ignore
+        window.dataLayer.push('Register_pc');
+      }
 
       // Заполнякем сторы
       this.fillingAfterSign(response.user, response.access_token);

@@ -1,5 +1,6 @@
 import { UserStore } from '../stores/user';
 import { SERVICE_ID } from '../constants';
+import mobile from 'is-mobile';
 
 export { Portal } from './portal';
 
@@ -31,3 +32,5 @@ export const checkSubscription = (user: UserStore, service_id: SERVICE_ID, instr
 
   return (isPurchase.length > 0);
 };
+
+export const isMobile = () => mobile();

@@ -6,6 +6,7 @@ import { LIST_ICON } from '../ui/common/icons';
 import { API } from '../core';
 import { DefaultResponse } from '../responsible';
 import Router from 'next/router';
+import isMobile from 'is-mobile';
 
 interface ImportStore {
   systemStore: SystemStore,
@@ -534,6 +535,15 @@ export class PricingStore {
       });
 
       if (result.success) {
+
+        if(isMobile()){
+          // @ts-ignore
+          window.dataLayer.push('Purchase_mobile');
+        }else{
+          // @ts-ignore
+          window.dataLayer.push('Purchase_pc');
+        }
+
         await Router.push(`/cabinet`);
       }else{
         alert('Error. Repeat please.')
