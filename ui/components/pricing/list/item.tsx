@@ -55,7 +55,10 @@ export class Item extends React.Component<ItemProps & ServiceI, ItemState> {
 
     try {
       // @ts-ignore
-      const widget = new window.cp.CloudPayments;
+      const widget = new window.cp.CloudPayments({
+        language: 'en-US'
+      });
+
       widget.pay('auth', {
           publicId: 'pk_e3786ad7b070a8a0ba3f8c8e92b7e',
           description: 'Pay order musicabinet.com',
