@@ -40,7 +40,7 @@ export class LibraryItem extends React.Component<LibraryItemProps, LibraryItemSt
 
     return (
       <div className={b('item', { selected: library.id === playerStore.selected_library_id })}
-           onClick={this.handleOnClick}>{library.name}</div>
+           onClick={this.handleOnClick}>{library.pivot.custom_name || library.name}</div>
     );
   }
 }

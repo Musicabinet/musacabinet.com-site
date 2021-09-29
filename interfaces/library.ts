@@ -27,5 +27,6 @@ export interface LibraryTrackI {
 
 export interface LibraryPivotI {
   accompaniment_id: number,
-  library_id: number
+  library_id: number,
+  custom_name: string
 }

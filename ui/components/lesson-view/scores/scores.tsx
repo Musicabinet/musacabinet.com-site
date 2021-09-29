@@ -105,13 +105,11 @@ export class Scores extends React.Component<ScoresProps, ScoresState> {
         <Pagination />
         {currentContentScore && (
           <>
-            {service_name !== SERVICE_NAME.COLLEGE && (
-              <div className={b('header')}>
-                <div className={b('information')}>
-                  <div className={b('title')}>{currentContentScore.name}</div>
-                </div>
+            <div className={b('header')}>
+              <div className={b('information')}>
+                <div className={b('title')}>{currentContentScore.name}</div>
               </div>
-            )}
+            </div>
 
             <div className={b('list', {
               college: (service_name === SERVICE_NAME.COLLEGE)
