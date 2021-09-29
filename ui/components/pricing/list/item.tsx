@@ -74,6 +74,9 @@ export class Item extends React.Component<ItemProps & ServiceI, ItemState> {
           onSuccess: function(options: any) { // success
             console.log(options);
             //действие при успешной оплате
+            if (window) {
+              window.location.href = 'https://musicabinet.com/pricing?session_id={CHECKOUT_SESSION_ID}&system=${service_name}';
+            }
           },
           onFail: function(reason: any, options: any) { // fail
             console.log(reason, options);
