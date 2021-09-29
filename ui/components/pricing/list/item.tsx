@@ -48,76 +48,46 @@ export class Item extends React.Component<ItemProps & ServiceI, ItemState> {
   };
 
   async componentDidMount() {
-    await this.loadStripe();
   }
 
-  async loadStripe() {
+  async order(sum: number) {
+    const { user } = this.props;
+
     try {
-      const scriptStripe = document.createElement('script');
-      scriptStripe.src = 'https://js.stripe.com/v3/';
-      scriptStripe.async = true;
-      document.body.appendChild(scriptStripe);
-      scriptStripe.onload = () => {
-        this.setState(() => {
-          // @ts-ignore
-          return ({ stripe: window.Stripe(STRIPE_PUBLIC) });
-        }, () => {
-          console.log('STRIPE LOAD');
+      // @ts-ignore
+      const widget = new window.cp.CloudPayments;
+      widget.pay('auth', {
+          publicId: 'pk_e3786ad7b070a8a0ba3f8c8e92b7e',
+          description: 'Pay order musicabinet.com',
+          amount: sum,
+          currency: 'USD',
+          accountId: user.email, //идентификатор плательщика (необязательно)
+          skin: 'mini',
+          data: {
+            myProp: 'myProp value'
+          }
+        },
+        {
+          onSuccess: function(options: any) { // success
+            console.log(options);
+            //действие при успешной оплате
+          },
+          onFail: function(reason: any, options: any) { // fail
+            console.log(reason, options);
+            //действие при неуспешной оплате
+          },
+          onComplete: function(paymentResult: any, options: any) { //Вызывается как только виджет получает от api.cloudpayments ответ с результатом транзакции.
+            console.log(paymentResult, options);
+            //например вызов вашей аналитики Facebook Pixel
+          }
         });
-      };
     } catch (e) {
-      console.error(`Error in method loadStripe:`, e);
+      console.error(`Error in method loadCloudPayments:`, e);
     }
   }
 
   onPay = () => {
-    let {
-      slug,
-      information,
-      selected_term,
-      selected_instrument,
-      isAuth,
-      onShowModal,
-      user,
-      id: service_id
-    } = this.props;
 
-    if (!isAuth) {
-      onShowModal(MODALS.SIGN_UP);
-      return;
-    }
-
-    const service_name = slug as SERVICE_NAME;
-
-    if (!information[service_name].prices) {
-      return false;
-    }
-
-    const selectedInstrumentPrice = information[service_name];
-    const selectedPrices = selectedInstrumentPrice.prices[selected_instrument];
-    const currentPrices = (isAuth) ? selectedPrices.discount : selectedPrices.standard;
-    const price_id = currentPrices[selected_term].id;
-
-    if (!price_id) {
-      throw ('Not found price_id');
-      return;
-    }
-
-    try {
-      // @ts-ignore
-      this.state.stripe.redirectToCheckout({
-        lineItems: [
-          { price: price_id, quantity: 1 }
-        ],
-        mode: 'subscription',
-        locale: 'en',
-        customerEmail: user.email,
-        successUrl: `${CURRENT_DOMAIN}pricing?session_id={CHECKOUT_SESSION_ID}&service_name=${service_name}&type_name=${selected_instrument.toLowerCase()}&price_id=${price_id}&service_id=${service_id}`,
-        cancelUrl: `${CURRENT_DOMAIN}pricing`
-      });
-    } catch (e) {
-      console.error(`Error in method handleOnPay : `, e);
-    }
   };
 
 
@@ -173,7 +143,7 @@ export class Item extends React.Component<ItemProps & ServiceI, ItemState> {
 
         {!hiddenPayButton && (
           <div className={b('action')}>
-            <button onClick={this.onPay}
+            <button onClick={() => this.order(current_sum)}
                     disabled={(!plans.includes(selected_term))}
                     className={b('button', { [slug]: true })}>{(plans.includes(selected_term)) ? 'Buy plan' : 'Unavailable'}
             </button>

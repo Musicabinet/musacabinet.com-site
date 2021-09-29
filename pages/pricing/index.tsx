@@ -34,25 +34,6 @@ export default class PricingPage extends React.Component<PricingPageProps, Prici
   };
 
   async componentDidMount() {
-    const urlSearchParams = new URLSearchParams(window.location.search);
-    const session_id = urlSearchParams.get('session_id');
-    const service_name = urlSearchParams.get('service_name');
-    const type_name = urlSearchParams.get('type_name');
-    const price_id = urlSearchParams.get('price_id');
-    const service_id = urlSearchParams.get('service_id');
-
-    if (session_id && service_name && type_name && price_id) {
-      const { pricingStore } = this.props;
-      pricingStore.setDisabledScreen(true);
-
-      console.log('params', {
-        session_id, service_name, type_name, price_id, service_id
-      });
-
-      await pricingStore.checkSession({
-        session_id, service_name, type_name, price_id, service_id
-      })
-    }
 
   }
 
