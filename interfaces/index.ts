@@ -40,3 +40,4 @@ export * from './breadcrumbs';
 export * from './price';
 export * from './trial-version';
 export * from './purchase';
+export * from './cloudpayment';
