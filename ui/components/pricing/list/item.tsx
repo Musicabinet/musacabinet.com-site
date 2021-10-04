@@ -2,7 +2,13 @@ import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import block from 'bem-css-modules';
 import style from './list.module.sass';
-import { PriceInformationType, ServiceI, TERM_LIST } from '../../../../interfaces';
+import {
+  CloudPaymentOptionsI,
+  CloudPaymentPaymentResult,
+  PriceInformationType,
+  ServiceI,
+  TERM_LIST
+} from '../../../../interfaces';
 import { InstrumentIcon } from '../../../common';
 import { getIcon, LIST_ICON } from '../../../common/icons';
 import { RootStore } from '../../../../stores';
@@ -51,13 +57,21 @@ export class Item extends React.Component<ItemProps & ServiceI, ItemState> {
   }
 
   async order(sum: number) {
-    const { user } = this.props;
+    const { user, selected_term } = this.props;
 
     try {
       // @ts-ignore
       const widget = new window.cp.CloudPayments({
         language: 'en-US'
       });
+
+      let data: any = {};
+      data.CloudPayments = {
+        recurrent: {
+          interval: selected_term === 'MONTHLY' ? 'Month' : 'Month',
+          period: selected_term === 'YEARLY' ? 12 : 1
+        }
+      };
 
       widget.pay('auth', {
           publicId: 'pk_e3786ad7b070a8a0ba3f8c8e92b7e',
@@ -66,25 +80,25 @@ export class Item extends React.Component<ItemProps & ServiceI, ItemState> {
           currency: 'USD',
           accountId: user.email, //идентификатор плательщика (необязательно)
           skin: 'mini',
-          data: {
-            myProp: 'myProp value'
-          }
+          data: data,
+          retryPayment: true
         },
         {
           onSuccess: function(options: any) { // success
             console.log(options);
             //действие при успешной оплате
             if (window) {
-              window.location.href = 'https://musicabinet.com/pricing?session_id={CHECKOUT_SESSION_ID}&system=${service_name}';
+              window.location.href = '/cabinet';
             }
           },
           onFail: function(reason: any, options: any) { // fail
             console.log(reason, options);
             //действие при неуспешной оплате
           },
-          onComplete: function(paymentResult: any, options: any) { //Вызывается как только виджет получает от api.cloudpayments ответ с результатом транзакции.
-            console.log(paymentResult, options);
-            //например вызов вашей аналитики Facebook Pixel
+          onComplete: function(paymentResult: CloudPaymentPaymentResult, _options: CloudPaymentOptionsI) {
+            if (paymentResult.success) {
+
+            }
           }
         });
     } catch (e) {
