@@ -15,11 +15,13 @@ import { RootStore } from '../../../../stores';
 import { MODALS, SERVICE_NAME } from '../../../../constants';
 import { UserStore } from '../../../../stores/user';
 import { PricingStore } from '../../../../stores/pricing';
+import { PurchasesStore } from '../../../../stores/purchases';
 
 const b = block(style);
 
 type ItemProps = {
   pricingStore: PricingStore,
+  purchasesStore: PurchasesStore
   user: UserStore,
   isAuth: boolean,
   information: PriceInformationType,
@@ -33,6 +35,7 @@ type ItemState = {
 
 @inject((store: RootStore) => ({
   pricingStore: store.pricingStore,
+  purchasesStore: store.purchasesStore,
   user: store.userStore,
   isAuth: store.authStore.isAuth,
   information: store.pricingStore.information,
@@ -45,6 +48,7 @@ export class Item extends React.Component<ItemProps & ServiceI, ItemState> {
 
   static defaultProps = {
     pricingStore: {},
+    purchasesStore: {},
     user: {},
     isAuth: false,
     information: {},
@@ -57,7 +61,7 @@ export class Item extends React.Component<ItemProps & ServiceI, ItemState> {
   }
 
   async order(sum: number) {
-    const { user, selected_term } = this.props;
+    const { user, selected_term, purchasesStore } = this.props;
 
     try {
       // @ts-ignore
@@ -66,10 +70,20 @@ export class Item extends React.Component<ItemProps & ServiceI, ItemState> {
       });
 
       let data: any = {};
+      let date = new Date();
+      date.setMonth(date.getMonth() + 1);
+
+      data.payload = {
+        service_id: this.props.id,
+        instrument_id: this.props.pricingStore.selected_instrument_id,
+        period: selected_term === 'YEARLY' ? 12 : 1,
+      };
+
       data.CloudPayments = {
         recurrent: {
-          interval: selected_term === 'MONTHLY' ? 'Month' : 'Month',
-          period: selected_term === 'YEARLY' ? 12 : 1
+          interval: 'Month',
+          period: selected_term === 'YEARLY' ? 12 : 1,
+          startDate: date
         }
       };
 
@@ -84,8 +98,12 @@ export class Item extends React.Component<ItemProps & ServiceI, ItemState> {
           retryPayment: true
         },
         {
-          onSuccess: function(options: any) { // success
-            console.log(options);
+          onSuccess: async function(options: any) { // success
+            let payload = options.data.payload;
+
+            // Сохраняем платеж
+            await purchasesStore.create(payload);
+
             //действие при успешной оплате
             if (window) {
               window.location.href = '/cabinet';
@@ -124,6 +142,7 @@ export class Item extends React.Component<ItemProps & ServiceI, ItemState> {
     } = this.props;
     const service_name = slug as SERVICE_NAME;
     const trialVersionIsValid: boolean = user.trial_version.isValid;
+
 
     if (!information[service_name].prices) {
       return false;

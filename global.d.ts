@@ -9,7 +9,7 @@ declare module '*.svg' {
 }
 */
 
-declare module "react-facebook-login/dist/facebook-login-render-props" {
+declare module 'react-facebook-login/dist/facebook-login-render-props' {
 
   export interface RenderProps {
     onClick: Function;
@@ -20,7 +20,9 @@ declare module "react-facebook-login/dist/facebook-login-render-props" {
 
   interface ReactFacebookLoginProps {
     appId: string;
+
     callback(userInfo: ReactFacebookLoginInfo): void;
+
     onFailure?(response: ReactFacebookFailureResponse): void;
 
     autoLoad?: boolean;
@@ -33,17 +35,20 @@ declare module "react-facebook-login/dist/facebook-login-render-props" {
     icon?: string | React.ReactNode;
     isDisabled?: boolean;
     language?: string;
+
     onClick?(event: React.MouseEvent<HTMLDivElement>): void;
+
     reAuthenticate?: boolean;
     redirectUri?: string;
     scope?: string;
-    size?: "small" | "medium" | "metro";
+    size?: 'small' | 'medium' | 'metro';
     textButton?: string;
     typeButton?: string;
     version?: string;
     xfbml?: boolean;
     isMobile?: boolean;
     tag?: Node | React.Component<any>;
+
     render(props: RenderProps): void;
   }
 
@@ -63,8 +68,7 @@ declare module "react-facebook-login/dist/facebook-login-render-props" {
     isProcessing?: boolean;
   }
 
-  export default class ReactFacebookLogin extends React.Component<
-    ReactFacebookLoginProps,
-    ReactFacebookLoginState
-    > {}
+  export default class ReactFacebookLogin extends React.Component<ReactFacebookLoginProps,
+    ReactFacebookLoginState> {
+  }
 }
