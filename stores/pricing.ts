@@ -66,8 +66,8 @@ export class PricingStore {
         [LIST_ICON.GUITAR]: {
           discount: {
             [TERM_LIST.MONTHLY]: {
-              current: 1,
-              old: 1,
+              current: 15,
+              old: 30,
               id: 'price_1J7GoWHTf8fYJsx5Q62KZJrA'
             },
             [TERM_LIST.YEARLY]: {
@@ -83,8 +83,8 @@ export class PricingStore {
           },
           standard: {
             [TERM_LIST.MONTHLY]: {
-              current: 1,
-              old: 1,
+              current: 21,
+              old: 30,
               id: 'price_1IzeXVHTf8fYJsx5dWO88a6Z'
             },
             [TERM_LIST.YEARLY]: {
