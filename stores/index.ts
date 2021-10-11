@@ -16,6 +16,7 @@ import { MetronomeStore } from './metronome';
 import { NextModuleStore } from './next-module';
 import { WebsocketStore } from './websocket';
 import { PricingStore } from './pricing';
+import { PurchasesStore } from './purchases';
 
 const isServer = typeof window === 'undefined';
 enableStaticRendering(isServer);
@@ -42,6 +43,7 @@ export class RootStore {
   public nextModule: NextModuleStore;
   public websocketStore: WebsocketStore;
   public pricingStore: PricingStore;
+  public purchasesStore: PurchasesStore;
 
 
   constructor(initialData: RootStore | null) {
@@ -134,6 +136,8 @@ export class RootStore {
         systemStore: this.systemStore
       }
     );
+
+    this.purchasesStore = new PurchasesStore(initialData ? initialData.purchasesStore : null);
 
   }
 }

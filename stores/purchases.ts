@@ -1,5 +1,7 @@
 import { action, observable } from 'mobx';
 import { PurchaseStore } from './purchase';
+import { API } from '../core';
+import { METHODS_REQUEST } from '../constants';
 
 export class PurchasesStore {
 
@@ -9,6 +11,18 @@ export class PurchasesStore {
 
     if (initialData) {
       this.fillingStore(initialData);
+    }
+  }
+
+  @action.bound
+  async create(data: any) {
+    try {
+      await API.request(`purchase`, {
+        method: METHODS_REQUEST.POST,
+        body: API.getFormData(data)
+      });
+    } catch (e) {
+      console.error(`Error in method PurchasesStore.create`);
     }
   }
 
