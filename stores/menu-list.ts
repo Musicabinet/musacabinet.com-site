@@ -76,7 +76,7 @@ export class MenuListStore {
       is_active: false
     },
     {
-      title: 'Contact',
+      title: 'Support',
       link: 'contact',
       type: MenuType.DEFAULT,
       is_active: false
@@ -120,7 +120,7 @@ export class MenuListStore {
     type: MenuType.DEFAULT,
     is_active: false
   }, {
-    title: 'Contact Us',
+    title: 'Support',
     link: 'contact',
     type: MenuType.DEFAULT,
     is_active: false

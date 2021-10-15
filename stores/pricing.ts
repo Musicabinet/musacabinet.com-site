@@ -181,7 +181,7 @@ export class PricingStore {
           `150 Backing Tracks`,
           `50 SRM <sup>1</sup> Sheets`,
           `50 REM <sup>2</sup> Sheets`,
-          `12 GYM Exercises`
+          `12 GYM <sup>3</sup> Sheets`
         ],
         [LIST_ICON.KEYBOARD]: [
           `135 Lessons`,
@@ -319,8 +319,8 @@ export class PricingStore {
           `180 Midi Tracks`,
           `240 Backing Tracks`,
           `50 SRM <sup>1</sup> Sheets`,
-          `50 REM Sheets`,
-          `12 GYM Exercises`
+          `50 REM <sup>2</sup> Sheets`,
+          `12 GYM <sup>3</sup> Sheets`
         ],
         [LIST_ICON.KEYBOARD]: [
           `175 Lessons`,
@@ -457,7 +457,7 @@ export class PricingStore {
           `110 000 IGM Sheets`,
           `50 SRM <sup>1</sup> Sheets`,
           `50 REM2 <sup>2</sup> Sheets`,
-          `12 GYM Exercises`
+          `12 GYM <sup>3</sup> Sheets`
         ],
         [LIST_ICON.KEYBOARD]: [
           `760 Lessons`,
