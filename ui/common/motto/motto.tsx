@@ -14,7 +14,7 @@ export class Motto extends React.Component<MottoProps, MottoState> {
   render() {
     return (
       <div className={b(null)}>
-        If you’re serious about education
+        Online Education Platform
       </div>
     );
   }

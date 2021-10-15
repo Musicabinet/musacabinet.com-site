@@ -4,6 +4,7 @@ import block from 'bem-css-modules';
 import style from './study-at.module.sass';
 import { Title } from '../title/title';
 import { TITLE_SIZE } from '../../../constants';
+import { ButtonFreeTrial } from '../button-free-trial/button-free-trial';
 
 const b = block(style);
 
@@ -37,6 +38,11 @@ export class StudyAt extends React.Component<StudyAtProps, StudyAtState> {
                      className={b('background')}
                      alt='Musicabinet' />
               </picture>
+            </div>
+            <div className='row'>
+              <div className='col-lg-12 text-center'>
+                <ButtonFreeTrial />
+              </div>
             </div>
           </div>
         </div>
