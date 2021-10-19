@@ -8,7 +8,7 @@ import { CustomAppContext } from '../interfaces';
 import HeadBlock from './head-block';
 import { Notifications, PreviewChart, PreviewNotes } from '../ui';
 import { GrandChartModal } from '../ui';
-import TagManager from 'react-gtm-module';
+//import TagManager from 'react-gtm-module';
 
 interface Props {
   pageProps: any;
@@ -54,9 +54,9 @@ class MusiCabinetApp extends App<Props> {
   }
 
   componentDidMount() {
-    TagManager.initialize({
+    /*TagManager.initialize({
       gtmId: 'GTM-PPT365K'
-    })
+    })*/
   }
 
   render() {
