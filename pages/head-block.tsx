@@ -25,12 +25,11 @@ export default class HeadBlock extends React.Component<HeadBlockProps, HeadBlock
   };
 
   getGTAG = (): React.ReactNode => {
-    return '';
-    /*return (<script dangerouslySetInnerHTML={{__html: `window.dataLayer = window.dataLayer || [];
+    return (<script dangerouslySetInnerHTML={{__html: `window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
 
-      gtag('config', 'GTM-PPT365K');`}}/>)*/
+      gtag('config', 'GTM-PPT365K');`}}/>)
   };
 
   render() {
@@ -47,7 +46,7 @@ export default class HeadBlock extends React.Component<HeadBlockProps, HeadBlock
         <link rel='shortcut icon' href='/favicon.ico' type='image/x-icon' />
         <link rel='icon' href='/favicon.ico' type='image/x-icon' />
         <meta name='yandex-verification' content='9cd91603377bfecd' />
-        <script async src="https://www.googletagmanager.com/gtag/js?id=GTM-PPT365K"></script>
+        {/*<script async src="https://www.googletagmanager.com/gtag/js?id=GTM-PPT365K" />*/}
         <script src="https://widget.cloudpayments.ru/bundles/cloudpayments" />
         {this.getGTM()}
         {this.getGTAG()}
