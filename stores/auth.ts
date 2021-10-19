@@ -155,20 +155,20 @@ export class AuthStore implements AuthI {
 
         if (isMobile()) {
           // @ts-ignore
-          window.gtag("event", "sign_in_mobile");
+          window.gtag("event", "sign_up_mobile");
         } else {
           // @ts-ignore
-          window.gtag("event", "sign_in");
+          window.gtag("event", "sign_up");
         }
 
       } else {
 
         if (isMobile()) {
           // @ts-ignore
-          window.dataLayer.push({ trackCustom: 'Login_success_mobile' });
+          window.gtag("event", "sign_in_mobile");
         } else {
           // @ts-ignore
-          window.dataLayer.push({ trackCustom: 'Login_success_pc' });
+          window.gtag("event", "sign_in");
         }
       }
 
