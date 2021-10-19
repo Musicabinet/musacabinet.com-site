@@ -26,10 +26,9 @@ export default class HeadBlock extends React.Component<HeadBlockProps, HeadBlock
 
   getGTAG = (): React.ReactNode => {
     return (<script dangerouslySetInnerHTML={{__html: `window.dataLayer = window.dataLayer || [];
-      function gtag(){};
+      function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
-      gtag('config', 'GTM-PPT365K');`}}/>)
+      `}}/>)
   };
 
   render() {
