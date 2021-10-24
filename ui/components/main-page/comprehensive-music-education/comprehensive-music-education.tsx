@@ -40,7 +40,7 @@ export class ComprehensiveMusicEducation extends React.Component<
                 letterSpacing: 1.3,
                 fontSize: '22px'
               }}
-            >{`with the advanced education system`}</span>
+            >{`With the Advanced Education System`}</span>
             <br />
           </p>
 

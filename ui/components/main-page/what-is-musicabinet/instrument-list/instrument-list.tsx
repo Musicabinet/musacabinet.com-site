@@ -41,7 +41,7 @@ export class InstrumentList extends React.Component<InstrumentListProps, Instrum
           </div>
 
           <div className="row">
-            <div className="col-lg-10 offset-lg-1 text-center mb50">
+            <div className="col-lg-10 offset-lg-1 text-center">
               <Paragraph>
                 Which one do you want to perfect? Our education system will guide you through the process and let you master any of these instruments.
               </Paragraph>
