@@ -9,8 +9,8 @@ import { getIcon, LIST_ICON } from '../../../../../common/icons';
 const b = block(style);
 
 type BackTrackProps = {
-  service_name: SERVICE_NAME,
-  onBack: () => void
+  service_name: SERVICE_NAME;
+  onBack: () => void;
 };
 type BackTrackState = {};
 
@@ -20,7 +20,6 @@ type BackTrackState = {};
 }))
 @observer
 export class BackTrack extends React.Component<BackTrackProps, BackTrackState> {
-
   static defaultProps = {
     service_name: SERVICE_NAME.SCHOOL,
     onBack: () => console.log('Not set handler')
@@ -30,8 +29,7 @@ export class BackTrack extends React.Component<BackTrackProps, BackTrackState> {
     const { service_name, onBack } = this.props;
 
     return (
-      <button className={b(null, { [service_name]: true })}
-              onClick={onBack}>
+      <button className={b(null, { [service_name]: true })} onClick={onBack}>
         {getIcon(LIST_ICON.BACK_BUTTON, b('icon'))}
       </button>
     );

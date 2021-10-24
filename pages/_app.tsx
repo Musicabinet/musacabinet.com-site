@@ -13,13 +13,11 @@ import { GrandChartModal } from '../ui';
 interface Props {
   pageProps: any;
   initialMobxState: RootStore;
-  title: string,
+  title: string;
 }
 
 class MusiCabinetApp extends App<Props> {
-
   public mobxStore: RootStore;
-
 
   static async getInitialProps(appContext: CustomAppContext): Promise<any> {
     const ctx: any = appContext.ctx;
@@ -78,4 +76,3 @@ class MusiCabinetApp extends App<Props> {
 }
 
 export default MusiCabinetApp;
-

@@ -6,14 +6,12 @@ import { MAPPING_INSTRUMENT_ID, MAPPING_SERVICE_ID, SERVICE_NAME } from '../../.
 import { InstrumentView } from '../../../ui/components';
 import { ucFirst } from '../../../helpers';
 
-
 type InstrumentPageProps = {};
 type InstrumentPageState = {};
 
 @inject(() => ({}))
 @observer
 export default class InstrumentPage extends React.Component<InstrumentPageProps, InstrumentPageState> {
-
   static async getInitialProps({ store, ctx: { query } }: CustomAppContext) {
     const { service, instrument } = query;
     await store?.authStore.check();
@@ -36,7 +34,9 @@ export default class InstrumentPage extends React.Component<InstrumentPageProps,
     await store?.grandChartStore.getList();
 
     return {
-      title: `MUSICABINET | ${ucFirst(String(store?.systemStore.service_name))} ${ucFirst(String(store?.systemStore.instrument_name))}`,
+      title: `MUSICABINET | ${ucFirst(String(store?.systemStore.service_name))} ${ucFirst(
+        String(store?.systemStore.instrument_name)
+      )}`,
       description: '',
       keywords: ''
     };

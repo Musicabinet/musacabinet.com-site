@@ -2,7 +2,6 @@ import { action, makeObservable, observable } from 'mobx';
 import { MODALS } from '../constants';
 
 export class ModalsStore {
-
   @observable list = {
     [MODALS.SIGN_IN]: false,
     [MODALS.SIGN_UP]: false,
@@ -29,5 +28,4 @@ export class ModalsStore {
       this.list[id_window] = false;
     }
   }
-
 }

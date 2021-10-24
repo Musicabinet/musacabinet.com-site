@@ -1,23 +1,21 @@
 import { action, computed, makeObservable, observable } from 'mobx';
 import { UserI, UserUpdateI } from '../interfaces';
-import { NotificationsStore } from './notifications';
 import { METHODS_REQUEST, NOTIFICATION_TYPE, SERVICE_ID } from '../constants';
 import { API } from '../core';
 import { UploadAvatarResponse } from '../responsible';
 import { TrialVersionStore } from './trial-version';
 import { PurchaseStore } from './purchase';
+import { RootStore } from './index';
+import moment, { Moment } from 'moment';
 
-interface ImportStore {
-  notificationsStore: NotificationsStore
-}
+let rootStore: RootStore;
 
 export class UserStore implements UserI {
-
   @observable id = 0;
   @observable first_name = '';
   @observable last_name = '';
   @observable avatar = '';
-  @observable birthday: Date | undefined = undefined;
+  @observable birthday: Moment | null = null;
   @observable city = '';
   @observable country = '';
   @observable education = '';
@@ -28,17 +26,15 @@ export class UserStore implements UserI {
   @observable own_group = '';
   @observable portfolio_link = '';
   @observable tools_own = '';
-  @observable updated_at = new Date;
-  @observable created_at = new Date;
+  @observable updated_at = moment();
+  @observable created_at = moment();
   @observable trial_version = new TrialVersionStore(null);
   @observable purchases: PurchaseStore[] = [];
+  @observable discount = false;
 
-  notificationsStore: NotificationsStore;
-
-  constructor(initialData: UserStore | UserI | null, { notificationsStore }: ImportStore) {
+  constructor(initialData: UserStore | UserI | null, root: RootStore) {
     makeObservable(this);
-
-    this.notificationsStore = notificationsStore;
+    rootStore = root;
 
     if (initialData) {
       this.fillingStore(initialData);
@@ -48,24 +44,23 @@ export class UserStore implements UserI {
   @action.bound
   async upload(file: File) {
     try {
-
-      const { path } = await API.request<UploadAvatarResponse>(`user/upload`, {
+      const { path } = await API.request<UploadAvatarResponse>(`users/upload`, {
         method: METHODS_REQUEST.POST,
         body: API.getFormData({ file })
       });
 
       this.avatar = path;
 
-      this.notificationsStore.add({
+      rootStore.notificationsStore.add({
         type: NOTIFICATION_TYPE.SUCCESS,
-        id: this.notificationsStore.generateID(),
+        id: rootStore.notificationsStore.generateID(),
         title: 'Success',
         message: 'You avatar upload.'
       });
     } catch (e) {
-      this.notificationsStore.add({
+      rootStore.notificationsStore.add({
         type: NOTIFICATION_TYPE.ERROR,
-        id: this.notificationsStore.generateID(),
+        id: rootStore.notificationsStore.generateID(),
         title: 'Error',
         message: 'Not upload avatar. Please repeat.'
       });
@@ -76,24 +71,23 @@ export class UserStore implements UserI {
   @action.bound
   async update(values: UserUpdateI) {
     try {
-      await API.request(`user/update`, {
+      await API.request(`users/update`, {
         method: METHODS_REQUEST.POST,
         body: API.getFormData(values)
       });
 
-      this.notificationsStore.add({
+      rootStore.notificationsStore.add({
         type: NOTIFICATION_TYPE.SUCCESS,
-        id: this.notificationsStore.generateID(),
+        id: rootStore.notificationsStore.generateID(),
         title: 'Success',
         message: 'Your profile update'
       });
-
     } catch (e) {
       console.error(`Error in method update : `, e);
 
-      this.notificationsStore.add({
+      rootStore.notificationsStore.add({
         type: NOTIFICATION_TYPE.ERROR,
-        id: this.notificationsStore.generateID(),
+        id: rootStore.notificationsStore.generateID(),
         title: 'Error',
         message: (e && Array.isArray(e.errors) && e.errors.join('<br/>')) || 'Repeat please'
       });
@@ -103,19 +97,17 @@ export class UserStore implements UserI {
   @action.bound
   checkSubscription(service_id: SERVICE_ID, instrument_id: number): PurchaseStore[] {
     return this.purchases.filter((purchase) => {
-      return (purchase.service_id === service_id && purchase.instrument_id === instrument_id);
+      return purchase.service_id === service_id && purchase.instrument_id === instrument_id;
     });
-  };
-
+  }
 
   @computed
   get fullName(): string {
-    return (this.first_name.length > 0 && this.last_name.length > 0) ? `${this.first_name} ${this.last_name}` : '';
+    return this.first_name.length > 0 && this.last_name.length > 0 ? `${this.first_name} ${this.last_name}` : '';
   }
 
   @computed
   get isPurchases(): any {
-    console.log('pur', this.purchases);
     return '';
   }
 
@@ -140,28 +132,29 @@ export class UserStore implements UserI {
       created_at,
       updated_at,
       trial_version,
+      discount,
       purchases
     } = data;
 
     this.id = id;
     this.first_name = first_name;
     this.last_name = last_name;
-    this.email = email;
     this.avatar = avatar;
-    this.birthday = birthday;
+    this.birthday = moment(birthday);
     this.city = city;
     this.country = country;
     this.education = education;
+    this.email = email;
     this.groups_played = groups_played;
     this.homepage_link = homepage_link;
     this.music_education = music_education;
     this.own_group = own_group;
     this.portfolio_link = portfolio_link;
     this.tools_own = tools_own;
-    this.created_at = created_at;
-    this.updated_at = updated_at;
+    this.created_at = moment(created_at);
+    this.updated_at = moment(updated_at);
     this.trial_version = new TrialVersionStore(trial_version);
+    this.discount = discount;
     this.purchases = (purchases || []).map((purchase) => new PurchaseStore(purchase));
   }
-
 }

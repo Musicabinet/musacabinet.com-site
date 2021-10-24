@@ -4,20 +4,15 @@ import { API } from '../core';
 import { GroupLessonStore } from './group-lesson';
 import { ScoreStore } from './score';
 import { AccompanimentStore } from './accompaniment';
-import { SystemStore } from './system';
 import { CHART_TYPE, METHODS_REQUEST, SCORE_TYPE } from '../constants';
 import { ScoreItemStore } from './score-item';
 import { ChartI, ChartItemI } from '../interfaces/chart';
 import { ChartStore } from './chart';
-import { WebsocketStore } from './websocket';
+import { RootStore } from './index';
 
-interface ImportStore {
-  systemStore: SystemStore,
-  websocketStore: WebsocketStore
-}
+let rootStore: RootStore;
 
 export class LessonStore implements LessonI {
-
   @observable isFetch: boolean = false;
 
   @observable id = 0;
@@ -53,13 +48,9 @@ export class LessonStore implements LessonI {
   @observable currentPreviewChartIndex: number = 0;
   @observable currentPreviewChartPath: string = '';
 
-  public systemStore: SystemStore;
-  public websocketStore: WebsocketStore;
-
-  constructor(initialData: LessonStore | null, { systemStore, websocketStore }: ImportStore) {
+  constructor(initialData: LessonStore | null, root: RootStore) {
     makeObservable(this);
-    this.systemStore = systemStore;
-    this.websocketStore = websocketStore;
+    rootStore = root;
 
     if (initialData) {
       this.fillingStore(initialData);
@@ -67,7 +58,7 @@ export class LessonStore implements LessonI {
   }
 
   @action.bound
-  reset(){
+  reset() {
     this.id = 0;
     this.uuid = '';
     this.group_lesson_id = 0;
@@ -88,7 +79,7 @@ export class LessonStore implements LessonI {
     this.lesson_list = [];
     this.progress_second = 0;
 
-    this.prevModuleLesson =  null;
+    this.prevModuleLesson = null;
     this.nextModuleLesson = null;
     this.selected_accompaniment = 0;
     this.video_iframe = null;
@@ -103,7 +94,6 @@ export class LessonStore implements LessonI {
 
   @action.bound
   async get(uuid: string) {
-
     this.isFetch = true;
 
     try {
@@ -124,7 +114,6 @@ export class LessonStore implements LessonI {
   @action.bound
   async getVideo(id_video: number) {
     try {
-
       if (!id_video) {
         return false;
       }
@@ -149,8 +138,8 @@ export class LessonStore implements LessonI {
       const result = await API.request<any>(`map/get`, {
         method: 'POST',
         body: API.getFormData({
-          service_id: this.systemStore.service_id,
-          instrument_id: this.systemStore.instrument_id
+          service_id: rootStore.systemStore.service_id,
+          instrument_id: rootStore.systemStore.instrument_id
         })
       });
 
@@ -161,7 +150,7 @@ export class LessonStore implements LessonI {
       const find_course_module_key = `${currentCourseId}-${currentModuleId}`;
 
       const findIndex = Object.keys(result).findIndex((key) => {
-        return (key == find_course_module_key);
+        return key == find_course_module_key;
       });
 
       const arrCourseModule = Object.keys(result);
@@ -183,7 +172,6 @@ export class LessonStore implements LessonI {
           this.nextModuleLesson = findNextLesson.uuid;
         }
       }
-
     } catch (e) {
       console.error(`Error getModuleMapping: `, e);
     }
@@ -209,7 +197,7 @@ export class LessonStore implements LessonI {
   @action.bound
   setCurrentScore(value: number) {
     this.currentScore = value;
-    this.selected_accompaniment = this.accompaniments[value].id
+    this.selected_accompaniment = this.accompaniments[value].id;
   }
 
   @action.bound
@@ -224,7 +212,7 @@ export class LessonStore implements LessonI {
   @computed
   get showPreviewScorePath() {
     const currentScoreImage = this.scoresImages[this.currentPreviewScoreIndex];
-    return (currentScoreImage && currentScoreImage.content && currentScoreImage.content.image)
+    return currentScoreImage && currentScoreImage.content && currentScoreImage.content.image
       ? currentScoreImage.content.image
       : '';
   }
@@ -232,9 +220,7 @@ export class LessonStore implements LessonI {
   @computed
   get showPreviewScoreId(): number {
     const currentScoreImage = this.scoresImages[this.currentPreviewScoreIndex];
-    return (currentScoreImage && currentScoreImage.content && currentScoreImage.content.image)
-      ? currentScoreImage.id
-      : 0;
+    return currentScoreImage && currentScoreImage.content && currentScoreImage.content.image ? currentScoreImage.id : 0;
   }
 
   @computed
@@ -249,16 +235,19 @@ export class LessonStore implements LessonI {
 
   @computed
   get timeLeft() {
-
     let time = '00:00:00';
 
     if (this.progress_second <= this.duration_second) {
       let left_duration = this.duration_second - this.progress_second;
-      let hours = left_duration / 3600 ^ 0;
-      let minutes = (left_duration - hours * 3600) / 60 ^ 0;
+      let hours = (left_duration / 3600) ^ 0;
+      let minutes = ((left_duration - hours * 3600) / 60) ^ 0;
       let second = left_duration - hours * 3600 - minutes * 60;
-      time = (hours < 10 ? '0' + hours : hours) + ':' + (minutes < 10 ? '0' + minutes : minutes) + ':' + (second < 10 ? '0' + second : second);
-
+      time =
+        (hours < 10 ? '0' + hours : hours) +
+        ':' +
+        (minutes < 10 ? '0' + minutes : minutes) +
+        ':' +
+        (second < 10 ? '0' + second : second);
     }
     return time.split(':');
   }
@@ -267,19 +256,16 @@ export class LessonStore implements LessonI {
   get getPassedLesson(): number {
     let percent = Number(((this.progress_second * 100) / this.duration_second).toFixed(2));
 
-    if (percent >= 100)
-      return 100;
-    else
-      return Number(percent);
+    if (percent >= 100) return 100;
+    else return Number(percent);
   }
 
   @computed
   get getNextLesson(): boolean | string {
     const currentLessonUUID = this.uuid;
-    const findIndex = this.lesson_list.findIndex(lesson => lesson.uuid === currentLessonUUID);
+    const findIndex = this.lesson_list.findIndex((lesson) => lesson.uuid === currentLessonUUID);
 
     if (findIndex !== -1) {
-
       const nextLesson = this.lesson_list[findIndex + 1];
 
       if (nextLesson) {
@@ -287,7 +273,6 @@ export class LessonStore implements LessonI {
       } else {
         return false;
       }
-
     } else {
       return false;
     }
@@ -296,10 +281,9 @@ export class LessonStore implements LessonI {
   @computed
   get getPrevLesson(): boolean | string {
     const currentLessonUUID = this.uuid;
-    const findIndex = this.lesson_list.findIndex(lesson => lesson.uuid === currentLessonUUID);
+    const findIndex = this.lesson_list.findIndex((lesson) => lesson.uuid === currentLessonUUID);
 
     if (findIndex !== -1) {
-
       const nextLesson = this.lesson_list[findIndex - 1];
 
       if (nextLesson) {
@@ -307,7 +291,6 @@ export class LessonStore implements LessonI {
       } else {
         return false;
       }
-
     } else {
       return false;
     }
@@ -365,11 +348,10 @@ export class LessonStore implements LessonI {
   @computed
   get showPreviewChartPath() {
     const currentChartImage = this.chartImages[this.currentPreviewChartIndex];
-    return (currentChartImage && currentChartImage.content && currentChartImage.content.image)
+    return currentChartImage && currentChartImage.content && currentChartImage.content.image
       ? currentChartImage.content.image
       : '';
   }
-
 
   @computed
   get totalChartImages(): number {
@@ -393,7 +375,6 @@ export class LessonStore implements LessonI {
     this.currentPreviewChartIndex = chart_image_index;
   }
 
-
   @action.bound
   showPreviewChart(chart_image_id: number) {
     if (this.currentContentChart) {
@@ -411,7 +392,6 @@ export class LessonStore implements LessonI {
 
     return [];
   }
-
 
   @computed
   get totalScoresImages(): number {
@@ -433,9 +413,28 @@ export class LessonStore implements LessonI {
   @action
   fillingStore(data: LessonStore | LessonI) {
     const {
-      id, uuid, group_lesson_id, sort, slug, group_lesson, scores, charts, accompaniments,
-      meta_title, meta_description, meta_keywords, name, description, duration_minute, is_active, breadcrumbs,
-      lesson_list, prevModuleLesson, nextModuleLesson, selected_accompaniment, progress_second
+      id,
+      uuid,
+      group_lesson_id,
+      sort,
+      slug,
+      group_lesson,
+      scores,
+      charts,
+      accompaniments,
+      meta_title,
+      meta_description,
+      meta_keywords,
+      name,
+      description,
+      duration_minute,
+      is_active,
+      breadcrumbs,
+      lesson_list,
+      prevModuleLesson,
+      nextModuleLesson,
+      selected_accompaniment,
+      progress_second
     } = data;
 
     this.id = id;
@@ -450,17 +449,16 @@ export class LessonStore implements LessonI {
     this.description = description;
     this.duration_minute = duration_minute;
     this.is_active = is_active;
-    this.group_lesson = (group_lesson) ? new GroupLessonStore(group_lesson) : undefined;
+    this.group_lesson = group_lesson ? new GroupLessonStore(group_lesson) : undefined;
     this.scores = (scores || []).map((score) => new ScoreStore(score));
     this.charts = (charts || []).map((chart) => new ChartStore(chart));
     this.accompaniments = (accompaniments || []).map((accompaniment) => new AccompanimentStore(accompaniment));
     this.breadcrumbs = [...breadcrumbs];
-    this.lesson_list = (lesson_list || []);
+    this.lesson_list = lesson_list || [];
     this.progress_second = progress_second;
 
     this.prevModuleLesson = prevModuleLesson || null;
     this.nextModuleLesson = nextModuleLesson || null;
     this.selected_accompaniment = selected_accompaniment || 0;
   }
-
 }

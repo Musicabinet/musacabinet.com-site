@@ -10,9 +10,9 @@ import { PlayerStore } from '../../../../../stores/player';
 const b = block(style);
 
 type PaginationProps = {
-  lessonStore: LessonStore,
-  playerStore: PlayerStore,
-  service_name: SERVICE_NAME
+  lessonStore: LessonStore;
+  playerStore: PlayerStore;
+  service_name: SERVICE_NAME;
 };
 type PaginationState = {};
 
@@ -23,7 +23,6 @@ type PaginationState = {};
 }))
 @observer
 export class Pagination extends React.Component<PaginationProps, PaginationState> {
-
   static defaultProps = {
     lessonStore: {},
     playerStore: {},
@@ -44,9 +43,7 @@ export class Pagination extends React.Component<PaginationProps, PaginationState
 
   handleSetFirstTrack = () => {
     const { lessonStore, playerStore } = this.props;
-    const findAccompaniment = lessonStore.accompaniments.find(
-      (item) => item.id === lessonStore.selected_accompaniment
-    );
+    const findAccompaniment = lessonStore.accompaniments.find((item) => item.id === lessonStore.selected_accompaniment);
 
     if (findAccompaniment && findAccompaniment.libraries.length > 0) {
       const library_id = findAccompaniment.libraries[0].id;
@@ -59,19 +56,27 @@ export class Pagination extends React.Component<PaginationProps, PaginationState
     const { lessonStore, service_name } = this.props;
 
     return (
-      <div className={b(null, {
-        [service_name]: true,
-        hidden: lessonStore.scoresTotal < 2
-      })}>
-        <button onClick={this.handlePrevPage}
-                disabled={0 === lessonStore.currentScore}
-                className={b('btn', {
-                  left: true
-                })} />
-        <div className={b('current')}>{lessonStore.currentScore + 1} of {lessonStore.scoresTotal}</div>
-        <button onClick={this.handleNextPage}
-                disabled={lessonStore.scoresTotal === lessonStore.currentScore + 1}
-                className={b('btn', { right: true })} />
+      <div
+        className={b(null, {
+          [service_name]: true,
+          hidden: lessonStore.scoresTotal < 2
+        })}
+      >
+        <button
+          onClick={this.handlePrevPage}
+          disabled={0 === lessonStore.currentScore}
+          className={b('btn', {
+            left: true
+          })}
+        />
+        <div className={b('current')}>
+          {lessonStore.currentScore + 1} of {lessonStore.scoresTotal}
+        </div>
+        <button
+          onClick={this.handleNextPage}
+          disabled={lessonStore.scoresTotal === lessonStore.currentScore + 1}
+          className={b('btn', { right: true })}
+        />
       </div>
     );
   }

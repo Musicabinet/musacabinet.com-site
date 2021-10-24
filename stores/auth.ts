@@ -2,31 +2,22 @@ import { action, makeObservable, observable } from 'mobx';
 import { AuthI, LoginRequestI, SignUpRequestI, UserI } from '../interfaces';
 import { FacebookClientResponsive, LoginResponse } from '../responsible';
 import { API, Cookie } from '../core';
-import { NotificationsStore } from './notifications';
 import { METHODS_REQUEST, NOTIFICATION_TYPE } from '../constants';
-import { UserStore } from './user';
 import Router from 'next/router';
 import isMobile from 'is-mobile';
+import { RootStore } from './index';
+
+let rootStore: RootStore;
 
 export class AuthStore implements AuthI {
-
   @observable isAuth = false;
   @observable isFetch = false;
   @observable isFetchFacebook = false;
   @observable isFetchGoogle = false;
 
-  notificationsStore: NotificationsStore;
-  userStore: UserStore;
-
-  constructor(initialData: AuthStore | null, { notificationsStore, userStore }: {
-    notificationsStore: NotificationsStore,
-    userStore: UserStore
-  }) {
-
+  constructor(initialData: AuthStore | null, root: RootStore) {
     makeObservable(this);
-
-    this.notificationsStore = notificationsStore;
-    this.userStore = userStore;
+    rootStore = root;
 
     if (initialData) {
       this.fillingStore(initialData);
@@ -34,14 +25,11 @@ export class AuthStore implements AuthI {
   }
 
   @action.bound
-  async check(
-    callbackError: () => void = async () => ({}),
-    callbackSuccess: () => void = async () => ({})
-  ) {
+  async check(callbackError: () => void = async () => ({}), callbackSuccess: () => void = async () => ({})) {
     try {
-      const { user } = await API.request<LoginResponse>(`auth/check`);
+      const response = await API.request<UserI>(`auth/check`);
       // Заполняем
-      this.userStore.fillingStore(user);
+      rootStore.userStore.fillingStore(response);
       await callbackSuccess();
       this.setIsAuth();
     } catch (e) {
@@ -49,7 +37,6 @@ export class AuthStore implements AuthI {
       this.setIsAuth(false);
       console.error(`Redirect : `, e);
     } finally {
-
     }
   }
 
@@ -62,18 +49,16 @@ export class AuthStore implements AuthI {
   fillingAfterSign(user: UserI, access_token: string = '') {
     // Пользователь авторизован
     this.setIsAuth();
-
     // Заполняем данные
-    this.userStore.fillingStore(user);
-
+    rootStore.userStore.fillingStore(user);
+    // Инстанс куки
     const cookie = Cookie.getInstance();
-
     // Записываем токен
     access_token.length > 0 && cookie.set('token', access_token);
 
     // Успешно авторизован
-    this.notificationsStore.add({
-      id: this.notificationsStore.generateID(),
+    rootStore.notificationsStore.add({
+      id: rootStore.notificationsStore.generateID(),
       type: NOTIFICATION_TYPE.SUCCESS,
       title: 'Congratulations',
       message: 'You are logged in'
@@ -93,18 +78,17 @@ export class AuthStore implements AuthI {
 
       if (isMobile()) {
         // @ts-ignore
-        window.gtag("event", "sign_in_mobile");
+        window.gtag('event', 'sign_in_mobile');
       } else {
         // @ts-ignore
-        window.gtag("event", "sign_in");
+        window.gtag('event', 'sign_in');
       }
 
       // Заполнякем сторы
       this.fillingAfterSign(user, access_token);
-
     } catch (e) {
-      this.notificationsStore.add({
-        id: this.notificationsStore.generateID(),
+      rootStore.notificationsStore.add({
+        id: rootStore.notificationsStore.generateID(),
         type: NOTIFICATION_TYPE.ERROR,
         title: 'Error',
         message: e.errors.join('<br/>')
@@ -116,7 +100,6 @@ export class AuthStore implements AuthI {
 
   @action.bound
   async loginFacebook(data: FacebookClientResponsive) {
-
     this.isFetchFacebook = true;
 
     try {
@@ -127,15 +110,14 @@ export class AuthStore implements AuthI {
 
       if (isMobile()) {
         // @ts-ignore
-        window.gtag("event", "sign_in_mobile");
+        window.gtag('event', 'sign_in_mobile');
       } else {
         // @ts-ignore
-        window.gtag("event", "sign_in");
+        window.gtag('event', 'sign_in');
       }
 
       // Заполнякем сторы
       this.fillingAfterSign(response.user, response.access_token);
-
     } catch (e) {
       console.error(`Error in method AuthStore.loginFacebook : `, e);
     } finally {
@@ -152,23 +134,20 @@ export class AuthStore implements AuthI {
       });
 
       if (response.isNew) {
-
         if (isMobile()) {
           // @ts-ignore
-          window.gtag("event", "sign_up_mobile");
+          window.gtag('event', 'sign_up_mobile');
         } else {
           // @ts-ignore
-          window.gtag("event", "sign_up");
+          window.gtag('event', 'sign_up');
         }
-
       } else {
-
         if (isMobile()) {
           // @ts-ignore
-          window.gtag("event", "sign_in_mobile");
+          window.gtag('event', 'sign_in_mobile');
         } else {
           // @ts-ignore
-          window.gtag("event", "sign_in");
+          window.gtag('event', 'sign_in');
         }
       }
 
@@ -193,7 +172,6 @@ export class AuthStore implements AuthI {
       this.setIsAuth(false);
       // Переадресация на главную
       await Router.push('/');
-
     } catch (errResponse) {
       console.log(errResponse);
     }
@@ -207,21 +185,19 @@ export class AuthStore implements AuthI {
         body: API.getFormData(data)
       });
 
-
       if (isMobile()) {
         // @ts-ignore
-        window.gtag("event", "sign_up_mobile");
+        window.gtag('event', 'sign_up_mobile');
       } else {
         // @ts-ignore
-        window.gtag("event", "sign_up");
+        window.gtag('event', 'sign_up');
       }
 
       // Заполнякем сторы
       this.fillingAfterSign(response.user, response.access_token);
-
     } catch (e) {
-      this.notificationsStore.add({
-        id: this.notificationsStore.generateID(),
+      rootStore.notificationsStore.add({
+        id: rootStore.notificationsStore.generateID(),
         type: NOTIFICATION_TYPE.ERROR,
         title: 'Error',
         message: e.errors.join('<br/>')
@@ -234,8 +210,6 @@ export class AuthStore implements AuthI {
   @action
   fillingStore(data: AuthStore) {
     const { isAuth } = data;
-
     this.isAuth = isAuth;
   }
-
 }

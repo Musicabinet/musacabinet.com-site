@@ -8,9 +8,9 @@ import Link from 'next/link';
 const b = block(style);
 
 type CabinetAvatarProps = {
-  fullName: string,
-  avatar: string,
-  onUpload: (file: File) => void
+  fullName: string;
+  avatar: string;
+  onUpload: (file: File) => void;
 };
 type CabinetAvatarState = {};
 
@@ -21,7 +21,6 @@ type CabinetAvatarState = {};
 }))
 @observer
 export class CabinetAvatar extends React.Component<CabinetAvatarProps, CabinetAvatarState> {
-
   inputFileRef = React.createRef<HTMLInputElement>();
 
   static defaultProps = {
@@ -51,27 +50,19 @@ export class CabinetAvatar extends React.Component<CabinetAvatarProps, CabinetAv
 
     return (
       <div className={b(null)}>
-        <input type='file'
-               className={b('input-file')}
-               ref={this.inputFileRef}
-               onChange={this.handleOnUpload} />
-        {(avatar && avatar.length > 0)
-          ? (
-            <img src={`${CONTENT_URL}${avatar}`}
-                 className={b('avatar')}
-                 alt=''
-                 onClick={this.handleOnClick} />
-          )
-          : (
-            <button className={b('upload')}
-                    onClick={this.handleOnClick}>
-              Load
-            </button>
-          )}
-
+        <input type="file" className={b('input-file')} ref={this.inputFileRef} onChange={this.handleOnUpload} />
+        {avatar && avatar.length > 0 ? (
+          <img src={`${CONTENT_URL}${avatar}`} className={b('avatar')} alt="" onClick={this.handleOnClick} />
+        ) : (
+          <button className={b('upload')} onClick={this.handleOnClick}>
+            Load
+          </button>
+        )}
 
         <div className={b('fullName')}>{fullName}</div>
-        <Link href={'/cabinet/profile'}><a className={b('link')}>Edit profile</a></Link>
+        <Link href={'/cabinet/profile'}>
+          <a className={b('link')}>Edit profile</a>
+        </Link>
       </div>
     );
   }

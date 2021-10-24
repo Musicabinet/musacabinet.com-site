@@ -11,11 +11,11 @@ import { VolumeControl } from '../../../../../common';
 const b = block(style);
 
 type MetronomeProps = {
-  volume: number,
-  initBPM: () => void,
-  worker: Worker | null,
-  playTick: () => void,
-  onChangeVolume: (name: string, volume: number) => void
+  volume: number;
+  initBPM: () => void;
+  worker: Worker | null;
+  playTick: () => void;
+  onChangeVolume: (name: string, volume: number) => void;
 };
 type MetronomeState = {};
 
@@ -28,13 +28,12 @@ type MetronomeState = {};
 }))
 @observer
 export class Metronome extends React.Component<MetronomeProps, MetronomeState> {
-
   static defaultProps = {
     volume: 0,
     initBPM: () => console.log('Not set handler'),
     worker: null,
-    playTick: () => console.log("Not set handler"),
-    onChangeVolume: ()=> console.log("Not set handler")
+    playTick: () => console.log('Not set handler'),
+    onChangeVolume: () => console.log('Not set handler')
   };
 
   componentDidMount() {
@@ -51,20 +50,22 @@ export class Metronome extends React.Component<MetronomeProps, MetronomeState> {
   }
 
   render() {
-    const {volume, onChangeVolume} = this.props;
+    const { volume, onChangeVolume } = this.props;
 
     return (
       <div className={b(null)}>
         <ImageMetronome />
         <Bpm />
         <StartButton />
-        <VolumeControl name={'volume'}
-                       min={0}
-                       max={1}
-                       defaultValue={volume}
-                       step={0.1}
-                       onChange={onChangeVolume}
-                       circle />
+        <VolumeControl
+          name={'volume'}
+          min={0}
+          max={1}
+          defaultValue={volume}
+          step={0.1}
+          onChange={onChangeVolume}
+          circle
+        />
       </div>
     );
   }

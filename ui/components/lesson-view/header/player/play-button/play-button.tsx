@@ -9,10 +9,10 @@ import { SERVICE_NAME } from '../../../../../../constants';
 const b = block(style);
 
 type PlayButtonProps = {
-  service_name: SERVICE_NAME,
-  is_playing: boolean,
-  onPlay: () => void,
-  onStop: () => void
+  service_name: SERVICE_NAME;
+  is_playing: boolean;
+  onPlay: () => void;
+  onStop: () => void;
 };
 type PlayButtonState = {};
 
@@ -24,7 +24,6 @@ type PlayButtonState = {};
 }))
 @observer
 export class PlayButton extends React.Component<PlayButtonProps, PlayButtonState> {
-
   static defaultProps = {
     service_name: SERVICE_NAME.SCHOOL,
     is_playing: false,
@@ -45,8 +44,7 @@ export class PlayButton extends React.Component<PlayButtonProps, PlayButtonState
     const { service_name, is_playing } = this.props;
 
     return (
-      <button className={b(null, { [service_name]: true, is_playing })}
-              onClick={this.handleOnPlay}>
+      <button className={b(null, { [service_name]: true, is_playing })} onClick={this.handleOnPlay}>
         {getIcon(LIST_ICON.PLAY, b('icon'))}
       </button>
     );

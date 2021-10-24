@@ -10,15 +10,15 @@ import { LocalStorage } from '../../../core';
 const b = block(style);
 
 type ButtonProfileProps = {
-  isAuth: boolean,
-  avatar: string,
-  fullName: string,
-  email: string,
-  onLogout: () => void
+  isAuth: boolean;
+  avatar: string;
+  fullName: string;
+  email: string;
+  onLogout: () => void;
 };
 type ButtonProfileState = {
-  show: boolean,
-  uuid: string
+  show: boolean;
+  uuid: string;
 };
 
 @inject((store: RootStore) => ({
@@ -30,7 +30,6 @@ type ButtonProfileState = {
 }))
 @observer
 export class ButtonProfile extends React.Component<ButtonProfileProps, ButtonProfileState> {
-
   public containerRef = React.createRef<HTMLDivElement>();
 
   static defaultProps = {
@@ -85,14 +84,16 @@ export class ButtonProfile extends React.Component<ButtonProfileProps, ButtonPro
 
     return (
       <div className={b(null)} ref={this.containerRef}>
-        <button onClick={this.handleOnShow}
-                className={b('avatar')}>
-          {avatar && avatar.length > 0
-            ? <img src={getAvatarLink(avatar)}
-                   className={b('picture')}
-                   alt='' />
-            : <img src='/images/profile/profile.png' srcSet={`/images/profile/profile@2x.png`}
-                   className={b('userpick')} />}
+        <button onClick={this.handleOnShow} className={b('avatar')}>
+          {avatar && avatar.length > 0 ? (
+            <img src={getAvatarLink(avatar)} className={b('picture')} alt="" />
+          ) : (
+            <img
+              src="/images/profile/profile.png"
+              srcSet={`/images/profile/profile@2x.png`}
+              className={b('userpick')}
+            />
+          )}
 
           <ul className={b('menu', { show })}>
             <li className={b('item', { username: true })}>
@@ -113,11 +114,15 @@ export class ButtonProfile extends React.Component<ButtonProfileProps, ButtonPro
             </li>
             <li className={b('item', { borderBottom: true })}>
               <Link href={'/cabinet/tutorials'} as={`/cabinet/tutorials`}>
-                <a className={b('link')} target={'_blank'}>Tutorials</a>
+                <a className={b('link')} target={'_blank'}>
+                  Tutorials
+                </a>
               </Link>
             </li>
             <li className={b('item')}>
-              <a className={b('link')} onClick={onLogout}>Sign out</a>
+              <a className={b('link')} onClick={onLogout}>
+                Sign out
+              </a>
             </li>
           </ul>
         </button>

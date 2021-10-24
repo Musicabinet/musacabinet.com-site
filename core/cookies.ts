@@ -1,12 +1,10 @@
-import {parseCookies, setCookie, destroyCookie} from 'nookies';
+import { parseCookies, setCookie, destroyCookie } from 'nookies';
 
 export class Cookie {
-
   private static instance: Cookie;
   cxt: null | any;
 
-  private constructor() {
-  }
+  private constructor() {}
 
   public static getInstance(): Cookie {
     if (!Cookie.instance) {
@@ -54,5 +52,4 @@ export class Cookie {
       destroyCookie(null, key, options);
     }
   }
-
 }

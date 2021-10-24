@@ -2,22 +2,20 @@ import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import block from 'bem-css-modules';
 import style from './lessons.module.sass';
-import { RootStore } from '../../../../../stores';
+import { RootStore, SystemStore, UserStore } from '../../../../../stores';
 import { LessonI } from '../../../../../interfaces';
 import { MODALS, SERVICE_NAME } from '../../../../../constants';
 import Router from 'next/router';
-import { SystemStore } from '../../../../../stores/system';
-import { UserStore } from '../../../../../stores/user';
 
 const b = block(style);
 
 type LessonItemProps = {
-  systemStore: SystemStore,
-  user: UserStore,
-  isShowTrial: boolean,
-  isActive: boolean,
-  service_name: SERVICE_NAME,
-  onCloseModal: (id_modal: string) => void
+  systemStore: SystemStore;
+  user: UserStore;
+  isShowTrial: boolean;
+  isActive: boolean;
+  service_name: SERVICE_NAME;
+  onCloseModal: (id_modal: string) => void;
 };
 type LessonItemState = {};
 
@@ -29,7 +27,6 @@ type LessonItemState = {};
 }))
 @observer
 export class LessonItem extends React.Component<LessonItemProps & LessonI, LessonItemState> {
-
   circle = React.createRef<SVGSVGElement>();
   circleFill = React.createRef<SVGSVGElement>();
 
@@ -64,17 +61,18 @@ export class LessonItem extends React.Component<LessonItemProps & LessonI, Lesso
     const isPurchaseUser = user.checkSubscription(systemStore.service_id, systemStore.instrument_id);
 
     return (
-      <div onClick={this.handleOnClick}
-           className={b('item', {
-             [service_name]: true,
-             [`active-${service_name}`]: isActive,
-             ['blocked']: (isPurchaseUser.length > 0 ? false : !isShowTrial)
-           })}>
-
+      <div
+        onClick={this.handleOnClick}
+        className={b('item', {
+          [service_name]: true,
+          [`active-${service_name}`]: isActive,
+          ['blocked']: isPurchaseUser.length > 0 ? false : !isShowTrial
+        })}
+      >
         <div className={b('id')}>{name.replace(/\D+/g, '')}</div>
         <svg className={b('pie')} width={40} height={40} viewBox='0 0 40 40'>
           {/*
-          // @ts-ignore */}
+         // @ts-ignore */}
           <circle ref={this.circleFill}
                   className={b('fill')}
                   id='two'
@@ -94,7 +92,6 @@ export class LessonItem extends React.Component<LessonItemProps & LessonI, Lesso
                   cy={20}
                   fill='transparent' />
         </svg>
-
       </div>
     );
   }

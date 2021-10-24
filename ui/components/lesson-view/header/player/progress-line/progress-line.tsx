@@ -8,8 +8,8 @@ import { RootStore } from '../../../../../../stores';
 const b = block(style);
 
 type ProgressLineProps = {
-  service_name: SERVICE_NAME,
-  current_percent: number
+  service_name: SERVICE_NAME;
+  current_percent: number;
 };
 type ProgressLineState = {};
 
@@ -19,7 +19,6 @@ type ProgressLineState = {};
 }))
 @observer
 export class ProgressLine extends React.Component<ProgressLineProps, ProgressLineState> {
-
   static defaultProps = {
     service_name: SERVICE_NAME.SCHOOL,
     current_percent: 0
@@ -35,14 +34,16 @@ export class ProgressLine extends React.Component<ProgressLineProps, ProgressLin
 
     return (
       <div className={b(null, { [service_name]: true })}>
-        <input type='range'
-               name='progress'
-               className={b('line')}
-               step={0.1}
-               max={100}
-               min={0}
-               value={current_percent}
-               onChange={this.handleOnChange} />
+        <input
+          type="range"
+          name="progress"
+          className={b('line')}
+          step={0.1}
+          max={100}
+          min={0}
+          value={current_percent}
+          onChange={this.handleOnChange}
+        />
       </div>
     );
   }

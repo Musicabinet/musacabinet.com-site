@@ -8,8 +8,8 @@ import { RootStore } from '../../../../../stores';
 const b = block(style);
 
 type CountMonthItemProps = {
-  index: number,
-  onSetMonth: (month: number) => void
+  index: number;
+  onSetMonth: (month: number) => void;
 };
 type CountMonthItemState = {};
 
@@ -18,7 +18,6 @@ type CountMonthItemState = {};
 }))
 @observer
 export class CountMonthItem extends React.Component<CountMonthItemProps & PriceI, CountMonthItemState> {
-
   static defaultProps = {
     onSetMonth: () => console.log('Not set handler')
   };
@@ -27,8 +26,7 @@ export class CountMonthItem extends React.Component<CountMonthItemProps & PriceI
     const { name, index, onSetMonth } = this.props;
 
     return (
-      <div className={b('dot')}
-           onClick={() => onSetMonth(index)}>
+      <div className={b('dot')} onClick={() => onSetMonth(index)}>
         <div className={b('month', { active: index === 1 })}>{name}</div>
       </div>
     );

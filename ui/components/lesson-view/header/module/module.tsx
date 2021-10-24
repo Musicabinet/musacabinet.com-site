@@ -12,7 +12,7 @@ import { Timer } from './timer/timer';
 const b = block(style);
 
 type ModuleProps = {
-  service_name: SERVICE_NAME
+  service_name: SERVICE_NAME;
 };
 type ModuleState = {};
 
@@ -21,7 +21,6 @@ type ModuleState = {};
 }))
 @observer
 export class Module extends React.Component<ModuleProps, ModuleState> {
-
   static defaultProps = {
     service_name: SERVICE_NAME.SCHOOL
   };
@@ -33,12 +32,9 @@ export class Module extends React.Component<ModuleProps, ModuleState> {
   getAmountTime = (): 15 | 30 | 45 | 60 => {
     const { service_name } = this.props;
     let time = 15;
-    if (service_name === SERVICE_NAME.SCHOOL)
-      time = 30;
-    else if (service_name === SERVICE_NAME.COLLEGE)
-      time = 45;
-    else if (service_name === SERVICE_NAME.UNIVERSITY)
-      time = 45;
+    if (service_name === SERVICE_NAME.SCHOOL) time = 30;
+    else if (service_name === SERVICE_NAME.COLLEGE) time = 45;
+    else if (service_name === SERVICE_NAME.UNIVERSITY) time = 45;
 
     // @ts-ignore
     return time;
@@ -48,9 +44,11 @@ export class Module extends React.Component<ModuleProps, ModuleState> {
     const { service_name } = this.props;
 
     return (
-      <div className={b(null, {
-        [service_name]: true
-      })}>
+      <div
+        className={b(null, {
+          [service_name]: true
+        })}
+      >
         <div className={b('header')}>
           <ModuleNavigation />
         </div>

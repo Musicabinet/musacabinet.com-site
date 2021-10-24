@@ -2,7 +2,6 @@ import { action, makeObservable, observable } from 'mobx';
 import { AccompanimentI, LibraryI } from '../interfaces';
 
 export class AccompanimentStore implements AccompanimentI {
-
   @observable id = 0;
   @observable lesson_id = 0;
   @observable sort = 1;
@@ -26,5 +25,4 @@ export class AccompanimentStore implements AccompanimentI {
     this.name = name;
     this.libraries = (libraries || []).map((library) => library);
   }
-
 }

@@ -2,34 +2,34 @@ import { SCORE_TYPE } from '../constants';
 import { ScoreItemStore } from '../stores/score-item';
 
 export interface ScoreI {
-  id: number,
-  lesson_id: number,
-  name: string,
-  video_url: string,
-  content: string
-  items: ScoreItemStore[]
+  id: number;
+  lesson_id: number;
+  name: string;
+  video_url: string;
+  content: string;
+  items: ScoreItemStore[];
 }
 
 export interface ScoreContentI {
-  name: string,
-  content: string
+  name: string;
+  content: string;
 }
 
 export interface ScoreItemI {
-  id: number,
-  sort: number,
-  score_id: number,
-  score_type_id: SCORE_TYPE,
-  content: ScoreItemContentI
+  id: number;
+  sort: number;
+  score_id: number;
+  score_type_id: SCORE_TYPE;
+  content: ScoreItemContentI;
 }
 
 export interface ScoreItemContentI {
-  image?: string,
-  title?: string,
-  align?: string
+  image?: string;
+  title?: string;
+  align?: string;
 }
 
 export interface ScoreItemSortI {
-  id: number,
-  sort: number
+  id: number;
+  sort: number;
 }

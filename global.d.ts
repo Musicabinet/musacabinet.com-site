@@ -10,7 +10,6 @@ declare module '*.svg' {
 */
 
 declare module 'react-facebook-login/dist/facebook-login-render-props' {
-
   export interface RenderProps {
     onClick: Function;
     isDisabled: boolean;
@@ -68,7 +67,5 @@ declare module 'react-facebook-login/dist/facebook-login-render-props' {
     isProcessing?: boolean;
   }
 
-  export default class ReactFacebookLogin extends React.Component<ReactFacebookLoginProps,
-    ReactFacebookLoginState> {
-  }
+  export default class ReactFacebookLogin extends React.Component<ReactFacebookLoginProps, ReactFacebookLoginState> {}
 }

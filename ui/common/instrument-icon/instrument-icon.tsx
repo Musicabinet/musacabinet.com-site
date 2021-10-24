@@ -7,15 +7,14 @@ import { getIcon, LIST_ICON } from '../icons';
 const b = block(style);
 
 type InstrumentIconProps = {
-  icon: LIST_ICON.GUITAR | LIST_ICON.SAXOPHONE | LIST_ICON.KEYBOARD,
-  service: SERVICE_NAME | 'default' | 'selected' | 'white',
-  size: 'small',
-  className: string
+  icon: LIST_ICON;
+  service: SERVICE_NAME | 'default' | 'selected' | 'white';
+  size: 'small';
+  className: string;
 };
 type InstrumentIconState = {};
 
 export class InstrumentIcon extends React.Component<InstrumentIconProps, InstrumentIconState> {
-
   static defaultProps = {
     size: 'small',
     className: ''
@@ -31,9 +30,12 @@ export class InstrumentIcon extends React.Component<InstrumentIconProps, Instrum
   render() {
     const { icon, size } = this.props;
 
-    return getIcon(icon, b('icon', {
-      [this.getNameClass()]: true,
-      size
-    }));
+    return getIcon(
+      icon,
+      b('icon', {
+        [this.getNameClass()]: true,
+        size
+      })
+    );
   }
 }

@@ -14,10 +14,10 @@ import { LocalStorage } from '../../../core';
 const b = block(style);
 
 type LessonViewProps = {
-  service_name: SERVICE_NAME,
-  instrument_name: '',
-  uuid: '',
-  onReset: () => void
+  service_name: SERVICE_NAME;
+  instrument_name: '';
+  uuid: '';
+  onReset: () => void;
 };
 type LessonViewState = {};
 
@@ -29,7 +29,6 @@ type LessonViewState = {};
 }))
 @observer
 export class LessonView extends React.Component<LessonViewProps, LessonViewState> {
-
   static defaultProps = {
     service_name: SERVICE_NAME.SCHOOL,
     instrument_name: '',
@@ -52,7 +51,7 @@ export class LessonView extends React.Component<LessonViewProps, LessonViewState
   }
 
   componentDidUpdate(prevProps: Readonly<LessonViewProps>) {
-    if(prevProps.uuid !== this.props.uuid){
+    if (prevProps.uuid !== this.props.uuid) {
       LocalStorage.set('lesson_id_q', this.props.uuid);
     }
   }
@@ -66,8 +65,11 @@ export class LessonView extends React.Component<LessonViewProps, LessonViewState
           <Header />
           <div className={b('content')}>
             <div className={b('left')}>
-              {(service_name === SERVICE_NAME.COLLEGE && (instrument_name !== '' && instrument_name == 'Guitar')) ?
-                <Charts /> : <Scores />}
+              {service_name === SERVICE_NAME.COLLEGE && instrument_name !== '' && instrument_name == 'Guitar' ? (
+                <Charts />
+              ) : (
+                <Scores />
+              )}
             </div>
             <div className={b('right')}>
               <Method />

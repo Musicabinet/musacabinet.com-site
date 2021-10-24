@@ -10,10 +10,10 @@ import { ButtonBurger } from '../button-burger/button-burger';
 const b = block(style);
 
 type MenuProps = {
-  list: MenuI[]
+  list: MenuI[];
 };
 type MenuState = {
-  showMobileMenu: boolean
+  showMobileMenu: boolean;
 };
 
 @inject((store: RootStore) => ({
@@ -21,7 +21,6 @@ type MenuState = {
 }))
 @observer
 export class Menu extends React.Component<MenuProps, MenuState> {
-
   state = {
     showMobileMenu: false
   };
@@ -73,18 +72,24 @@ export class Menu extends React.Component<MenuProps, MenuState> {
     return (
       <>
         <ButtonBurger active={showMobileMenu} onClick={this.handleOnShowMobileMenu} />
-        <nav className={b(null, {
-          mobile: showMobileMenu
-        })}>
+        <nav
+          className={b(null, {
+            mobile: showMobileMenu
+          })}
+        >
           <ul className={b('list')}>
             {list.map((item) => {
-              return (<MenuItem key={`${item.link}_${item.type}`}
-                                title={item.title}
-                                link={item.link}
-                                type={item.type}
-                                is_active={item.is_active}
-                                children={item.children}
-                                onCloseMobile={this.handleOnCloseMobileMenu} />);
+              return (
+                <MenuItem
+                  key={`${item.link}_${item.type}`}
+                  title={item.title}
+                  link={item.link}
+                  type={item.type}
+                  is_active={item.is_active}
+                  children={item.children}
+                  onCloseMobile={this.handleOnCloseMobileMenu}
+                />
+              );
             })}
           </ul>
         </nav>

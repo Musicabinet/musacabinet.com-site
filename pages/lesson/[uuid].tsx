@@ -8,13 +8,13 @@ import { RootStore } from '../../stores';
 import { ucFirst } from '../../helpers';
 
 type LessonPageProps = {
-  uuid: string,
-  isFetch: boolean,
-  onLoadTrack: () => void,
-  onSetFirstLibrary: () => void,
-  onInitWebSocket: () => Promise<void>,
-  onSendMessageWebSocket: (data: {}) => void,
-  onDisconnectWebSocket: () => void
+  uuid: string;
+  isFetch: boolean;
+  onLoadTrack: () => void;
+  onSetFirstLibrary: () => void;
+  onInitWebSocket: () => Promise<void>;
+  onSendMessageWebSocket: (data: {}) => void;
+  onDisconnectWebSocket: () => void;
 };
 type LessonPageState = {};
 
@@ -29,7 +29,6 @@ type LessonPageState = {};
 }))
 @observer
 export default class LessonPage extends React.Component<LessonPageProps, LessonPageState> {
-
   static async getInitialProps({ store, ctx: { res, query } }: CustomAppContext) {
     await store?.authStore.check(() => redirectToWrapper(res, '/'));
     await store?.lessonStore.get(String(query.uuid));
@@ -65,7 +64,9 @@ export default class LessonPage extends React.Component<LessonPageProps, LessonP
       await store?.lessonStore.getModuleMapping();
     }
     return {
-      title: `MC | ${store?.lessonStore.name} ${ucFirst(String(store?.systemStore.service_name))} ${ucFirst(String(store?.systemStore.instrument_name))}`,
+      title: `MC | ${store?.lessonStore.name} ${ucFirst(String(store?.systemStore.service_name))} ${ucFirst(
+        String(store?.systemStore.instrument_name)
+      )}`,
       description: '',
       keywords: ''
     };

@@ -2,131 +2,81 @@ import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import block from 'bem-css-modules';
 import style from './group-lessons.module.sass';
-import { RootStore } from '../../../../stores';
-import { GroupLessonI } from '../../../../interfaces';
-import { SERVICE_NAME } from '../../../../constants';
-import { UserStore } from '../../../../stores/user';
-import { SystemStore } from '../../../../stores/system';
+import { GrandChartStore, RootStore, UserStore, SystemStore, AuthStore, GroupLessonStore } from '../../../../stores';
 
 const b = block(style);
 
 type GroupLessonItemProps = {
-  systemStore: SystemStore,
-  user: UserStore,
   isTrialShow: boolean,
-  service_name: SERVICE_NAME,
-  selected_group_lesson_id: number,
-  onSetCollectionId: (id: number) => void,
-  onSetCourseId: (id: number) => void,
-  onSetModuleId: (id: number) => void,
-  onSetGroupLessonId: (id: number) => void,
-  onSetShowGroupLessonDetail: () => void,
+  groupLesson: GroupLessonStore,
+
+  authStore: AuthStore,
+  systemStore: SystemStore,
+  userStore: UserStore,
+  grandChart: GrandChartStore,
 };
 type GroupLessonItemState = {};
 
 @inject((store: RootStore) => ({
+  authStore: store.authStore,
   systemStore: store.systemStore,
-  user: store.userStore,
-  service_name: store.systemStore.service_name,
-
-  selected_group_lesson_id: store.systemStore.selected_group_lesson_id,
-
-  onSetCollectionId: store.systemStore.setCollectionId,
-  onSetCourseId: store.systemStore.setCourseId,
-  onSetModuleId: store.systemStore.setModuleId,
-  onSetGroupLessonId: store.systemStore.setGroupLessonId,
-  onSetShowGroupLessonDetail: store.grandChartStore.setShowGroupLessonDetail
+  userStore: store.userStore,
+  grandChart: store.grandChartStore
 }))
 @observer
-export class GroupLessonItem extends React.Component<GroupLessonItemProps & GroupLessonI, GroupLessonItemState> {
-
+export class GroupLessonItem extends React.Component<GroupLessonItemProps, GroupLessonItemState> {
   static defaultProps = {
+    authStore: {},
     systemStore: {},
-    user: {},
-    selected_group_lesson_id: 0,
-    service_name: SERVICE_NAME.SCHOOL,
-    onSetCollectionId: () => console.log('Not set handler'),
-    onSetCourseId: () => console.log('Not set handler'),
-    onSetModuleId: () => console.log('Not set handler'),
-    onSetGroupLessonId: () => console.log('Not set handler'),
-    onSetShowGroupLessonDetail: () => console.log('Not set handler')
+    userStore: {},
+    grandChart: {}
   };
 
-  circle = React.createRef<SVGSVGElement>();
-  circleFill = React.createRef<SVGSVGElement>();
-
-  componentDidMount() {
-    if (this.circle && this.circle.current) {
-      this.circle.current.style.strokeDasharray = `0 113`;
-    }
-  }
-
   handleOnClick = () => {
-    const { isTrialShow, user, systemStore } = this.props;
+    const { isTrialShow, userStore, systemStore, authStore, grandChart } = this.props;
+    const isPurchaseUser = userStore.checkSubscription(systemStore.service_id, systemStore.instrument_id);
 
-    const isPurchaseUser = user.checkSubscription(systemStore.service_id, systemStore.instrument_id);
-
-    if (isPurchaseUser.length === 0 && !isTrialShow) {
+    if ((isPurchaseUser.length === 0 && !isTrialShow) || !isTrialShow || !authStore.isAuth) {
       return false;
     }
 
-    const {
-      collection_id,
-      course_id,
-      module_id,
-      id,
-      onSetCollectionId,
-      onSetCourseId,
-      onSetModuleId,
-      onSetGroupLessonId,
-      onSetShowGroupLessonDetail
-    } = this.props;
+    const { groupLesson } = this.props;
 
-    if (collection_id) {
-      onSetCollectionId(collection_id);
+    if (groupLesson.collection_id) {
+      systemStore.setCollectionId(groupLesson.collection_id);
     }
 
-    onSetCourseId(course_id);
-    onSetModuleId(module_id);
-    onSetGroupLessonId(id);
-    onSetShowGroupLessonDetail();
+    systemStore.setCourseId(groupLesson.course_id);
+    systemStore.setModuleId(groupLesson.module_id);
+    systemStore.setGroupLessonId(groupLesson.id);
+    grandChart.setShowGroupLessonDetail();
   };
 
   render() {
-    const { user, systemStore, id, service_name, lessons, name, selected_group_lesson_id, isTrialShow } = this.props;
-    const isPurchaseUser = user.checkSubscription(systemStore.service_id, systemStore.instrument_id);
+    const {
+      groupLesson,
+      userStore,
+      systemStore,
+      authStore,
+      isTrialShow
+    } = this.props;
+    const isPurchaseUser = userStore.checkSubscription(systemStore.service_id, systemStore.instrument_id);
+
+    if (!systemStore.service_name) {
+      return null;
+    }
 
     return (
-      <div onClick={this.handleOnClick}
-           className={b('item', {
-             [service_name]: true,
-             [`active-${service_name}`]: selected_group_lesson_id === id,
-             [`trial-blocked`]: isPurchaseUser.length > 0 ? false : !isTrialShow
-           })}>
-        <div className={b('count-lessons')}>{lessons.length}</div>
-        <div className={b('title')} dangerouslySetInnerHTML={{ __html: name.replace(/\(/g, '<br/>(') }} />
-        <svg className={b('pie')} width={40} height={40} viewBox='0 0 40 40'>
-          {/*
-          // @ts-ignore */}
-          <circle ref={this.circleFill}
-                  className={b('fill')}
-                  id='two'
-                  strokeWidth={2}
-                  r={18}
-                  cx={20}
-                  cy={20}
-                  fill='transparent' />
-          {/*
-          // @ts-ignore */}
-          <circle ref={this.circle}
-                  className={b('circle')}
-                  id={`id_${id}`}
-                  strokeWidth={2}
-                  r={18}
-                  cx={20}
-                  cy={20}
-                  fill='transparent' />
-        </svg>
+      <div
+        onClick={this.handleOnClick}
+        className={b('item', {
+          [systemStore.service_name]: true,
+          [`active-${systemStore.service_name}`]: systemStore.selected_group_lesson_id === groupLesson.id,
+          [`trial-blocked`]: isPurchaseUser.length > 0 ? false : !isTrialShow || !authStore.isAuth
+        })}
+      >
+        <div className={b('title')}
+             dangerouslySetInnerHTML={{ __html: groupLesson.name.replace(/\(/g, '<br/>(') }} />
       </div>
     );
   }

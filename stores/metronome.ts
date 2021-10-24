@@ -2,7 +2,6 @@ import { action, computed, makeObservable, observable } from 'mobx';
 import { Cookie } from '../core';
 
 export class MetronomeStore {
-
   @observable current: number = 80;
   @observable volume: number = 0.5;
   @observable isPlay: boolean = false;
@@ -29,7 +28,6 @@ export class MetronomeStore {
       if (this.worker) {
         this.worker.addEventListener('message', this.onPlayTick);
       }
-
     } catch (e) {
       console.error(`Error in method init : `, e);
     }
@@ -76,7 +74,7 @@ export class MetronomeStore {
 
       this.isPlay = true;
     }
-  };
+  }
 
   @action.bound
   onStop() {
@@ -84,7 +82,7 @@ export class MetronomeStore {
       this.worker.postMessage({ type: 'stop' });
       this.isPlay = false;
     }
-  };
+  }
 
   @action.bound
   changeVolume(_name: string, volume: number) {
@@ -105,5 +103,4 @@ export class MetronomeStore {
     const { current } = data;
     this.current = current;
   }
-
 }

@@ -11,8 +11,10 @@ export class HrWithText extends React.Component<HrWithTextProps, HrWithTextState
   render() {
     const { children } = this.props;
 
-    return <div className={b(null)}>
-      <span>{children}</span>
-    </div>;
+    return (
+      <div className={b(null)}>
+        <span>{children}</span>
+      </div>
+    );
   }
 }

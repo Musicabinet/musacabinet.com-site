@@ -8,7 +8,7 @@ import { SERVICE_NAME } from '../../../../../../constants';
 const b = block(style);
 
 type PlusButtonProps = {
-  service_name: SERVICE_NAME
+  service_name: SERVICE_NAME;
 };
 type PlusButtonState = {};
 
@@ -17,7 +17,6 @@ type PlusButtonState = {};
 }))
 @observer
 export class PlusButton extends React.Component<PlusButtonProps, PlusButtonState> {
-
   static defaultProps = {
     service_name: SERVICE_NAME.SCHOOL
   };

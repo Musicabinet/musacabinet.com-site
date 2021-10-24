@@ -9,8 +9,8 @@ import { RootStore } from '../../../../../../../stores';
 const b = block(style);
 
 type LibraryItemProps = {
-  library: LibraryI,
-  playerStore: PlayerStore
+  library: LibraryI;
+  playerStore: PlayerStore;
 };
 type LibraryItemState = {};
 
@@ -19,7 +19,6 @@ type LibraryItemState = {};
 }))
 @observer
 export class LibraryItem extends React.Component<LibraryItemProps, LibraryItemState> {
-
   static defaultProps = {
     playerStore: {}
   };
@@ -39,8 +38,12 @@ export class LibraryItem extends React.Component<LibraryItemProps, LibraryItemSt
     const { library, playerStore } = this.props;
 
     return (
-      <div className={b('item', { selected: library.id === playerStore.selected_library_id })}
-           onClick={this.handleOnClick}>{library.pivot.custom_name || library.name}</div>
+      <div
+        className={b('item', { selected: library.id === playerStore.selected_library_id })}
+        onClick={this.handleOnClick}
+      >
+        {library.pivot.custom_name || library.name}
+      </div>
     );
   }
 }

@@ -6,31 +6,32 @@ import style from './switcher.module.sass';
 const b = block(style);
 
 type SwitcherProps = {
-  checked: boolean,
-  onChange: (checked: boolean) => void
+  checked: boolean;
+  onChange: (checked: boolean) => void;
 };
 type SwitcherState = {
-  checked: boolean
+  checked: boolean;
 };
 
 @inject(() => ({}))
 @observer
 export class Switcher extends React.Component<SwitcherProps, SwitcherState> {
-
   state = {
-    checked: this.props.checked,
+    checked: this.props.checked
   };
 
   handleOnClick = () => {
     const { onChange } = this.props;
-    this.setState(state => {
-
-      return {
-        checked: !state.checked,
-      };
-    }, () => {
-      onChange(this.state.checked);
-    });
+    this.setState(
+      (state) => {
+        return {
+          checked: !state.checked
+        };
+      },
+      () => {
+        onChange(this.state.checked);
+      }
+    );
   };
 
   render() {
@@ -38,8 +39,7 @@ export class Switcher extends React.Component<SwitcherProps, SwitcherState> {
 
     return (
       <div className={b(null)}>
-        <div className={b('wrapper')}
-             onClick={this.handleOnClick}>
+        <div className={b('wrapper')} onClick={this.handleOnClick}>
           <div className={b('circle', { checked })} />
         </div>
       </div>

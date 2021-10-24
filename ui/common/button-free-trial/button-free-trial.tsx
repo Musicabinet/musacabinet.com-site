@@ -9,10 +9,10 @@ import { MODALS } from '../../../constants';
 const b = block(style);
 
 type ButtonFreeTrialProps = {
-  isAuth: boolean,
-  textNotAuth: string,
-  textIsAuth: string,
-  onShow: (id_modal: MODALS) => void
+  isAuth: boolean;
+  textNotAuth: string;
+  textIsAuth: string;
+  onShow: (id_modal: MODALS) => void;
 };
 type ButtonFreeTrialState = {};
 
@@ -22,7 +22,6 @@ type ButtonFreeTrialState = {};
 }))
 @observer
 export class ButtonFreeTrial extends React.Component<ButtonFreeTrialProps, ButtonFreeTrialState> {
-
   static defaultProps = {
     isAuth: false,
     textNotAuth: 'Start FREE trial',
@@ -32,7 +31,7 @@ export class ButtonFreeTrial extends React.Component<ButtonFreeTrialProps, Butto
 
   getTitle = () => {
     const { isAuth, textNotAuth, textIsAuth } = this.props;
-    return (isAuth) ? textIsAuth : textNotAuth;
+    return isAuth ? textIsAuth : textNotAuth;
   };
 
   handleOnClick = async () => {
@@ -46,8 +45,7 @@ export class ButtonFreeTrial extends React.Component<ButtonFreeTrialProps, Butto
 
   render() {
     return (
-      <button className={b(null)}
-              onClick={this.handleOnClick}>
+      <button className={b(null)} onClick={this.handleOnClick}>
         {this.getTitle()}
       </button>
     );

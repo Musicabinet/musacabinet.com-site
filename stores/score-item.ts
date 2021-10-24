@@ -4,7 +4,6 @@ import { API } from '../core';
 import { METHODS_REQUEST } from '../constants';
 
 export class ScoreItemStore implements ScoreItemI {
-
   pathStore = 'admin/scores-item';
 
   @observable id = 0;
@@ -33,7 +32,6 @@ export class ScoreItemStore implements ScoreItemI {
     }
   }
 
-
   @action
   fillingStore(data: ScoreItemI) {
     const { id, sort, score_id, score_type_id, content } = data;
@@ -44,5 +42,4 @@ export class ScoreItemStore implements ScoreItemI {
     this.score_type_id = score_type_id;
     this.content = content;
   }
-
 }

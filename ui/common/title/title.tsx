@@ -8,10 +8,10 @@ import { RootStore } from '../../../stores';
 const b = block(style);
 
 type TitleProps = {
-  size: TITLE_SIZE,
-  className: string,
-  isServiceColor: boolean,
-  service_name: SERVICE_NAME
+  size: TITLE_SIZE;
+  className: string;
+  isServiceColor: boolean;
+  service_name: SERVICE_NAME;
 };
 type TitleState = {};
 
@@ -20,7 +20,6 @@ type TitleState = {};
 }))
 @observer
 export class Title extends React.Component<TitleProps, TitleState> {
-
   static defaultProps = {
     size: TITLE_SIZE.THIRD,
     isServiceColor: false,
@@ -31,9 +30,15 @@ export class Title extends React.Component<TitleProps, TitleState> {
   render() {
     const { size, className, children, service_name, isServiceColor } = this.props;
 
-    return <div className={`${b(null, {
-      [size]: true,
-      [service_name]: isServiceColor
-    })} ${className}`}>{children}</div>;
+    return (
+      <div
+        className={`${b(null, {
+          [size]: true,
+          [service_name]: isServiceColor
+        })} ${className}`}
+      >
+        {children}
+      </div>
+    );
   }
 }

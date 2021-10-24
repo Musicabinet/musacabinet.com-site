@@ -1,63 +1,68 @@
 import { action, computed, makeObservable, observable } from 'mobx';
-import { PriceI, PriceInformationType, PriceListI, TERM_LIST } from '../interfaces';
-import { SystemStore } from './system';
+import { PriceI, PriceInformationType, PriceListI, PRODUCT_DURATION, TERM_LIST } from '../interfaces';
 import { METHODS_REQUEST, SERVICE_NAME } from '../constants';
 import { LIST_ICON } from '../ui/common/icons';
 import { API } from '../core';
 import { DefaultResponse } from '../responsible';
 import Router from 'next/router';
 import isMobile from 'is-mobile';
+import { RootStore } from './index';
 
-interface ImportStore {
-  systemStore: SystemStore,
-}
+let rootStore: RootStore;
 
 export class PricingStore {
-
   @observable selected_instrument_icon: LIST_ICON = LIST_ICON.GUITAR;
+  @observable selected_product_duration: PRODUCT_DURATION = PRODUCT_DURATION.Monthly;
   @observable selected_term: TERM_LIST = TERM_LIST.MONTHLY;
   @observable selected_instrument_id: number = 1;
 
   @observable disabledScreen: boolean = false;
 
   @observable list: PriceListI = {
-    [SERVICE_NAME.SCHOOL]: [{
-      name: '1 month',
-      old_price: 30,
-      price: 21,
-      count_mount: 1
-    }, {
-      name: '3 months',
-      old_price: 75,
-      price: 55,
-      count_mount: 3
-    }, {
-      name: '6 months',
-      old_price: 120,
-      price: 89,
-      count_mount: 6
-    }],
-    [SERVICE_NAME.COLLEGE]: [{
-      name: '1 month',
-      old_price: 100,
-      price: 75,
-      count_mount: 1
-    }, {
-      name: '6 months',
-      old_price: 480,
-      price: 360,
-      count_mount: 6
-    }, {
-      name: '12 months',
-      old_price: 720,
-      price: 540,
-      count_mount: 12
-    }]
+    [SERVICE_NAME.SCHOOL]: [
+      {
+        name: '1 month',
+        old_price: 30,
+        price: 21,
+        count_mount: 1
+      },
+      {
+        name: '3 months',
+        old_price: 75,
+        price: 55,
+        count_mount: 3
+      },
+      {
+        name: '6 months',
+        old_price: 120,
+        price: 89,
+        count_mount: 6
+      }
+    ],
+    [SERVICE_NAME.COLLEGE]: [
+      {
+        name: '1 month',
+        old_price: 100,
+        price: 75,
+        count_mount: 1
+      },
+      {
+        name: '6 months',
+        old_price: 480,
+        price: 360,
+        count_mount: 6
+      },
+      {
+        name: '12 months',
+        old_price: 720,
+        price: 540,
+        count_mount: 12
+      }
+    ]
   };
 
   @observable month = 0;
   @observable selected_instrument = 'guitar';
-
 
   @observable information: PriceInformationType = {
     [SERVICE_NAME.SCHOOL]: {
@@ -66,8 +71,8 @@ export class PricingStore {
         [LIST_ICON.GUITAR]: {
           discount: {
             [TERM_LIST.MONTHLY]: {
-              current: 1,
-              old: 1,
+              current: 15,
+              old: 30,
               id: 'price_1J7GoWHTf8fYJsx5Q62KZJrA'
             },
             [TERM_LIST.YEARLY]: {
@@ -83,8 +88,8 @@ export class PricingStore {
           },
           standard: {
             [TERM_LIST.MONTHLY]: {
-              current: 1,
-              old: 1,
+              current: 21,
+              old: 30,
               id: 'price_1IzeXVHTf8fYJsx5dWO88a6Z'
             },
             [TERM_LIST.YEARLY]: {
@@ -171,7 +176,6 @@ export class PricingStore {
             }
           }
         }
-
       },
       plans: [TERM_LIST.MONTHLY, TERM_LIST.YEARLY],
       list: {
@@ -478,12 +482,9 @@ export class PricingStore {
     }
   };
 
-
-  systemStore: SystemStore;
-
-  constructor(initialData: PricingStore | null, { systemStore }: ImportStore) {
+  constructor(initialData: PricingStore | null, root: RootStore) {
     makeObservable(this);
-    this.systemStore = systemStore;
+    rootStore = root;
 
     if (initialData) {
       this.fillingStore(initialData);
@@ -503,14 +504,13 @@ export class PricingStore {
   @action.bound
   async generateButtonPayPal() {
     try {
-
     } catch (e) {
       console.error(`Error in method generateButtonPayPal : `, e);
     }
   }
 
   @action.bound
-  setSelectedInstrumentIcon(value: LIST_ICON, id: number) {
+  setSelectedInstrumentIcon(value: LIST_ICON, id: number = 0) {
     this.selected_instrument_icon = value;
     this.selected_term = TERM_LIST.MONTHLY;
     this.selected_instrument_id = id;
@@ -527,6 +527,12 @@ export class PricingStore {
   }
 
   @action.bound
+  setSelectedProductDuration(value: PRODUCT_DURATION) {
+    this.selected_product_duration = value;
+  }
+
+
+  @action.bound
   async checkSession(data: any) {
     try {
       const result = await API.request<DefaultResponse>(`purchase/check`, {
@@ -535,21 +541,20 @@ export class PricingStore {
       });
 
       if (result.success) {
-
-        if(isMobile()){
+        if (isMobile()) {
           // @ts-ignore
           window.dataLayer.push('Purchase_mobile');
-        }else{
+        } else {
           // @ts-ignore
           window.dataLayer.push('Purchase_pc');
         }
 
         await Router.push(`/cabinet`);
-      }else{
-        alert('Error. Repeat please.')
+      } else {
+        alert('Error. Repeat please.');
       }
     } catch (e) {
-      alert('Error. Repeat please.')
+      alert('Error. Repeat please.');
       console.error(`Error in method PricingStore.checkSession : `, e);
     } finally {
       this.setDisabledScreen(false);
@@ -558,8 +563,8 @@ export class PricingStore {
 
   @computed
   get prices(): PriceI[] {
-    if (this.systemStore.service_name) {
-      return this.list[this.systemStore.service_name] || [];
+    if (rootStore.systemStore.service_name) {
+      return this.list[rootStore.systemStore.service_name] || [];
     } else {
       return this.list[SERVICE_NAME.SCHOOL] || [];
     }
@@ -567,22 +572,23 @@ export class PricingStore {
 
   @computed
   get price() {
-    return (this.prices && this.prices.length > 0) ? this.prices[this.month].price : '';
+    return this.prices && this.prices.length > 0 ? this.prices[this.month].price : '';
   }
 
   @computed
   get oldPrice() {
-    return (this.prices && this.prices.length > 0) ? this.prices[this.month].old_price : '';
+    return this.prices && this.prices.length > 0 ? this.prices[this.month].old_price : '';
   }
 
   @computed
   get countMonth(): number {
-    return (this.prices && this.prices.length > 0) ? this.prices[this.month].count_mount : 0;
+    return this.prices && this.prices.length > 0 ? this.prices[this.month].count_mount : 0;
   }
 
   @action
   fillingStore(data: PricingStore) {
-    const {} = data;
-  }
+    const { selected_instrument_icon } = data;
 
+    this.selected_instrument_icon = selected_instrument_icon;
+  }
 }

@@ -6,14 +6,13 @@ import style from './paragraph.module.sass';
 const b = block(style);
 
 type ParagraphProps = {
-  className: string
+  className: string;
 };
 type ParagraphState = {};
 
 @inject(() => ({}))
 @observer
 export class Paragraph extends React.Component<ParagraphProps, ParagraphState> {
-
   static defaultProps = {
     className: ''
   };
@@ -21,8 +20,6 @@ export class Paragraph extends React.Component<ParagraphProps, ParagraphState> {
   render() {
     const { className, children } = this.props;
 
-    return (
-      <p className={`${b(null)} ${className}`}>{children}</p>
-    );
+    return <p className={`${b(null)} ${className}`}>{children}</p>;
   }
 }

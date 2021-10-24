@@ -9,13 +9,13 @@ import { AccompanimentI } from '../../../../../../interfaces';
 const b = block(style);
 
 type ButtonCompositionProps = {
-  service_name: SERVICE_NAME,
-  accompaniments: AccompanimentI[],
-  library_type: LibraryType,
-  bassMute: boolean,
-  drumsMute: boolean,
-  keysMute: boolean,
-  onMute: (player_id: number) => void
+  service_name: SERVICE_NAME;
+  accompaniments: AccompanimentI[];
+  library_type: LibraryType;
+  bassMute: boolean;
+  drumsMute: boolean;
+  keysMute: boolean;
+  onMute: (player_id: number) => void;
 };
 type ButtonCompositionState = {};
 
@@ -30,7 +30,6 @@ type ButtonCompositionState = {};
 }))
 @observer
 export class ButtonComposition extends React.Component<ButtonCompositionProps, ButtonCompositionState> {
-
   static defaultProps = {
     service_name: SERVICE_NAME.SCHOOL,
     accompaniments: [],
@@ -49,22 +48,22 @@ export class ButtonComposition extends React.Component<ButtonCompositionProps, B
   render() {
     const { service_name, library_type, bassMute, drumsMute, keysMute, accompaniments } = this.props;
 
-    if(library_type !== LibraryType.COMPOSITION || accompaniments.length === 0){
-      return null
+    if (library_type !== LibraryType.COMPOSITION || accompaniments.length === 0) {
+      return null;
     }
 
     return (
       <div className={b(null, { [service_name]: true })}>
-        <button className={b('button', { mute: drumsMute })}
-                onClick={this.handleOnToggle.bind(null, 1)}>Drums
+        <button className={b('button', { mute: drumsMute })} onClick={this.handleOnToggle.bind(null, 1)}>
+          Drums
         </button>
 
-        <button className={b('button', { mute: bassMute })}
-                onClick={this.handleOnToggle.bind(null, 0)}>Bass
+        <button className={b('button', { mute: bassMute })} onClick={this.handleOnToggle.bind(null, 0)}>
+          Bass
         </button>
 
-        <button className={b('button', { mute: keysMute })}
-                onClick={this.handleOnToggle.bind(null, 2)}>Keys
+        <button className={b('button', { mute: keysMute })} onClick={this.handleOnToggle.bind(null, 2)}>
+          Keys
         </button>
       </div>
     );

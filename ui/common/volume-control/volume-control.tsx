@@ -9,17 +9,17 @@ import { handleDetectClick } from '../../../helpers';
 const b = block(style);
 
 type VolumeControlProps = {
-  circle: boolean,
-  service_name: SERVICE_NAME,
-  name: string,
-  min: number,
-  max: number,
-  step: number,
-  defaultValue: number,
-  onChange: (name: string, value: number, e?: React.FormEvent<HTMLInputElement>) => void
+  circle: boolean;
+  service_name: SERVICE_NAME;
+  name: string;
+  min: number;
+  max: number;
+  step: number;
+  defaultValue: number;
+  onChange: (name: string, value: number, e?: React.FormEvent<HTMLInputElement>) => void;
 };
 type VolumeControlState = {
-  show: boolean
+  show: boolean;
 };
 
 @inject((store: RootStore) => ({
@@ -27,7 +27,6 @@ type VolumeControlState = {
 }))
 @observer
 export class VolumeControl extends React.Component<VolumeControlProps, VolumeControlState> {
-
   controlVolumeRef = React.createRef<HTMLDivElement>();
 
   static defaultProps = {
@@ -77,11 +76,12 @@ export class VolumeControl extends React.Component<VolumeControlProps, VolumeCon
     const { service_name, name, max, min, step, defaultValue, circle } = this.props;
 
     return (
-      <div ref={this.controlVolumeRef}
-           className={b(null, {
-             [service_name]: true
-           })}>
-
+      <div
+        ref={this.controlVolumeRef}
+        className={b(null, {
+          [service_name]: true
+        })}
+      >
         <div className={b('wrapper')}>
           <div className={b('lines')}>
             <div className={b('line')} />
@@ -90,15 +90,17 @@ export class VolumeControl extends React.Component<VolumeControlProps, VolumeCon
             <div className={b('line')} />
             <div className={b('line')} />
           </div>
-          <input type='range'
-                 name={name}
-                 max={max}
-                 min={min}
-                 step={step}
-                 defaultValue={defaultValue}
-                 aria-orientation='vertical'
-                 className={b('range', { circle })}
-                 onChange={this.handlerOnChange} />
+          <input
+            type="range"
+            name={name}
+            max={max}
+            min={min}
+            step={step}
+            defaultValue={defaultValue}
+            aria-orientation="vertical"
+            className={b('range', { circle })}
+            onChange={this.handlerOnChange}
+          />
         </div>
       </div>
     );

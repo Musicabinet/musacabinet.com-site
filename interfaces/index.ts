@@ -12,14 +12,14 @@ export interface CustomPageContext extends NextPageContext {
 }
 
 export interface ImageTagI {
-  path: string
-  className: string,
-  alt: string
+  path: string;
+  className: string;
+  alt: string;
 }
 
 export interface RelationIdNameI {
-  id: number,
-  name: string
+  id: number;
+  name: string;
 }
 
 export * from './menu';
@@ -41,3 +41,5 @@ export * from './price';
 export * from './trial-version';
 export * from './purchase';
 export * from './cloudpayment';
+export * from './product';
+export * from './tutorial';

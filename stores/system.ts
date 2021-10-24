@@ -3,17 +3,16 @@ import { SERVICE_ID, SERVICE_NAME, SERVICE_SECOND_NEXT_MODULE } from '../constan
 import { LIST_ICON } from '../ui/common/icons';
 
 export interface AboutServiceItemI {
-  count: number | string,
-  title: string,
-  description: string
+  count: number | string;
+  title: string;
+  description: string;
 }
 
 export interface AboutService {
-  [key: string]: AboutServiceItemI[]
+  [key: string]: AboutServiceItemI[];
 }
 
 export class SystemStore {
-
   @observable service_id = 0;
   @observable service_name: SERVICE_NAME | undefined = undefined;
   @observable instrument_id: number = 0;
@@ -100,12 +99,12 @@ export class SystemStore {
 
   @computed
   get getCurrency() {
-    return (this.currentCountry === 'Russia') ? 'RUB' : 'USD';
+    return this.currentCountry === 'Russia' ? 'RUB' : 'USD';
   }
 
   @computed
   get showGroupLesson(): boolean {
-    return (this.selected_group_lesson_id !== undefined);
+    return this.selected_group_lesson_id !== undefined;
   }
 
   @computed
@@ -115,11 +114,10 @@ export class SystemStore {
 
   @computed
   get title(): string {
-
     const title = {
-      'school-saxophone': 'Let\'s start your saxophone<br/> playing together',
-      'school-keyboard': 'Let\'s start your keyboard<br/> playing together',
-      'school-guitar': 'Let\'s start your music<br/> together',
+      'school-saxophone': "Let's start your saxophone<br/> playing together",
+      'school-keyboard': "Let's start your keyboard<br/> playing together",
+      'school-guitar': "Let's start your music<br/> together",
 
       'college-saxophone': 'Take your saxophone<br/> playing to the next level',
       'college-keyboard': 'Take your keyboard playing to<br/> the next level',
@@ -173,7 +171,6 @@ export class SystemStore {
     return headers[this.currentServiceInstrument] || '';
   }
 
-
   @computed
   get columns() {
     const columns = {
@@ -210,17 +207,17 @@ export class SystemStore {
       ],
 
       'university-guitar': [
-        'Your guitar level is alreday high enough, but you feel that you\'ve hit the сeiling and can\'t move further to become a true professional',
+        "Your guitar level is alreday high enough, but you feel that you've hit the сeiling and can't move further to become a true professional",
         'You are willing to enhance your theoretical and practical guitar knowledge to the maximum extent',
         'You want to learn how to instantly improvise and compose absolutely unique music'
       ],
       'university-keyboard': [
-        'Your keyboard level is alreday high enough, but you feel that you\'ve hit the сeiling and can\'t move further to become a true professional',
+        "Your keyboard level is alreday high enough, but you feel that you've hit the сeiling and can't move further to become a true professional",
         'You are willing to enhance your theoretical and practical keyboard knowledge to the maximum extent',
         'You want to learn how to instantly improvise and compose absolutely unique music'
       ],
       'university-saxophone': [
-        'Your saxophone level is alreday high enough, but you feel that you\'ve hit the сeiling and can\'t move further to become a true professional',
+        "Your saxophone level is alreday high enough, but you feel that you've hit the сeiling and can't move further to become a true professional",
         'You are willing to enhance your theoretical and practical saxophone knowledge to the maximum extent',
         'You want to learn how to instantly improvise and compose absolutely unique music'
       ]
@@ -324,51 +321,63 @@ export class SystemStore {
   @computed
   get aboutService() {
     const data: AboutService = {
-      school: [{
-        count: 3,
-        title: 'courses',
-        description: 'Consists of 3 courses.  There are 6 modules in each course.'
-      }, {
-        count: 149,
-        title: 'lessons',
-        description: 'A total of 149 lessons for studying music theory and practical exercises'
-      }, {
-        count: 45,
-        title: 'backing tracks',
-        description: 'Practice to consolidate the knowledge gained or just for fun :-)'
-      }],
-      college: [{
-        count: 4,
-        title: 'courses',
-        description: 'Consists of 4 courses from simple to complex. Each course includes 4 modules.'
-      }, {
-        count: 192,
-        title: 'lessons',
-        description: 'A total of 192 lessons for learning music theory and practice'
-      }, {
-        count: 75,
-        title: 'backing tracks',
-        description: 'Practice to consolidate the knowledge gained or just for fun :-)'
-      }],
-      university: [{
-        count: 7,
-        title: 'courses',
-        description: 'Consists of 7 courses (from simple to complex).  There are 5 educational modules and 2 improvisational modules in each course.'
-      }, {
-        count: 1001,
-        title: 'lessons',
-        description: 'A total of 1001 lessons for studying music theory and practical exercises'
-      }, {
-        count: '300+',
-        title: 'backing tracks',
-        description: 'Practice to consolidate the knowledge gained to become a real professional'
-      }]
+      school: [
+        {
+          count: 3,
+          title: 'courses',
+          description: 'Consists of 3 courses.  There are 6 modules in each course.'
+        },
+        {
+          count: 149,
+          title: 'lessons',
+          description: 'A total of 149 lessons for studying music theory and practical exercises'
+        },
+        {
+          count: 45,
+          title: 'backing tracks',
+          description: 'Practice to consolidate the knowledge gained or just for fun :-)'
+        }
+      ],
+      college: [
+        {
+          count: 4,
+          title: 'courses',
+          description: 'Consists of 4 courses from simple to complex. Each course includes 4 modules.'
+        },
+        {
+          count: 192,
+          title: 'lessons',
+          description: 'A total of 192 lessons for learning music theory and practice'
+        },
+        {
+          count: 75,
+          title: 'backing tracks',
+          description: 'Practice to consolidate the knowledge gained or just for fun :-)'
+        }
+      ],
+      university: [
+        {
+          count: 7,
+          title: 'courses',
+          description:
+            'Consists of 7 courses (from simple to complex).  There are 5 educational modules and 2 improvisational modules in each course.'
+        },
+        {
+          count: 1001,
+          title: 'lessons',
+          description: 'A total of 1001 lessons for studying music theory and practical exercises'
+        },
+        {
+          count: '300+',
+          title: 'backing tracks',
+          description: 'Practice to consolidate the knowledge gained to become a real professional'
+        }
+      ]
     };
 
     // @ts-ignore
     return data[this.service_name] || [];
   }
-
 
   @computed
   get gadgetImage() {
@@ -395,14 +404,20 @@ export class SystemStore {
         return SERVICE_SECOND_NEXT_MODULE[this.service_id];
       }
     }
-
   }
 
   @action
   fillingStore(data: SystemStore) {
     const {
-      service_id, service_name, instrument_id, instrument_name, instrument_icon,
-      selected_collection_id, selected_course_id, selected_group_lesson_id, selected_module_id
+      service_id,
+      service_name,
+      instrument_id,
+      instrument_name,
+      instrument_icon,
+      selected_collection_id,
+      selected_course_id,
+      selected_group_lesson_id,
+      selected_module_id
     } = data;
 
     this.service_id = service_id;
@@ -415,5 +430,4 @@ export class SystemStore {
     this.selected_group_lesson_id = selected_group_lesson_id;
     this.selected_module_id = selected_module_id;
   }
-
 }

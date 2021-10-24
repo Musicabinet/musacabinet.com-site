@@ -5,34 +5,34 @@ import { ChartI } from './chart';
 import { AccompanimentStore } from '../stores/accompaniment';
 
 export interface LessonI {
-  id: number,
-  uuid: string,
-  group_lesson_id: number | undefined,
-  sort: number,
-  slug: string,
-  meta_title: string,
-  meta_description: string,
-  meta_keywords: string,
-  name: string,
-  description: string,
-  duration_minute: number,
-  is_active: boolean,
-  scores: ScoreI[],
-  charts: ChartI[],
-  group_lesson?: GroupLessonStore | undefined,
-  accompaniments: AccompanimentStore[],
-  breadcrumbs: BreadcrumbsI[]
-  progress_second: number,
-  lesson_list: LessonListI[],
-  prevModuleLesson?: null | string,
-  nextModuleLesson?: null | string,
-  selected_accompaniment?: number
+  id: number;
+  uuid: string;
+  group_lesson_id: number | undefined;
+  sort: number;
+  slug: string;
+  meta_title: string;
+  meta_description: string;
+  meta_keywords: string;
+  name: string;
+  description: string;
+  duration_minute: number;
+  is_active: boolean;
+  scores: ScoreI[];
+  charts: ChartI[];
+  group_lesson?: GroupLessonStore | undefined;
+  accompaniments: AccompanimentStore[];
+  breadcrumbs: BreadcrumbsI[];
+  progress_second: number;
+  lesson_list: LessonListI[];
+  prevModuleLesson?: null | string;
+  nextModuleLesson?: null | string;
+  selected_accompaniment?: number;
 }
 
 export interface LessonListI {
-  'id': number,
-  'uuid': string,
-  'name': string
+  id: number;
+  uuid: string;
+  name: string;
 }
 
 export enum LessonDirection {
@@ -40,5 +40,4 @@ export enum LessonDirection {
   RIGHT = 'right'
 }
 
-export interface LessonExtraParamsI {
-}
+export interface LessonExtraParamsI {}

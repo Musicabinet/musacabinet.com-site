@@ -9,9 +9,9 @@ import Router from 'next/router';
 const b = block(style);
 
 type LessonNavigationProps = {
-  service_name: SERVICE_NAME,
-  nextLesson: boolean | string,
-  prevLesson: boolean | string,
+  service_name: SERVICE_NAME;
+  nextLesson: boolean | string;
+  prevLesson: boolean | string;
 };
 type LessonNavigationState = {};
 
@@ -22,7 +22,6 @@ type LessonNavigationState = {};
 }))
 @observer
 export class LessonNavigation extends React.Component<LessonNavigationProps, LessonNavigationState> {
-
   static defaultProps = {
     service_name: SERVICE_NAME.SCHOOL,
     nextLesson: false,
@@ -40,15 +39,21 @@ export class LessonNavigation extends React.Component<LessonNavigationProps, Les
 
     return (
       <div className={b(null, { [service_name]: true })}>
-        <button onClick={() => this.handlerOnClick(prevLesson)}
-                className={b('button', {
-                  left: true, hidden: (prevLesson === false)
-                })} />
+        <button
+          onClick={() => this.handlerOnClick(prevLesson)}
+          className={b('button', {
+            left: true,
+            hidden: prevLesson === false
+          })}
+        />
         <div className={b('title')}>Lesson</div>
-        <button onClick={() => this.handlerOnClick(nextLesson)}
-                className={b('button', {
-                  right: true, hidden: (nextLesson === false)
-                })} />
+        <button
+          onClick={() => this.handlerOnClick(nextLesson)}
+          className={b('button', {
+            right: true,
+            hidden: nextLesson === false
+          })}
+        />
       </div>
     );
   }

@@ -9,7 +9,7 @@ import Link from 'next/link';
 const b = block(style);
 
 type FooterProps = {
-  menu: MenuI[]
+  menu: MenuI[];
 };
 type FooterState = {};
 
@@ -18,7 +18,6 @@ type FooterState = {};
 }))
 @observer
 export class Footer extends React.Component<FooterProps, FooterState> {
-
   static defaultProps = {
     menu: []
   };
@@ -27,22 +26,26 @@ export class Footer extends React.Component<FooterProps, FooterState> {
     const { menu } = this.props;
     return (
       <footer className={b(null)}>
-        <div className='container'>
-          <div className='row'>
-            <div className='col-lg-12'>
+        <div className="container">
+          <div className="row">
+            <div className="col-lg-12">
               <div className={b('copyright')}>&copy; Musicabinet</div>
             </div>
           </div>
         </div>
 
         <div className={b('menu')}>
-          <div className='container'>
-            <div className='row'>
+          <div className="container">
+            <div className="row">
               {menu.map((item) => {
                 const { title, link } = item;
-                return (<div key={link} className='col-lg-3 text-center'>
-                  <Link href={`/${link}`}><a className={b('link')}>{title}</a></Link>
-                </div>);
+                return (
+                  <div key={link} className="col-lg-3 text-center">
+                    <Link href={`/${link}`}>
+                      <a className={b('link')}>{title}</a>
+                    </Link>
+                  </div>
+                );
               })}
             </div>
           </div>

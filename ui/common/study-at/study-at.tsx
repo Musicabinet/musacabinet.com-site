@@ -17,9 +17,9 @@ export class StudyAt extends React.Component<StudyAtProps, StudyAtState> {
   render() {
     return (
       <div className={b(null)}>
-        <div className='container'>
-          <div className='row'>
-            <div className='col-lg-8 offset-lg-2'>
+        <div className="container">
+          <div className="row">
+            <div className="col-lg-8 offset-lg-2">
               <Title size={TITLE_SIZE.SECOND} className={b('title')}>
                 Study at MUSICABINET using any device
               </Title>
@@ -27,20 +27,24 @@ export class StudyAt extends React.Component<StudyAtProps, StudyAtState> {
           </div>
         </div>
 
-        <div className='container'>
-          <div className='row'>
-            <div className='col-lg-12'>
+        <div className="container">
+          <div className="row">
+            <div className="col-lg-12">
               <picture>
-                <source srcSet='/images/background/footer.webp, /images/background/footer@2x.webp 2x'
-                        type='image/webp' />
-                <img src='/images/background/footer.png'
-                     srcSet='/images/background/footer@2x.png 2x'
-                     className={b('background')}
-                     alt='Musicabinet' />
+                <source
+                  srcSet="/images/background/footer.webp, /images/background/footer@2x.webp 2x"
+                  type="image/webp"
+                />
+                <img
+                  src="/images/background/footer.png"
+                  srcSet="/images/background/footer@2x.png 2x"
+                  className={b('background')}
+                  alt="Musicabinet"
+                />
               </picture>
             </div>
-            <div className='row'>
-              <div className='col-lg-12 text-center'>
+            <div className="row">
+              <div className="col-lg-12 text-center">
                 <ButtonFreeTrial />
               </div>
             </div>

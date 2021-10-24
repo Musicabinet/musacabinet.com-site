@@ -12,10 +12,6 @@ type MottoState = {};
 @observer
 export class Motto extends React.Component<MottoProps, MottoState> {
   render() {
-    return (
-      <div className={b(null)}>
-        Online Education Platform
-      </div>
-    );
+    return <div className={b(null)}>Online Education Platform</div>;
   }
 }

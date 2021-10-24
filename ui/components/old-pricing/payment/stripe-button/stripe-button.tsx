@@ -9,13 +9,13 @@ import { getStripePrice, SERVICE_NAME } from '../../../../../constants';
 const b = block(style);
 
 type StripeButtonProps = {
-  service_name: SERVICE_NAME,
-  selected_instrument: string,
-  count_month: number,
-  email: string
+  service_name: SERVICE_NAME;
+  selected_instrument: string;
+  count_month: number;
+  email: string;
 };
 type StripeButtonState = {
-  stripe: any
+  stripe: any;
 };
 
 @inject((store: RootStore) => ({
@@ -26,7 +26,6 @@ type StripeButtonState = {
 }))
 @observer
 export class StripeButton extends React.Component<StripeButtonProps, StripeButtonState> {
-
   static defaultProps = {
     service_name: SERVICE_NAME.SCHOOL,
     selected_instrument: '',
@@ -38,40 +37,20 @@ export class StripeButton extends React.Component<StripeButtonProps, StripeButto
     await this.loadStripe();
   }
 
-  async loadStripe() {
-    try {
-      const scriptStripe = document.createElement('script');
-      scriptStripe.src = 'https://js.stripe.com/v3/';
-      scriptStripe.async = true;
-      document.body.appendChild(scriptStripe);
-      scriptStripe.onload = () => {
-        this.setState(() => {
-          // @ts-ignore
-          return ({ stripe: window.Stripe(STRIPE_PUBLIC) });
-        }, () => {
-          console.log('STRIPE LOAD');
-        });
-      };
-    } catch (e) {
-      console.error(`Error in method loadStripe:`, e);
-    }
-  }
+  async loadStripe() {}
 
   handleOnPay = () => {
-
     const { service_name, selected_instrument, count_month, email } = this.props;
     const price_id = getStripePrice(`${service_name}_${selected_instrument}_${count_month}`);
 
-    if(!price_id){
-      throw ('Not found price_id');
+    if (!price_id) {
+      throw 'Not found price_id';
       return false;
     }
 
     try {
       this.state.stripe.redirectToCheckout({
-        lineItems: [
-          { price: price_id, quantity: 1 }
-        ],
+        lineItems: [{ price: price_id, quantity: 1 }],
         mode: 'subscription',
         locale: 'en',
         successUrl: `https://musicabinet.com/pricing?session_id={CHECKOUT_SESSION_ID}&system=${service_name}&instrument=${selected_instrument}`,
@@ -84,9 +63,10 @@ export class StripeButton extends React.Component<StripeButtonProps, StripeButto
   };
 
   render() {
-
     return (
-      <Button full className={b(null)} onClick={this.handleOnPay}>Pay by card</Button>
+      <Button full className={b(null)} onClick={this.handleOnPay}>
+        Pay by card
+      </Button>
     );
   }
 }

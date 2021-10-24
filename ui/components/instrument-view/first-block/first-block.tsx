@@ -10,8 +10,8 @@ import ImageBackground from './image-background/image-background';
 const b = block(style);
 
 type FirstBlockProps = {
-  service_name: string,
-  instrument_name: string
+  service_name: string;
+  instrument_name: string;
 };
 type FirstBlockState = {};
 
@@ -21,7 +21,6 @@ type FirstBlockState = {};
 }))
 @observer
 export class FirstBlock extends React.Component<FirstBlockProps, FirstBlockState> {
-
   static defaultProps = {
     service_name: '',
     instrument_name: ''
@@ -31,22 +30,24 @@ export class FirstBlock extends React.Component<FirstBlockProps, FirstBlockState
     const { service_name, instrument_name } = this.props;
     const name = `${service_name}-${instrument_name}`;
     if (['school-guitar', 'college-guitar', 'university-guitar'].includes(name)) {
-      return (<VideoBackground url={name}>
-        <ContentService />
-      </VideoBackground>);
+      return (
+        <VideoBackground url={name}>
+          <ContentService />
+        </VideoBackground>
+      );
     } else {
-      return (<ImageBackground instrument={instrument_name}>
-        <ContentService/>
-      </ImageBackground>);
+      return (
+        <ImageBackground instrument={instrument_name}>
+          <ContentService />
+        </ImageBackground>
+      );
     }
   };
 
   render() {
     return (
       <div className={b(null)}>
-        <div className={b('container')}>
-          {this.getBackground()}
-        </div>
+        <div className={b('container')}>{this.getBackground()}</div>
       </div>
     );
   }

@@ -9,12 +9,12 @@ import { Title } from '../../../common';
 const b = block(style);
 
 type SecondBlockProps = {
-  service_name: SERVICE_NAME,
-  header: string,
-  columns: string[],
-  playingImage: string,
-  headerPlaying: string,
-  textPlaying: string[]
+  service_name: SERVICE_NAME;
+  header: string;
+  columns: string[];
+  playingImage: string;
+  headerPlaying: string;
+  textPlaying: string[];
 };
 type SecondBlockState = {};
 
@@ -28,7 +28,6 @@ type SecondBlockState = {};
 }))
 @observer
 export default class SecondBlock extends React.Component<SecondBlockProps, SecondBlockState> {
-
   static defaultProps = {
     service_name: SERVICE_NAME.SCHOOL,
     header: '',
@@ -43,19 +42,20 @@ export default class SecondBlock extends React.Component<SecondBlockProps, Secon
 
     return (
       <div className={b(null)}>
-        <div className='container g-lg-0'>
-          <div className='row g-lg-0'>
-            <div className='col-lg-12'>
-              <Title size={TITLE_SIZE.SERVICE_PAGE} isServiceColor>{header}</Title>
+        <div className="container g-lg-0">
+          <div className="row g-lg-0">
+            <div className="col-lg-12">
+              <Title size={TITLE_SIZE.SERVICE_PAGE} isServiceColor>
+                {header}
+              </Title>
             </div>
           </div>
 
-
           <div className={b('columns')}>
-            <div className='row g-lg-0'>
+            <div className="row g-lg-0">
               {columns.map((column, index) => {
                 return (
-                  <div key={index} className='col-lg-4'>
+                  <div key={index} className="col-lg-4">
                     <div className={b('column', { [service_name]: true })}>{column}</div>
                   </div>
                 );
@@ -63,31 +63,35 @@ export default class SecondBlock extends React.Component<SecondBlockProps, Secon
             </div>
           </div>
 
-          <div className='row g-lg-0'>
-            <div className='col-lg-5'>
-
+          <div className="row g-lg-0">
+            <div className="col-lg-5">
               <div className={b('playing')}>
                 <picture className={b('picture')}>
                   <source
                     srcSet={`/images/playing/${playingImage}.webp, /images/playing/${playingImage}@2x.webp 2x`}
-                    type='image/webp' />
-                  <img src={`/images/playing/${playingImage}.png`}
-                       srcSet={`/images/playing/${playingImage}@2x.png 2x`} />
+                    type="image/webp"
+                  />
+                  <img
+                    src={`/images/playing/${playingImage}.png`}
+                    srcSet={`/images/playing/${playingImage}@2x.png 2x`}
+                  />
                 </picture>
               </div>
-
             </div>
-            <div className='col-lg-7'>
+            <div className="col-lg-7">
               <div className={b('content')}>
                 <Title size={TITLE_SIZE.SERVICE_PAGE} isServiceColor className={b('header')}>
                   {headerPlaying}
                 </Title>
 
-                {textPlaying.map((text, index) => <p key={index} className={b('paragraph')}>{text}</p>)}
+                {textPlaying.map((text, index) => (
+                  <p key={index} className={b('paragraph')}>
+                    {text}
+                  </p>
+                ))}
               </div>
             </div>
           </div>
-
         </div>
       </div>
     );

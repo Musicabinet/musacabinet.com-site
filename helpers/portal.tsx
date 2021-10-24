@@ -3,11 +3,10 @@ import ReactDOM from 'react-dom';
 
 type PortalProps = {};
 type PortalState = {
-  mounted: boolean
+  mounted: boolean;
 };
 
 export class Portal extends React.Component<PortalProps, PortalState> {
-
   state = {
     mounted: false
   };
@@ -31,6 +30,6 @@ export class Portal extends React.Component<PortalProps, PortalState> {
   render() {
     const { children } = this.props;
     const { mounted } = this.state;
-    return (mounted && this.element) ? ReactDOM.createPortal(children, this.element) : null;
+    return mounted && this.element ? ReactDOM.createPortal(children, this.element) : null;
   }
 }

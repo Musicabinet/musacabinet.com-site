@@ -6,19 +6,22 @@ import { SERVICE_NAME } from '../../../constants';
 const b = block(style);
 
 type ButtonGrandChartProps = {
-  service: SERVICE_NAME,
-  onClick: () => Promise<void>
+  service: SERVICE_NAME;
+  onClick: () => Promise<void>;
 };
 type ButtonGrandChartState = {};
 
 export class ButtonGrandChart extends React.Component<ButtonGrandChartProps, ButtonGrandChartState> {
-
   static defaultProps = {
     onClick: () => console.log('Not set handler')
   };
 
   render() {
     const { service, children, ...props } = this.props;
-    return <button {...props} className={b(null, { [service]: true })}>{children}</button>;
+    return (
+      <button {...props} className={b(null, { [service]: true })}>
+        {children}
+      </button>
+    );
   }
 }

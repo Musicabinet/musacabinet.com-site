@@ -8,9 +8,9 @@ import { SERVICE_NAME } from '../../../../../../../constants';
 const b = block(style);
 
 type BpmProps = {
-  service_name: SERVICE_NAME,
-  current: number,
-  onSetBPM: (value: number) => void
+  service_name: SERVICE_NAME;
+  current: number;
+  onSetBPM: (value: number) => void;
 };
 type BpmState = {};
 
@@ -21,7 +21,6 @@ type BpmState = {};
 }))
 @observer
 export class Bpm extends React.Component<BpmProps, BpmState> {
-
   interval: number = 0;
   inputRef = React.createRef<HTMLInputElement>();
 
@@ -97,26 +96,34 @@ export class Bpm extends React.Component<BpmProps, BpmState> {
     const { service_name, current } = this.props;
 
     return (
-      <div className={b(null, {
-        [service_name]: true
-      })}>
-        <button className={b('button', {
-          increment: true
+      <div
+        className={b(null, {
+          [service_name]: true
         })}
-                onClick={this.handleOnIncrement}
-                onMouseDown={this.handleOnMouseDown.bind(null, 'increment')}
-                onMouseUp={this.handleOnMouseUp} />
-        <input type={'number'}
-               ref={this.inputRef}
-               onBlur={this.handleOnBlur}
-               className={b('count')}
-               defaultValue={current} />
-        <button className={b('button', {
-          decrement: true
-        })}
-                onClick={this.handleOnDecrement}
-                onMouseDown={this.handleOnMouseDown.bind(null, 'decrement')}
-                onMouseUp={this.handleOnMouseUp} />
+      >
+        <button
+          className={b('button', {
+            increment: true
+          })}
+          onClick={this.handleOnIncrement}
+          onMouseDown={this.handleOnMouseDown.bind(null, 'increment')}
+          onMouseUp={this.handleOnMouseUp}
+        />
+        <input
+          type={'number'}
+          ref={this.inputRef}
+          onBlur={this.handleOnBlur}
+          className={b('count')}
+          defaultValue={current}
+        />
+        <button
+          className={b('button', {
+            decrement: true
+          })}
+          onClick={this.handleOnDecrement}
+          onMouseDown={this.handleOnMouseDown.bind(null, 'decrement')}
+          onMouseUp={this.handleOnMouseUp}
+        />
       </div>
     );
   }

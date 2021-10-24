@@ -8,9 +8,9 @@ import { LibraryI } from '../../../../../../../../interfaces';
 const b = block(style);
 
 type TrackItemProps = {
-  selected_accompaniment: number,
-  selected_library_id: number,
-  onChoose: (id_library: number) => void
+  selected_accompaniment: number;
+  selected_library_id: number;
+  onChoose: (id_library: number) => void;
 };
 type TrackItemState = {};
 
@@ -20,7 +20,6 @@ type TrackItemState = {};
 }))
 @observer
 export class TrackItem extends React.Component<TrackItemProps & LibraryI, TrackItemState> {
-
   static defaultProps = {
     selected_accompaniment: 0,
     selected_library_id: 0
@@ -37,9 +36,12 @@ export class TrackItem extends React.Component<TrackItemProps & LibraryI, TrackI
     return (
       <li
         className={b('item', {
-          selected: (pivot.accompaniment_id === selected_accompaniment && pivot.library_id === selected_library_id)
+          selected: pivot.accompaniment_id === selected_accompaniment && pivot.library_id === selected_library_id
         })}
-        onClick={this.handleOnClick}>{name}</li>
+        onClick={this.handleOnClick}
+      >
+        {name}
+      </li>
     );
   }
 }

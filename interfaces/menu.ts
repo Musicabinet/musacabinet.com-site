@@ -6,9 +6,9 @@ export enum MenuType {
 }
 
 export interface MenuI {
-  title: string,
-  link: string,
-  type: MenuType,
-  is_active: boolean,
-  children?: MenuI[]
+  title: string;
+  link: string;
+  type: MenuType;
+  is_active: boolean;
+  children?: MenuI[];
 }

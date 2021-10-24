@@ -1,0 +1,28 @@
+@import "../../../../stylesheets/index"
+
+.item-more
+  position: relative
+  margin-bottom: 20px
+  cursor: pointer
+
+  &__preview
+    background: $gray100
+    width: 100%
+    display: flex
+    align-items: center
+    justify-content: center
+    margin: 0 0 5px
+
+    img
+      width: 50%
+      display: flex
+      padding: 10px
+
+  &__title
+    @include fontMontserrat(18px, 300)
+    line-height: 25px
+    margin: 0 0 10px
+
+  &__description
+    @include fontMontserrat(14px, 300)
+    line-height: 20px

@@ -9,22 +9,21 @@ import { GroupLessonViewItem } from './item';
 const b = block(style);
 
 type GroupLessonViewProps = {
-  isTrialValid: boolean,
-  show: boolean,
-  list: GroupLessonI[],
-  setShowGroupLessonDetail: (show: boolean) => void
+  isTrialValid: boolean;
+  show: boolean;
+  list: GroupLessonI[];
+  setShowGroupLessonDetail: (show: boolean) => void;
 };
 type GroupLessonViewState = {};
 
 @inject((store: RootStore) => ({
-  isTrialValid: store.userStore.trial_version.isValid,
+  isTrialValid: store.userStore.trial_version.is_valid,
   show: store.grandChartStore.showGroupLessonDetail,
   setShowGroupLessonDetail: store.grandChartStore.setShowGroupLessonDetail,
   list: store.grandChartStore.groupLessonDetail
 }))
 @observer
 export class GroupLessonView extends React.Component<GroupLessonViewProps, GroupLessonViewState> {
-
   static defaultProps = {
     isTrialValid: false,
     show: false,
@@ -48,27 +47,28 @@ export class GroupLessonView extends React.Component<GroupLessonViewProps, Group
       <div className={b(null, { show })}>
         {list.map((groupLesson, index) => {
           return (
-            <GroupLessonViewItem key={groupLesson.id}
-                                 isFirst={index === 0}
-                                 id={groupLesson.id}
-                                 name={groupLesson.name}
-                                 collection_id={groupLesson.collection_id}
-                                 module_id={groupLesson.module_id}
-                                 course_id={groupLesson.course_id}
-                                 total_lessons={groupLesson.total_lessons}
-                                 lessons={groupLesson.lessons}
-                                 description={groupLesson.description}
-                                 sort={groupLesson.sort}
-                                 is_active={groupLesson.is_active}
-                                 meta_title={groupLesson.meta_title}
-                                 meta_description={groupLesson.meta_description}
-                                 meta_keywords={groupLesson.meta_keywords}
-                                 slug={groupLesson.slug}
-                                 isShowTrial={(index === 0 && isTrialValid)} />
+            <GroupLessonViewItem
+              key={groupLesson.id}
+              isFirst={index === 0}
+              id={groupLesson.id}
+              name={groupLesson.name}
+              collection_id={groupLesson.collection_id}
+              module_id={groupLesson.module_id}
+              course_id={groupLesson.course_id}
+              total_lessons={groupLesson.total_lessons}
+              lessons={groupLesson.lessons}
+              description={groupLesson.description}
+              sort={groupLesson.sort}
+              is_active={groupLesson.is_active}
+              meta_title={groupLesson.meta_title}
+              meta_description={groupLesson.meta_description}
+              meta_keywords={groupLesson.meta_keywords}
+              slug={groupLesson.slug}
+              isShowTrial={index === 0 && isTrialValid}
+            />
           );
         })}
       </div>
     );
   }
-
 }

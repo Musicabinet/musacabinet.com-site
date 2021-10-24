@@ -8,10 +8,10 @@ import { PayPalButton as PayPalModule } from 'react-paypal-button-v2';
 const b = block(style);
 
 type PayPalTestButtonProps = {
-  currentPrice: number,
-  currencyConverter: number,
-  currency: string,
-  onGetGeo: () => Promise<void>
+  currentPrice: number;
+  currencyConverter: number;
+  currency: string;
+  onGetGeo: () => Promise<void>;
 };
 type PayPalTestButtonState = {};
 
@@ -23,7 +23,6 @@ type PayPalTestButtonState = {};
 }))
 @observer
 export class PayPalTestButton extends React.Component<PayPalTestButtonProps, PayPalTestButtonState> {
-
   static defaultProps = {
     currentPrice: 1,
     currencyConverter: 1,
@@ -57,14 +56,15 @@ export class PayPalTestButton extends React.Component<PayPalTestButtonProps, Pay
     return (
       <div className={b(null)} data-pay-pal={true}>
         <div className={b('description')}>No recurring payments (TEST !!!)</div>
-        <PayPalModule amount={this.getPrice()}
-                      currency={currency}
-                      options={{
-                        currency: currency.toUpperCase(),
-                        clientId: PAY_PAY_CLIENT_ID
-                      }} />
+        <PayPalModule
+          amount={this.getPrice()}
+          currency={currency}
+          options={{
+            currency: currency.toUpperCase(),
+            clientId: PAY_PAY_CLIENT_ID
+          }}
+        />
       </div>
     );
-    ;
   }
 }

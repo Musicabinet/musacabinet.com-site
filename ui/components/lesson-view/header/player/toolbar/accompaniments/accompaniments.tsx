@@ -9,11 +9,11 @@ import { LibraryItem } from './library-item';
 const b = block(style);
 
 type AccompanimentsProps = {
-  list: AccompanimentStore[],
-  selected_accompaniment: number,
-  name_track: string,
-  onChooseAccompaniment: (id: number) => void,
-  onLoadTrack: () => void
+  list: AccompanimentStore[];
+  selected_accompaniment: number;
+  name_track: string;
+  onChooseAccompaniment: (id: number) => void;
+  onLoadTrack: () => void;
 };
 type AccompanimentsState = {};
 
@@ -26,7 +26,6 @@ type AccompanimentsState = {};
 }))
 @observer
 export class Accompaniments extends React.Component<AccompanimentsProps, AccompanimentsState> {
-
   static defaultProps = {
     list: [],
     selected_accompaniment: 0,
@@ -35,13 +34,11 @@ export class Accompaniments extends React.Component<AccompanimentsProps, Accompa
     onLoadTrack: () => console.log('Not set handler')
   };
 
-
   handleOnChooseAccompaniment = (id: number) => {
     const { onChooseAccompaniment, onLoadTrack } = this.props;
     onChooseAccompaniment(id);
     onLoadTrack();
   };
-
 
   render() {
     const { list, selected_accompaniment } = this.props;
@@ -49,11 +46,12 @@ export class Accompaniments extends React.Component<AccompanimentsProps, Accompa
 
     return (
       <div className={b(null)}>
-        {findAccompaniment && findAccompaniment.libraries.length > 0 && findAccompaniment.libraries.map((library) => {
-          return (<LibraryItem key={library.id} library={library} />);
-        })}
+        {findAccompaniment &&
+          findAccompaniment.libraries.length > 0 &&
+          findAccompaniment.libraries.map((library) => {
+            return <LibraryItem key={library.id} library={library} />;
+          })}
       </div>
     );
   }
-
 }

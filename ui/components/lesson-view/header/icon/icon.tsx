@@ -8,8 +8,8 @@ import { SERVICE_NAME } from '../../../../../constants';
 const b = block(style);
 
 type IconProps = {
-  instrument_name: string,
-  service_name: SERVICE_NAME
+  instrument_name: string;
+  service_name: SERVICE_NAME;
 };
 type IconState = {};
 
@@ -19,7 +19,6 @@ type IconState = {};
 }))
 @observer
 export class Icon extends React.Component<IconProps, IconState> {
-
   static defaultProps = {
     instrument_name: '',
     service_name: SERVICE_NAME.SCHOOL
@@ -28,10 +27,14 @@ export class Icon extends React.Component<IconProps, IconState> {
   render() {
     const { instrument_name, service_name } = this.props;
 
-    return <div className={b(null, {
-      [service_name]: true
-    })}>
-      <div className={b('name-instrument')}>{instrument_name}</div>
-    </div>;
+    return (
+      <div
+        className={b(null, {
+          [service_name]: true
+        })}
+      >
+        <div className={b('name-instrument')}>{instrument_name}</div>
+      </div>
+    );
   }
 }

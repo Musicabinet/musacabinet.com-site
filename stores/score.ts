@@ -3,7 +3,6 @@ import { ScoreI } from '../interfaces';
 import { ScoreItemStore } from './score-item';
 
 export class ScoreStore implements ScoreI {
-
   pathStore = 'admin/scores';
 
   @observable isFetchVideo = false;
@@ -23,7 +22,6 @@ export class ScoreStore implements ScoreI {
     }
   }
 
-
   @action
   fillingStore(data: ScoreI) {
     const { id, lesson_id, name, video_url, content, items } = data;
@@ -35,5 +33,4 @@ export class ScoreStore implements ScoreI {
     this.content = content;
     this.items = (items || []).map((item) => new ScoreItemStore(item));
   }
-
 }

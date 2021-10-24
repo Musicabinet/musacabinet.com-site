@@ -17,10 +17,10 @@ import { FormSignUp } from '../../form-sign-up/form-sign-up';
 const b = block(style);
 
 type SignUpModalProps = {
-  show: boolean,
-  isFetchFacebook: boolean,
-  onSignUpFacebook: (data: FacebookClientResponsive) => void,
-  onClose: (id_window: MODALS) => void
+  show: boolean;
+  isFetchFacebook: boolean;
+  onSignUpFacebook: (data: FacebookClientResponsive) => void;
+  onClose: (id_window: MODALS) => void;
 };
 type SignUpModalState = {};
 
@@ -32,7 +32,6 @@ type SignUpModalState = {};
 }))
 @observer
 export class SignUpModal extends React.Component<SignUpModalProps, SignUpModalState> {
-
   static defaultProps = {
     show: false,
     isFetchFacebook: false,
@@ -48,10 +47,8 @@ export class SignUpModal extends React.Component<SignUpModalProps, SignUpModalSt
   render() {
     const { show, isFetchFacebook, onSignUpFacebook } = this.props;
 
-
     return (
-      <Modal isOpen={show}
-             onClose={this.handleOnClose}>
+      <Modal isOpen={show} onClose={this.handleOnClose}>
         <div className='container g-0'>
           <div className='row g-0'>
             <div className='col-md-6'>
@@ -63,9 +60,7 @@ export class SignUpModal extends React.Component<SignUpModalProps, SignUpModalSt
                 <div className='row'>
                   <div className='col-12 d-flex align-items-center'>
                     {getIcon(LIST_ICON.FORM_1, b('icon'))}
-                    <p className={b('paragraph')}>
-                      Our system is built to guide you step-by-step from 0 to Pro+ level
-                    </p>
+                    <p className={b('paragraph')}>Our system is built to guide you step-by-step from 0 to Pro+ level</p>
                   </div>
                 </div>
                 <div className={b('divider')} />
@@ -94,28 +89,27 @@ export class SignUpModal extends React.Component<SignUpModalProps, SignUpModalSt
                     </div>
                   </div>
                 </div>
-
               </div>
             </div>
             <div className='col-md-6'>
               <div className={b('right')}>
                 <div className='row'>
                   <div className='col-12'>
-                    <ReactFacebookLogin appId={'514163569493257'}
-                                        callback={onSignUpFacebook}
-                                        disableMobileRedirect
-                                        isMobile={false}
-                                        render={(renderProps) => {
-                                          return (
-                                            /*
-                                            // @ts-ignore */
-                                            <ButtonSocial onClick={renderProps.onClick}
-                                                          type={SOCIAL_BUTTON_TYPE.FACEBOOK}
-                                                          disabled={isFetchFacebook}>
-                                              Log in with Facebook
-                                            </ButtonSocial>
-                                          );
-                                        }} />
+                    <ReactFacebookLogin
+                      appId={'514163569493257'}
+                      callback={onSignUpFacebook}
+                      disableMobileRedirect
+                      isMobile={false}
+                      render={(renderProps) => {
+                        return (
+                          <ButtonSocial onClick={renderProps.onClick}
+                                        type={SOCIAL_BUTTON_TYPE.FACEBOOK}
+                                        disabled={isFetchFacebook}>
+                            Log in with Facebook
+                          </ButtonSocial>
+                        );
+                      }}
+                    />
                   </div>
                 </div>
 
@@ -129,9 +123,8 @@ export class SignUpModal extends React.Component<SignUpModalProps, SignUpModalSt
                   <div className='col-12'>
                     <GoogleLogin
                       clientId='826618397728-phql2reajkfudj3q0uosjuqb7tpjdlhf.apps.googleusercontent.com'
-                      render={renderProps => (
-                        <ButtonSocial onClick={renderProps.onClick}
-                                      type={SOCIAL_BUTTON_TYPE.GOOGLE}>
+                      render={(renderProps) => (
+                        <ButtonSocial onClick={renderProps.onClick} type={SOCIAL_BUTTON_TYPE.GOOGLE}>
                           Log in with Google
                         </ButtonSocial>
                       )}
@@ -145,9 +138,7 @@ export class SignUpModal extends React.Component<SignUpModalProps, SignUpModalSt
 
                 <div className='row'>
                   <div className='col-12'>
-                    <div className={b('text-middle')}>
-                      or log in with email
-                    </div>
+                    <div className={b('text-middle')}>or log in with email</div>
                   </div>
                 </div>
 

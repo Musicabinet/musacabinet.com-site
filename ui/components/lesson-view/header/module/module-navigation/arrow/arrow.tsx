@@ -7,16 +7,15 @@ import { LessonDirection } from '../../../../../../../interfaces';
 const b = block(style);
 
 type ArrowProps = {
-  hidden: boolean,
-  direction: LessonDirection.LEFT | LessonDirection.RIGHT,
-  onClick: (direction: LessonDirection.LEFT | LessonDirection.RIGHT) => void
+  hidden: boolean;
+  direction: LessonDirection.LEFT | LessonDirection.RIGHT;
+  onClick: (direction: LessonDirection.LEFT | LessonDirection.RIGHT) => void;
 };
 type ArrowState = {};
 
 @inject(() => ({}))
 @observer
 export class Arrow extends React.Component<ArrowProps, ArrowState> {
-
   handlerOnClick = () => {
     const { direction, onClick } = this.props;
     onClick(direction);
@@ -26,11 +25,13 @@ export class Arrow extends React.Component<ArrowProps, ArrowState> {
     const { direction, hidden } = this.props;
 
     return (
-      <button onClick={this.handlerOnClick}
-              className={b(null, {
-                [direction]: true,
-                hidden
-              })} />
+      <button
+        onClick={this.handlerOnClick}
+        className={b(null, {
+          [direction]: true,
+          hidden
+        })}
+      />
     );
   }
 }

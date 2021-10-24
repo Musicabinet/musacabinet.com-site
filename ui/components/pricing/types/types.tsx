@@ -2,41 +2,42 @@ import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import block from 'bem-css-modules';
 import style from './types.module.sass';
-import { TERM_LIST } from '../../../../interfaces';
+import { PRODUCT_DURATION } from '../../../../interfaces';
 import { TypeButton } from './type-button';
-import { RootStore } from '../../../../stores';
+import { PricingStore, RootStore } from '../../../../stores';
 
 const b = block(style);
 
 type TypesProps = {
-  selected_term: TERM_LIST,
-  onSetTerm: (value: TERM_LIST) => void
+  pricingStore: PricingStore,
 };
 type TypesState = {};
 
 @inject((store: RootStore) => ({
-  selected_term: store.pricingStore.selected_term,
-  onSetTerm: store.pricingStore.setSelectedTerm
+  pricingStore: store.pricingStore
 }))
 @observer
 export class Types extends React.Component<TypesProps, TypesState> {
-
   static defaultProps = {
-    selected_term: TERM_LIST.MONTHLY,
-    onSetTerm: () => console.log('Not set handler')
+    pricingStore: {},
   };
 
   render() {
-    const { selected_term, onSetTerm } = this.props;
+    const { pricingStore } = this.props;
 
     return (
       <div className='container'>
         <div className='row'>
           <div className='col-lg-12'>
             <div className={b(null)}>
-              {Object.keys(TERM_LIST).map((term) => {
-                return <TypeButton key={term} selected={term === selected_term}
-                                   onSetTerm={onSetTerm}>{term}</TypeButton>;
+              {Object.keys(PRODUCT_DURATION).map((product_duration: string) => {
+                return (
+                  <TypeButton key={product_duration}
+                              selected={product_duration === pricingStore.selected_product_duration}
+                              onSetProductDuration={pricingStore.setSelectedProductDuration}>
+                    {product_duration}
+                  </TypeButton>
+                );
               })}
             </div>
           </div>

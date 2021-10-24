@@ -2,125 +2,89 @@ import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import block from 'bem-css-modules';
 import style from './cabinet-subscriptions.module.sass';
-import { RootStore } from '../../../stores';
-import { InstrumentI } from '../../../interfaces';
+import { RootStore, UserStore, InstrumentStore, SystemStore, ModalsStore, GrandChartStore } from '../../../stores';
 import { MODALS, SERVICE_MAPPING } from '../../../constants';
 import { ButtonGrandChart } from '../button-grand-chart/button-grand-chart';
 import { InstrumentIcon } from '../instrument-icon/instrument-icon';
-import { UserStore } from '../../../stores/user';
 
 const b = block(style);
 
 type CabinetSubscriptionItemProps = {
-  user: UserStore,
-  isValidTrial: boolean,
-  totalDayPassed: number,
-  totalDayRemain: number,
-  totalDays: number,
-
-  onSetServiceId: (id: number) => void,
-  onSetServiceName: (name: string) => void,
-  onSetInstrumentId: (id: number) => void,
-  onSetInstrumentName: (name: string) => void,
-  onSetInstrumentIcon: (name: string) => void,
-  onShowModal: (id_modal: MODALS) => void,
-  onGetGranChart: () => Promise<void>
+  instrument: InstrumentStore,
+  user: UserStore;
+  systemStore: SystemStore,
+  modalsStore: ModalsStore,
+  grandChartStore: GrandChartStore,
 };
 type CabinetSubscriptionItemState = {};
 
 @inject((store: RootStore) => ({
   user: store.userStore,
-  isValidTrial: store.userStore.trial_version.isValid,
-  totalDayPassed: store.userStore.trial_version.totalDayPassed,
-  totalDayRemain: store.userStore.trial_version.totalDayRemain,
-  totalDays: store.userStore.trial_version.totalDays,
-
-  onSetServiceId: store.systemStore.setServiceId,
-  onSetServiceName: store.systemStore.setServiceName,
-  onSetInstrumentId: store.systemStore.setInstrumentId,
-  onSetInstrumentName: store.systemStore.setInstrumentName,
-  onSetInstrumentIcon: store.systemStore.setInstrumentIcon,
-  onShowModal: store.modalsStore.show,
-  onGetGranChart: store.grandChartStore.getList
-
+  systemStore: store.systemStore,
+  modalsStore: store.modalsStore,
+  grandChartStore: store.grandChartStore,
 }))
 @observer
-export class CabinetSubscriptionItem extends React.Component<CabinetSubscriptionItemProps & InstrumentI, CabinetSubscriptionItemState> {
-
+export class CabinetSubscriptionItem extends React.Component<CabinetSubscriptionItemProps, CabinetSubscriptionItemState> {
   static defaultProps = {
     user: {},
-    isValidTrial: false,
-    totalDayPassed: 0,
-    totalDayRemain: 0,
-    totalDays: 0,
-
-    onSetServiceId: () => console.log('Not set handler'),
-    onSetServiceName: () => console.log('Not set handler'),
-    onSetInstrumentId: () => console.log('Not set handler'),
-    onSetInstrumentName: () => console.log('Not set handler'),
-    onSetInstrumentIcon: () => console.log('Not set handler'),
-    onShowModal: () => console.log('Not set handler'),
-    onGetGranChart: () => console.log('Not set handler')
+    systemStore: {},
+    modalsStore: {},
+    grandChartStore: {},
   };
 
   handleOnOpenGrandChart = async () => {
     const {
-      service_id,
-      id,
-      name,
-      icon,
-      onSetServiceId,
-      onSetServiceName,
-      onSetInstrumentId,
-      onSetInstrumentName,
-      onSetInstrumentIcon,
-      onShowModal,
-      onGetGranChart
+      instrument,
+      systemStore,
+      modalsStore,
+      grandChartStore
     } = this.props;
 
-    onSetServiceId(service_id);
-    onSetServiceName(SERVICE_MAPPING[service_id]);
-    onSetInstrumentId(id);
-    onSetInstrumentName(name);
-    onSetInstrumentIcon(icon);
+    // Записываем данные
+    systemStore.setServiceId(instrument.service_id);
+    systemStore.setServiceName(SERVICE_MAPPING[instrument.service_id]);
+    systemStore.setInstrumentId(instrument.id);
+    systemStore.setInstrumentName(instrument.name);
+    systemStore.setInstrumentIcon(instrument.icon);
 
     // Открываем гранд чарт
-    onShowModal(MODALS.GRAND_CHART);
+    modalsStore.show(MODALS.GRAND_CHART);
 
     // Получение гранд чарта
-    await onGetGranChart();
+    await grandChartStore.getList();
   };
 
   render() {
-    let { user, id, service_id, name, is_active, icon, totalDayPassed, totalDayRemain, totalDays } = this.props;
+    let { instrument, user } = this.props;
 
-    totalDays = (totalDays > 0) ? totalDays - 1 : totalDays;
-
-    const isPurchaseUser = user.checkSubscription(service_id, id);
+    // Проверка покупки
+    const isPurchaseUser = user.checkSubscription(instrument.service_id, instrument.id);
 
     return (
-      <div className={b('item', {
-        'not_active': (!is_active),
-        [SERVICE_MAPPING[service_id]]: true
-      })}>
-        <div className={b('inside', { [SERVICE_MAPPING[service_id]]: true })}>
+      <div
+        className={b('item', {
+          not_active: !instrument.is_active,
+          [SERVICE_MAPPING[instrument.service_id]]: true
+        })}
+      >
+        <div className={b('inside', { [SERVICE_MAPPING[instrument.service_id]]: true })}>
           <div className={b('icon')}>
-            <InstrumentIcon icon={icon} service={SERVICE_MAPPING[service_id]} />
+            <InstrumentIcon icon={instrument.icon} service={SERVICE_MAPPING[instrument.service_id]} />
           </div>
 
           <div className={b('name')}>
-            {name} {SERVICE_MAPPING[service_id]}
+            {instrument.name} {SERVICE_MAPPING[instrument.service_id]}
           </div>
 
-          {is_active ? (
+          {instrument.is_active ? (
             <>
-              <ButtonGrandChart onClick={this.handleOnOpenGrandChart}
-                                service={SERVICE_MAPPING[service_id]}>
+              <ButtonGrandChart onClick={this.handleOnOpenGrandChart} service={SERVICE_MAPPING[instrument.service_id]}>
                 GrandChart
               </ButtonGrandChart>
 
-              <div className={b('count', { [SERVICE_MAPPING[service_id]]: true })}>
-                {(isPurchaseUser.length > 0) ? isPurchaseUser[0].totalDays : totalDays} days
+              <div className={b('count', { [SERVICE_MAPPING[instrument.service_id]]: true })}>
+                {isPurchaseUser.length > 0 ? isPurchaseUser[0].totalDays : user.trial_version.totalDays} days
               </div>
 
               <div className={b('progress-line')}>
@@ -129,28 +93,29 @@ export class CabinetSubscriptionItem extends React.Component<CabinetSubscription
 
               <div className={b('days')}>
                 <div className={b('passed-days')}>
-                  <div className={b('count-days', { [SERVICE_MAPPING[service_id]]: true })}>
-                    {(isPurchaseUser.length > 0) ? isPurchaseUser[0].totalDayPassed : totalDayPassed}
+                  <div className={b('count-days', { [SERVICE_MAPPING[instrument.service_id]]: true })}>
+                    {isPurchaseUser.length > 0 ? isPurchaseUser[0].days_passed : user.trial_version.days_passed}
                   </div>
                   <div className={b('description')}>
-                    Days<br /> passed
+                    Days
+                    <br /> passed
                   </div>
                 </div>
 
                 <div className={b('remain-days')}>
                   <div className={b('count-days')}>
-                    {(isPurchaseUser.length > 0) ? isPurchaseUser[0].totalDayRemain : totalDayRemain}
+                    {isPurchaseUser.length > 0 ? isPurchaseUser[0].days_remain : user.trial_version.days_remain}
                   </div>
                   <div className={b('description')}>
-                    Days<br /> remain
+                    Days
+                    <br /> remain
                   </div>
                 </div>
               </div>
             </>
           ) : (
-            <ButtonGrandChart service={SERVICE_MAPPING[service_id]}>Coming soon...</ButtonGrandChart>
+            <ButtonGrandChart service={SERVICE_MAPPING[instrument.service_id]}>Coming soon...</ButtonGrandChart>
           )}
-
         </div>
       </div>
     );

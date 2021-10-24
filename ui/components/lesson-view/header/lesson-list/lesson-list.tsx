@@ -15,10 +15,10 @@ import { List } from './list/list';
 const b = block(style);
 
 type LessonListProps = {
-  service_name: SERVICE_NAME
+  service_name: SERVICE_NAME;
 };
 type LessonListState = {
-  show: boolean
+  show: boolean;
 };
 
 @inject((store: RootStore) => ({
@@ -26,7 +26,6 @@ type LessonListState = {
 }))
 @observer
 export class LessonList extends React.Component<LessonListProps, LessonListState> {
-
   containerLessonListRef = React.createRef<HTMLDivElement>();
 
   static defaultProps = {
@@ -51,24 +50,20 @@ export class LessonList extends React.Component<LessonListProps, LessonListState
 
   handleOnShowList = () => this.setState({ show: true });
   handleOnCloseList = () => this.setState({ show: false });
-  handleOnToggleList = () => this.setState(state => ({ show: (!state.show) }));
+  handleOnToggleList = () => this.setState((state) => ({ show: !state.show }));
 
   render() {
     const { show } = this.state;
 
     return (
       <>
-        <div className={b(null)}
-             ref={this.containerLessonListRef}
-             onClick={this.handleOnToggleList}>
-
+        <div className={b(null)} ref={this.containerLessonListRef} onClick={this.handleOnToggleList}>
           <NumberLesson />
           <NameLesson />
           <TimeLeft />
           <ProgressLine />
           <Arrow show={show} />
-          <List show={show}
-                onCloseList={this.handleOnCloseList} />
+          <List show={show} onCloseList={this.handleOnCloseList} />
         </div>
       </>
     );

@@ -9,12 +9,12 @@ import { getIcon, LIST_ICON } from '../../../../../../common/icons';
 const b = block(style);
 
 type PlayProps = {
-  service_name: SERVICE_NAME,
-  status: boolean,
-  connect: boolean,
-  onStart: () => void,
-  onStop: () => void,
-  onInit: () => void
+  service_name: SERVICE_NAME;
+  status: boolean;
+  connect: boolean;
+  onStart: () => void;
+  onStop: () => void;
+  onInit: () => void;
 };
 type PlayState = {};
 
@@ -28,7 +28,6 @@ type PlayState = {};
 }))
 @observer
 export class Play extends React.Component<PlayProps, PlayState> {
-
   static defaultProps = {
     service_name: SERVICE_NAME.SCHOOL,
     status: false,
@@ -39,8 +38,8 @@ export class Play extends React.Component<PlayProps, PlayState> {
   };
 
   async componentDidUpdate(prevProps: Readonly<PlayProps>) {
-    if(this.props.connect && this.props.connect !== prevProps.connect){
-      const {onInit} = this.props;
+    if (this.props.connect && this.props.connect !== prevProps.connect) {
+      const { onInit } = this.props;
       await onInit();
     }
   }
@@ -49,16 +48,14 @@ export class Play extends React.Component<PlayProps, PlayState> {
     e.stopPropagation();
 
     const { status, onStart, onStop } = this.props;
-    (status) ? onStop() : onStart();
+    status ? onStop() : onStart();
   };
-
 
   render() {
     const { service_name, status } = this.props;
 
     return (
-      <button onClick={this.handleOnChangeToggle}
-              className={b(null, { [service_name]: true })}>
+      <button onClick={this.handleOnChangeToggle} className={b(null, { [service_name]: true })}>
         {status ? <div className={b('pause')} /> : getIcon(LIST_ICON.PLAY, b('play'))}
       </button>
     );

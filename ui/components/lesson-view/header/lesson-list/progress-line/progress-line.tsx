@@ -8,8 +8,8 @@ import { SERVICE_NAME } from '../../../../../../constants';
 const b = block(style);
 
 type ProgressLineProps = {
-  service_name: SERVICE_NAME,
-  passed_lesson: number
+  service_name: SERVICE_NAME;
+  passed_lesson: number;
 };
 type ProgressLineState = {};
 
@@ -19,7 +19,6 @@ type ProgressLineState = {};
 }))
 @observer
 export class ProgressLine extends React.Component<ProgressLineProps, ProgressLineState> {
-
   static defaultProps = {
     service_name: '',
     passed_lesson: 0
@@ -29,12 +28,17 @@ export class ProgressLine extends React.Component<ProgressLineProps, ProgressLin
     const { service_name, passed_lesson } = this.props;
 
     return (
-      <div className={b(null, {
-        [service_name]: true
-      })}>
-        <div className={b('line')} style={{
-          width: `${passed_lesson}%`
-        }} />
+      <div
+        className={b(null, {
+          [service_name]: true
+        })}
+      >
+        <div
+          className={b('line')}
+          style={{
+            width: `${passed_lesson}%`
+          }}
+        />
       </div>
     );
   }

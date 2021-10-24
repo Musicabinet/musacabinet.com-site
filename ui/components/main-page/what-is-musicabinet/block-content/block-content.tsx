@@ -7,17 +7,16 @@ import { getIcon, LIST_ICON } from '../../../../common/icons';
 const b = block(style);
 
 type BlockContentProps = {
-  title: string,
-  icon: LIST_ICON,
-  description: string,
-  fix: boolean
+  title: string;
+  icon: LIST_ICON;
+  description: string;
+  fix: boolean;
 };
 type BlockContentState = {};
 
 @inject(() => ({}))
 @observer
 export class BlockContent extends React.Component<BlockContentProps, BlockContentState> {
-
   static defaultProps = {
     fix: false
   };

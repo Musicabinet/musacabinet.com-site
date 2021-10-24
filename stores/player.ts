@@ -1,17 +1,12 @@
 import { action, computed, makeObservable, observable } from 'mobx';
-import { SystemStore } from './system';
-import { LessonStore } from './lesson';
 import * as Tone from 'tone';
 import { LibraryTrackType, LibraryType } from '../constants';
 import { LibraryTrackI } from '../interfaces';
+import { RootStore } from './index';
 
-interface ImportStore {
-  systemStore: SystemStore,
-  lessonStore: LessonStore
-}
+let rootStore: RootStore;
 
 export class PlayerStore {
-
   @observable isFetch: boolean = false;
   @observable isDisabled: boolean = false;
 
@@ -30,14 +25,9 @@ export class PlayerStore {
 
   clearUpdateTime: number = 0;
 
-  systemStore: SystemStore;
-  lessonStore: LessonStore;
-
-  constructor(initialData: PlayerStore | null, { systemStore, lessonStore }: ImportStore) {
+  constructor(initialData: PlayerStore | null, root: RootStore) {
     makeObservable(this);
-
-    this.systemStore = systemStore;
-    this.lessonStore = lessonStore;
+    rootStore = root;
 
     if (initialData) {
       this.fillingStore(initialData);
@@ -57,7 +47,6 @@ export class PlayerStore {
 
   @action.bound
   loadTrack() {
-
     this.isDisabled = false;
     this.isFetch = true;
 
@@ -68,24 +57,25 @@ export class PlayerStore {
       // Очищаем плеер
       this.player = [];
 
-      const selected_accompaniment = this.lessonStore.selected_accompaniment;
+      const selected_accompaniment = rootStore.lessonStore.selected_accompaniment;
 
       if (selected_accompaniment === 0) {
         this.isFetch = false;
         console.warn(`Not selected accompaniment`);
         return false;
       }
-      const current_accompaniment = this.lessonStore.accompaniments.find((accompaniment) => accompaniment.id === selected_accompaniment);
+      const current_accompaniment = rootStore.lessonStore.accompaniments.find(
+        (accompaniment) => accompaniment.id === selected_accompaniment
+      );
 
       // Получаем треки
-      let current_library = (current_accompaniment)
+      let current_library = current_accompaniment
         ? current_accompaniment.libraries.find((library) => library.id === this.selected_library_id)
         : null;
 
       if (!current_library && current_accompaniment) {
         current_library = current_accompaniment.libraries[0];
       }
-
 
       if (!current_library) {
         this.isDisabled = true;
@@ -125,7 +115,6 @@ export class PlayerStore {
             })
           );
 
-
           Promise.all(promise_list).then((result) => {
             if (this.player.length === result.length) {
               this.isFetch = false;
@@ -136,14 +125,11 @@ export class PlayerStore {
         this.isFetch = false;
       }
 
-
       this.current_percent = 0;
     } catch (e) {
       console.error(`Error in method loadTrack : `, e);
     } finally {
-
     }
-
   }
 
   @action.bound
@@ -153,14 +139,16 @@ export class PlayerStore {
 
   @action.bound
   setFirstLibrary() {
-    const selected_accompaniment = this.lessonStore.selected_accompaniment;
+    const selected_accompaniment = rootStore.lessonStore.selected_accompaniment;
 
     if (selected_accompaniment === 0) {
       console.warn(`Not selected accompaniment`);
       return false;
     }
 
-    const current_accompaniment = this.lessonStore.accompaniments.find((accompaniment) => accompaniment.id === selected_accompaniment);
+    const current_accompaniment = rootStore.lessonStore.accompaniments.find(
+      (accompaniment) => accompaniment.id === selected_accompaniment
+    );
 
     if (current_accompaniment && current_accompaniment.libraries.length > 0) {
       this.selected_library_id = current_accompaniment.libraries[0].id;
@@ -168,8 +156,7 @@ export class PlayerStore {
   }
 
   @action.bound
-  init() {
-  }
+  init() {}
 
   @action.bound
   onPlay() {
@@ -224,7 +211,6 @@ export class PlayerStore {
 
   @action.bound
   onMute(player: 0 | 1 | 2) {
-
     if (!this.player[player]) {
       console.log(`Not player for mute`);
       return false;
@@ -232,14 +218,14 @@ export class PlayerStore {
 
     const current_mute = this.player[player].mute;
 
-    this.player[player].mute = (!current_mute);
+    this.player[player].mute = !current_mute;
 
     if (player === 0) {
-      this.bassMute = (!current_mute);
+      this.bassMute = !current_mute;
     } else if (player === 1) {
-      this.drumsMute = (!current_mute);
+      this.drumsMute = !current_mute;
     } else if (player === 2) {
-      this.keysMute = (!current_mute);
+      this.keysMute = !current_mute;
     }
   }
 
@@ -257,8 +243,8 @@ export class PlayerStore {
 
   @computed
   get nameSelectedTrack(): string {
-    const findAccompaniments = this.lessonStore.accompaniments.find(
-      (accompaniment) => accompaniment.id === this.lessonStore.selected_accompaniment
+    const findAccompaniments = rootStore.lessonStore.accompaniments.find(
+      (accompaniment) => accompaniment.id === rootStore.lessonStore.selected_accompaniment
     );
 
     if (findAccompaniments) {
@@ -274,7 +260,6 @@ export class PlayerStore {
     }
   }
 
-
   @action
   fillingStore(data: PlayerStore) {
     const { is_playing, bpm } = data;
@@ -282,5 +267,4 @@ export class PlayerStore {
     this.is_playing = is_playing;
     this.bpm = bpm;
   }
-
 }

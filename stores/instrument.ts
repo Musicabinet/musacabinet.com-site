@@ -1,11 +1,11 @@
 import { action, makeObservable, observable } from 'mobx';
 import { InstrumentI } from '../interfaces';
 import { LIST_ICON } from '../ui/common/icons';
+import { SERVICE_ID } from '../constants';
 
 export class InstrumentStore implements InstrumentI {
-
   @observable id = 0;
-  @observable service_id = 0;
+  @observable service_id: SERVICE_ID = 0;
   @observable sort = 0;
   @observable slug = '';
   @observable meta_title = '';
@@ -53,5 +53,4 @@ export class InstrumentStore implements InstrumentI {
     this.icon = icon.toLocaleUpperCase();
     this.is_active = is_active;
   }
-
 }

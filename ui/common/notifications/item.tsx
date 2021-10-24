@@ -6,12 +6,11 @@ import { NotificationI } from '../../../interfaces';
 const b = block(style);
 
 type NotificationItemProps = {
-  onRemove: () => void
+  onRemove: () => void;
 };
 type NotificationItemState = {};
 
 export class NotificationItem extends React.Component<NotificationItemProps & NotificationI, NotificationItemState> {
-
   public timeoutID: null | NodeJS.Timeout = null;
 
   componentDidMount() {
@@ -35,10 +34,9 @@ export class NotificationItem extends React.Component<NotificationItemProps & No
     const { type, title, message } = this.props;
 
     return (
-      <div className={b('item', { type })}
-           onClick={this.handleOnClick}>
+      <div className={b('item', { type })} onClick={this.handleOnClick}>
         <div className={b('icon')}>
-          <i className='las la-exclamation-circle' />
+          <i className="las la-exclamation-circle" />
         </div>
 
         <div className={b('body')}>

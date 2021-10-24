@@ -10,9 +10,9 @@ import { SERVICE_NAME } from '../../../../../constants';
 const b = block(style);
 
 type InstrumentItemProps = {
-  service_name: SERVICE_NAME,
-  selected_instrument: string,
-  onSetInstrument: (instrument: string) => void
+  service_name: SERVICE_NAME;
+  selected_instrument: string;
+  onSetInstrument: (instrument: string) => void;
 };
 type InstrumentItemState = {};
 
@@ -23,7 +23,6 @@ type InstrumentItemState = {};
 }))
 @observer
 export class InstrumentItem extends React.Component<InstrumentItemProps & InstrumentI, InstrumentItemState> {
-
   static defaultProps = {
     service_name: SERVICE_NAME.SCHOOL,
     selected_instrument: '',
@@ -40,9 +39,11 @@ export class InstrumentItem extends React.Component<InstrumentItemProps & Instru
 
     return (
       <>
-        <button disabled={!is_active}
-                className={b('item', { is_active: selected_instrument === name.toLowerCase() && is_active })}
-                onClick={this.handleOnSetInstrument}>
+        <button
+          disabled={!is_active}
+          className={b('item', { is_active: selected_instrument === name.toLowerCase() && is_active })}
+          onClick={this.handleOnSetInstrument}
+        >
           <InstrumentIcon icon={icon} service={service_name} />
         </button>
       </>

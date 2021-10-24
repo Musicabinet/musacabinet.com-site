@@ -30,3 +30,5 @@ export { ButtonFreeTrial } from './button-free-trial/button-free-trial';
 export { Switcher } from './switcher/switcher';
 export { FormSignUp } from './form-sign-up/form-sign-up';
 export { StatisticDays } from './statistic-days/statistic-days';
+export { MainStatistics } from './main-statistics/main-statistics';
+export { Tutorials } from './tutorials/tutorials';

@@ -8,13 +8,102 @@
   &__left, &__right
     position: relative
 
+  &__left
+    margin-right: 30px
+
+  &__right
+    flex: 1
+
   &__item
     display: flex
     border-radius: 10px
     background: $white
     margin-bottom: 10px
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25)
-    padding: 30px 41px 30px 39px
+    padding: 30px 40px 30px 40px
 
     &:last-child
       margin-bottom: 0
+
+
+  &__header
+    @include fontMontserrat(18px, 800)
+    line-height: 22px
+    color: $gray50
+    margin-bottom: 10px
+
+  &__message
+    @include fontMontserrat(14px)
+    line-height: 17px
+    display: flex
+
+  &__service
+    position: relative
+    display: flex
+    margin: 0 4px
+
+    &_school
+      color: $school
+
+    &_college
+      color: $college
+
+    &_university
+      color: $university
+
+  &__percent
+    margin-left: auto
+    @include fontMontserrat(18px, 800)
+    line-height: 22px
+    text-align: right
+    margin-bottom: 20px
+
+    &_school
+      color: $school
+
+    &_college
+      color: $college
+
+    &_university
+      color: $university
+
+  &__info
+    color: $gray60
+    @include fontMontserrat(14px, 400)
+    line-height: 17px
+    padding-top: 4px
+
+  &__actions
+    position: relative
+    display: flex
+    align-items: flex-end
+
+  &__button
+    margin-left: 30px
+    border: none
+    border-radius: 10px
+    @include fontMontserrat(18px)
+    line-height: 25px
+    color: $white
+    cursor: pointer
+    width: 50px
+    height: 50px
+
+    &_school
+      background: $school
+
+    &_college
+      background: $college
+
+    &_university
+      background: $university
+
+  &__progress-bar
+    width: 100%
+    position: relative
+    height: 10px
+    background: $gray20
+    border-radius: 10px
+
+
+

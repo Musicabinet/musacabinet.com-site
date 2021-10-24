@@ -2,40 +2,32 @@ import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import block from 'bem-css-modules';
 import style from './grand-chart.module.sass';
-import { RootStore } from '../../../stores';
+import { GrandChartStore, RootStore, SystemStore } from '../../../stores';
 import { Modules } from './modules/modules';
 import { Courses } from './courses/courses';
 import { GroupLessons } from './group-lessons/group-lessons';
 import { GroupLessonView } from './group-lesson-view/group-lesson-view';
-import { SERVICE_NAME } from '../../../constants';
 import { LIST_ICON } from '../icons';
 import { InstrumentIcon } from '../instrument-icon/instrument-icon';
 
 const b = block(style);
 
 type GrandChartProps = {
-  isFetch: boolean,
-  isEmpty: boolean,
-  service_name: SERVICE_NAME,
-  instrument_icon: LIST_ICON.GUITAR | LIST_ICON.KEYBOARD | LIST_ICON.SAXOPHONE,
-  is_transparent: boolean
+  grandChartStore: GrandChartStore,
+  systemStore: SystemStore,
+  is_transparent: boolean;
 };
 type GrandChartState = {};
 
 @inject((store: RootStore) => ({
-  isFetch: store.grandChartStore.isFetch,
-  isEmpty: store.grandChartStore.isEmpty,
-  service_name: store.systemStore.service_name,
-  instrument_icon: store.systemStore.instrument_icon
+  grandChartStore: store.grandChartStore,
+  systemStore: store.systemStore
 }))
 @observer
 export class GrandChart extends React.Component<GrandChartProps, GrandChartState> {
-
   static defaultProps = {
-    isFetch: false,
-    isEmpty: false,
-    service_name: undefined,
-    instrument_icon: '',
+    grandChartStore: {},
+    systemStore: {},
     is_transparent: false
   };
 
@@ -44,29 +36,36 @@ export class GrandChart extends React.Component<GrandChartProps, GrandChartState
   }
 
   render() {
-    const { isFetch, isEmpty, service_name, instrument_icon, is_transparent } = this.props;
+    const { grandChartStore, systemStore, is_transparent } = this.props;
+
+    if (!systemStore.service_name) {
+      return null;
+    }
 
     return (
-
-      <div className={b(null, { is_transparent, loading: isFetch, isEmpty })}>
-
+      <div className={b(null, { is_transparent, loading: grandChartStore.isFetch, isEmpty: grandChartStore.isEmpty })}>
         <header className={b('header')}>
           <div className={b('logotype')}>
-            <InstrumentIcon service={service_name} icon={instrument_icon} />
-            <div className={b('name', {
-              [service_name]: true
-            })}>Grand<br /> Chart
+            <InstrumentIcon service={systemStore.service_name} icon={systemStore.instrument_icon} />
+            <div
+              className={b('name', {
+                [systemStore.service_name]: true
+              })}
+            >
+              Grand
+              <br /> Chart
             </div>
           </div>
           <Modules />
         </header>
 
         <div className={b('container')}>
-
-          <div className={b('gold-line', {
-            isFetch,
-            show: (!isFetch && service_name === 'college' && instrument_icon === LIST_ICON.GUITAR)
-          })} />
+          <div
+            className={b('gold-line', {
+              isFetch: grandChartStore.isFetch,
+              show: !grandChartStore.isFetch && systemStore.service_name === 'college' && systemStore.instrument_icon === LIST_ICON.GUITAR
+            })}
+          />
           <div className={b('sidebar')}>
             <Courses />
           </div>

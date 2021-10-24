@@ -10,16 +10,16 @@ import { AccompanimentStore } from '../../../../../../../stores/accompaniment';
 const b = block(style);
 
 type AccompanimentItemProps = {
-  accompaniment: AccompanimentStore,
-  service_name: SERVICE_NAME,
-  selected: boolean,
-  selected_name_track: string,
-  onChoose: (id: number) => void,
-  onSetLibrary: (id_library: number) => void,
-  onLoadTrack: () => void,
+  accompaniment: AccompanimentStore;
+  service_name: SERVICE_NAME;
+  selected: boolean;
+  selected_name_track: string;
+  onChoose: (id: number) => void;
+  onSetLibrary: (id_library: number) => void;
+  onLoadTrack: () => void;
 };
 type AccompanimentItemState = {
-  isShow: boolean
+  isShow: boolean;
 };
 
 @inject((store: RootStore) => ({
@@ -28,8 +28,10 @@ type AccompanimentItemState = {
   onLoadTrack: store.playerStore.loadTrack
 }))
 @observer
-export class AccompanimentItem extends React.Component<AccompanimentItemProps & AccompanimentI, AccompanimentItemState> {
-
+export class AccompanimentItem extends React.Component<
+  AccompanimentItemProps & AccompanimentI,
+  AccompanimentItemState
+> {
   containerAccompaniment = React.createRef<HTMLDivElement>();
 
   static defaultProps = {
@@ -77,15 +79,8 @@ export class AccompanimentItem extends React.Component<AccompanimentItemProps & 
     console.log('accompaniment', accompaniment);
 
     return (
-      <div className={b('item', { selected })}
-           ref={this.containerAccompaniment}
-           onClick={this.handleOnClick}>
-
-        {
-          (service_name === SERVICE_NAME.SCHOOL)
-            ? `${name}`
-            : name
-        }
+      <div className={b('item', { selected })} ref={this.containerAccompaniment} onClick={this.handleOnClick}>
+        {service_name === SERVICE_NAME.SCHOOL ? `${name}` : name}
 
         {/*{(service_name === SERVICE_NAME.SCHOOL) && (
           <>

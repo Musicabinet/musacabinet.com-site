@@ -6,8 +6,8 @@ import { MODALS } from '../../../../constants';
 import { GrandChart } from '../../grand-chart/grand-chart';
 
 type GrandChartModalProps = {
-  is_show: boolean,
-  onCloseModal: (id_modal: MODALS) => void
+  is_show: boolean;
+  onCloseModal: (id_modal: MODALS) => void;
 };
 type GrandChartModalState = {};
 
@@ -17,7 +17,6 @@ type GrandChartModalState = {};
 }))
 @observer
 export class GrandChartModal extends React.Component<GrandChartModalProps, GrandChartModalState> {
-
   static defaultProps = {
     is_show: false,
     onCloseModal: () => console.log('Not set handler')

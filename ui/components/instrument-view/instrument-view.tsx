@@ -17,7 +17,6 @@ type InstrumentViewState = {};
 @inject(() => ({}))
 @observer
 export class InstrumentView extends React.Component<InstrumentViewProps, InstrumentViewState> {
-
   static defaultProps = {};
 
   render() {

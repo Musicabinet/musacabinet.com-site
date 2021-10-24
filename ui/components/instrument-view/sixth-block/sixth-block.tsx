@@ -9,8 +9,8 @@ import { ButtonFreeTrial, Paragraph, Title } from '../../../common';
 const b = block(style);
 
 type SixthBlockProps = {
-  service_name: SERVICE_NAME,
-  imagePath: string
+  service_name: SERVICE_NAME;
+  imagePath: string;
 };
 type SixthBlockState = {};
 
@@ -20,7 +20,6 @@ type SixthBlockState = {};
 }))
 @observer
 export class SixthBlock extends React.Component<SixthBlockProps, SixthBlockState> {
-
   static defaultProps = {
     service_name: SERVICE_NAME.SCHOOL,
     imagePath: ''
@@ -31,34 +30,36 @@ export class SixthBlock extends React.Component<SixthBlockProps, SixthBlockState
 
     return (
       <div className={b(null, { [service_name]: true })}>
-        <div className='container g-lg-0'>
-          <div className='row g-lg-0'>
-            <div className='col-lg-5'>
-              <Title className={b('header')} size={TITLE_SIZE.SERVICE_PAGE}>Wherever and whenever</Title>
+        <div className="container g-lg-0">
+          <div className="row g-lg-0">
+            <div className="col-lg-5">
+              <Title className={b('header')} size={TITLE_SIZE.SERVICE_PAGE}>
+                Wherever and whenever
+              </Title>
             </div>
           </div>
 
-          <div className='row g-lg-0'>
-            <div className='col-lg-7'>
+          <div className="row g-lg-0">
+            <div className="col-lg-7">
               <Paragraph className={b('description')}>
                 Study at home or while traveling from your computer, tablet or smartphone.
               </Paragraph>
             </div>
-            <div className='col-lg-12'>
+            <div className="col-lg-12">
               <picture className={b('picture')}>
-                <source
-                  srcSet={`${imagePath}.webp, ${imagePath}@2x.webp 2x`}
-                  type="image/webp"/>
-                <img src={`${imagePath}.png`} srcSet={`${imagePath}@2x.png 2x`} alt=""/>
+                <source srcSet={`${imagePath}.webp, ${imagePath}@2x.webp 2x`} type="image/webp" />
+                <img src={`${imagePath}.png`} srcSet={`${imagePath}@2x.png 2x`} alt="" />
               </picture>
             </div>
-            <div className='col-lg-8 offset-lg-2'>
-              <Title size={TITLE_SIZE.SERVICE_PAGE} className={b('title')}>Join us, if you're serious about education</Title>
+            <div className="col-lg-8 offset-lg-2">
+              <Title size={TITLE_SIZE.SERVICE_PAGE} className={b('title')}>
+                Join us, if you're serious about education
+              </Title>
             </div>
           </div>
 
-          <div className='row'>
-            <div className='col-lg-12 d-flex justify-content-center'>
+          <div className="row">
+            <div className="col-lg-12 d-flex justify-content-center">
               <ButtonFreeTrial />
             </div>
           </div>
