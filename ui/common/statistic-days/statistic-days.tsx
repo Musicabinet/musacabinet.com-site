@@ -27,8 +27,23 @@ export class StatisticDays extends React.Component<StatisticDaysProps, Statistic
 
     return (
       <div className={b(null)}>
-        {instrumentsStore.statistics.map((instrument) => {
-          return <Item key={instrument.id} instrument={instrument} />;
+
+        {Object.keys(instrumentsStore.groupByInstrument).map((key) => {
+          let component: React.ReactNode[] = [];
+
+
+          const result =  instrumentsStore.groupByInstrument[key].map((instrument) => {
+            if(!instrument.is_active){
+              return null;
+            }
+
+            return <Item key={instrument.id} instrument={instrument} />;
+          });
+
+          component.push(result);
+          component.push(<div className={b('divider')} />);
+
+          return component;
         })}
 
       </div>

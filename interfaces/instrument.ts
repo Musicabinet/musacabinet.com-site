@@ -1,5 +1,6 @@
 import { SERVICE_ID } from '../constants';
 import { LIST_ICON } from '../ui/common/icons';
+import { InstrumentStore } from '../stores';
 
 export interface InstrumentI {
   id: number;
@@ -13,4 +14,8 @@ export interface InstrumentI {
   description: string;
   icon: LIST_ICON.GUITAR | LIST_ICON.SAXOPHONE | LIST_ICON.KEYBOARD;
   is_active: boolean;
+}
+
+export interface InstrumentGroup {
+  [key: string]: InstrumentStore[]
 }

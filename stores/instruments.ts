@@ -1,5 +1,5 @@
 import { action, computed, observable } from 'mobx';
-import { InstrumentI } from '../interfaces';
+import { InstrumentGroup, InstrumentI } from '../interfaces';
 import { API } from '../core';
 import { InstrumentStore } from './instrument';
 import { SERVICE_ID } from '../constants';
@@ -32,6 +32,15 @@ export class InstrumentsStore {
   @computed
   get statistics(): InstrumentStore[] {
     return this.all.filter((instrument) => instrument.is_active);
+  }
+
+  @computed
+  get groupByInstrument(): InstrumentGroup {
+    return this.all.reduce((reduce, instrument) => {
+      reduce[instrument.slug] = reduce[instrument.slug] || [];
+      reduce[instrument.slug].push(instrument);
+      return reduce;
+    }, Object.create(null));
   }
 
   @action
