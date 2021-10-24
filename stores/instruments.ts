@@ -19,7 +19,7 @@ export class InstrumentsStore {
       let queryString = `instrument/all`;
 
       if (service_id) {
-        queryString += `service_id=${service_id}`;
+        queryString += `?service_id=${service_id}`;
       }
 
       const result = await API.request<InstrumentI[]>(`${queryString}`);
