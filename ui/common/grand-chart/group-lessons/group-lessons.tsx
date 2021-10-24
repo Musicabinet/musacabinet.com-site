@@ -25,6 +25,7 @@ export class GroupLessons extends React.Component<GroupLessonsProps, GroupLesson
   static defaultProps = {
     userStore: {},
     grandChartStore: {},
+    list: {}
   };
 
   getGroupLessons = (course_module_id: string) => {

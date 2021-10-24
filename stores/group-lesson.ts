@@ -1,6 +1,7 @@
 import { action, makeObservable, observable } from 'mobx';
-import { GroupLessonI, LessonI } from '../interfaces';
+import { GroupLessonI } from '../interfaces';
 import { CollectionStore } from './collection';
+import { LessonStore } from './lesson';
 
 export class GroupLessonStore implements GroupLessonI {
   @observable isFetch: boolean = false;
@@ -19,7 +20,7 @@ export class GroupLessonStore implements GroupLessonI {
   @observable module_id = 0;
   @observable course_id = 0;
   @observable total_lessons = 0;
-  @observable lessons: LessonI[] = [];
+  @observable lessons: LessonStore[] = [];
 
   constructor(initialData: GroupLessonI | null) {
     makeObservable(this);
