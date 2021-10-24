@@ -36,7 +36,9 @@ export class GroupLessonItem extends React.Component<GroupLessonItemProps, Group
     const { isTrialShow, userStore, systemStore, authStore, grandChart } = this.props;
     const isPurchaseUser = userStore.checkSubscription(systemStore.service_id, systemStore.instrument_id);
 
-    if ((isPurchaseUser.length === 0 && !isTrialShow) || !isTrialShow || !authStore.isAuth) {
+    console.log('isPurchaseUser',isPurchaseUser,!isTrialShow,  !authStore.isAuth);
+
+    if ((isPurchaseUser.length === 0) || !authStore.isAuth) {
       return false;
     }
 
