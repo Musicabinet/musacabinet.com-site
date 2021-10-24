@@ -1,24 +1,14 @@
 import { action, makeObservable, observable } from 'mobx';
-import { LessonStore } from './lesson';
-import { WebsocketStore } from './websocket';
+import { RootStore } from './index';
 
-interface ImportStore {
-  lessonStore: LessonStore,
-  websocketStore: WebsocketStore
-}
+let rootStore: RootStore;
 
 export class LessonProgressStore {
-
   @observable timer: boolean = true;
 
-  lessonStore: LessonStore;
-  websocketStore: WebsocketStore;
-
-  constructor(initialData: LessonProgressStore | null, { lessonStore, websocketStore }: ImportStore) {
+  constructor(initialData: LessonProgressStore | null, root: RootStore) {
     makeObservable(this);
-
-    this.lessonStore = lessonStore;
-    this.websocketStore = websocketStore;
+    rootStore = root;
 
     if (initialData) {
       this.fillingStore(initialData);
@@ -26,28 +16,27 @@ export class LessonProgressStore {
   }
 
   @action.bound
-  async init(){
+  async init() {
     console.log(1);
-    if(this.timer && this.websocketStore.connect){
+    if (this.timer && rootStore.websocketStore.connect) {
       console.log(2);
-      this.websocketStore.callbackOnMessage(() => {
-        this.lessonStore.incrementProgress();
+      rootStore.websocketStore.callbackOnMessage(() => {
+        rootStore.lessonStore.incrementProgress();
       });
     }
   }
 
   @action.bound
   async start() {
-
-    if(!this.websocketStore.connect){
-      await this.websocketStore.init();
-      this.websocketStore.sendMessage({
-        uuid: this.lessonStore.uuid
+    if (!rootStore.websocketStore.connect) {
+      await rootStore.websocketStore.init();
+      rootStore.websocketStore.sendMessage({
+        uuid: rootStore.lessonStore.uuid
       });
     }
 
-    this.websocketStore.callbackOnMessage(() => {
-      this.lessonStore.incrementProgress();
+    rootStore.websocketStore.callbackOnMessage(() => {
+      rootStore.lessonStore.incrementProgress();
     });
 
     this.timer = true;
@@ -55,7 +44,7 @@ export class LessonProgressStore {
 
   @action.bound
   async stop() {
-    await this.websocketStore.disconnect();
+    await rootStore.websocketStore.disconnect();
     this.timer = false;
   }
 
@@ -63,5 +52,4 @@ export class LessonProgressStore {
   fillingStore(data: LessonProgressStore) {
     const {} = data;
   }
-
 }

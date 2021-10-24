@@ -16,13 +16,11 @@ export class CabinetLayout extends React.Component<CabinetLayoutProps, CabinetLa
     const { children } = this.props;
 
     return (
-      <div className='col-12'>
+      <div className="col-12">
         <div className={b(null)}>
           <CabinetSidebar />
 
-          <div className={b('content')}>
-            {children}
-          </div>
+          <div className={b('content')}>{children}</div>
         </div>
       </div>
     );

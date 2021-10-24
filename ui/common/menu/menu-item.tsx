@@ -8,12 +8,11 @@ import Link from 'next/link';
 const b = block(style);
 
 type MenuItemProps = {
-  onCloseMobile: () => void
+  onCloseMobile: () => void;
 };
 type MenuItemState = {};
 
 export class MenuItem extends React.Component<MenuItemProps & MenuI, MenuItemState> {
-
   handleOnClick = async (link: string) => {
     const { onCloseMobile } = this.props;
     await Router.push(`/${link}`);
@@ -25,16 +24,20 @@ export class MenuItem extends React.Component<MenuItemProps & MenuI, MenuItemSta
       return null;
     }
 
-    return (<ul className={b('submenu', { root })}>
-      {children.map(({ link, type, title, children: childChildren }) => {
-        return (
-          <li key={`${link}_${type}`} className={b('item')}>
-            <a onClick={() => this.handleOnClick(link)} className={b('link', { type })}>{title}</a>
-            {this.renderChildren(childChildren)}
-          </li>
-        );
-      })}
-    </ul>);
+    return (
+      <ul className={b('submenu', { root })}>
+        {children.map(({ link, type, title, children: childChildren }) => {
+          return (
+            <li key={`${link}_${type}`} className={b('item')}>
+              <a onClick={() => this.handleOnClick(link)} className={b('link', { type })}>
+                {title}
+              </a>
+              {this.renderChildren(childChildren)}
+            </li>
+          );
+        })}
+      </ul>
+    );
   };
 
   render() {

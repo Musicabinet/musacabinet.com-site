@@ -11,18 +11,18 @@ import { AccompanimentI } from '../../../../interfaces';
 const b = block(style);
 
 type PreviewChartProps = {
-  service_name: SERVICE_NAME,
-  show: boolean,
-  totalChartImages: number,
-  previewPath: string,
-  previewCurrentNumber: number,
-  hasPrevChartImage: boolean,
-  hasNextChartImage: boolean,
-  accompaniments: AccompanimentI[],
-  onCloseModal: (id_modal: MODALS) => void,
-  setCurrentPreviewChartIndex: (score_preview_index: number) => void,
-  onChooseAccompaniment: (id: number) => void,
-  onLoadTrack: () => void
+  service_name: SERVICE_NAME;
+  show: boolean;
+  totalChartImages: number;
+  previewPath: string;
+  previewCurrentNumber: number;
+  hasPrevChartImage: boolean;
+  hasNextChartImage: boolean;
+  accompaniments: AccompanimentI[];
+  onCloseModal: (id_modal: MODALS) => void;
+  setCurrentPreviewChartIndex: (score_preview_index: number) => void;
+  onChooseAccompaniment: (id: number) => void;
+  onLoadTrack: () => void;
 };
 type PreviewChartState = {};
 
@@ -39,11 +39,9 @@ type PreviewChartState = {};
   onCloseModal: store.modalsStore.close,
   onChooseAccompaniment: store.lessonStore.setAccompaniment,
   onLoadTrack: store.playerStore.loadTrack
-
 }))
 @observer
 export class PreviewChart extends React.Component<PreviewChartProps, PreviewChartState> {
-
   static defaultProps = {
     service_name: SERVICE_NAME.SCHOOL,
     show: false,
@@ -77,30 +75,39 @@ export class PreviewChart extends React.Component<PreviewChartProps, PreviewChar
   };
 
   render() {
-    const { service_name, show, totalChartImages, previewPath, previewCurrentNumber, hasNextChartImage, hasPrevChartImage } = this.props;
+    const {
+      service_name,
+      show,
+      totalChartImages,
+      previewPath,
+      previewCurrentNumber,
+      hasNextChartImage,
+      hasPrevChartImage
+    } = this.props;
 
     return (
-      <Modal size={'large'}
-             auto
-             isOpen={show}
-             onClose={this.handleOnClose}>
+      <Modal size={'large'} auto isOpen={show} onClose={this.handleOnClose}>
         <div className={b(null, { [service_name]: true })}>
           <Player noMR />
 
           <div className={b('arrows')}>
-            <button className={b('arrow', { left: true })}
-                    disabled={(!hasPrevChartImage)}
-                    onClick={() => this.handleOnSetCurrentPreviewScoreIndex(previewCurrentNumber - 1)} />
-            <span className={b('total')}>{previewCurrentNumber} / <span>{totalChartImages - 1}</span></span>
-            <button className={b('arrow', { right: true })}
-                    disabled={(!hasNextChartImage)}
-                    onClick={() => this.handleOnSetCurrentPreviewScoreIndex(previewCurrentNumber + 1)} />
+            <button
+              className={b('arrow', { left: true })}
+              disabled={!hasPrevChartImage}
+              onClick={() => this.handleOnSetCurrentPreviewScoreIndex(previewCurrentNumber - 1)}
+            />
+            <span className={b('total')}>
+              {previewCurrentNumber} / <span>{totalChartImages - 1}</span>
+            </span>
+            <button
+              className={b('arrow', { right: true })}
+              disabled={!hasNextChartImage}
+              onClick={() => this.handleOnSetCurrentPreviewScoreIndex(previewCurrentNumber + 1)}
+            />
           </div>
 
           <div className={b('images')}>
-            <img src={`${CONTENT_URL}${previewPath}`}
-                 className={b('image')}
-                 alt='' />
+            <img src={`${CONTENT_URL}${previewPath}`} className={b('image')} alt="" />
           </div>
         </div>
       </Modal>

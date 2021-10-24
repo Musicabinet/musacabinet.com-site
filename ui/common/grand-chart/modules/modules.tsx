@@ -10,9 +10,9 @@ import { SERVICE_NAME } from '../../../../constants';
 const b = block(style);
 
 type ModulesProps = {
-  service_name: SERVICE_NAME,
-  selected_module_id: number,
-  list: ModuleI[]
+  service_name: SERVICE_NAME;
+  selected_module_id: number;
+  list: ModuleI[];
 };
 type ModulesState = {};
 
@@ -23,7 +23,6 @@ type ModulesState = {};
 }))
 @observer
 export class Modules extends React.Component<ModulesProps, ModulesState> {
-
   static defaultProps = {
     service_name: SERVICE_NAME.SCHOOL,
     selected_module_id: 0,
@@ -38,12 +37,14 @@ export class Modules extends React.Component<ModulesProps, ModulesState> {
       <div className={b(null, { [service_name]: true })}>
         {list.map((module) => {
           return (
-            <ModuleItem key={module.id}
-                        id={module.id}
-                        number={number++}
-                        sort={module.sort}
-                        name={module.name}
-                        is_active={(selected_module_id === module.id)} />
+            <ModuleItem
+              key={module.id}
+              id={module.id}
+              number={number++}
+              sort={module.sort}
+              name={module.name}
+              is_active={selected_module_id === module.id}
+            />
           );
         })}
       </div>

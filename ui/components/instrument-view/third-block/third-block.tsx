@@ -9,8 +9,8 @@ import { ButtonFreeTrial, Title } from '../../../common';
 const b = block(style);
 
 type ThirdBlockProps = {
-  service_name: SERVICE_NAME,
-  header: string
+  service_name: SERVICE_NAME;
+  header: string;
 };
 type ThirdBlockState = {};
 
@@ -20,7 +20,6 @@ type ThirdBlockState = {};
 }))
 @observer
 export class ThirdBlock extends React.Component<ThirdBlockProps, ThirdBlockState> {
-
   static defaultProps = {
     service_name: SERVICE_NAME.SCHOOL,
     header: ''
@@ -31,16 +30,17 @@ export class ThirdBlock extends React.Component<ThirdBlockProps, ThirdBlockState
 
     return (
       <div className={b(null, { [service_name]: true })}>
-        <div className='container g-lg-0'>
-          <div className='row g-lg-0'>
-            <div className='col-lg-12'>
-              <Title size={TITLE_SIZE.SERVICE_PAGE}
-                     className={b('header')}>{header}</Title>
+        <div className="container g-lg-0">
+          <div className="row g-lg-0">
+            <div className="col-lg-12">
+              <Title size={TITLE_SIZE.SERVICE_PAGE} className={b('header')}>
+                {header}
+              </Title>
             </div>
           </div>
 
-          <div className='row g-lg-0'>
-            <div className='col-lg-12'>
+          <div className="row g-lg-0">
+            <div className="col-lg-12">
               <ul className={b('list')}>
                 <li className={b('item')}>Sign up</li>
                 <li className={b('item')}>Get familiar with the interface</li>
@@ -51,8 +51,8 @@ export class ThirdBlock extends React.Component<ThirdBlockProps, ThirdBlockState
             </div>
           </div>
 
-          <div className='row'>
-            <div className='col-lg-12 d-flex justify-content-center'>
+          <div className="row">
+            <div className="col-lg-12 d-flex justify-content-center">
               <ButtonFreeTrial />
             </div>
           </div>

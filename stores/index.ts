@@ -17,6 +17,10 @@ import { NextModuleStore } from './next-module';
 import { WebsocketStore } from './websocket';
 import { PricingStore } from './pricing';
 import { PurchasesStore } from './purchases';
+import { ProductsStore } from './products';
+import { InstrumentStore } from './instrument';
+import { GroupLessonStore } from './group-lesson';
+import { TutorialsStore } from './tutorials';
 
 const isServer = typeof window === 'undefined';
 enableStaticRendering(isServer);
@@ -25,8 +29,8 @@ configure({
   enforceActions: 'never'
 });
 
-export class RootStore {
 
+export class RootStore {
   public systemStore: SystemStore;
   public userStore: UserStore;
   public menuListStore: MenuListStore;
@@ -44,101 +48,29 @@ export class RootStore {
   public websocketStore: WebsocketStore;
   public pricingStore: PricingStore;
   public purchasesStore: PurchasesStore;
+  public productsStore: ProductsStore;
+  public tutorialsStore: TutorialsStore;
 
-
-  constructor(initialData: RootStore | null) {
-
-
-    this.notificationsStore = new NotificationsStore(
-      initialData && initialData.notificationsStore ? initialData.notificationsStore : null
-    );
-
-    this.systemStore = new SystemStore(
-      initialData && initialData.systemStore ? initialData.systemStore : null
-    );
-
-    this.servicesStore = new ServicesStore(
-      initialData && initialData.servicesStore ? initialData.servicesStore : null,
-      { systemStore: this.systemStore }
-    );
-
-    this.userStore = new UserStore(
-      initialData && initialData.userStore ? initialData.userStore : null,
-      {
-        notificationsStore: this.notificationsStore
-      }
-    );
-
-    this.websocketStore = new WebsocketStore({
-      userStore: this.userStore
-    });
-
-    this.menuListStore = new MenuListStore(
-      initialData && initialData.menuListStore ? initialData.menuListStore : null
-    );
-
+  constructor(iData: RootStore | null) {
+    this.notificationsStore = new NotificationsStore(iData && iData.notificationsStore ? iData.notificationsStore : null);
+    this.systemStore = new SystemStore(iData && iData.systemStore ? iData.systemStore : null);
+    this.servicesStore = new ServicesStore(iData && iData.servicesStore ? iData.servicesStore : null, this);
+    this.userStore = new UserStore(iData && iData.userStore ? iData.userStore : null, this);
+    this.websocketStore = new WebsocketStore(this);
+    this.menuListStore = new MenuListStore(iData && iData.menuListStore ? iData.menuListStore : null);
     this.modalsStore = new ModalsStore();
-
-    this.authStore = new AuthStore(
-      initialData && initialData.authStore ? initialData.authStore : null, {
-        notificationsStore: this.notificationsStore,
-        userStore: this.userStore
-      }
-    );
-
-    this.grandChartStore = new GrandChartStore(
-      initialData && initialData.grandChartStore ? initialData.grandChartStore : null,
-      { systemStore: this.systemStore }
-    );
-
-    this.lessonStore = new LessonStore(
-      initialData && initialData.lessonStore ? initialData.lessonStore : null, {
-        systemStore: this.systemStore,
-        websocketStore: this.websocketStore
-      }
-    );
-
-    this.playerStore = new PlayerStore(
-      initialData && initialData.playerStore ? initialData.playerStore : null,
-      {
-        systemStore: this.systemStore,
-        lessonStore: this.lessonStore
-      }
-    );
-
-
-    this.lessonProgress = new LessonProgressStore(
-      initialData && initialData.lessonProgress ? initialData.lessonProgress : null,
-      {
-        lessonStore: this.lessonStore,
-        websocketStore: this.websocketStore
-      }
-    );
-
-    this.instrumentsStore = new InstrumentsStore(
-      initialData && initialData.instrumentsStore ? initialData.instrumentsStore : null
-    );
-
-    this.metronomeStore = new MetronomeStore(
-      initialData && initialData.metronomeStore ? initialData.metronomeStore : null
-    );
-
-    this.nextModule = new NextModuleStore(
-      initialData && initialData.nextModule ? initialData.nextModule : null,
-      {
-        systemStore: this.systemStore
-      }
-    );
-
-    this.pricingStore = new PricingStore(
-      initialData && initialData.pricingStore ? initialData.pricingStore : null,
-      {
-        systemStore: this.systemStore
-      }
-    );
-
-    this.purchasesStore = new PurchasesStore(initialData ? initialData.purchasesStore : null);
-
+    this.authStore = new AuthStore(iData && iData.authStore ? iData.authStore : null, this);
+    this.grandChartStore = new GrandChartStore(iData && iData.grandChartStore ? iData.grandChartStore : null, this);
+    this.lessonStore = new LessonStore(iData && iData.lessonStore ? iData.lessonStore : null, this);
+    this.playerStore = new PlayerStore(iData && iData.playerStore ? iData.playerStore : null, this);
+    this.lessonProgress = new LessonProgressStore(iData && iData.lessonProgress ? iData.lessonProgress : null, this);
+    this.instrumentsStore = new InstrumentsStore(iData && iData.instrumentsStore ? iData.instrumentsStore : null);
+    this.metronomeStore = new MetronomeStore(iData && iData.metronomeStore ? iData.metronomeStore : null);
+    this.nextModule = new NextModuleStore(iData && iData.nextModule ? iData.nextModule : null, this);
+    this.pricingStore = new PricingStore(iData && iData.pricingStore ? iData.pricingStore : null, this);
+    this.purchasesStore = new PurchasesStore(iData ? iData.purchasesStore : null);
+    this.productsStore = new ProductsStore(iData ? iData.productsStore : null, this);
+    this.tutorialsStore = new TutorialsStore(iData ? iData.tutorialsStore : null);
   }
 }
 
@@ -153,3 +85,26 @@ export default function initializeStore(initialData: null | RootStore = null) {
   }
   return store;
 }
+
+export {
+  SystemStore,
+  UserStore,
+  MenuListStore,
+  ModalsStore,
+  AuthStore,
+  NotificationsStore,
+  ServicesStore,
+  GrandChartStore,
+  LessonStore,
+  PlayerStore,
+  LessonProgressStore,
+  InstrumentsStore,
+  MetronomeStore,
+  NextModuleStore,
+  WebsocketStore,
+  PricingStore,
+  PurchasesStore,
+  ProductsStore,
+  InstrumentStore,
+  GroupLessonStore
+};

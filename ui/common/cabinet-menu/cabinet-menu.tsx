@@ -10,8 +10,8 @@ import { NextRouter, withRouter } from 'next/router';
 const b = block(style);
 
 type CabinetMenuProps = {
-  list: MenuI[],
-  router: NextRouter
+  list: MenuI[];
+  router: NextRouter;
 };
 type CabinetMenuState = {};
 
@@ -21,7 +21,6 @@ type CabinetMenuState = {};
 @(withRouter as any)
 @observer
 export class CabinetMenu extends React.Component<CabinetMenuProps, CabinetMenuState> {
-
   static defaultProps = {
     list: [],
     router: {}
@@ -33,15 +32,18 @@ export class CabinetMenu extends React.Component<CabinetMenuProps, CabinetMenuSt
       <nav className={b(null)}>
         <ul className={b('list')}>
           {list.map((item) => {
-            return <CabinetMenuItem key={`${item.type}_${item.title}`} title={item.title}
-                                    link={item.link}
-                                    type={item.type}
-                                    is_active={item.link === router.pathname} />;
+            return (
+              <CabinetMenuItem
+                key={`${item.type}_${item.title}`}
+                title={item.title}
+                link={item.link}
+                type={item.type}
+                is_active={item.link === router.pathname}
+              />
+            );
           })}
         </ul>
       </nav>
     );
   }
 }
-
-

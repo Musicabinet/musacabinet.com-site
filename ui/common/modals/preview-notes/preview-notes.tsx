@@ -13,20 +13,20 @@ import { PlayerStore } from '../../../../stores/player';
 const b = block(style);
 
 type PreviewNotesProps = {
-  lessonStore: LessonStore,
-  playerStore: PlayerStore,
-  service_name: SERVICE_NAME,
-  show: boolean,
-  totalScoresImages: number,
-  previewPath: string,
-  previewCurrentNumber: number,
-  hasPrevScoreImage: boolean,
-  hasNextScoreImage: boolean,
-  accompaniments: AccompanimentI[],
-  onCloseModal: (id_modal: MODALS) => void,
-  setCurrentPreviewScoreIndex: (score_preview_index: number) => void,
-  onChooseAccompaniment: (id: number) => void,
-  onLoadTrack: () => void
+  lessonStore: LessonStore;
+  playerStore: PlayerStore;
+  service_name: SERVICE_NAME;
+  show: boolean;
+  totalScoresImages: number;
+  previewPath: string;
+  previewCurrentNumber: number;
+  hasPrevScoreImage: boolean;
+  hasNextScoreImage: boolean;
+  accompaniments: AccompanimentI[];
+  onCloseModal: (id_modal: MODALS) => void;
+  setCurrentPreviewScoreIndex: (score_preview_index: number) => void;
+  onChooseAccompaniment: (id: number) => void;
+  onLoadTrack: () => void;
 };
 type PreviewNotesState = {};
 
@@ -48,7 +48,6 @@ type PreviewNotesState = {};
 }))
 @observer
 export class PreviewNotes extends React.Component<PreviewNotesProps, PreviewNotesState> {
-
   static defaultProps = {
     lessonStore: {},
     playerStore: {},
@@ -77,15 +76,12 @@ export class PreviewNotes extends React.Component<PreviewNotesProps, PreviewNote
 
     const selected_accompaniment = lessonStore.selected_accompaniment;
 
-    const findAccompaniment = lessonStore.accompaniments.find(
-      (item) => item.id === selected_accompaniment
-    );
+    const findAccompaniment = lessonStore.accompaniments.find((item) => item.id === selected_accompaniment);
 
-    if(previewCurrentNumber && findAccompaniment){
+    if (previewCurrentNumber && findAccompaniment) {
       if (findAccompaniment.libraries[previewCurrentNumber]) {
         playerStore.setLibrary(findAccompaniment.libraries[previewCurrentNumber].id);
         playerStore.loadTrack();
-
       } else {
         console.warn(`Error handleOnSetCurrentPreviewScoreIndex Not found library : `, previewCurrentNumber);
       }
@@ -94,32 +90,38 @@ export class PreviewNotes extends React.Component<PreviewNotesProps, PreviewNote
 
   render() {
     const {
-      service_name, show, totalScoresImages, previewPath, previewCurrentNumber,
-      hasNextScoreImage, hasPrevScoreImage
+      service_name,
+      show,
+      totalScoresImages,
+      previewPath,
+      previewCurrentNumber,
+      hasNextScoreImage,
+      hasPrevScoreImage
     } = this.props;
 
     return (
-      <Modal size={'large'}
-             auto
-             isOpen={show}
-             onClose={this.handleOnClose}>
+      <Modal size={'large'} auto isOpen={show} onClose={this.handleOnClose}>
         <div className={b(null, { [service_name]: true })}>
           <Player noMR />
 
           <div className={b('arrows')}>
-            <button className={b('arrow', { left: true })}
-                    disabled={(!hasPrevScoreImage)}
-                    onClick={() => this.handleOnSetCurrentPreviewScoreIndex(previewCurrentNumber - 1)} />
-            <span className={b('total')}>{previewCurrentNumber} / <span>{totalScoresImages - 1}</span></span>
-            <button className={b('arrow', { right: true })}
-                    disabled={(!hasNextScoreImage)}
-                    onClick={() => this.handleOnSetCurrentPreviewScoreIndex(previewCurrentNumber + 1)} />
+            <button
+              className={b('arrow', { left: true })}
+              disabled={!hasPrevScoreImage}
+              onClick={() => this.handleOnSetCurrentPreviewScoreIndex(previewCurrentNumber - 1)}
+            />
+            <span className={b('total')}>
+              {previewCurrentNumber} / <span>{totalScoresImages - 1}</span>
+            </span>
+            <button
+              className={b('arrow', { right: true })}
+              disabled={!hasNextScoreImage}
+              onClick={() => this.handleOnSetCurrentPreviewScoreIndex(previewCurrentNumber + 1)}
+            />
           </div>
 
           <div className={b('images')}>
-            <img src={`${CONTENT_URL}${previewPath}`}
-                 className={b('image')}
-                 alt='' />
+            <img src={`${CONTENT_URL}${previewPath}`} className={b('image')} alt="" />
           </div>
         </div>
       </Modal>

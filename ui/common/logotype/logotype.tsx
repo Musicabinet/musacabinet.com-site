@@ -17,7 +17,7 @@ export class Logotype extends React.Component<LogotypeProps, LogotypeState> {
     return (
       <Link href={'/'}>
         <a className={b('link')}>
-        <ImagePNG path={'/images/logotype/common'} className={b(null)} alt={'Musicabinet online school'} />
+          <ImagePNG path={'/images/logotype/common'} className={b(null)} alt={'Musicabinet online school'} />
         </a>
       </Link>
     );

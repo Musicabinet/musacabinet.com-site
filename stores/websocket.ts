@@ -1,29 +1,22 @@
 import { action, makeObservable, observable } from 'mobx';
 import { Cookie } from '../core';
-import { UserStore } from './user';
+import { RootStore } from './index';
 
-interface ImportStore {
-  userStore: UserStore
-}
+let rootStore: RootStore;
 
 export class WebsocketStore {
-
   @observable connection: null | WebSocket = null;
   @observable connect: boolean = false;
 
-  userStore: UserStore;
-
-  constructor({ userStore }: ImportStore) {
+  constructor(root: RootStore) {
     makeObservable(this);
-
-    this.userStore = userStore;
+    rootStore = root;
   }
 
   @action.bound
   async init() {
     try {
       return new Promise((resolve) => {
-
         if (this.connect) {
           console.log(`Exist connection.`);
           resolve(`Exist connection.`);
@@ -46,10 +39,8 @@ export class WebsocketStore {
           } else {
             console.log('[ERROR CLOSE] Disconnect.');
           }
-
         };
       });
-
     } catch (e) {
       console.error(`Error in method WebsocketStore.init : `, e);
     }
@@ -81,7 +72,6 @@ export class WebsocketStore {
     } catch (e) {
       console.error(`Error in method callbackOnMessage : `);
     }
-
   }
 
   sendMessage = (data: {}) => {
@@ -91,7 +81,7 @@ export class WebsocketStore {
 
         let defaultData = {
           token: cookie.get('token'),
-          id: this.userStore.id
+          id: rootStore.userStore.id
         };
         this.connection.send(JSON.stringify({ ...data, ...defaultData }));
       } else {
@@ -101,5 +91,4 @@ export class WebsocketStore {
       console.error(`Error in method sendMessage : `, e);
     }
   };
-
 }

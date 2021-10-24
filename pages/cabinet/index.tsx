@@ -10,7 +10,6 @@ type CabinetPageState = {};
 @inject(() => ({}))
 @observer
 export default class CabinetPage extends React.Component<CabinetPageProps, CabinetPageState> {
-
   static async getInitialProps({ store, ctx: { res } }: CustomAppContext) {
     await store?.authStore.check(() => redirectToWrapper(res, '/'));
     await store?.servicesStore.getList();
@@ -22,10 +21,12 @@ export default class CabinetPage extends React.Component<CabinetPageProps, Cabin
   }
 
   render() {
-    return (<BaseLayout background={'gray'} noStick>
-      <CabinetLayout>
-        <CabinetSubscriptions />
-      </CabinetLayout>
-    </BaseLayout>);
+    return (
+      <BaseLayout background={'gray'} noStick>
+        <CabinetLayout>
+          <CabinetSubscriptions />
+        </CabinetLayout>
+      </BaseLayout>
+    );
   }
 }

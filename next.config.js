@@ -13,7 +13,7 @@ const nextConfig = withImage({
         CONTENT_URL: JSON.stringify(process.env.CONTENT_URL),
         WEBSOCKET_URL: JSON.stringify(process.env.WEBSOCKET_URL),
         PAY_PAY_CLIENT_ID: JSON.stringify(process.env.PAY_PAY_CLIENT_ID),
-        STRIPE_PUBLIC: JSON.stringify(process.env.STRIPE_PUBLIC),
+        CLOUD_PAYMENTS_PUBLIC_ID: JSON.stringify(process.env.CLOUD_PAYMENTS_PUBLIC_ID)
       })
     );
 
@@ -30,26 +30,24 @@ const nextConfig = withImage({
     if (!config.module.rules) {
       config.module.rules = [];
 
-      config.module.rules.push({
+      config.module.rules.push(
+        {
           test: /^(?!.*\.svg$).*\.svg$/,
           loader: 'svg-url-loader',
           options: {
             limit: 10000,
-            name: '[path][name].[ext]',
-          },
+            name: '[path][name].[ext]'
+          }
         },
         {
           test: /\.svg$/,
-          loader: 'react-svg-loader',
-        });
+          loader: 'react-svg-loader'
+        }
+      );
     }
 
     return config;
   }
 });
 
-module.exports = withPlugins(
-  [
-  ],
-  nextConfig
-);
+module.exports = withPlugins([], nextConfig);

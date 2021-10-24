@@ -12,18 +12,18 @@ import { PlayerStore } from '../../../../stores/player';
 const b = block(style);
 
 type ScoresProps = {
-  lessonStore: LessonStore,
-  playerStore: PlayerStore,
-  service_name: SERVICE_NAME,
-  total: number,
-  nextScore: boolean,
-  prevScore: boolean,
-  currentContentScore: ScoreI | null,
-  accompaniments: AccompanimentI[],
-  onShowPreview: (score_image_id: number) => void,
-  onShowModal: (id_modal: MODALS) => void,
-  onChooseAccompaniment: (id: number) => void,
-  onLoadTrack: () => void
+  lessonStore: LessonStore;
+  playerStore: PlayerStore;
+  service_name: SERVICE_NAME;
+  total: number;
+  nextScore: boolean;
+  prevScore: boolean;
+  currentContentScore: ScoreI | null;
+  accompaniments: AccompanimentI[];
+  onShowPreview: (score_image_id: number) => void;
+  onShowModal: (id_modal: MODALS) => void;
+  onChooseAccompaniment: (id: number) => void;
+  onLoadTrack: () => void;
 };
 type ScoresState = {};
 
@@ -43,7 +43,6 @@ type ScoresState = {};
 }))
 @observer
 export class Scores extends React.Component<ScoresProps, ScoresState> {
-
   static defaultProps = {
     lessonStore: {},
     playerStore: {},
@@ -60,10 +59,7 @@ export class Scores extends React.Component<ScoresProps, ScoresState> {
   };
 
   handleOnShow = (score_image_id: number) => {
-    const {
-      currentContentScore, onShowPreview, onShowModal,
-      playerStore, lessonStore
-    } = this.props;
+    const { currentContentScore, onShowPreview, onShowModal, playerStore, lessonStore } = this.props;
 
     // Если это музыкальные лекции то не даем увеличивать
     if (currentContentScore?.name.toLowerCase().match(/music literature/)) {
@@ -75,9 +71,7 @@ export class Scores extends React.Component<ScoresProps, ScoresState> {
 
     const selected_accompaniment = lessonStore.selected_accompaniment;
 
-    const findAccompaniment = lessonStore.accompaniments.find(
-      (item) => item.id === selected_accompaniment
-    );
+    const findAccompaniment = lessonStore.accompaniments.find((item) => item.id === selected_accompaniment);
 
     // Получаем индекс выбранной партитуры
     const findIndex = currentContentScore?.items
@@ -92,7 +86,6 @@ export class Scores extends React.Component<ScoresProps, ScoresState> {
         } else {
           console.warn(`Not found library : `, findIndex);
         }
-
       }
     }
   };
@@ -111,26 +104,34 @@ export class Scores extends React.Component<ScoresProps, ScoresState> {
               </div>
             </div>
 
-            <div className={b('list', {
-              college: (service_name === SERVICE_NAME.COLLEGE)
-            })}>
+            <div
+              className={b('list', {
+                college: service_name === SERVICE_NAME.COLLEGE
+              })}
+            >
               {currentContentScore.items.map((item) => {
                 if (item.score_type_id === SCORE_TYPE.IMAGE) {
                   return (
-                    <img key={item.id}
-                         className={b('image')}
-                         src={`${CONTENT_URL}${item.content.image}`}
-                         onClick={this.handleOnShow.bind(null, item.id)} />
+                    <img
+                      key={item.id}
+                      className={b('image')}
+                      src={`${CONTENT_URL}${item.content.image}`}
+                      onClick={this.handleOnShow.bind(null, item.id)}
+                    />
                   );
                 }
 
                 if (item.score_type_id === SCORE_TYPE.TITLE) {
                   const align: string = item.content.align || 'center';
                   return (
-                    <div key={item.id}
-                         className={b('sub-title', {
-                           [align]: true
-                         })}>{item.content.title}</div>
+                    <div
+                      key={item.id}
+                      className={b('sub-title', {
+                        [align]: true
+                      })}
+                    >
+                      {item.content.title}
+                    </div>
                   );
                 }
               })}

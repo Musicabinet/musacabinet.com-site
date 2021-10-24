@@ -5,13 +5,12 @@ import style from './button-burger.module.sass';
 const b = block(style);
 
 type ButtonBurgerProps = {
-  active: boolean,
-  onClick: (value: boolean) => void
+  active: boolean;
+  onClick: (value: boolean) => void;
 };
 type ButtonBurgerState = {};
 
 export class ButtonBurger extends React.Component<ButtonBurgerProps, ButtonBurgerState> {
-
   handleOnClick = () => {
     const { active, onClick } = this.props;
     onClick(!active);
@@ -20,9 +19,6 @@ export class ButtonBurger extends React.Component<ButtonBurgerProps, ButtonBurge
   render() {
     const { active } = this.props;
 
-    return (
-      <button className={b(null, { show: active })}
-              onClick={this.handleOnClick} />
-    );
+    return <button className={b(null, { show: active })} onClick={this.handleOnClick} />;
   }
 }

@@ -3,23 +3,17 @@ import { ServiceI } from '../interfaces';
 import { API } from '../core';
 import { ServiceStore } from './service';
 import { ServiceListResponse } from '../responsible';
-import { SystemStore } from './system';
+import { RootStore } from './index';
 
-interface ImportStore {
-  systemStore: SystemStore
-}
+let rootStore: RootStore;
 
 export class ServicesStore {
+  @observable list: ServiceStore[] = [];
+  @observable all: ServiceStore[] = [];
 
-  @observable list: ServiceI[] = [];
-  @observable all: ServiceI[] = [];
-
-  systemStore: SystemStore;
-
-  constructor(initialData: ServicesStore | null, { systemStore }: ImportStore) {
+  constructor(initialData: ServicesStore | null, root: RootStore) {
     makeObservable(this);
-
-    this.systemStore = systemStore;
+    rootStore = root;
 
     if (initialData) {
       this.fillingStore(initialData);
@@ -48,16 +42,15 @@ export class ServicesStore {
 
   @computed
   get instruments() {
-    const find = this.list.find((service) => service.slug === this.systemStore.service_name);
-    return (find) ? find.instruments : [];
+    const find = this.list.find((service) => service.slug === rootStore.systemStore.service_name);
+    return find ? find.instruments : [];
   }
 
   @action
   fillingStore(data: ServicesStore) {
     const { list, all } = data;
 
-    this.list = list;
-    this.all = all;
+    this.list = (list || []).map((service)=>new ServiceStore(service));
+    this.all = (all || []).map((service)=>new ServiceStore(service));
   }
-
 }

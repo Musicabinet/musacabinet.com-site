@@ -4,11 +4,10 @@ import { BaseLayout } from '../../ui';
 import { CustomAppContext } from '../../interfaces';
 import { SERVICE_NAME } from '../../constants';
 import { Pricing } from '../../ui/components';
-import { RootStore } from '../../stores';
-import { PricingStore } from '../../stores/pricing';
+import { RootStore, PricingStore } from '../../stores';
 
 type PricingPageProps = {
-  pricingStore: PricingStore
+  pricingStore: PricingStore;
 };
 type PricingPageState = {};
 
@@ -17,9 +16,9 @@ type PricingPageState = {};
 }))
 @observer
 export default class PricingPage extends React.Component<PricingPageProps, PricingPageState> {
-
   static async getInitialProps({ store }: CustomAppContext) {
     store?.systemStore.setServiceName(SERVICE_NAME.SCHOOL);
+    await store?.productsStore.getList();
     await store?.servicesStore.getList();
     await store?.servicesStore.getAll();
     return {
@@ -34,7 +33,6 @@ export default class PricingPage extends React.Component<PricingPageProps, Prici
   };
 
   async componentDidMount() {
-
   }
 
   render() {

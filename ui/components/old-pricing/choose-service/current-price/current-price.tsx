@@ -8,9 +8,9 @@ import { PriceI } from '../../../../../interfaces';
 const b = block(style);
 
 type CurrentPriceProps = {
-  prices: PriceI[],
-  old_price: number | string,
-  price: number | string,
+  prices: PriceI[];
+  old_price: number | string;
+  price: number | string;
 };
 type CurrentPriceState = {};
 
@@ -21,7 +21,6 @@ type CurrentPriceState = {};
 }))
 @observer
 export class CurrentPrice extends React.Component<CurrentPriceProps, CurrentPriceState> {
-
   static defaultProps = {
     prices: [],
     old_price: '',
@@ -29,16 +28,14 @@ export class CurrentPrice extends React.Component<CurrentPriceProps, CurrentPric
   };
 
   render() {
-    const {old_price, price, prices} = this.props;
+    const { old_price, price, prices } = this.props;
 
     return (
-      <div className='container'>
-        <div className='row'>
-          <div className='col-lg-12'>
+      <div className="container">
+        <div className="row">
+          <div className="col-lg-12">
             <div className={b(null)}>
-              {prices.length === 0 && (
-                <div className={b('message')}>Coming soon...</div>
-              )}
+              {prices.length === 0 && <div className={b('message')}>Coming soon...</div>}
 
               {prices.length > 0 && (
                 <>

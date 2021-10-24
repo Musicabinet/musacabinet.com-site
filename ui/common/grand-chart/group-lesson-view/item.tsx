@@ -12,10 +12,10 @@ import { getIcon, LIST_ICON } from '../../icons';
 const b = block(style);
 
 type GroupLessonViewItemProps = {
-  isShowTrial: boolean,
-  isFirst: boolean,
-  service_name: SERVICE_NAME,
-  onSetShowGroupLessonDetail: (show: boolean) => void,
+  isShowTrial: boolean;
+  isFirst: boolean;
+  service_name: SERVICE_NAME;
+  onSetShowGroupLessonDetail: (show: boolean) => void;
 };
 type GroupLessonViewItemState = {};
 
@@ -24,8 +24,10 @@ type GroupLessonViewItemState = {};
   onSetShowGroupLessonDetail: store.grandChartStore.setShowGroupLessonDetail
 }))
 @observer
-export class GroupLessonViewItem extends React.Component<GroupLessonViewItemProps & GroupLessonI, GroupLessonViewItemState> {
-
+export class GroupLessonViewItem extends React.Component<
+  GroupLessonViewItemProps & GroupLessonI,
+  GroupLessonViewItemState
+> {
   static defaultProps = {
     service_name: SERVICE_NAME.SCHOOL,
     onSetShowGroupLessonDetail: () => console.log('Not set handler')
@@ -48,14 +50,15 @@ export class GroupLessonViewItem extends React.Component<GroupLessonViewItemProp
   };
 
   render() {
-    const { isFirst, service_name, name, lessons,isShowTrial } = this.props;
+    const { isFirst, service_name, name, lessons, isShowTrial } = this.props;
 
     return (
-      <div className={b('item', {
-        [service_name]: true
-      })}>
-        <div className={b('back', { show: isFirst })}
-             onClick={this.handleOnBack}>
+      <div
+        className={b('item', {
+          [service_name]: true
+        })}
+      >
+        <div className={b('back', { show: isFirst })} onClick={this.handleOnBack}>
           {getIcon(LIST_ICON.BACK, '')}
         </div>
 
@@ -67,27 +70,25 @@ export class GroupLessonViewItem extends React.Component<GroupLessonViewItemProp
             <div className={b('statistic')}>
               <div className={b('block')}>
                 <div className={b('text')}>
-                  Hours<br />
+                  Hours
+                  <br />
                   passed
                 </div>
-                <div className={b('time')}>
-                  0:00
-                </div>
+                <div className={b('time')}>0:00</div>
               </div>
               <div className={b('block')}>
                 <div className={b('text')}>
-                  Hours<br />
+                  Hours
+                  <br />
                   remain
                 </div>
-                <div className={b('time', { remain: true })}>
-                  {this.totalCountHour()}
-                </div>
+                <div className={b('time', { remain: true })}>{this.totalCountHour()}</div>
               </div>
             </div>
           </div>
         </div>
 
-        <Lessons list={lessons} isShowTrial={isShowTrial}/>
+        <Lessons list={lessons} isShowTrial={isShowTrial} />
       </div>
     );
   }

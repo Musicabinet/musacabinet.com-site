@@ -11,7 +11,7 @@ import { UserUpdateI } from '../../../interfaces';
 const b = block(style);
 
 type ProfileUserProps = {
-  onUpdate: (values: UserUpdateI) => Promise<void>
+  onUpdate: (values: UserUpdateI) => Promise<void>;
 };
 type ProfileUserState = {};
 
@@ -26,7 +26,6 @@ type ProfileUserState = {};
 }))
 @observer
 export class ProfileUser extends React.Component<ProfileUserProps & UserUpdateI, ProfileUserState & UserUpdateI> {
-
   state = {
     first_name: this.props.first_name,
     last_name: this.props.last_name,
@@ -61,85 +60,98 @@ export class ProfileUser extends React.Component<ProfileUserProps & UserUpdateI,
 
     return (
       <div className={b(null)}>
-        <div className='container'>
-          <div className='row mb-4'>
-            <div className='col-lg-12'>
-              <Title size={TITLE_SIZE.FOURTH} className={b('title')}>Your Profile</Title>
+        <div className="container">
+          <div className="row mb-4">
+            <div className="col-lg-12">
+              <Title size={TITLE_SIZE.FOURTH} className={b('title')}>
+                Your Profile
+              </Title>
             </div>
           </div>
 
-          <div className='row mb-3'>
-            <div className='col-lg-12'>
-              <InputText isValid
-                         placeholder={'Name'}
-                         value={first_name}
-                         name={'first_name'}
-                         label={'Name'}
-                         onChange={this.handleOnChange} />
+          <div className="row mb-3">
+            <div className="col-lg-12">
+              <InputText
+                isValid
+                placeholder={'Name'}
+                value={first_name}
+                name={'first_name'}
+                label={'Name'}
+                onChange={this.handleOnChange}
+              />
             </div>
           </div>
 
-          <div className='row mb-3'>
-            <div className='col-lg-12'>
-              <InputText isValid
-                         placeholder={'Last Name'}
-                         value={last_name}
-                         name={'last_name'}
-                         label={'Last Name'}
-                         onChange={this.handleOnChange} />
+          <div className="row mb-3">
+            <div className="col-lg-12">
+              <InputText
+                isValid
+                placeholder={'Last Name'}
+                value={last_name}
+                name={'last_name'}
+                label={'Last Name'}
+                onChange={this.handleOnChange}
+              />
             </div>
           </div>
 
-          <div className='row mb-3'>
-            <div className='col-lg-12'>
-              <InputText isValid
-                         placeholder={'Country'}
-                         value={country}
-                         name={'country'}
-                         label={'Country'}
-                         onChange={this.handleOnChange} />
+          <div className="row mb-3">
+            <div className="col-lg-12">
+              <InputText
+                isValid
+                placeholder={'Country'}
+                value={country}
+                name={'country'}
+                label={'Country'}
+                onChange={this.handleOnChange}
+              />
             </div>
           </div>
 
-          <div className='row mb-3'>
-            <div className='col-lg-12'>
-              <InputText isValid
-                         placeholder={'City'}
-                         value={city}
-                         name={'city'}
-                         label={'City'}
-                         onChange={this.handleOnChange} />
+          <div className="row mb-3">
+            <div className="col-lg-12">
+              <InputText
+                isValid
+                placeholder={'City'}
+                value={city}
+                name={'city'}
+                label={'City'}
+                onChange={this.handleOnChange}
+              />
             </div>
           </div>
 
-          <div className='row mb-3'>
-            <div className='col-lg-12'>
-              <InputText isValid
-                         placeholder={'Education'}
-                         value={education}
-                         name={'education'}
-                         label={'Education'}
-                         onChange={this.handleOnChange} />
+          <div className="row mb-3">
+            <div className="col-lg-12">
+              <InputText
+                isValid
+                placeholder={'Education'}
+                value={education}
+                name={'education'}
+                label={'Education'}
+                onChange={this.handleOnChange}
+              />
             </div>
           </div>
 
-          <div className='row mb-4'>
-            <div className='col-lg-12'>
-              <InputText isValid
-                         placeholder={'Music education'}
-                         value={music_education}
-                         name={'music_education'}
-                         label={'Music education'}
-                         onChange={this.handleOnChange} />
+          <div className="row mb-4">
+            <div className="col-lg-12">
+              <InputText
+                isValid
+                placeholder={'Music education'}
+                value={music_education}
+                name={'music_education'}
+                label={'Music education'}
+                onChange={this.handleOnChange}
+              />
             </div>
           </div>
 
-          <div className='row'>
-            <div className='col-lg-12'>
+          <div className="row">
+            <div className="col-lg-12">
               <Button onClick={this.handleOnUpdate}>Update</Button>
             </div>
           </div>
-
         </div>
       </div>
     );

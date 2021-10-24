@@ -16,27 +16,29 @@ export class FourthBlock extends React.Component<FourthBlockProps, FourthBlockSt
   render() {
     return (
       <div className={b(null)}>
-        <div className='container g-lg-0'>
-          <div className='row g-lg-0'>
-            <div className='col-lg-12'>
-              <Title size={TITLE_SIZE.SECOND} isServiceColor
-                     className={b('header')}>
+        <div className="container g-lg-0">
+          <div className="row g-lg-0">
+            <div className="col-lg-12">
+              <Title size={TITLE_SIZE.SECOND} isServiceColor className={b('header')}>
                 Daily practice — solid results
               </Title>
             </div>
           </div>
 
-          <div className='row g-lg-0'>
-            <div className='col-lg-5'>
+          <div className="row g-lg-0">
+            <div className="col-lg-5">
               <picture>
                 <source
                   srcSet={`/images/daily-practice/circle-of-fifths.webp, /images/daily-practice/circle-of-fifths@2x.webp 2x`}
-                  type='image/webp' />
-                <img src={`/images/daily-practice/circle-of-fifths.jpg`}
-                     srcSet={`/images/daily-practice/circle-of-fifths@2x.jpg 2x`} />
+                  type="image/webp"
+                />
+                <img
+                  src={`/images/daily-practice/circle-of-fifths.jpg`}
+                  srcSet={`/images/daily-practice/circle-of-fifths@2x.jpg 2x`}
+                />
               </picture>
             </div>
-            <div className='col-lg-7'>
+            <div className="col-lg-7">
               <Title size={TITLE_SIZE.FOURTH}>
                 We adhere to the theory of small steps that allow us to achieve big goals.
               </Title>
@@ -45,9 +47,7 @@ export class FourthBlock extends React.Component<FourthBlockProps, FourthBlockSt
                 <li className={b('item')}>
                   Determine the time you are willing to devote to the studying with the program.
                 </li>
-                <li className={b('item')}>
-                  Select any lesson from the Grand Chart.
-                </li>
+                <li className={b('item')}>Select any lesson from the Grand Chart.</li>
                 <li className={b('item')}>
                   The system will guide you throughout the learning materials like a mentor. From simple to complex.
                 </li>

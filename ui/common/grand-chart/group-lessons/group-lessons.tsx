@@ -2,34 +2,29 @@ import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import block from 'bem-css-modules';
 import style from './group-lessons.module.sass';
-import { RootStore } from '../../../../stores';
-import { CourseI, ModuleI, GroupLessonsFinal } from '../../../../interfaces';
+import { GrandChartStore, RootStore, UserStore } from '../../../../stores';
+import { GroupLessonsFinal } from '../../../../interfaces';
 import { GroupLessonItem } from './item';
 
 const b = block(style);
 
 type GroupLessonsProps = {
-  isTrialValid: boolean,
-  course_list: CourseI[],
-  module_list: ModuleI[],
-  list: GroupLessonsFinal
+  userStore: UserStore,
+  grandChartStore: GrandChartStore,
+  list: GroupLessonsFinal;
 };
 type GroupLessonsState = {};
 
 @inject((store: RootStore) => ({
-  isTrialValid: store.userStore.trial_version.isValid,
-  course_list: store.grandChartStore.courses,
-  module_list: store.grandChartStore.modules,
+  userStore: store.userStore,
+  grandChartStore: store.grandChartStore,
   list: store.grandChartStore.finalData
 }))
 @observer
 export class GroupLessons extends React.Component<GroupLessonsProps, GroupLessonsState> {
-
   static defaultProps = {
-    isTrialValid: false,
-    course_list: [],
-    module_list: [],
-    list: {}
+    userStore: {},
+    grandChartStore: {},
   };
 
   getGroupLessons = (course_module_id: string) => {
@@ -38,39 +33,31 @@ export class GroupLessons extends React.Component<GroupLessonsProps, GroupLesson
   };
 
   render() {
-    const { course_list, module_list, isTrialValid } = this.props;
+    const { userStore, grandChartStore } = this.props;
     let row = 0;
 
     return (
-      <div className={b(null)}
-           style={{
-             width: `${module_list.length * 230}px`
-           }}>
-        {course_list.map((course) => {
+      <div
+        className={b(null)}
+        style={{
+          width: `${grandChartStore.modules.length * 230}px`
+        }}
+      >
+        {grandChartStore.courses.map((course) => {
           row++;
-          return module_list.map((module) => {
-            return (<div key={module.id} className={b('block')}>
-
-              {this.getGroupLessons(`${course.id}-${module.id}`).map((group_lesson) => {
-                return <GroupLessonItem key={group_lesson.id}
-                                        id={group_lesson.id}
-                                        name={group_lesson.name}
-                                        collection_id={group_lesson.collection_id}
-                                        module_id={group_lesson.module_id}
-                                        course_id={group_lesson.course_id}
-                                        total_lessons={group_lesson.total_lessons}
-                                        lessons={group_lesson.lessons}
-                                        slug={group_lesson.slug}
-                                        sort={group_lesson.sort}
-                                        meta_title={group_lesson.meta_title}
-                                        meta_description={group_lesson.meta_description}
-                                        meta_keywords={group_lesson.meta_keywords}
-                                        description={group_lesson.description}
-                                        is_active={group_lesson.is_active}
-                                        isTrialShow={row === 1 && isTrialValid} />;
-              })}
-
-            </div>);
+          return grandChartStore.modules.map((module) => {
+            return (
+              <div key={module.id} className={b('block')}>
+                {this.getGroupLessons(`${course.id}-${module.id}`).map((group_lesson) => {
+                  return (
+                    <GroupLessonItem key={group_lesson.id}
+                                     groupLesson={group_lesson}
+                                     isTrialShow={row === 1 && userStore.trial_version.is_valid}
+                    />
+                  );
+                })}
+              </div>
+            );
           });
         })}
       </div>

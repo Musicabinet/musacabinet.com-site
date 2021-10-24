@@ -11,14 +11,13 @@ import { ButtonProfile } from '../button-profile/button-profile';
 const b = block(style);
 
 type HeaderProps = {
-  noStick: boolean
+  noStick: boolean;
 };
 type HeaderState = {};
 
 @inject(() => ({}))
 @observer
 export class Header extends React.Component<HeaderProps, HeaderState> {
-
   headerRef = React.createRef<HTMLDivElement>();
 
   componentDidMount() {
@@ -40,21 +39,22 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
     }
   };
 
-
   render() {
     const { noStick } = this.props;
 
     return (
-      <header className={b(null, { noStick })}
-              ref={this.headerRef}>
-        <div className='container-fluid'>
-          <div className='row'>
-            <div className='col-lg-2 col-xl-5 col-4 d-flex align-items-center'>
+      <header className={b(null, { noStick })} ref={this.headerRef}>
+        <div className="container-fluid">
+          <div className="row">
+            <div className="col-lg-2 col-xl-5 col-4 d-flex align-items-center">
               <Logotype />
               <Motto />
             </div>
             <div
-              className={`col-lg-10 col-xl-7 col-8 d-flex justify-content-lg-end align-items-center justify-content-start ${b('rightside')}`}>
+              className={`col-lg-10 col-xl-7 col-8 d-flex justify-content-lg-end align-items-center justify-content-start ${b(
+                'rightside'
+              )}`}
+            >
               <Menu />
               <ButtonSignIn />
               <ButtonProfile />

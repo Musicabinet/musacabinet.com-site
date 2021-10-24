@@ -4,64 +4,58 @@ import block from 'bem-css-modules';
 import style from './list.module.sass';
 import {
   CloudPaymentOptionsI,
-  CloudPaymentPaymentResult,
-  PriceInformationType,
-  ServiceI,
-  TERM_LIST
+  CloudPaymentPaymentResult
 } from '../../../../interfaces';
+import { AuthStore, ModalsStore, PurchasesStore, RootStore, UserStore } from '../../../../stores';
+import { ProductStore } from '../../../../stores/product';
 import { InstrumentIcon } from '../../../common';
 import { getIcon, LIST_ICON } from '../../../common/icons';
-import { RootStore } from '../../../../stores';
-import { MODALS, SERVICE_NAME } from '../../../../constants';
-import { UserStore } from '../../../../stores/user';
-import { PricingStore } from '../../../../stores/pricing';
-import { PurchasesStore } from '../../../../stores/purchases';
+import { MODALS } from '../../../../constants';
 
 const b = block(style);
 
 type ItemProps = {
-  pricingStore: PricingStore,
+  product: ProductStore,
+  authStore: AuthStore,
+  modalsStore: ModalsStore,
+  userStore: UserStore,
   purchasesStore: PurchasesStore
-  user: UserStore,
-  isAuth: boolean,
-  information: PriceInformationType,
-  selected_term: TERM_LIST,
-  selected_instrument: LIST_ICON.GUITAR | LIST_ICON.SAXOPHONE | LIST_ICON.KEYBOARD,
-  onShowModal: (id_modal: MODALS) => void
 };
-type ItemState = {
-  stripe: any
-};
+type ItemState = {};
 
 @inject((store: RootStore) => ({
-  pricingStore: store.pricingStore,
-  purchasesStore: store.purchasesStore,
-  user: store.userStore,
-  isAuth: store.authStore.isAuth,
-  information: store.pricingStore.information,
-  selected_term: store.pricingStore.selected_term,
-  selected_instrument: store.pricingStore.selected_instrument_icon,
-  onShowModal: store.modalsStore.show
+  authStore: store.authStore,
+  modalsStore: store.modalsStore,
+  userStore: store.userStore,
+  purchasesStore: store.purchasesStore
 }))
 @observer
-export class Item extends React.Component<ItemProps & ServiceI, ItemState> {
+export class Item extends React.Component<ItemProps, ItemState> {
 
   static defaultProps = {
-    pricingStore: {},
-    purchasesStore: {},
-    user: {},
-    isAuth: false,
-    information: {},
-    selected_term: TERM_LIST.MONTHLY,
-    selected_instrument: 'guitar',
-    onShowModal: () => console.log('Not set handler')
+    authStore: {},
+    modalsStore: {},
+    userStore: {},
+    purchasesStore: {}
   };
 
-  async componentDidMount() {
-  }
+  handleOrder = async () => {
+    const { product, authStore, modalsStore, userStore, purchasesStore } = this.props;
 
-  async order(sum: number) {
-    const { user, selected_term, purchasesStore } = this.props;
+    // Если не доступен для продаже то отменяем клик
+    if (!product.for_sale) {
+      return false;
+    }
+
+    if (!authStore.isAuth) {
+      modalsStore.show(MODALS.SIGN_IN);
+      return false;
+    }
+
+    if (!authStore.isAuth) {
+      modalsStore.show(MODALS.SIGN_IN);
+      return false;
+    }
 
     try {
       // @ts-ignore
@@ -74,31 +68,37 @@ export class Item extends React.Component<ItemProps & ServiceI, ItemState> {
       date.setMonth(date.getMonth() + 1);
 
       data.payload = {
-        service_id: this.props.id,
-        instrument_id: this.props.pricingStore.selected_instrument_id,
-        period: selected_term === 'YEARLY' ? 12 : 1,
+        service_id: product.service_id,
+        instrument_id: product.instrument_id,
+        product_id: product.id,
+        period: product.month,
+        price: product.sale_price
       };
 
       data.CloudPayments = {
         recurrent: {
           interval: 'Month',
-          period: selected_term === 'YEARLY' ? 12 : 1,
+          period: product.month,
           startDate: date
         }
       };
 
-      widget.pay('auth', {
-          publicId: 'pk_e3786ad7b070a8a0ba3f8c8e92b7e',
+      widget.pay(
+        'auth',
+        {
+          publicId: CLOUD_PAYMENTS_PUBLIC_ID,
           description: 'Pay order musicabinet.com',
-          amount: sum,
+          amount: product.sale_price,
           currency: 'USD',
-          accountId: user.email, //идентификатор плательщика (необязательно)
+          accountId: userStore.email,
           skin: 'mini',
           data: data,
           retryPayment: true
         },
         {
-          onSuccess: async function(options: any) { // success
+          onSuccess: async function(options: any) {
+            // success
+            console.log('onSuccess', options);
             let payload = options.data.payload;
 
             // Сохраняем платеж
@@ -109,102 +109,76 @@ export class Item extends React.Component<ItemProps & ServiceI, ItemState> {
               window.location.href = '/cabinet';
             }
           },
-          onFail: function(reason: any, options: any) { // fail
+          onFail: function(reason: any, options: any) {
+            // fail
             console.log(reason, options);
-            //действие при неуспешной оплате
           },
           onComplete: function(paymentResult: CloudPaymentPaymentResult, _options: CloudPaymentOptionsI) {
             if (paymentResult.success) {
-
             }
           }
-        });
+        }
+      );
     } catch (e) {
       console.error(`Error in method loadCloudPayments:`, e);
     }
-  }
-
-  onPay = () => {
-
   };
 
+  onPay = () => {
+  };
+
+  isPurchase = (): boolean => {
+    const { product, userStore } = this.props;
+    return userStore.purchases.some((purchase) => purchase.product_id === product.id);
+  };
 
   render() {
-    const {
-      slug,
-      information,
-      selected_term,
-      selected_instrument,
-      isAuth,
-      user,
-      pricingStore,
-      id: service_id
-    } = this.props;
-    const service_name = slug as SERVICE_NAME;
-    const trialVersionIsValid: boolean = user.trial_version.isValid;
-
-
-    if (!information[service_name].prices) {
-      return false;
-    }
-
-    const selectedInstrumentPrice = information[service_name];
-    const selectedPrices = selectedInstrumentPrice.prices[selected_instrument];
-    const currentPrices = (isAuth)
-      ? trialVersionIsValid
-        ? selectedPrices.discount : selectedPrices.standard
-      : selectedPrices.standard;
-    const currentPeriod = currentPrices[selected_term];
-
-    const current_sum = currentPeriod.current;
-    const old_sum = currentPeriod.old;
-    const extra = information[service_name].extra;
-    const plans = selectedInstrumentPrice.plans;
-    const list = selectedInstrumentPrice.list[selected_instrument];
-
-    const hiddenPayButton = user.purchases.some((item) => item.service_id === service_id && item.instrument_id === pricingStore.selected_instrument_id);
+    const { product } = this.props;
 
     return (
-      <div className={b('item', {
-        [service_name]: true,
-        'not-hover': (!plans.includes(selected_term))
-      })}>
+      <div onClick={this.handleOrder}
+           className={b('item', {
+             [product.serviceName]: true
+             //'not-hover': !plans.includes(selected_term)
+           })}>
         <div className={b('icon')}>
-          {/*
-           // @ts-ignore */}
-          <InstrumentIcon icon={service_name.toUpperCase() as LIST_ICON} service={'white'} />
+          <InstrumentIcon icon={product.serviceNameUpperCase} service={'white'} />
         </div>
-        <div className={b('name')}>{slug}</div>
-        <div className={b('description')}>{information[service_name].title}</div>
+        <div className={b('name')}>{product.serviceName}</div>
+        <div className={b('description')}>{product.level}</div>
 
-        <div className={b('price', { hidden: !plans.includes(selected_term) })}>$ <span>{current_sum}</span></div>
-        <div className={b('old', { hidden: !plans.includes(selected_term) })}>${old_sum}</div>
+        <div className={b('price')}>
+          $ <span>{product.sale_price}</span>
+        </div>
+        <div className={b('old')}>${product.price}</div>
 
-        {!hiddenPayButton && (
-          <div className={b('action')}>
-            <button onClick={() => this.order(current_sum)}
-                    disabled={(!plans.includes(selected_term))}
-                    className={b('button', { [slug]: true })}>{(plans.includes(selected_term)) ? 'Buy plan' : 'Unavailable'}
+        <div className={b('action')}>
+          {!this.isPurchase() && (
+            <button disabled={!product.for_sale}
+                    className={b('button', { [product.serviceName]: true })}>
+              {product.for_sale ? 'Buy plan' : 'Unavailable'}
             </button>
-          </div>
-        )}
+          )}
+
+        </div>
 
 
         <div className={b('list')}>
-          {list.map((item: any) => {
-            return <div key={item} className={b('list-item')}>
-              <i className={b('check', { [service_name]: true })}>
-                {getIcon(LIST_ICON.CHECK, '')}
-              </i>
-              <span dangerouslySetInnerHTML={{ __html: item }} />
-            </div>;
+          {product.items.map((productItem) => {
+            return (
+              <div key={productItem.id} className={b('list-item')}>
+                <i className={b('check', {
+                  [product.serviceName]: true
+                })}>{getIcon(LIST_ICON.CHECK, '')}</i>
+                <span dangerouslySetInnerHTML={{ __html: productItem.name }} />
+              </div>
+            );
           })}
         </div>
 
-        <div className={b('divider', { [service_name]: true })} />
-        <div className={b('extra')}>{extra}</div>
+        <div className={b('divider', { [product.serviceName]: true })} />
+        <div className={b('extra')}>{product.description}</div>
       </div>
     );
   }
-
 }

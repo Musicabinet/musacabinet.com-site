@@ -8,8 +8,8 @@ import { ucFirst } from '../../../../../helpers';
 const b = block(style);
 
 type BreadcrumbsItemProps = {
-  current: number,
-  total: number
+  current: number;
+  total: number;
 };
 type BreadcrumbsItemState = {};
 
@@ -22,10 +22,14 @@ export class BreadcrumbsItem extends React.Component<BreadcrumbsItemProps & Brea
     return (
       <div className={b('item')}>
         {current === 1 ? <span className={b('first')}>/</span> : null}
-        {(current < total)
-          ? <span>{type}: <span className={b('color')}>{ucFirst(name)}</span></span>
-          : <span className={b('color')}>{name}</span>}
-        {(current < total) ? '\u00A0 / \u00A0' : null}
+        {current < total ? (
+          <span>
+            {type}: <span className={b('color')}>{ucFirst(name)}</span>
+          </span>
+        ) : (
+          <span className={b('color')}>{name}</span>
+        )}
+        {current < total ? '\u00A0 / \u00A0' : null}
       </div>
     );
   }

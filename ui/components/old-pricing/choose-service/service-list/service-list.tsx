@@ -10,9 +10,9 @@ import { SERVICE_NAME } from '../../../../../constants';
 const b = block(style);
 
 type ServiceListProps = {
-  list: ServiceI[],
-  current: SERVICE_NAME,
-  onChoose: (service_name: SERVICE_NAME) => void
+  list: ServiceI[];
+  current: SERVICE_NAME;
+  onChoose: (service_name: SERVICE_NAME) => void;
 };
 type ServiceListState = {};
 
@@ -23,7 +23,6 @@ type ServiceListState = {};
 }))
 @observer
 export class ServiceList extends React.Component<ServiceListProps, ServiceListState> {
-
   static defaultProps = {
     list: [],
     current: SERVICE_NAME.SCHOOL,
@@ -40,23 +39,25 @@ export class ServiceList extends React.Component<ServiceListProps, ServiceListSt
 
     return (
       <div className={b(null)}>
-        <div className='container g-lg-0'>
-          <div className='row g-lg-0 d-flex'>
+        <div className="container g-lg-0">
+          <div className="row g-lg-0 d-flex">
             {list.map((service) => {
-              return <ServiceItem key={service.id}
-                                  id={service.id}
-                                  name={service.name}
-                                  slug={service.slug}
-                                  is_active={service.is_active}
-                                  instruments={service.instruments}
-                                  selected={current === service.slug}
-                                  onChoose={this.handleOnChooseService} />;
+              return (
+                <ServiceItem
+                  key={service.id}
+                  id={service.id}
+                  name={service.name}
+                  slug={service.slug}
+                  is_active={service.is_active}
+                  instruments={service.instruments}
+                  selected={current === service.slug}
+                  onChoose={this.handleOnChooseService}
+                />
+              );
             })}
           </div>
         </div>
       </div>
-
     );
   }
-
 }

@@ -1,20 +1,16 @@
 import { action, computed, observable } from 'mobx';
-import { SystemStore } from './system';
+import { RootStore } from './index';
 
-interface ImportStore {
-  systemStore: SystemStore,
-}
+let rootStore: RootStore;
 
 export class NextModuleStore {
-
   @observable isShow: boolean = false;
   @observable second: number = 0;
 
   clearIntervalID: number = 0;
-  systemStore: SystemStore;
 
-  constructor(initialData: NextModuleStore | null, { systemStore }: ImportStore) {
-    this.systemStore = systemStore;
+  constructor(initialData: NextModuleStore | null, root: RootStore) {
+    rootStore = root;
 
     if (initialData) {
       this.fillingStore(initialData);
@@ -44,18 +40,17 @@ export class NextModuleStore {
 
   @action.bound
   setSecond() {
-    this.second = this.systemStore.secondNextModule;
+    this.second = rootStore.systemStore.secondNextModule;
   }
 
   @computed
   get percent(): number {
-    const current = this.systemStore.secondNextModule - this.second;
+    const current = rootStore.systemStore.secondNextModule - this.second;
     return (current * 100) / 300;
-  };
+  }
 
   @action
   fillingStore(data: NextModuleStore) {
     const {} = data;
   }
-
 }

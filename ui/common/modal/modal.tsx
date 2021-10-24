@@ -6,15 +6,14 @@ import { Portal } from '../../../helpers';
 const b = block(style);
 
 type ModalProps = {
-  isOpen: boolean,
-  onClose: () => void,
-  size: 'middle' | 'large' | 'small',
-  auto: boolean
+  isOpen: boolean;
+  onClose: () => void;
+  size: 'middle' | 'large' | 'small';
+  auto: boolean;
 };
 type ModalState = {};
 
 export class Modal extends React.Component<ModalProps, ModalState> {
-
   public modalRef = React.createRef<HTMLDivElement>();
 
   static defaultProps = {
@@ -50,13 +49,9 @@ export class Modal extends React.Component<ModalProps, ModalState> {
     return (
       <Portal>
         <div className={b('overlay')} />
-        <div ref={this.modalRef}
-             className={b(null, { [size]: true, auto })}>
-          <button className={b('close')}
-                  onClick={onClose} />
-          <div className={b('container')}>
-            {children}
-          </div>
+        <div ref={this.modalRef} className={b(null, { [size]: true, auto })}>
+          <button className={b('close')} onClick={onClose} />
+          <div className={b('container')}>{children}</div>
         </div>
       </Portal>
     );

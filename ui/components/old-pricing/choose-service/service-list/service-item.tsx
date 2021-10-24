@@ -9,15 +9,14 @@ import { getIcon, LIST_ICON } from '../../../../common/icons';
 const b = block(style);
 
 type ServiceItemProps = {
-  selected: boolean,
-  onChoose: (service_name: SERVICE_NAME) => void
+  selected: boolean;
+  onChoose: (service_name: SERVICE_NAME) => void;
 };
 type ServiceItemState = {};
 
 @inject(() => ({}))
 @observer
 export class ServiceItem extends React.Component<ServiceItemProps & ServiceI, ServiceItemState> {
-
   getIcon = () => {
     const { slug } = this.props;
     if (slug === SERVICE_NAME.SCHOOL) {
@@ -51,8 +50,7 @@ export class ServiceItem extends React.Component<ServiceItemProps & ServiceI, Se
     const { slug, selected } = this.props;
 
     return (
-      <div className='col-lg-4 d-flex justify-content-center'
-           onClick={this.handleOnClick}>
+      <div className="col-lg-4 d-flex justify-content-center" onClick={this.handleOnClick}>
         <div className={b('item', { [slug]: true, selected })}>
           <div className={b('icon')}>{this.getIcon()}</div>
           <div className={b('title')}>{slug}</div>

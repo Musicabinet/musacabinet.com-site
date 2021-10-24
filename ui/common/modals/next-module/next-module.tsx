@@ -13,14 +13,13 @@ import { Button } from '../../button/button';
 const b = block(style);
 
 type NextModuleProps = {
-  service_name: SERVICE_NAME,
-  instrument_icon: LIST_ICON.GUITAR | LIST_ICON.SAXOPHONE | LIST_ICON.KEYBOARD,
-  isShow: boolean,
-  second: number,
-  percent: number
+  service_name: SERVICE_NAME;
+  instrument_icon: LIST_ICON.GUITAR | LIST_ICON.SAXOPHONE | LIST_ICON.KEYBOARD;
+  isShow: boolean;
+  second: number;
+  percent: number;
 };
-type NextModuleState = {
-};
+type NextModuleState = {};
 
 @inject((store: RootStore) => ({
   service_name: store.systemStore.service_name,
@@ -31,7 +30,6 @@ type NextModuleState = {
 }))
 @observer
 export class NextModule extends React.Component<NextModuleProps, NextModuleState> {
-
   static defaultProps = {
     service_name: SERVICE_NAME.SCHOOL,
     instrument_icon: LIST_ICON.GUITAR,
@@ -40,30 +38,19 @@ export class NextModule extends React.Component<NextModuleProps, NextModuleState
     percent: 0
   };
 
-  componentDidMount() {
-  }
+  componentDidMount() {}
 
   render() {
     const { service_name, instrument_icon, second, isShow, percent } = this.props;
 
     return (
-      <Modal size={'small'}
-             isOpen={isShow}
-             auto
-             onClose={() => console.log('close')}>
+      <Modal size={'small'} isOpen={isShow} auto onClose={() => console.log('close')}>
         <div className={b(null, { [service_name]: true })}>
           <div className={b('icon')}>
             <InstrumentIcon icon={instrument_icon} service={service_name} />
           </div>
-          <div className={b('message')}>
-            We recommend to take a break
-            and move to the next module
-          </div>
-          <div className={b('timer')}>
-            {moment().startOf('day')
-              .seconds(second)
-              .format('mm:ss')}
-          </div>
+          <div className={b('message')}>We recommend to take a break and move to the next module</div>
+          <div className={b('timer')}>{moment().startOf('day').seconds(second).format('mm:ss')}</div>
           <div className={b('progress')}>
             <div className={b('line')} style={{ width: `${percent}%` }} />
           </div>

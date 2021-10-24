@@ -10,9 +10,9 @@ import { SERVICE_NAME } from '../../../../constants';
 const b = block(style);
 
 type CoursesProps = {
-  service_name: SERVICE_NAME,
-  list: CourseI[],
-  selected_course_id: number
+  service_name: SERVICE_NAME;
+  list: CourseI[];
+  selected_course_id: number;
 };
 type CoursesState = {};
 
@@ -23,7 +23,6 @@ type CoursesState = {};
 }))
 @observer
 export class Courses extends React.Component<CoursesProps, CoursesState> {
-
   static defaultProps = {
     service_name: SERVICE_NAME.SCHOOL,
     list: [],
@@ -31,17 +30,21 @@ export class Courses extends React.Component<CoursesProps, CoursesState> {
   };
 
   render() {
-    const { service_name,  list, selected_course_id } = this.props;
+    const { service_name, list, selected_course_id } = this.props;
     let number = 1;
 
     return (
-      <div className={b(null, { [service_name]:true })}>
+      <div className={b(null, { [service_name]: true })}>
         {list.map((course) => {
-          return (<CourseItem key={course.id}
-                              number={number++}
-                              id={course.id}
-                              name={course.name}
-                              is_active={(selected_course_id === course.id)} />);
+          return (
+            <CourseItem
+              key={course.id}
+              number={number++}
+              id={course.id}
+              name={course.name}
+              is_active={selected_course_id === course.id}
+            />
+          );
         })}
       </div>
     );

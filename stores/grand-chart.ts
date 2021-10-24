@@ -1,11 +1,12 @@
 import { action, computed, makeObservable, observable } from 'mobx';
-import { SystemStore } from './system';
-import { CollectionI, CourseI, ModuleI, GroupLessonI, GroupLessonsFinal  } from '../interfaces';
+import { CollectionI, CourseI, ModuleI, GroupLessonI, GroupLessonsFinal } from '../interfaces';
 import { API } from '../core';
 import { GrandChartResponse } from '../responsible';
+import { GroupLessonStore, RootStore } from './index';
+
+let rootStore: RootStore;
 
 export class GrandChartStore {
-
   @observable isFetch: boolean = false;
   @observable isEmpty: boolean = false;
 
@@ -17,12 +18,9 @@ export class GrandChartStore {
 
   @observable showGroupLessonDetail: boolean = false;
 
-  public systemStore: SystemStore;
-
-  constructor(initialData: GrandChartStore | null, { systemStore }: { systemStore: SystemStore }) {
+  constructor(initialData: GrandChartStore | null, root: RootStore) {
     makeObservable(this);
-
-    this.systemStore = systemStore;
+    rootStore = root;
 
     if (initialData) {
       this.fillingStore(initialData);
@@ -31,23 +29,17 @@ export class GrandChartStore {
 
   @action.bound
   async getList() {
-
     this.isFetch = true;
 
     try {
-
       this.reset();
 
-      const {
-        courses,
-        modules,
-        collections,
-        group_lessons
-      } = await API.request<GrandChartResponse>(`grand-chart/list?service_id=${this.systemStore.service_id}&instrument_id=${this.systemStore.instrument_id}`);
-
+      const { courses, modules, collections, group_lessons } = await API.request<GrandChartResponse>(
+        `grand-chart/list?service_id=${rootStore.systemStore.service_id}&instrument_id=${rootStore.systemStore.instrument_id}`
+      );
 
       // Формирование объекта с группой уроков
-      let formationGroupLessons: { [key: string]: GroupLessonI[]; } = {};
+      let formationGroupLessons: { [key: string]: GroupLessonI[] } = {};
 
       group_lessons.forEach((group_lesson) => {
         const { course_id, module_id } = group_lesson;
@@ -66,8 +58,7 @@ export class GrandChartStore {
       this.collections = [...collections];
       this.groupLessons = [...group_lessons];
 
-      this.isEmpty = (this.modules.length === 0);
-
+      this.isEmpty = this.modules.length === 0;
     } catch (e) {
       console.error(`Error in method GrandChartStore.getList : `, e);
     } finally {
@@ -90,12 +81,17 @@ export class GrandChartStore {
   }
 
   @computed
-  get groupLessonDetail(): GroupLessonI[] {
-    if (this.systemStore.selected_course_id === undefined || this.systemStore.selected_group_lesson_id === undefined) {
+  get groupLessonDetail(): GroupLessonStore[] {
+    if (
+      rootStore.systemStore.selected_course_id === undefined ||
+      rootStore.systemStore.selected_group_lesson_id === undefined
+    ) {
       return [];
     }
 
-    return this.finalData[`${this.systemStore.selected_course_id}-${this.systemStore.selected_module_id}`] || [];
+    return (
+      this.finalData[`${rootStore.systemStore.selected_course_id}-${rootStore.systemStore.selected_module_id}`] || []
+    );
   }
 
   @action
@@ -108,5 +104,4 @@ export class GrandChartStore {
     this.groupLessons = groupLessons;
     this.finalData = finalData;
   }
-
 }

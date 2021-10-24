@@ -7,7 +7,7 @@ import { RootStore } from '../../../../../../stores';
 const b = block(style);
 
 type NumberLessonProps = {
-  number: number
+  number: number;
 };
 type NumberLessonState = {};
 
@@ -16,7 +16,6 @@ type NumberLessonState = {};
 }))
 @observer
 export class NumberLesson extends React.Component<NumberLessonProps, NumberLessonState> {
-
   static defaultProps = {
     number: 0
   };
@@ -24,8 +23,6 @@ export class NumberLesson extends React.Component<NumberLessonProps, NumberLesso
   render() {
     const { number } = this.props;
 
-    return (
-      <div className={b(null)}>{number}</div>
-    );
+    return <div className={b(null)}>{number}</div>;
   }
 }

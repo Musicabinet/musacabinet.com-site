@@ -15,12 +15,12 @@ import { SERVICE_NAME } from '../../../../../constants';
 const b = block(style);
 
 type PlayerProps = {
-  service_name: SERVICE_NAME,
-  isLoading: boolean,
-  init: () => void,
-  noMR: boolean,
-  selected_accompaniment: number,
-  onSetVolume: (value: number) => void
+  service_name: SERVICE_NAME;
+  isLoading: boolean;
+  init: () => void;
+  noMR: boolean;
+  selected_accompaniment: number;
+  onSetVolume: (value: number) => void;
 };
 type PlayerState = {};
 
@@ -33,7 +33,6 @@ type PlayerState = {};
 }))
 @observer
 export class Player extends React.Component<PlayerProps, PlayerState> {
-
   static defaultProps = {
     service_name: SERVICE_NAME.SCHOOL,
     isLoading: false,
@@ -67,18 +66,16 @@ export class Player extends React.Component<PlayerProps, PlayerState> {
     return (
       <div className={b(null, { noMR, [service_name]: true })}>
         <div className={b('loading', { show: isLoading })}>
-          Loading track <span>.</span><span>.</span><span>.</span>
+          Loading track <span>.</span>
+          <span>.</span>
+          <span>.</span>
         </div>
         <Toolbar />
         <div className={b('container')}>
           <BackTrack />
           <PlayButton />
           <ProgressLine />
-          <VolumeControl name={'volume'}
-                         min={-48}
-                         max={0}
-                         onChange={this.handleOnChangeVolume}
-                         defaultValue={volume} />
+          <VolumeControl name={'volume'} min={-48} max={0} onChange={this.handleOnChangeVolume} defaultValue={volume} />
           <Metronome />
           <ButtonComposition />
         </div>

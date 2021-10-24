@@ -8,13 +8,13 @@ import { SERVICE_NAME } from '../../../../../../constants';
 const b = block(style);
 
 type TimerProps = {
-  uuid: string,
-  service_name: SERVICE_NAME,
-  amountTime: 15 | 30 | 45 | 60,
-  onMessageAtTheEnd: () => void
+  uuid: string;
+  service_name: SERVICE_NAME;
+  amountTime: 15 | 30 | 45 | 60;
+  onMessageAtTheEnd: () => void;
 };
 type TimerState = {
-  timeIndex: number
+  timeIndex: number;
 };
 
 @inject((store: RootStore) => ({
@@ -23,7 +23,6 @@ type TimerState = {
 }))
 @observer
 export class Timer extends React.Component<TimerProps, TimerState> {
-
   static defaultProps = {
     uuid: '',
     service_name: SERVICE_NAME.SCHOOL,
@@ -92,19 +91,15 @@ export class Timer extends React.Component<TimerProps, TimerState> {
         this.circleFill.current.style.stroke = '';
 
         setTimeout(() => {
-
           if (this.circleFill.current) {
             this.circleFill.current.style.strokeDasharray = `${0} 94`;
             setTimeout(() => {
-
               this.timer = 0;
               setTimeout(() => {
                 this.startTime();
               }, 150);
-
             }, 100);
           }
-
         }, 50);
       }
     }
@@ -130,7 +125,7 @@ export class Timer extends React.Component<TimerProps, TimerState> {
 
             setTimeout(() => {
               this.setState((state) => ({
-                timeIndex: ((state.timeIndex + 1) > (this.times.length - 1)) ? 0 : state.timeIndex + 1
+                timeIndex: state.timeIndex + 1 > this.times.length - 1 ? 0 : state.timeIndex + 1
               }));
 
               this.startTime();
@@ -149,7 +144,6 @@ export class Timer extends React.Component<TimerProps, TimerState> {
       this.timer = +(this.timer + +(1 / 60).toFixed(2)).toFixed(2);
       const updatePercent = +((this.timer * fillValue) / value).toFixed(2);
       if (fillValue <= updatePercent) {
-
         if (this.circle.current && this.circleFill.current) {
           this.circle.current.style.stroke = 'red';
           this.circleFill.current.style.stroke = 'red';
@@ -158,11 +152,9 @@ export class Timer extends React.Component<TimerProps, TimerState> {
         onMessageAtTheEnd();
         clearInterval(this.intervalID);
       } else {
-
         if (this.circleFill.current && this.circleFill.current.style) {
           this.circleFill.current.style.strokeDasharray = `${updatePercent} 94`;
         }
-
       }
     }, 1000);
   };
@@ -173,28 +165,27 @@ export class Timer extends React.Component<TimerProps, TimerState> {
     const { value, className } = this.times[timeIndex];
 
     return (
-      <div onClick={this.handlerOnChangeTimeIndex}
-           className={b(null, {
-             [service_name]: true,
-             [className]: true
-           })}>
+      <div
+        onClick={this.handlerOnChangeTimeIndex}
+        className={b(null, {
+          [service_name]: true,
+          [className]: true
+        })}
+      >
         <div className={b('current-time')}>{value}m</div>
 
-        <svg className={b('container')} width={78} height={78} viewBox='0 0 78 78'>
-          <circle className={b('circle')}
-                  ref={this.circle}
-                  strokeWidth={4}
-                  cx={39}
-                  cy={39}
-                  r={(78 / 2) - (4 * 2)}
-                  fill='transparent' />
+        <svg className={b('container')} width={78} height={78} viewBox="0 0 78 78">
+          <circle
+            className={b('circle')}
+            ref={this.circle}
+            strokeWidth={4}
+            cx={39}
+            cy={39}
+            r={78 / 2 - 4 * 2}
+            fill="transparent"
+          />
 
-          <circle r='15'
-                  ref={this.circleFill}
-                  fill='transparent'
-                  cx='39'
-                  cy='39'
-                  className={b('fill')} />
+          <circle r="15" ref={this.circleFill} fill="transparent" cx="39" cy="39" className={b('fill')} />
         </svg>
       </div>
     );

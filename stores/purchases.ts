@@ -4,11 +4,9 @@ import { API } from '../core';
 import { METHODS_REQUEST } from '../constants';
 
 export class PurchasesStore {
-
   @observable list: PurchaseStore[] = [];
 
   constructor(initialData: PurchasesStore | null) {
-
     if (initialData) {
       this.fillingStore(initialData);
     }
@@ -32,5 +30,4 @@ export class PurchasesStore {
 
     this.list = (list || []).map((purchase) => new PurchaseStore(purchase));
   }
-
 }

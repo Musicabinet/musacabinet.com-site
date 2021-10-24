@@ -1,4 +1,4 @@
 export interface BreadcrumbsI {
-  name: string,
-  type: string
+  name: string;
+  type: string;
 }

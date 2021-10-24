@@ -3,7 +3,6 @@ import { CollectionI, RelationIdNameI } from '../interfaces';
 import { SERVICE_NAME } from '../constants';
 
 export class CollectionStore implements CollectionI {
-
   pathStore = 'admin/collections';
   redirect = 'collections';
 
@@ -50,23 +49,23 @@ export class CollectionStore implements CollectionI {
   }
 
   @computed
-  get instrumentName():string {
-    return (this.instruments && this.instruments.name) ? this.instruments.name : '';
+  get instrumentName(): string {
+    return this.instruments && this.instruments.name ? this.instruments.name : '';
   }
 
   @computed
-  get instrumentIcon():string {
-    return (this.instruments && this.instruments.name) ? this.instruments.name.toUpperCase() : '';
+  get instrumentIcon(): string {
+    return this.instruments && this.instruments.name ? this.instruments.name.toUpperCase() : '';
   }
 
   @computed
   get courseName(): string {
-    return (this.courses && this.courses.name) ? this.courses.name : '';
+    return this.courses && this.courses.name ? this.courses.name : '';
   }
 
   @computed
   get moduleName(): string {
-    return (this.modules && this.modules.name) ? this.modules.name : '';
+    return this.modules && this.modules.name ? this.modules.name : '';
   }
 
   @action
@@ -91,10 +90,8 @@ export class CollectionStore implements CollectionI {
     this.course_id = course_id;
     this.module_id = module_id;
     this.is_active = is_active;
-    this.instruments = (instruments) ? instruments : null;
-    this.courses = (courses) ? courses : null;
-    this.modules = (modules) ? modules : null;
-
+    this.instruments = instruments ? instruments : null;
+    this.courses = courses ? courses : null;
+    this.modules = modules ? modules : null;
   }
-
 }

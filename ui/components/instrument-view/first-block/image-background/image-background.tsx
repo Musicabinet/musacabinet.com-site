@@ -6,7 +6,7 @@ import style from './image-background.module.sass';
 const b = block(style);
 
 type ImageBackgroundProps = {
-  instrument: string
+  instrument: string;
 };
 type ImageBackgroundState = {};
 
@@ -19,7 +19,7 @@ export default class ImageBackground extends React.Component<ImageBackgroundProp
     return (
       <div className={b(null)}>
         <picture className={b('picture')}>
-          <source srcSet={`/images/services/${instrument}.webp`} type='image/webp' />
+          <source srcSet={`/images/services/${instrument}.webp`} type="image/webp" />
           <img src={`/images/services/${instrument}.jpg`} />
         </picture>
         {children}

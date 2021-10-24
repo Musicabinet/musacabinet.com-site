@@ -1,33 +1,35 @@
 import { TrialVersionStore } from '../stores/trial-version';
 import { PurchaseStore } from '../stores/purchase';
+import { Moment } from 'moment';
 
 export interface UserI {
   id: number,
-  avatar: string,
-  birthday: Date | undefined,
-  city: string,
-  country: string,
-  education: string,
   email: string,
   first_name: string,
-  groups_played: string,
-  homepage_link: string,
   last_name: string,
+  avatar: string,
+  birthday: Moment | null,
+  country: string,
+  city: string,
+  education: string,
   music_education: string,
-  own_group: string,
-  portfolio_link: string,
   tools_own: string,
-  updated_at: Date,
-  created_at: Date,
-  trial_version: TrialVersionStore
-  purchases: PurchaseStore[]
+  own_group: string,
+  groups_played: string,
+  portfolio_link: string,
+  homepage_link: string,
+  created_at: Moment,
+  updated_at: Moment,
+  trial_version: TrialVersionStore,
+  purchases: PurchaseStore[],
+  discount: boolean
 }
 
 export interface UserUpdateI {
-  first_name: string,
-  last_name: string,
-  country: string,
-  city: string,
-  education: string,
-  music_education: string
+  first_name: string;
+  last_name: string;
+  country: string;
+  city: string;
+  education: string;
+  music_education: string;
 }

@@ -10,9 +10,9 @@ import { AboutServiceItemI } from '../../../../stores/system';
 const b = block(style);
 
 type FifthBlockProps = {
-  service_name: SERVICE_NAME,
-  instrument_name: string,
-  list: AboutServiceItemI[]
+  service_name: SERVICE_NAME;
+  instrument_name: string;
+  list: AboutServiceItemI[];
 };
 type FifthBlockState = {};
 
@@ -23,30 +23,28 @@ type FifthBlockState = {};
 }))
 @observer
 export class FifthBlock extends React.Component<FifthBlockProps, FifthBlockState> {
-
   static defaultProps = {
     service_name: SERVICE_NAME.SCHOOL,
     instrument_name: '',
     list: []
   };
 
-
   render() {
     const { service_name, list } = this.props;
 
     return (
       <div className={b(null)}>
-        <div className='container g-lg-0'>
-          <div className='row g-lg-0'>
-            <div className='col-lg-10'>
+        <div className="container g-lg-0">
+          <div className="row g-lg-0">
+            <div className="col-lg-10">
               <Title size={TITLE_SIZE.SERVICE_PAGE} isServiceColor>
                 Grand Chart is the heart of our training system
               </Title>
             </div>
           </div>
 
-          <div className='row g-lg-0'>
-            <div className='col-lg-10'>
+          <div className="row g-lg-0">
+            <div className="col-lg-10">
               <Paragraph className={b('text')}>
                 It is a table through which you get instant access to any topic and any lesson. And most importantly -
                 you get to see your learning progress in real time.
@@ -59,16 +57,18 @@ export class FifthBlock extends React.Component<FifthBlockProps, FifthBlockState
           <GrandChart is_transparent />
         </div>
 
-        <div className='container'>
-          <div className='row g-lg-0'>
+        <div className="container">
+          <div className="row g-lg-0">
             {list.map((item) => {
-              return <div key={item.title} className='col-lg-4 d-flex'>
-                <div className={b('item', { [service_name]: true })}>
-                  <div className={b('count')}>{item.count}</div>
-                  <div className={b('title')}>{item.title}</div>
-                  <div className={b('description')}>{item.description}</div>
+              return (
+                <div key={item.title} className="col-lg-4 d-flex">
+                  <div className={b('item', { [service_name]: true })}>
+                    <div className={b('count')}>{item.count}</div>
+                    <div className={b('title')}>{item.title}</div>
+                    <div className={b('description')}>{item.description}</div>
+                  </div>
                 </div>
-              </div>;
+              );
             })}
           </div>
         </div>

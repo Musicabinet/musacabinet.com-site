@@ -9,11 +9,11 @@ import { ButtonFreeTrial } from '../../../../common';
 const b = block(style);
 
 type ContentServiceProps = {
-  service_name: SERVICE_NAME,
-  instrument: string,
-  title: string,
-  sub_title: string,
-  onShowModal: () => void
+  service_name: SERVICE_NAME;
+  instrument: string;
+  title: string;
+  sub_title: string;
+  onShowModal: () => void;
 };
 type ContentServiceState = {};
 
@@ -25,7 +25,6 @@ type ContentServiceState = {};
 }))
 @observer
 export class ContentService extends React.Component<ContentServiceProps, ContentServiceState> {
-
   static defaultProps = {
     service_name: SERVICE_NAME.SCHOOL,
     instrument: '',
@@ -39,8 +38,10 @@ export class ContentService extends React.Component<ContentServiceProps, Content
     return (
       <div className={b(null)}>
         <picture className={b('logotype')}>
-          <source srcSet={`/images/logotype/${service_name}.webp, /images/logotype/${service_name}@2x.webp 2x`}
-                  type='image/webp' />
+          <source
+            srcSet={`/images/logotype/${service_name}.webp, /images/logotype/${service_name}@2x.webp 2x`}
+            type="image/webp"
+          />
           <img src={`/images/logotype/${service_name}.png`} srcSet={`/images/logotype/${service_name}@2x.png 2x`} />
         </picture>
 

@@ -11,9 +11,9 @@ import { LIST_ICON } from '../../../common/icons';
 const b = block(style);
 
 type InstrumentItemProps = {
-  service_name: SERVICE_NAME,
-  selected: boolean,
-  onSetInstrument: (value: LIST_ICON) => void
+  service_name: SERVICE_NAME;
+  selected: boolean;
+  onSetInstrument: (value: LIST_ICON) => void;
 };
 type InstrumentItemState = {};
 
@@ -22,7 +22,6 @@ type InstrumentItemState = {};
 }))
 @observer
 export class InstrumentItem extends React.Component<InstrumentItemProps & InstrumentI, InstrumentItemState> {
-
   static defaultProps = {
     service_name: SERVICE_NAME.SCHOOL
   };
@@ -36,8 +35,7 @@ export class InstrumentItem extends React.Component<InstrumentItemProps & Instru
     const { icon, selected } = this.props;
 
     return (
-      <div className='col-lg-4 d-flex align-items-center justify-content-center'
-           onClick={this.handleOnChange}>
+      <div className="col-lg-4 d-flex align-items-center justify-content-center" onClick={this.handleOnChange}>
         <div className={b('button', { selected })}>
           <InstrumentIcon icon={icon} service={selected ? 'selected' : 'default'} />
         </div>

@@ -11,15 +11,15 @@ import { Scores } from '../scores/scores';
 const b = block(style);
 
 type MethodProps = {
-  service_name: SERVICE_NAME,
-  instrument_name: '',
-  uuid: string,
-  currentContentScore: ScoreI | null,
-  video_iframe: string | null,
-  onGetVideo: (id_video: number) => void
+  service_name: SERVICE_NAME;
+  instrument_name: '';
+  uuid: string;
+  currentContentScore: ScoreI | null;
+  video_iframe: string | null;
+  onGetVideo: (id_video: number) => void;
 };
 type MethodState = {
-  isNotes: boolean
+  isNotes: boolean;
 };
 
 @inject((store: RootStore) => ({
@@ -32,7 +32,6 @@ type MethodState = {
 }))
 @observer
 export class Method extends React.Component<MethodProps, MethodState> {
-
   state = {
     isNotes: false
   };
@@ -57,9 +56,7 @@ export class Method extends React.Component<MethodProps, MethodState> {
   componentDidUpdate(prevProps: MethodProps) {
     const { onGetVideo } = this.props;
 
-    if (
-      prevProps.uuid !== this.props.uuid
-    ) {
+    if (prevProps.uuid !== this.props.uuid) {
       if (this.props.currentContentScore) {
         onGetVideo(Number(this.props.currentContentScore.video_url.replace(/\D/g, '')));
       }
@@ -81,27 +78,25 @@ export class Method extends React.Component<MethodProps, MethodState> {
         <div className={b('header', { [service_name]: true })}>
           <ButtonBurger active onClick={() => ({})} />
           <span className={b('header-text')}>Method</span>
-          {(service_name === SERVICE_NAME.COLLEGE) && (instrument_name !== '' && instrument_name == 'Guitar') && (
+          {service_name === SERVICE_NAME.COLLEGE && instrument_name !== '' && instrument_name == 'Guitar' && (
             <>
               <Switcher checked={isNotes} onChange={this.handleOnChangeNotes} />
               <span className={b('header-text')}>Notes</span>
-            </>)}
+            </>
+          )}
         </div>
 
-        {(!isNotes && video_iframe && currentContentScore?.video_url && (
-          <div className={`${b(null)} embed-container`}
-               dangerouslySetInnerHTML={{ __html: video_iframe }} />
-        ))}
+        {!isNotes && video_iframe && currentContentScore?.video_url && (
+          <div className={`${b(null)} embed-container`} dangerouslySetInnerHTML={{ __html: video_iframe }} />
+        )}
 
-        {(!isNotes && currentContentScore && (
+        {!isNotes && currentContentScore && (
           <>
             <div className={b('content')} dangerouslySetInnerHTML={{ __html: currentContentScore.content }} />
           </>
-        ))}
+        )}
 
-        {(isNotes && (
-          <Scores />
-        ))}
+        {isNotes && <Scores />}
       </>
     );
   }

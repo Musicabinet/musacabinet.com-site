@@ -8,13 +8,13 @@ import { RootStore } from '../../../../../../../stores';
 const b = block(style);
 
 type StartButtonProps = {
-  service_name: SERVICE_NAME,
-  disabled: boolean,
-  isPlay: boolean,
-  onPlayStop: () => void
+  service_name: SERVICE_NAME;
+  disabled: boolean;
+  isPlay: boolean;
+  onPlayStop: () => void;
 };
 type StartButtonState = {
-  is_active: boolean
+  is_active: boolean;
 };
 
 @inject((store: RootStore) => ({
@@ -24,17 +24,16 @@ type StartButtonState = {
 }))
 @observer
 export class StartButton extends React.Component<StartButtonProps, StartButtonState> {
-
   buttonContainerRef = React.createRef<HTMLButtonElement>();
 
   static defaultProps = {
     service_name: SERVICE_NAME.SCHOOL,
     disabled: false,
     isPlay: false,
-    onPlayStop: () => console.log("Not set handler")
-  }
+    onPlayStop: () => console.log('Not set handler')
+  };
 
-  getStatus = () => (this.props.isPlay) ? 'Stop' : 'Start';
+  getStatus = () => (this.props.isPlay ? 'Stop' : 'Start');
 
   handleOnFocus = () => {
     const { is_active } = this.state;
@@ -57,30 +56,34 @@ export class StartButton extends React.Component<StartButtonProps, StartButtonSt
   };
 
   clickSpace = (e: any) => {
-    const {onPlayStop} = this.props;
-    if(e.keyCode === 32){
+    const { onPlayStop } = this.props;
+    if (e.keyCode === 32) {
       onPlayStop();
     }
   };
 
   render() {
-    const {disabled, service_name, onPlayStop} = this.props;
+    const { disabled, service_name, onPlayStop } = this.props;
 
     return (
-      <button disabled={disabled}
-              //onFocus={this.handleOnFocus}
-              //onBlur={this.handleOnBlur}
-              className={b(null, {
-                [service_name]: true
-              })}
-              ref={this.buttonContainerRef}
-              id='play-metronome'
-              onClick={() => {
-                if(this.buttonContainerRef.current){
-                  this.buttonContainerRef.current.focus();
-                  onPlayStop();
-                }
-              }}>{this.getStatus()}</button>
+      <button
+        disabled={disabled}
+        //onFocus={this.handleOnFocus}
+        //onBlur={this.handleOnBlur}
+        className={b(null, {
+          [service_name]: true
+        })}
+        ref={this.buttonContainerRef}
+        id="play-metronome"
+        onClick={() => {
+          if (this.buttonContainerRef.current) {
+            this.buttonContainerRef.current.focus();
+            onPlayStop();
+          }
+        }}
+      >
+        {this.getStatus()}
+      </button>
     );
   }
 }

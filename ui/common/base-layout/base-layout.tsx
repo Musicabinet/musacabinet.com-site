@@ -5,17 +5,16 @@ import { Footer } from '../footer/footer';
 import { ContainerMain } from '../container-main/container-main';
 
 type BaseLayoutProps = {
-  background: 'default' | 'gray',
-  headerBackground: 'default' | 'gray',
-  full: boolean,
-  noStick: boolean
+  background: 'default' | 'gray';
+  headerBackground: 'default' | 'gray';
+  full: boolean;
+  noStick: boolean;
 };
 type BaseLayoutState = {};
 
 @inject(() => ({}))
 @observer
 export class BaseLayout extends React.Component<BaseLayoutProps, BaseLayoutState> {
-
   static defaultProps = {
     background: 'default',
     headerBackground: 'default',
@@ -29,19 +28,14 @@ export class BaseLayout extends React.Component<BaseLayoutProps, BaseLayoutState
       <>
         <Header noStick={noStick} />
 
-        {
-          full
-            ? <main style={{ flex: 1 }}>{children}</main>
-            : (
-              <ContainerMain background={background}>
-                {children}
-              </ContainerMain>
-            )
-        }
+        {full ? (
+          <main style={{ flex: 1 }}>{children}</main>
+        ) : (
+          <ContainerMain background={background}>{children}</ContainerMain>
+        )}
 
         <Footer />
       </>
     );
   }
-
 }

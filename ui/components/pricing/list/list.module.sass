@@ -22,6 +22,7 @@
     padding: 45px 30px 30px
     background: $gray50
     transition: all 0.2s
+    cursor: pointer
 
     @include breakpoint-phone
       margin-right: 0
@@ -30,14 +31,17 @@
     &_school
       &:hover
         background: linear-gradient(180deg, #2D9CDB 0%, #000000 100%), #4D4D4D
+        border-color: $school
 
     &_college
       &:hover
         background: linear-gradient(180deg, #EE8208 0%, #000000 100%), #4D4D4D
+        border-color: $college
 
     &_university
       &:hover
         background: linear-gradient(180deg, #00A871 0%, #000000 100%), #4D4D4D
+        border-color: $university
 
     &_not-hover
       &:hover
@@ -109,6 +113,7 @@
 
   &__action
     margin: 15px 0 40px
+    height: 60px
 
   &__button
     border-radius: 10px
@@ -116,18 +121,28 @@
     line-height: 30px
     border: 0
     width: 100%
-    padding: 10px 0
+    padding: 15px 0
     color: $white
     cursor: pointer
+    transition: 0.2s all
 
     &_school
       background: $school
 
+      &:hover
+        background: darken($school, 5%)
+
     &_college
       background: $college
 
+      &:hover
+        background: darken($college, 5%)
+
     &_university
       background: $university
+
+      &:hover
+        background: darken($university, 5%)
 
     &:disabled
       cursor: not-allowed
@@ -137,7 +152,7 @@
     position: relative
     line-height: 30px
     margin-bottom: 20px
-    margin-top: auto
+    flex: 1
 
   &__list-item
     @include fontMontserrat(14px)

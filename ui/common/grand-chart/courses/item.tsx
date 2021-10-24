@@ -9,9 +9,9 @@ import { SERVICE_NAME } from '../../../../constants';
 const b = block(style);
 
 type CourseItemProps = {
-  is_active: boolean,
-  number: number,
-  service_name: SERVICE_NAME,
+  is_active: boolean;
+  number: number;
+  service_name: SERVICE_NAME;
 };
 type CourseItemState = {};
 
@@ -20,7 +20,6 @@ type CourseItemState = {};
 }))
 @observer
 export class CourseItem extends React.Component<CourseItemProps & CourseI, CourseItemState> {
-
   static defaultProps = {
     service_name: SERVICE_NAME.SCHOOL
   };
@@ -28,12 +27,13 @@ export class CourseItem extends React.Component<CourseItemProps & CourseI, Cours
   render() {
     const { name, is_active, number, service_name } = this.props;
 
-
     return (
-      <div className={b('item', {
-        is_active,
-      })}>
-        <div className={b('toolbar', { [service_name]: !is_active})}>Course {number}</div>
+      <div
+        className={b('item', {
+          is_active
+        })}
+      >
+        <div className={b('toolbar', { [service_name]: !is_active })}>Course {number}</div>
         <span className={b('name')}>{name}</span>
       </div>
     );

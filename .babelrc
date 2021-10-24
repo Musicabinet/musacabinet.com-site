@@ -1,7 +1,5 @@
 {
-  "presets": [
-    "next/babel"
-  ],
+  "presets": ["next/babel"],
   "plugins": [
     [
       "@babel/plugin-proposal-decorators",
@@ -15,8 +13,6 @@
         "loose": false
       }
     ],
-    [
-      "@babel/plugin-transform-react-jsx"
-    ]
+    ["@babel/plugin-transform-react-jsx"]
   ]
 }

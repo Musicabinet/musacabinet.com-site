@@ -11,8 +11,8 @@ import { SignUpModal } from '../modals/sign-up/sign-up';
 const b = block(style);
 
 type ButtonSignInProps = {
-  isAuth: boolean,
-  onShow: (id_window: MODALS) => void
+  isAuth: boolean;
+  onShow: (id_window: MODALS) => void;
 };
 type ButtonSignInState = {};
 
@@ -22,7 +22,6 @@ type ButtonSignInState = {};
 }))
 @observer
 export class ButtonSignIn extends React.Component<ButtonSignInProps, ButtonSignInState> {
-
   static defaultProps = {
     isAuth: false,
     onShow: () => console.log('Not set handler')
@@ -42,10 +41,7 @@ export class ButtonSignIn extends React.Component<ButtonSignInProps, ButtonSignI
 
     return (
       <>
-        <Button name={'sign-in'}
-                loading={false}
-                onClick={this.handleOnShow}
-                className={b(null)}>
+        <Button name={'sign-in'} loading={false} onClick={this.handleOnShow} className={b(null)}>
           Sign In
         </Button>
         <SignInModal />

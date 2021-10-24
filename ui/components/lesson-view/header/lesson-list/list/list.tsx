@@ -10,10 +10,10 @@ import { Item } from './item';
 const b = block(style);
 
 type ListProps = {
-  show: boolean,
-  current_uuid: string,
-  list: LessonListI[],
-  onCloseList: () => void
+  show: boolean;
+  current_uuid: string;
+  list: LessonListI[];
+  onCloseList: () => void;
 };
 type ListState = {};
 
@@ -23,7 +23,6 @@ type ListState = {};
 }))
 @observer
 export class List extends React.Component<ListProps, ListState> {
-
   static defaultProps = {
     current_uuid: '',
     list: []
@@ -41,11 +40,15 @@ export class List extends React.Component<ListProps, ListState> {
     return (
       <div className={b(null, { show })}>
         {list.map((lesson) => {
-          return <Item key={lesson.id}
-                       active={current_uuid === lesson.uuid}
-                       uuid={lesson.uuid}
-                       name={lesson.name}
-                       onLink={this.handleOnLink} />;
+          return (
+            <Item
+              key={lesson.id}
+              active={current_uuid === lesson.uuid}
+              uuid={lesson.uuid}
+              name={lesson.name}
+              onLink={this.handleOnLink}
+            />
+          );
         })}
       </div>
     );

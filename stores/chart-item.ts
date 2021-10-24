@@ -3,7 +3,6 @@ import { ChartItemContentI, ChartItemI } from '../interfaces/chart';
 import { CHART_TYPE } from '../constants';
 
 export class ChartItemStore implements ChartItemI {
-
   @observable id = 0;
   @observable sort = 0;
   @observable chart_id = 0;
@@ -18,7 +17,7 @@ export class ChartItemStore implements ChartItemI {
 
   @action
   fillingStore(data: ChartItemI) {
-    const {id, sort, chart_id, chart_type_id, content} = data;
+    const { id, sort, chart_id, chart_type_id, content } = data;
 
     this.id = id;
     this.sort = sort;
@@ -26,5 +25,4 @@ export class ChartItemStore implements ChartItemI {
     this.chart_type_id = chart_type_id;
     this.content = content;
   }
-
 }

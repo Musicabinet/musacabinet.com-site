@@ -8,15 +8,14 @@ import { LIST_ICON } from '../../../common/icons';
 const b = block(style);
 
 type InstrumentItemProps = {
-  selected: boolean,
-  onSetInstrument: (value: LIST_ICON, id: number) => void
+  selected: boolean;
+  onSetInstrument: (value: LIST_ICON, id: number) => void;
 };
 type InstrumentItemState = {};
 
 @inject(() => ({}))
 @observer
 export class InstrumentItem extends React.Component<InstrumentItemProps & InstrumentI, InstrumentItemState> {
-
   handleOnChange = () => {
     const { icon, id, onSetInstrument } = this.props;
     onSetInstrument(icon, id);
@@ -26,8 +25,9 @@ export class InstrumentItem extends React.Component<InstrumentItemProps & Instru
     const { name, selected } = this.props;
 
     return (
-      <button className={b('button', { selected })}
-              onClick={this.handleOnChange}>{name}</button>
+      <button className={b('button', { selected })} onClick={this.handleOnChange}>
+        {name}
+      </button>
     );
   }
 }

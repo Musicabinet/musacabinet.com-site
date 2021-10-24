@@ -4,10 +4,12 @@ import moment, { Moment } from 'moment';
 
 export class TrialVersionStore implements TrialVersionI {
 
-  @observable id = 0;
   @observable user_id = 0;
   @observable date_start: Moment = moment();
   @observable date_end: Moment = moment();
+  @observable days_passed = 0;
+  @observable days_remain = 0;
+  @observable is_valid = false;
 
   constructor(initialData: TrialVersionStore | TrialVersionI | null) {
     if (initialData) {
@@ -16,44 +18,19 @@ export class TrialVersionStore implements TrialVersionI {
   }
 
   @computed
-  get isValid(): boolean {
-    return (this.totalDayRemain > 0);
-  }
-
-  @computed
-  get totalDayRemain(): number {
-    const currentDate = moment().set({ hours: 0, minutes: 0, second: 0 });
-    const result = this.date_end.diff(currentDate, 'days');
-
-    return result > 0 ? result : 0;
-  }
-
-  @computed
-  get totalDayPassed(): number {
-    const currentDate = moment().set({ hours: 0, minutes: 0, second: 0 });
-    const format = 'dMY';
-
-    if(currentDate.format(format) === this.date_start.format(format)){
-      return 0;
-    }
-
-    const result = currentDate.diff(this.date_start, 'days');
-    return result > 0 ? result <= this.totalDayRemain ? result : this.totalDays : this.totalDays;
-  }
-
-  @computed
-  get totalDays(): number {
-    return this.date_end.diff(this.date_start, 'days');
+  get totalDays(){
+    return this.days_remain + this.days_passed;
   }
 
   @action
   fillingStore(data: TrialVersionStore | TrialVersionI) {
-    const { id, user_id, date_start, date_end } = data;
+    const { user_id, date_start, date_end, days_passed, days_remain, is_valid } = data;
 
-    this.id = id;
     this.user_id = user_id;
     this.date_start = moment(date_start);
-    this.date_end = moment(date_end).add('day', 1);
+    this.date_end = moment(date_end);
+    this.days_passed = days_passed;
+    this.days_remain = days_remain;
+    this.is_valid = is_valid;
   }
-
 }

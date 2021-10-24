@@ -12,17 +12,17 @@ import { PlayerStore } from '../../../../stores/player';
 const b = block(style);
 
 type ChartsProps = {
-  service_name: SERVICE_NAME,
-  currentContentChart: ChartI | null,
-  currentContentScore: ScoreI | null,
-  currentSubTitleScore: string,
-  accompaniments: AccompanimentI[],
-  onShowPreview: (chart_image_id: number) => void,
-  onShowModal: (id_modal: MODALS) => void,
-  onChooseAccompaniment: (id: number) => void,
-  onLoadTrack: () => void,
-  lessonStore: LessonStore,
-  playerStore: PlayerStore
+  service_name: SERVICE_NAME;
+  currentContentChart: ChartI | null;
+  currentContentScore: ScoreI | null;
+  currentSubTitleScore: string;
+  accompaniments: AccompanimentI[];
+  onShowPreview: (chart_image_id: number) => void;
+  onShowModal: (id_modal: MODALS) => void;
+  onChooseAccompaniment: (id: number) => void;
+  onLoadTrack: () => void;
+  lessonStore: LessonStore;
+  playerStore: PlayerStore;
 };
 type ChartsState = {};
 
@@ -41,7 +41,6 @@ type ChartsState = {};
 }))
 @observer
 export class Charts extends React.Component<ChartsProps, ChartsState> {
-
   static defaultProps = {
     service_name: SERVICE_NAME.SCHOOL,
     currentContentChart: null,
@@ -57,24 +56,18 @@ export class Charts extends React.Component<ChartsProps, ChartsState> {
   };
 
   handleOnShow = (chart_image_id: number) => {
-    const {
-      currentContentChart, onShowPreview, onShowModal,
-      lessonStore, playerStore
-    } = this.props;
+    const { currentContentChart, onShowPreview, onShowModal, lessonStore, playerStore } = this.props;
 
     onShowPreview(chart_image_id);
     onShowModal(MODALS.PREVIEW_CHART);
 
     const selected_accompaniment = lessonStore.selected_accompaniment;
-    const findAccompaniment = lessonStore.accompaniments.find(
-      (item) => item.id === selected_accompaniment
-    );
+    const findAccompaniment = lessonStore.accompaniments.find((item) => item.id === selected_accompaniment);
 
     // Получаем индекс выбранной партитуры
     const findIndex = currentContentChart?.items
       .filter((item) => item.chart_type_id === CHART_TYPE.IMAGE)
       .findIndex((chart) => chart.id === chart_image_id);
-
 
     if (findIndex) {
       if (findAccompaniment) {
@@ -84,7 +77,6 @@ export class Charts extends React.Component<ChartsProps, ChartsState> {
         } else {
           console.warn(`Not found library : `, findIndex);
         }
-
       }
     }
   };
@@ -92,10 +84,9 @@ export class Charts extends React.Component<ChartsProps, ChartsState> {
   render() {
     const { service_name, currentContentChart, currentContentScore } = this.props;
 
-
     return (
       <div className={b(null)}>
-        {(currentContentChart && (
+        {currentContentChart && (
           <>
             {currentContentScore && (
               <div className={b('header')}>
@@ -105,23 +96,26 @@ export class Charts extends React.Component<ChartsProps, ChartsState> {
               </div>
             )}
 
-
-            <div className={b('list', {
-              college: (service_name === SERVICE_NAME.COLLEGE)
-            })}>
+            <div
+              className={b('list', {
+                college: service_name === SERVICE_NAME.COLLEGE
+              })}
+            >
               {currentContentChart.items.map((chart) => {
                 if (chart.chart_type_id === CHART_TYPE.IMAGE) {
                   return (
-                    <img key={chart.id}
-                         className={b('image')}
-                         src={`${CONTENT_URL}${chart.content.image}`}
-                         onClick={this.handleOnShow.bind(null, chart.id)} />
+                    <img
+                      key={chart.id}
+                      className={b('image')}
+                      src={`${CONTENT_URL}${chart.content.image}`}
+                      onClick={this.handleOnShow.bind(null, chart.id)}
+                    />
                   );
                 }
               })}
             </div>
           </>
-        ))}
+        )}
       </div>
     );
   }

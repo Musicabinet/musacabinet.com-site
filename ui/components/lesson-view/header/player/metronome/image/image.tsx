@@ -10,10 +10,12 @@ type ImageMetronomeState = {};
 export class ImageMetronome extends React.Component<ImageMetronomeProps, ImageMetronomeState> {
   render() {
     return (
-      <img src={'/images/metronome.png'}
-           srcSet={'/images/metronome@2x.png 2x'}
-           className={b(null)}
-           alt='Metronome Musicabinet school' />
+      <img
+        src={'/images/metronome.png'}
+        srcSet={'/images/metronome@2x.png 2x'}
+        className={b(null)}
+        alt="Metronome Musicabinet school"
+      />
     );
   }
 }

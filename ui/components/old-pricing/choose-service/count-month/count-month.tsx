@@ -9,8 +9,8 @@ import { CountMonthItem } from './item';
 const b = block(style);
 
 type CountMonthProps = {
-  list: PriceI[],
-  month: number
+  list: PriceI[];
+  month: number;
 };
 type CountMonthState = {};
 
@@ -20,7 +20,6 @@ type CountMonthState = {};
 }))
 @observer
 export class CountMonth extends React.Component<CountMonthProps, CountMonthState> {
-
   static defaultProps = {
     list: [],
     month: 0
@@ -34,19 +33,23 @@ export class CountMonth extends React.Component<CountMonthProps, CountMonthState
     }
 
     return (
-      <div className='container'>
-        <div className='row'>
-          <div className='col-lg-12'>
+      <div className="container">
+        <div className="row">
+          <div className="col-lg-12">
             <div className={b(null)}>
               <div className={b('selected', { month })} />
               <div className={b('line')}>
                 {list.map((itemPrice, index) => {
-                  return (<CountMonthItem key={itemPrice.price}
-                                          index={index}
-                                          name={itemPrice.name}
-                                          price={itemPrice.price}
-                                          old_price={itemPrice.old_price}
-                                          count_mount={itemPrice.count_mount} />);
+                  return (
+                    <CountMonthItem
+                      key={itemPrice.price}
+                      index={index}
+                      name={itemPrice.name}
+                      price={itemPrice.price}
+                      old_price={itemPrice.old_price}
+                      count_mount={itemPrice.count_mount}
+                    />
+                  );
                 })}
               </div>
             </div>
@@ -55,5 +58,4 @@ export class CountMonth extends React.Component<CountMonthProps, CountMonthState
       </div>
     );
   }
-
 }

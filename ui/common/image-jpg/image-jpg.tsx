@@ -14,8 +14,8 @@ export class ImageJPG extends React.Component<ImageJPGProps & ImageTagI, ImageJP
 
     return (
       <picture className={`${b(null)} ${className}`}>
-        <source srcSet={`${path}.webp`} type='image/webp' />
-        <source srcSet={`${path}.jpg`} type='image/jpeg' />
+        <source srcSet={`${path}.webp`} type="image/webp" />
+        <source srcSet={`${path}.jpg`} type="image/jpeg" />
         <img src={`${path}.jpg`} alt={alt} />
       </picture>
     );

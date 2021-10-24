@@ -10,8 +10,8 @@ import Router from 'next/router';
 const b = block(style);
 
 type ModuleNavigationProps = {
-  prevModuleLesson: null | string,
-  nextModuleLesson: null | string
+  prevModuleLesson: null | string;
+  nextModuleLesson: null | string;
 };
 type ModuleNavigationState = {};
 
@@ -21,7 +21,6 @@ type ModuleNavigationState = {};
 }))
 @observer
 export class ModuleNavigation extends React.Component<ModuleNavigationProps, ModuleNavigationState> {
-
   static defaultProps = {
     prevModuleLesson: null,
     nextModuleLesson: null
@@ -44,13 +43,9 @@ export class ModuleNavigation extends React.Component<ModuleNavigationProps, Mod
 
     return (
       <div className={b(null)}>
-        <Arrow hidden={(!prevModuleLesson)}
-               direction={LessonDirection.LEFT}
-               onClick={this.handleOnClick} />
+        <Arrow hidden={!prevModuleLesson} direction={LessonDirection.LEFT} onClick={this.handleOnClick} />
         Module
-        <Arrow hidden={(!nextModuleLesson)}
-               direction={LessonDirection.RIGHT}
-               onClick={this.handleOnClick} />
+        <Arrow hidden={!nextModuleLesson} direction={LessonDirection.RIGHT} onClick={this.handleOnClick} />
       </div>
     );
   }

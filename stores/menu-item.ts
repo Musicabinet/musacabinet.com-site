@@ -2,7 +2,6 @@ import { action, makeObservable, observable } from 'mobx';
 import { MenuI, MenuType } from '../interfaces';
 
 export class MenuItemStore implements MenuI {
-
   @observable title = '';
   @observable link = '';
   @observable type = MenuType.DEFAULT;
@@ -26,5 +25,4 @@ export class MenuItemStore implements MenuI {
     this.is_active = is_active;
     this.children = (children || []).map((menu) => new MenuItemStore(menu));
   }
-
 }

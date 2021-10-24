@@ -16,10 +16,12 @@ export default class PrivacyPolicy extends React.Component<PrivacyPolicyProps, P
   render() {
     return (
       <BaseLayout noStick background={'gray'}>
-        <div className='container'>
-          <div className='row'>
-            <div className='col-12'>
-              <Title size={TITLE_SIZE.FIRST} className={b('header')}>Privacy Policy</Title>
+        <div className="container">
+          <div className="row">
+            <div className="col-12">
+              <Title size={TITLE_SIZE.FIRST} className={b('header')}>
+                Privacy Policy
+              </Title>
             </div>
           </div>
 

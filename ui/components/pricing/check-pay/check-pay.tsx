@@ -9,8 +9,8 @@ import { SystemStore } from '../../../../stores/system';
 const b = block(style);
 
 type CheckPayProps = {
-  systemStore: SystemStore,
-  pricingStore: PricingStore
+  systemStore: SystemStore;
+  pricingStore: PricingStore;
 };
 type CheckPayState = {};
 
@@ -20,26 +20,25 @@ type CheckPayState = {};
 }))
 @observer
 export class CheckPay extends React.Component<CheckPayProps, CheckPayState> {
-
   static defaultProps = {
     systemStore: {},
     pricingStore: {}
   };
 
   async componentDidUpdate() {
-    if(this.props.pricingStore.disabledScreen){
-
+    if (this.props.pricingStore.disabledScreen) {
     }
   }
-
 
   render() {
     const { pricingStore } = this.props;
 
     return (
-      <div className={b(null, {
-        show: pricingStore.disabledScreen
-      })}>
+      <div
+        className={b(null, {
+          show: pricingStore.disabledScreen
+        })}
+      >
         <div className={b('message')}>
           Please wait while your transaction is being processed. <br />
           <b>Do not close or leave this page until the process is complete</b>.

@@ -3,15 +3,13 @@ import { METHODS_REQUEST } from '../constants';
 import FormData from 'form-data';
 
 class APIWrapper {
-
   public async request<T>(url: string = '', options = {}): Promise<T> {
-
     const cookie = Cookie.getInstance();
 
     let defaultOptions = {
       method: METHODS_REQUEST.GET,
       headers: {
-        'Authorization': `Bearer ${cookie.get('token')}`,
+        Authorization: `Bearer ${cookie.get('token')}`,
         'x-requested-with': 'XMLHttpRequest'
       }
     };
@@ -22,12 +20,11 @@ class APIWrapper {
     const response = await result.json();
 
     if (!result.ok) {
-      throw (response);
+      throw response;
     }
 
     return response;
   }
-
 
   public getFormData(data: any) {
     const formData = new FormData();

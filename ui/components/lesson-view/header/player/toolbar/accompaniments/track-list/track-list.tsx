@@ -10,11 +10,11 @@ import { handleDetectClick } from '../../../../../../../../helpers';
 const b = block(style);
 
 type TrackListProps = {
-  show: boolean,
-  list: LibraryI[],
-  onSetLibrary: (id_library: number) => void,
-  onLoadTrack: () => void,
-  onCloseList: () => void
+  show: boolean;
+  list: LibraryI[];
+  onSetLibrary: (id_library: number) => void;
+  onLoadTrack: () => void;
+  onCloseList: () => void;
 };
 type TrackListState = {};
 
@@ -24,7 +24,6 @@ type TrackListState = {};
 }))
 @observer
 export class TrackList extends React.Component<TrackListProps, TrackListState> {
-
   containerListRef = React.createRef<HTMLUListElement>();
 
   static defaultProps = {
@@ -56,23 +55,25 @@ export class TrackList extends React.Component<TrackListProps, TrackListState> {
     const { show, list } = this.props;
 
     return (
-      <ul ref={this.containerListRef}
-          className={b(null, { show })}>
+      <ul ref={this.containerListRef} className={b(null, { show })}>
         {list.map((track) => {
-          return <TrackItem key={track.uuid}
-                            id={track.id}
-                            uuid={track.uuid}
-                            sort={track.sort}
-                            service_id={track.service_id}
-                            name={track.name}
-                            type={track.type}
-                            is_active={track.is_active}
-                            tracks={track.tracks}
-                            pivot={track.pivot}
-                            onChoose={this.handleOnChooseTrack} />;
+          return (
+            <TrackItem
+              key={track.uuid}
+              id={track.id}
+              uuid={track.uuid}
+              sort={track.sort}
+              service_id={track.service_id}
+              name={track.name}
+              type={track.type}
+              is_active={track.is_active}
+              tracks={track.tracks}
+              pivot={track.pivot}
+              onChoose={this.handleOnChooseTrack}
+            />
+          );
         })}
       </ul>
     );
   }
-
 }

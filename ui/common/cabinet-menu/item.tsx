@@ -13,8 +13,12 @@ export class CabinetMenuItem extends React.Component<CabinetMenuItemProps & Menu
   render() {
     const { title, is_active, link } = this.props;
 
-    return <li className={b('item')}>
-      <Link href={link}><a className={b('link', { is_active })}>{title}</a></Link>
-    </li>;
+    return (
+      <li className={b('item')}>
+        <Link href={link}>
+          <a className={b('link', { is_active })}>{title}</a>
+        </Link>
+      </li>
+    );
   }
 }

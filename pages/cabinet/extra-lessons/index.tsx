@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {inject, observer} from 'mobx-react';
+import { inject, observer } from 'mobx-react';
 import { BaseLayout, CabinetLayout } from '../../../ui';
 
 type ExtraLessonsPageProps = {};
@@ -11,9 +11,7 @@ export default class ExtraLessonsPage extends React.Component<ExtraLessonsPagePr
   render() {
     return (
       <BaseLayout background={'gray'} noStick>
-        <CabinetLayout>
-
-        </CabinetLayout>
+        <CabinetLayout></CabinetLayout>
       </BaseLayout>
     );
   }

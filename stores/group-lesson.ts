@@ -3,7 +3,6 @@ import { GroupLessonI, LessonI } from '../interfaces';
 import { CollectionStore } from './collection';
 
 export class GroupLessonStore implements GroupLessonI {
-
   @observable isFetch: boolean = false;
 
   @observable id = 0;

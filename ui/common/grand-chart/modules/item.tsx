@@ -9,9 +9,9 @@ import { RootStore } from '../../../../stores';
 const b = block(style);
 
 type ModuleItemProps = {
-  is_active: boolean,
-  number: number,
-  service_name: SERVICE_NAME,
+  is_active: boolean;
+  number: number;
+  service_name: SERVICE_NAME;
 };
 type ModuleItemState = {};
 
@@ -20,7 +20,6 @@ type ModuleItemState = {};
 }))
 @observer
 export class ModuleItem extends React.Component<ModuleItemProps & ModuleI, ModuleItemState> {
-
   static defaultProps = {
     service_name: SERVICE_NAME.SCHOOL
   };
@@ -30,7 +29,7 @@ export class ModuleItem extends React.Component<ModuleItemProps & ModuleI, Modul
 
     return (
       <div className={b('item', { is_active })}>
-        <div className={b('toolbar', { [service_name]: !is_active})}>Module {number}</div>
+        <div className={b('toolbar', { [service_name]: !is_active })}>Module {number}</div>
         {name.replace(/[0-9]./g, '')}
       </div>
     );

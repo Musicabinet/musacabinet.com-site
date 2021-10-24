@@ -3,11 +3,11 @@
 .instrument-list
   $root: &
   position: relative
+  margin-bottom: 130px
 
   &__item
     flex: 1
     margin: 0 10px 0 0
-    border: 2px solid $gold
     border-radius: 8px
     padding: 60px 15px
     display: flex
@@ -15,24 +15,10 @@
     justify-content: center
     align-items: center
     background: transparent
-    cursor: pointer
     transition: background-color 0.2s, transform 0.2s
 
     &_last
       margin-right: 0
-
-    &:hover
-      background: $gold
-
-      #{$root}__title
-        color: $white
-
-      #{$root}__icon
-        path
-          stroke: $white
-
-    &:active
-      transform: scale(0.96)
 
     @include breakpoint-tablet-vertical
       flex: 25%

@@ -1,4 +1,4 @@
-export interface CourseI{
-  id: number,
-  name: string
+export interface CourseI {
+  id: number;
+  name: string;
 }

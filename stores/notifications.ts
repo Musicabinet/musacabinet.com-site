@@ -3,7 +3,6 @@ import { NotificationStore } from './notification';
 import { NotificationI } from '../interfaces';
 
 export class NotificationsStore {
-
   @observable list: NotificationStore[] = [];
 
   constructor(initialData: NotificationsStore | null) {
@@ -34,5 +33,4 @@ export class NotificationsStore {
     const { list } = data;
     this.list = (list || []).map((notification) => new NotificationStore(notification, { notificationsStore: this }));
   }
-
 }

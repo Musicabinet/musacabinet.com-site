@@ -14,12 +14,8 @@ export class Ribbon extends React.Component<RibbonProps, RibbonState> {
   render() {
     return (
       <div className={b(null)}>
-        <div className={b('text')}>
-          Grand Opening Discount
-        </div>
-        <div className={b('discount')}>
-          25% OFF
-        </div>
+        <div className={b('text')}>Grand Opening Discount</div>
+        <div className={b('discount')}>25% OFF</div>
       </div>
     );
   }

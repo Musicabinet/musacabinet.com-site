@@ -5,18 +5,17 @@ import style from './button.module.sass';
 const b = block(style);
 
 type ButtonProps = {
-  type: 'button' | 'submit',
-  name: string,
-  loading: boolean,
-  onClick: (e: React.FormEvent<HTMLButtonElement>) => void,
-  disabled: boolean,
-  className: string,
-  full: boolean
+  type: 'button' | 'submit';
+  name: string;
+  loading: boolean;
+  onClick: (e: React.FormEvent<HTMLButtonElement>) => void;
+  disabled: boolean;
+  className: string;
+  full: boolean;
 };
 type ButtonState = {};
 
 export class Button extends React.Component<ButtonProps, ButtonState> {
-
   static defaultProps = {
     className: '',
     name: '',
@@ -31,10 +30,9 @@ export class Button extends React.Component<ButtonProps, ButtonState> {
     const { children, className, type, disabled, full, onClick } = this.props;
 
     return (
-      <button type={type}
-              disabled={disabled}
-              className={` ${className} ${b(null, { full })}`}
-              onClick={onClick}>{children}</button>
+      <button type={type} disabled={disabled} className={` ${className} ${b(null, { full })}`} onClick={onClick}>
+        {children}
+      </button>
     );
   }
 }

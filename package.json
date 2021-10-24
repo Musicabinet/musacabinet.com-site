@@ -7,7 +7,8 @@
     "start": "NODE_ENV=production next start -p 3201",
     "prod-start": "git pull origin main && yarn install && yarn build && pm2 start npm --name musicabinet.com -- start",
     "prod-restart": "git pull origin main && yarn install && yarn build && pm2 restart musicabinet.com",
-    "type-check": "tsc"
+    "type-check": "tsc",
+    "check": "prettier --write ."
   },
   "dependencies": {
     "@babel/plugin-proposal-class-properties": "^7.13.0",

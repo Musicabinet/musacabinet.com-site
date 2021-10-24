@@ -39,7 +39,7 @@ export enum LIST_ICON {
   VOLUME = 'VOLUME',
   BACK_BUTTON = 'BACK_BUTTON',
   PROFILE = 'PROFILE',
-  CHECK = 'CHECK',
+  CHECK = 'CHECK'
 }
 
 export const ICON_MAPPING = {

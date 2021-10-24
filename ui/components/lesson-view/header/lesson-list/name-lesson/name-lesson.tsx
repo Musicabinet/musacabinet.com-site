@@ -7,7 +7,7 @@ import { RootStore } from '../../../../../../stores';
 const b = block(style);
 
 type NameLessonProps = {
-  name: string
+  name: string;
 };
 type NameLessonState = {};
 
@@ -16,7 +16,6 @@ type NameLessonState = {};
 }))
 @observer
 export class NameLesson extends React.Component<NameLessonProps, NameLessonState> {
-
   static defaultProps = {
     name: ''
   };
@@ -24,8 +23,6 @@ export class NameLesson extends React.Component<NameLessonProps, NameLessonState
   render() {
     const { name } = this.props;
 
-    return (
-      <div className={b(null)}>{name}</div>
-    );
+    return <div className={b(null)}>{name}</div>;
   }
 }

@@ -42,7 +42,7 @@ export enum SERVICE_NAME {
 export enum SERVICE_ID {
   SCHOOL = 1,
   COLLEGE = 2,
-  UNIVERSITY = 3,
+  UNIVERSITY = 3
 }
 
 export const SERVICE_MAPPING = {
@@ -60,7 +60,7 @@ export enum LibraryTrackType {
   TRACK = 'TRACK',
   BASS = 'BASS',
   DRUMS = 'DRUMS',
-  KEYBOARDS = 'KEYBOARDS',
+  KEYBOARDS = 'KEYBOARDS'
 }
 
 export enum LibraryTypeMAPPING {
@@ -101,5 +101,10 @@ export const SERVICE_SECOND_NEXT_MODULE = {
   [SERVICE_ID.SCHOOL]: 300,
   [SERVICE_ID.COLLEGE]: 600,
   [SERVICE_ID.UNIVERSITY]: 900
-}
+};
 
+export const SERVICE_DURATION_MINUTE = {
+  [SERVICE_ID.SCHOOL]: 30,
+  [SERVICE_ID.COLLEGE]: 45,
+  [SERVICE_ID.UNIVERSITY]: 60
+}

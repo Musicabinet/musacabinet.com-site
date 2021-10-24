@@ -13,9 +13,9 @@ import { MODALS } from '../../../constants';
 const b = block(style);
 
 type FormSignUpProps = {
-  onSignUp: (data: SignUpRequestI) => void,
-  onShowModal: (id_modal: MODALS) => void,
-  onCloseModal: (id_modal: MODALS) => void
+  onSignUp: (data: SignUpRequestI) => void;
+  onShowModal: (id_modal: MODALS) => void;
+  onCloseModal: (id_modal: MODALS) => void;
 };
 type FormSignUpState = {};
 
@@ -26,7 +26,6 @@ type FormSignUpState = {};
 }))
 @observer
 export class FormSignUp extends React.Component<FormSignUpProps, FormSignUpState> {
-
   static defaultProps = {
     onSignUp: () => console.log('Not set handler'),
     onShowModal: () => console.log('Not set handler'),
@@ -43,54 +42,57 @@ export class FormSignUp extends React.Component<FormSignUpProps, FormSignUpState
     const { onSignUp } = this.props;
 
     return (
-      <Formik validationSchema={signUpValidationSchema}
-              initialValues={{
-                email: '',
-                password: ''
-              }}
-              validateOnBlur
-              onSubmit={onSignUp}>
-
+      <Formik
+        validationSchema={signUpValidationSchema}
+        initialValues={{
+          email: '',
+          password: ''
+        }}
+        validateOnBlur
+        onSubmit={onSignUp}
+      >
         {({ values, errors, touched, handleChange, handleBlur, isValid, handleSubmit, dirty }) => {
           return (
             <form onSubmit={handleSubmit}>
-              <div className='row'>
-                <div className='col-12'>
-                  <InputText name={'email'}
-                             value={values.email}
-                             onChange={handleChange}
-                             onBlur={handleBlur}
-                             placeholder={'Your email'}
-                             isValid={Boolean(touched.email && errors.email === undefined || !dirty)}
-                             errors={errors.email} />
+              <div className="row">
+                <div className="col-12">
+                  <InputText
+                    name={'email'}
+                    value={values.email}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    placeholder={'Your email'}
+                    isValid={Boolean((touched.email && errors.email === undefined) || !dirty)}
+                    errors={errors.email}
+                  />
                 </div>
 
                 <div className={b('space', { '15': true })} />
 
-                <div className='col-12 d-flex justify-content-center'>
+                <div className="col-12 d-flex justify-content-center">
                   <button className={b('link')}>Forgot your password?</button>
                 </div>
 
                 <div className={b('space', { '15': true })} />
 
-                <div className='col-12'>
-                  <Button type={'submit'}
-                          full
-                          disabled={!isValid || !dirty}>Create account</Button>
+                <div className="col-12">
+                  <Button type={'submit'} full disabled={!isValid || !dirty}>
+                    Create account
+                  </Button>
                 </div>
 
                 <div className={b('space', { '20': true })} />
 
                 <div className={b('text')}>Already have an account?</div>
-                <div className='col-12 d-flex justify-content-center'>
-                  <button onClick={this.handleOnSignIn} className={b('action')}>Log In</button>
+                <div className="col-12 d-flex justify-content-center">
+                  <button onClick={this.handleOnSignIn} className={b('action')}>
+                    Log In
+                  </button>
                 </div>
               </div>
-
-            </form>);
+            </form>
+          );
         }}
-
-
       </Formik>
     );
   }

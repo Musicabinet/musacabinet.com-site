@@ -10,7 +10,7 @@ import { NotificationItem } from './item';
 const b = block(style);
 
 type NotificationsProps = {
-  list: NotificationStore[]
+  list: NotificationStore[];
 };
 type NotificationsState = {};
 
@@ -19,7 +19,6 @@ type NotificationsState = {};
 }))
 @observer
 export class Notifications extends React.Component<NotificationsProps, NotificationsState> {
-
   static defaultProps = {
     list: []
   };
@@ -35,12 +34,16 @@ export class Notifications extends React.Component<NotificationsProps, Notificat
       <Portal>
         <div className={b(null)}>
           {list.map((notification) => {
-            return <NotificationItem key={notification.id}
-                                     id={notification.id}
-                                     title={notification.title}
-                                     message={notification.message}
-                                     type={notification.type}
-                                     onRemove={notification.remove} />;
+            return (
+              <NotificationItem
+                key={notification.id}
+                id={notification.id}
+                title={notification.title}
+                message={notification.message}
+                type={notification.type}
+                onRemove={notification.remove}
+              />
+            );
           })}
         </div>
       </Portal>

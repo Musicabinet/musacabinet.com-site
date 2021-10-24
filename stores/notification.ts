@@ -4,7 +4,6 @@ import { NOTIFICATION_TYPE } from '../constants';
 import { NotificationsStore } from './notifications';
 
 export class NotificationStore implements NotificationI {
-
   @observable id = '';
   @observable title = '';
   @observable message = '';
@@ -36,5 +35,4 @@ export class NotificationStore implements NotificationI {
     this.message = message;
     this.type = type;
   }
-
 }
