@@ -108,7 +108,7 @@ export class Item extends React.Component<ItemProps, ItemState> {
             //действие при успешной оплате
             if (window) {
               // @ts-ignore
-              window.gtag('event', 'sign_up', options.data.payload);
+              window.gtag('event', 'purchase', options.data.payload);
               window.location.href = '/cabinet';
             }
           },
