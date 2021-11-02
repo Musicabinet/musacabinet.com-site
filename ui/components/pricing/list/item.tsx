@@ -104,8 +104,11 @@ export class Item extends React.Component<ItemProps, ItemState> {
             // Сохраняем платеж
             await purchasesStore.create(payload);
 
+
             //действие при успешной оплате
             if (window) {
+              // @ts-ignore
+              window.gtag('event', 'sign_up', options.data.payload);
               window.location.href = '/cabinet';
             }
           },

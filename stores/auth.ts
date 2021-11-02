@@ -4,7 +4,6 @@ import { FacebookClientResponsive, LoginResponse } from '../responsible';
 import { API, Cookie } from '../core';
 import { METHODS_REQUEST, NOTIFICATION_TYPE } from '../constants';
 import Router from 'next/router';
-import isMobile from 'is-mobile';
 import { RootStore } from './index';
 
 let rootStore: RootStore;
@@ -76,13 +75,8 @@ export class AuthStore implements AuthI {
         body: API.getFormData(data)
       });
 
-      if (isMobile()) {
-        // @ts-ignore
-        window.gtag('event', 'sign_in_mobile');
-      } else {
-        // @ts-ignore
-        window.gtag('event', 'sign_in');
-      }
+      // @ts-ignore
+      window.gtag('event', 'sign_in');
 
       // Заполнякем сторы
       this.fillingAfterSign(user, access_token);
@@ -108,13 +102,8 @@ export class AuthStore implements AuthI {
         body: API.getFormData(data)
       });
 
-      if (isMobile()) {
-        // @ts-ignore
-        window.gtag('event', 'sign_in_mobile');
-      } else {
-        // @ts-ignore
-        window.gtag('event', 'sign_in');
-      }
+      // @ts-ignore
+      window.gtag('event', 'sign_in');
 
       // Заполнякем сторы
       this.fillingAfterSign(response.user, response.access_token);
@@ -134,21 +123,11 @@ export class AuthStore implements AuthI {
       });
 
       if (response.isNew) {
-        if (isMobile()) {
-          // @ts-ignore
-          window.gtag('event', 'sign_up_mobile');
-        } else {
-          // @ts-ignore
-          window.gtag('event', 'sign_up');
-        }
+        // @ts-ignore
+        window.gtag('event', 'sign_up');
       } else {
-        if (isMobile()) {
-          // @ts-ignore
-          window.gtag('event', 'sign_in_mobile');
-        } else {
-          // @ts-ignore
-          window.gtag('event', 'sign_in');
-        }
+        // @ts-ignore
+        window.gtag('event', 'sign_in');
       }
 
       // Заполнякем сторы
@@ -185,13 +164,9 @@ export class AuthStore implements AuthI {
         body: API.getFormData(data)
       });
 
-      if (isMobile()) {
-        // @ts-ignore
-        window.gtag('event', 'sign_up_mobile');
-      } else {
-        // @ts-ignore
-        window.gtag('event', 'sign_up');
-      }
+      // @ts-ignore
+      window.gtag('event', 'sign_up');
+
 
       // Заполнякем сторы
       this.fillingAfterSign(response.user, response.access_token);
