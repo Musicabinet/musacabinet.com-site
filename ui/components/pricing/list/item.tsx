@@ -83,6 +83,12 @@ export class Item extends React.Component<ItemProps, ItemState> {
         }
       };
 
+      // Нажад на купить
+      if (window) {
+        // @ts-ignore
+        window.gtag('event', 'begin_checkout');
+      }
+
       widget.pay(
         'auth',
         {
