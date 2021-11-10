@@ -2,47 +2,34 @@ import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import block from 'bem-css-modules';
 import style from './profile-user.module.sass';
-import { Button, Title } from '../../common';
+import { Button, InputSmall, Title } from '../../common';
 import { TITLE_SIZE } from '../../../constants';
-import { InputText } from '../../common/input-text/input-text';
-import { RootStore } from '../../../stores';
+import { RootStore, UserStore } from '../../../stores';
 import { UserUpdateI } from '../../../interfaces';
 
 const b = block(style);
 
 type ProfileUserProps = {
-  onUpdate: (values: UserUpdateI) => Promise<void>;
+  userStore: UserStore
 };
 type ProfileUserState = {};
 
 @inject((store: RootStore) => ({
-  first_name: store.userStore.first_name,
-  last_name: store.userStore.last_name,
-  country: store.userStore.country,
-  city: store.userStore.city,
-  education: store.userStore.education,
-  music_education: store.userStore.music_education,
-  onUpdate: store.userStore.update
+  userStore: store.userStore
 }))
 @observer
-export class ProfileUser extends React.Component<ProfileUserProps & UserUpdateI, ProfileUserState & UserUpdateI> {
+export class ProfileUser extends React.Component<ProfileUserProps, ProfileUserState & UserUpdateI> {
   state = {
-    first_name: this.props.first_name,
-    last_name: this.props.last_name,
-    country: this.props.country,
-    city: this.props.city,
-    education: this.props.education,
-    music_education: this.props.music_education
+    first_name: this.props.userStore.first_name,
+    last_name: this.props.userStore.last_name,
+    country: this.props.userStore.country,
+    city: this.props.userStore.city,
+    education: this.props.userStore.education,
+    music_education: this.props.userStore.music_education
   };
 
   static defaultProps = {
-    first_name: '',
-    last_name: '',
-    country: '',
-    city: '',
-    education: '',
-    music_education: '',
-    onUpdate: () => console.log('Not set handler')
+    userStore: {}
   };
 
   handleOnChange = (e: React.FormEvent<HTMLInputElement>) => {
@@ -51,8 +38,8 @@ export class ProfileUser extends React.Component<ProfileUserProps & UserUpdateI,
   };
 
   handleOnUpdate = async () => {
-    const { onUpdate } = this.props;
-    await onUpdate(this.state);
+    const { userStore } = this.props;
+    await userStore.update(this.state);
   };
 
   render() {
@@ -60,95 +47,61 @@ export class ProfileUser extends React.Component<ProfileUserProps & UserUpdateI,
 
     return (
       <div className={b(null)}>
-        <div className="container">
-          <div className="row mb-4">
-            <div className="col-lg-12">
+        <div className='container'>
+          <div className='row mb-4'>
+            <div className='col-lg-12'>
               <Title size={TITLE_SIZE.FOURTH} className={b('title')}>
-                Your Profile
+                ID
               </Title>
             </div>
           </div>
 
-          <div className="row mb-3">
-            <div className="col-lg-12">
-              <InputText
-                isValid
-                placeholder={'Name'}
-                value={first_name}
-                name={'first_name'}
-                label={'Name'}
-                onChange={this.handleOnChange}
-              />
+          <div className='row'>
+            <div className='col-xxl-6'>
+              <InputSmall label={'Name'}
+                          name={'first_name'}
+                          value={first_name}
+                          onChange={this.handleOnChange} />
+            </div>
+
+            <div className='col-xxl-6'>
+              <InputSmall label={'Last Name'}
+                          name={'last_name'}
+                          value={last_name}
+                          onChange={this.handleOnChange} />
+            </div>
+
+            <div className='col-xxl-6'>
+              <InputSmall label={'Country'}
+                          name={'country'}
+                          value={country}
+                          onChange={this.handleOnChange} />
+            </div>
+
+            <div className='col-xxl-6'>
+              <InputSmall label={'City'}
+                          name={'city'}
+                          value={city}
+                          onChange={this.handleOnChange} />
+            </div>
+
+            <div className='col-xxl-6'>
+              <InputSmall label={'Education'}
+                          name={'education'}
+                          value={education}
+                          onChange={this.handleOnChange} />
+            </div>
+
+            <div className='col-xxl-6'>
+              <InputSmall label={'Music Education'}
+                          name={'music_education'}
+                          value={music_education}
+                          onChange={this.handleOnChange} />
             </div>
           </div>
 
-          <div className="row mb-3">
-            <div className="col-lg-12">
-              <InputText
-                isValid
-                placeholder={'Last Name'}
-                value={last_name}
-                name={'last_name'}
-                label={'Last Name'}
-                onChange={this.handleOnChange}
-              />
-            </div>
-          </div>
-
-          <div className="row mb-3">
-            <div className="col-lg-12">
-              <InputText
-                isValid
-                placeholder={'Country'}
-                value={country}
-                name={'country'}
-                label={'Country'}
-                onChange={this.handleOnChange}
-              />
-            </div>
-          </div>
-
-          <div className="row mb-3">
-            <div className="col-lg-12">
-              <InputText
-                isValid
-                placeholder={'City'}
-                value={city}
-                name={'city'}
-                label={'City'}
-                onChange={this.handleOnChange}
-              />
-            </div>
-          </div>
-
-          <div className="row mb-3">
-            <div className="col-lg-12">
-              <InputText
-                isValid
-                placeholder={'Education'}
-                value={education}
-                name={'education'}
-                label={'Education'}
-                onChange={this.handleOnChange}
-              />
-            </div>
-          </div>
-
-          <div className="row mb-4">
-            <div className="col-lg-12">
-              <InputText
-                isValid
-                placeholder={'Music education'}
-                value={music_education}
-                name={'music_education'}
-                label={'Music education'}
-                onChange={this.handleOnChange}
-              />
-            </div>
-          </div>
-
-          <div className="row">
-            <div className="col-lg-12">
+          <div className='row mt-4'>
+            <div className='col-lg-12 text-right'>
               <Button onClick={this.handleOnUpdate}>Update</Button>
             </div>
           </div>

@@ -2,12 +2,10 @@ import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import block from 'bem-css-modules';
 import style from './scores.module.sass';
-import { RootStore } from '../../../../stores';
+import { RootStore, LessonStore, PlayerStore } from '../../../../stores';
 import { AccompanimentI, ScoreI } from '../../../../interfaces';
 import { MODALS, SCORE_TYPE, SERVICE_NAME } from '../../../../constants';
 import { Pagination } from './pagination/pagination';
-import { LessonStore } from '../../../../stores/lesson';
-import { PlayerStore } from '../../../../stores/player';
 
 const b = block(style);
 
@@ -93,6 +91,7 @@ export class Scores extends React.Component<ScoresProps, ScoresState> {
   render() {
     const { currentContentScore, service_name } = this.props;
 
+
     return (
       <div className={b(null)}>
         <Pagination />
@@ -101,6 +100,7 @@ export class Scores extends React.Component<ScoresProps, ScoresState> {
             <div className={b('header')}>
               <div className={b('information')}>
                 <div className={b('title')}>{currentContentScore.name}</div>
+                <div className={b('sub_title')}>{currentContentScore.sub_title}</div>
               </div>
             </div>
 

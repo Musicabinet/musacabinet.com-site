@@ -27,8 +27,6 @@ export class InstrumentList extends React.Component<InstrumentListProps, Instrum
   render() {
     const { list } = this.props;
 
-    console.log(list);
-
     return (
       <div className={b(null)}>
         <div className="container g-lg-0">

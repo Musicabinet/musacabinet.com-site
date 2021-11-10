@@ -1,0 +1,27 @@
+@import "../../../../stylesheets/index"
+
+.block
+  position: relative
+
+  &__month
+    text-align: center
+    @include fontMontserrat(14px)
+    padding: 2.5px 0
+    margin-bottom: 10px
+
+  &__list
+    display: flex
+    flex-direction: column
+    flex-wrap: wrap
+    height: 150px
+    align-content: flex-start
+
+  &__day
+    width: 15px
+    height: 15px
+    margin-bottom: 5px
+    background: $gray20
+    margin-right: 5px
+
+    &_empty
+      background: transparent

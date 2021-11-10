@@ -2,7 +2,7 @@ import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import block from 'bem-css-modules';
 import style from './service-list.module.sass';
-import { getIcon } from '../../../../common/icons';
+import { getIcon, LIST_ICON } from '../../../../common/icons';
 import { ServiceStore } from '../../../../../stores/service';
 
 const b = block(style);
@@ -33,9 +33,7 @@ export class ServiceItem extends React.Component<ServiceItemProps, ServiceItemSt
     return (
       <div className="col-lg-4">
         <div className={b('item')}>
-          {/*
-            // @ts-ignore */}
-          {getIcon(service.slug.toUpperCase(), b('icon', { [service.slug]: true }))}
+          {getIcon(service.slug.toUpperCase() as LIST_ICON, b('icon'))}
         </div>
 
         <div className={b('description')}>{this.getText()}</div>

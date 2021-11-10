@@ -5,6 +5,7 @@ export interface ScoreI {
   id: number;
   lesson_id: number;
   name: string;
+  sub_title: string;
   video_url: string;
   content: string;
   items: ScoreItemStore[];

@@ -14,7 +14,7 @@ export interface AboutService {
 
 export class SystemStore {
   @observable service_id = 0;
-  @observable service_name: SERVICE_NAME | undefined = undefined;
+  @observable service_name: SERVICE_NAME  = SERVICE_NAME.SCHOOL;
   @observable instrument_id: number = 0;
   @observable instrument_name: string = '';
   @observable instrument_icon: LIST_ICON.GUITAR | LIST_ICON.KEYBOARD | LIST_ICON.SAXOPHONE = LIST_ICON.GUITAR;

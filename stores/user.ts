@@ -71,10 +71,12 @@ export class UserStore implements UserI {
   @action.bound
   async update(values: UserUpdateI) {
     try {
-      await API.request(`users/update`, {
+      const response = await API.request<UserI>(`users/update`, {
         method: METHODS_REQUEST.POST,
         body: API.getFormData(values)
       });
+
+      this.fillingStore(response);
 
       rootStore.notificationsStore.add({
         type: NOTIFICATION_TYPE.SUCCESS,

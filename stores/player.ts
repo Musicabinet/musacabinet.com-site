@@ -156,7 +156,11 @@ export class PlayerStore {
   }
 
   @action.bound
-  init() {}
+  init() {
+    this.player.forEach((player) => {
+      player.volume.value = -12;
+    });
+  }
 
   @action.bound
   onPlay() {

@@ -120,12 +120,12 @@ export class MenuListStore {
       type: MenuType.DEFAULT,
       is_active: false
     },
-    {
+    /*{
       title: 'Extra lessons',
       link: '/cabinet/extra-lessons',
       type: MenuType.DEFAULT,
       is_active: false
-    }
+    }*/
   ];
 
   @observable footer_list: MenuI[] = [
