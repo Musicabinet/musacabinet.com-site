@@ -8,7 +8,7 @@ import { Method } from './method/method';
 import { RootStore } from '../../../stores';
 import { SERVICE_NAME } from '../../../constants';
 import { Charts } from './charts/charts';
-import { NextModule } from '../../common';
+//import { NextModule } from '../../common';
 import { LocalStorage } from '../../../core';
 
 const b = block(style);
