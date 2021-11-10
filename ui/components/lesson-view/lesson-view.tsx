@@ -76,7 +76,7 @@ export class LessonView extends React.Component<LessonViewProps, LessonViewState
             </div>
           </div>
         </div>
-        <NextModule />
+        {/*<NextModule />*/}
       </>
     );
   }
