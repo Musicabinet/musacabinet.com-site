@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { inject, observer } from 'mobx-react';
-import { BaseLayout, NextModule } from '../../ui';
+import { BaseLayout } from '../../ui';
 import { LessonView } from '../../ui/components';
 import { CustomAppContext } from '../../interfaces';
 import { redirectToWrapper } from '../../core';
@@ -113,7 +113,6 @@ export default class LessonPage extends React.Component<LessonPageProps, LessonP
     return (
       <BaseLayout full noStick>
         <LessonView />
-        <NextModule />
       </BaseLayout>
     );
   }
