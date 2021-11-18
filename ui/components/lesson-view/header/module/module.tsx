@@ -6,7 +6,6 @@ import { NextModuleStore, RootStore, SystemStore } from '../../../../../stores';
 import Router from 'next/router';
 import { SERVICE_NAME } from '../../../../../constants';
 import { ModuleNavigation } from './module-navigation/module-navigation';
-import { LessonNavigation } from './lesson-navigation/lesson-navigation';
 import { Timer } from './timer/timer';
 
 const b = block(style);
@@ -56,7 +55,6 @@ export class Module extends React.Component<ModuleProps, ModuleState> {
           <ModuleNavigation />
         </div>
         <div className={b('body')}>
-          <LessonNavigation />
           <Timer amountTime={this.getAmountTime()} onMessageAtTheEnd={nextModuleStore.start} />
         </div>
       </div>

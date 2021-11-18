@@ -97,7 +97,7 @@ export class MenuListStore {
 
   @observable cabinet_list: MenuI[] = [
     {
-      title: 'Your day',
+      title: 'My Day',
       link: '/cabinet/your-day',
       type: MenuType.DEFAULT,
       is_active: false
@@ -109,7 +109,7 @@ export class MenuListStore {
       is_active: false
     },
     {
-      title: 'Your statistics',
+      title: 'My Statistics',
       link: '/cabinet/your-statistics',
       type: MenuType.DEFAULT,
       is_active: false

@@ -30,6 +30,29 @@ export class BreadCrumbs extends React.Component<BreadCrumbsProps, BreadCrumbsSt
     breadcrumbs: []
   };
 
+  getNumber = (name: string) => {
+
+    switch (name) {
+      case 'Basic':
+        return 1;
+      case 'Progressive':
+        return 2;
+      case 'Super Progressive':
+        return 3;
+      case 'Cosmic':
+        return 1;
+      case 'Super Cosmic':
+        return 2;
+      case 'Nova':
+        return 3;
+      case 'Supernova':
+        return 4;
+      default:
+        return '';
+    }
+
+  };
+
   render() {
     const { service_name, breadcrumbs } = this.props;
 
@@ -40,13 +63,14 @@ export class BreadCrumbs extends React.Component<BreadCrumbsProps, BreadCrumbsSt
         })}
       >
         {breadcrumbs.map((breadcrumb, index) => {
+          console.log(breadcrumb.name);
           return (
             <BreadcrumbsItem
               key={`${breadcrumb.name}_${breadcrumb.type}`}
               current={index + 1}
               total={breadcrumbs.length}
-              name={breadcrumb.name}
-              type={breadcrumb.type}
+              name={`${breadcrumb.name}`}
+              type={`${breadcrumb.type} ${this.getNumber(breadcrumb.name)}`}
             />
           );
         })}
