@@ -2,6 +2,9 @@ import { action, makeObservable, observable } from 'mobx';
 import { GroupLessonI } from '../interfaces';
 import { CollectionStore } from './collection';
 import { LessonStore } from './lesson';
+import { RootStore } from './index';
+
+let rootStore: RootStore;
 
 export class GroupLessonStore implements GroupLessonI {
   @observable isFetch: boolean = false;
@@ -22,8 +25,11 @@ export class GroupLessonStore implements GroupLessonI {
   @observable total_lessons = 0;
   @observable lessons: LessonStore[] = [];
 
-  constructor(initialData: GroupLessonI | null) {
+  constructor(initialData: GroupLessonI | null, root: RootStore) {
     makeObservable(this);
+
+    rootStore = root;
+
     if (initialData) {
       this.fillingStore(initialData);
     }
@@ -34,6 +40,7 @@ export class GroupLessonStore implements GroupLessonI {
     const {
       id,
       collection_id,
+      course_id,
       sort,
       slug,
       meta_title,
@@ -42,11 +49,13 @@ export class GroupLessonStore implements GroupLessonI {
       name,
       description,
       is_active,
-      collections
+      collections,
+      lessons
     } = data;
 
     this.id = id;
     this.collection_id = collection_id;
+    this.course_id = course_id;
     this.sort = sort;
     this.slug = slug;
     this.meta_title = meta_title;
@@ -56,5 +65,6 @@ export class GroupLessonStore implements GroupLessonI {
     this.description = description;
     this.is_active = is_active;
     this.collections = collections ? new CollectionStore(collections) : null;
+    this.lessons = (lessons || []).map((lesson) => new LessonStore(lesson, rootStore));
   }
 }

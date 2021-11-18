@@ -21,6 +21,7 @@ import { ProductsStore } from './products';
 import { InstrumentStore } from './instrument';
 import { GroupLessonStore } from './group-lesson';
 import { TutorialsStore } from './tutorials';
+import { StatisticsListStore } from './statistics-list';
 
 const isServer = typeof window === 'undefined';
 enableStaticRendering(isServer);
@@ -50,6 +51,7 @@ export class RootStore {
   public purchasesStore: PurchasesStore;
   public productsStore: ProductsStore;
   public tutorialsStore: TutorialsStore;
+  public statisticsListStore: StatisticsListStore;
 
   constructor(iData: RootStore | null) {
     this.notificationsStore = new NotificationsStore(iData && iData.notificationsStore ? iData.notificationsStore : null);
@@ -71,6 +73,7 @@ export class RootStore {
     this.purchasesStore = new PurchasesStore(iData ? iData.purchasesStore : null);
     this.productsStore = new ProductsStore(iData ? iData.productsStore : null, this);
     this.tutorialsStore = new TutorialsStore(iData ? iData.tutorialsStore : null);
+    this.statisticsListStore = new StatisticsListStore(iData ? iData.statisticsListStore : null, this);
   }
 }
 

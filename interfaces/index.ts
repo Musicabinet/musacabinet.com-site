@@ -43,3 +43,4 @@ export * from './purchase';
 export * from './cloudpayment';
 export * from './product';
 export * from './tutorial';
+export * from './lesson-progress';

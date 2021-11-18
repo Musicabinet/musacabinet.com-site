@@ -6,6 +6,7 @@ import { RootStore, UserStore, InstrumentStore, SystemStore, ModalsStore, GrandC
 import { MODALS, SERVICE_MAPPING } from '../../../constants';
 import { ButtonGrandChart } from '../button-grand-chart/button-grand-chart';
 import { InstrumentIcon } from '../instrument-icon/instrument-icon';
+import { StatisticsListStore } from '../../../stores/statistics-list';
 
 const b = block(style);
 
@@ -15,6 +16,7 @@ type CabinetSubscriptionItemProps = {
   systemStore: SystemStore,
   modalsStore: ModalsStore,
   grandChartStore: GrandChartStore,
+  statisticsListStore: StatisticsListStore
 };
 type CabinetSubscriptionItemState = {};
 
@@ -23,6 +25,7 @@ type CabinetSubscriptionItemState = {};
   systemStore: store.systemStore,
   modalsStore: store.modalsStore,
   grandChartStore: store.grandChartStore,
+  statisticsListStore: store.statisticsListStore
 }))
 @observer
 export class CabinetSubscriptionItem extends React.Component<CabinetSubscriptionItemProps, CabinetSubscriptionItemState> {
@@ -31,6 +34,7 @@ export class CabinetSubscriptionItem extends React.Component<CabinetSubscription
     systemStore: {},
     modalsStore: {},
     grandChartStore: {},
+    statisticsListStore: {}
   };
 
   handleOnOpenGrandChart = async () => {
@@ -38,7 +42,8 @@ export class CabinetSubscriptionItem extends React.Component<CabinetSubscription
       instrument,
       systemStore,
       modalsStore,
-      grandChartStore
+      grandChartStore,
+      statisticsListStore
     } = this.props;
 
     // Записываем данные
@@ -53,6 +58,9 @@ export class CabinetSubscriptionItem extends React.Component<CabinetSubscription
 
     // Получение гранд чарта
     await grandChartStore.getList();
+    await statisticsListStore.get();
+
+    console.log('ehey');
   };
 
   render() {

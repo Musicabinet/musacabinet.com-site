@@ -13,7 +13,7 @@ export class GrandChartStore {
   @observable courses: CourseI[] = [];
   @observable modules: ModuleI[] = [];
   @observable collections: CollectionI[] = [];
-  @observable groupLessons: GroupLessonI[] = [];
+  @observable groupLessons: GroupLessonStore[] = [];
   @observable finalData: GroupLessonsFinal = {};
 
   @observable showGroupLessonDetail: boolean = false;
@@ -56,7 +56,7 @@ export class GrandChartStore {
       this.courses = [...courses];
       this.modules = [...modules];
       this.collections = [...collections];
-      this.groupLessons = [...group_lessons];
+      this.groupLessons = (group_lessons || []).map((group_lesson) => new GroupLessonStore(group_lesson, rootStore));
 
       this.isEmpty = this.modules.length === 0;
     } catch (e) {
@@ -94,6 +94,21 @@ export class GrandChartStore {
     );
   }
 
+  @computed
+  get totalTimeCollections(): { [key: string]: number } {
+    let complete: { [key: string]: number } = {};
+    this.groupLessons.forEach((groupLesson) => {
+      groupLesson.lessons.forEach((lesson) => {
+        if (!complete[groupLesson.course_id]) {
+          complete[groupLesson.course_id] = 0;
+        }
+        complete[groupLesson.course_id] += lesson.duration_minute;
+      });
+    });
+
+    return complete;
+  }
+
   @action
   fillingStore(data: GrandChartStore) {
     const { courses, modules, collections, groupLessons, finalData } = data;
@@ -101,7 +116,7 @@ export class GrandChartStore {
     this.courses = courses;
     this.modules = modules;
     this.collections = collections;
-    this.groupLessons = groupLessons;
+    this.groupLessons = (groupLessons || []).map((groupLesson) => new GroupLessonStore(groupLesson, rootStore));
     this.finalData = finalData;
   }
 }

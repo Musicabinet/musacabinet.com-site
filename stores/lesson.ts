@@ -449,11 +449,11 @@ export class LessonStore implements LessonI {
     this.description = description;
     this.duration_minute = duration_minute;
     this.is_active = is_active;
-    this.group_lesson = group_lesson ? new GroupLessonStore(group_lesson) : undefined;
+    this.group_lesson = group_lesson ? new GroupLessonStore(group_lesson, rootStore) : undefined;
     this.scores = (scores || []).map((score) => new ScoreStore(score));
     this.charts = (charts || []).map((chart) => new ChartStore(chart));
     this.accompaniments = (accompaniments || []).map((accompaniment) => new AccompanimentStore(accompaniment));
-    this.breadcrumbs = [...breadcrumbs];
+    this.breadcrumbs = breadcrumbs ? [...breadcrumbs] : [];
     this.lesson_list = lesson_list || [];
     this.progress_second = progress_second;
 
