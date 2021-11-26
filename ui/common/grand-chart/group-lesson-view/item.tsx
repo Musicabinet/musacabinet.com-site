@@ -52,13 +52,14 @@ export class GroupLessonViewItem extends React.Component<GroupLessonViewItemProp
     return moment.utc().startOf('day').add({ minutes: total_minute }).format('H:mm');
   };
 
-  getDataStatistics(): { passedData: string, passedPercent: number } {
+  getDataStatistics(): { passedData: string, passedPercent: number, totalData: string } {
     const { statisticsListStore, groupLesson } = this.props;
 
     if (!statisticsListStore.list[groupLesson.course_id] && !Array.isArray(statisticsListStore.list[groupLesson.course_id])) {
       return {
         passedData: '0:00',
-        passedPercent: 0
+        passedPercent: 0,
+        totalData: '0:00',
       };
     }
     // Получить общее кол-во минут уроков
@@ -78,13 +79,14 @@ export class GroupLessonViewItem extends React.Component<GroupLessonViewItemProp
 
     return {
       passedData: getTimeFromMin(passedMinutes),
+      totalData: getTimeFromMin(totalMinutes),
       passedPercent: Math.ceil((passedMinutes * 100) / totalMinutes)
     };
   }
 
   render() {
     const { groupLesson, isFirst, systemStore, isShowTrial } = this.props;
-    const { passedData, passedPercent } = this.getDataStatistics();
+    const { passedData, passedPercent, totalData } = this.getDataStatistics();
 
     return (
       <div
@@ -120,7 +122,7 @@ export class GroupLessonViewItem extends React.Component<GroupLessonViewItemProp
                   <br />
                   remain
                 </div>
-                <div className={b('time', { remain: true })}>{this.totalCountHour()}</div>
+                <div className={b('time', { remain: true })}>{totalData}</div>
               </div>
             </div>
           </div>
