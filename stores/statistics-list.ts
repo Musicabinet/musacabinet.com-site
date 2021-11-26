@@ -56,7 +56,9 @@ export class StatisticsListStore {
 
       this.list[course_id].forEach((statisticLessonsProgressStore) => {
         statisticLessonsProgressStore.lessons.forEach((lesson) => {
-          courses[course_id] += lesson.total_progress_minute;
+          courses[course_id] += (lesson.total_progress_minute >= lesson.duration_minute)
+            ? lesson.duration_minute
+            : lesson.total_progress_minute;
         });
       });
     });
