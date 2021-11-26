@@ -12,6 +12,7 @@ export class NextModuleStore {
 
   constructor(initialData: NextModuleStore | null, root: RootStore) {
     makeObservable(this);
+
     rootStore = root;
 
     if (initialData) {

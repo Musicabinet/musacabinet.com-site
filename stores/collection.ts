@@ -21,6 +21,7 @@ export class CollectionStore implements CollectionI {
 
   constructor(initialData: CollectionI | null) {
     makeObservable(this);
+
     if (initialData) {
       this.fillingStore(initialData);
     }

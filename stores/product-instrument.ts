@@ -1,4 +1,4 @@
-import { action, observable } from 'mobx';
+import { action, makeObservable, observable } from 'mobx';
 import { ProductInstrumentI } from '../interfaces';
 
 export class ProductInstrumentStore implements ProductInstrumentI {
@@ -7,6 +7,8 @@ export class ProductInstrumentStore implements ProductInstrumentI {
   @observable slug = '';
 
   constructor(initialData: ProductInstrumentStore | ProductInstrumentI | null) {
+    makeObservable(this);
+
     if (initialData) {
       this.fillingStore(initialData);
     }

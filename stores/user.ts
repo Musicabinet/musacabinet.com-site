@@ -157,6 +157,6 @@ export class UserStore implements UserI {
     this.updated_at = moment(updated_at);
     this.trial_version = new TrialVersionStore(trial_version);
     this.discount = discount;
-    this.purchases = (purchases || []).map((purchase) => new PurchaseStore(purchase));
+    this.purchases = (purchases || []).map((purchase) => new PurchaseStore(purchase, rootStore));
   }
 }

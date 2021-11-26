@@ -16,6 +16,7 @@ export class AuthStore implements AuthI {
 
   constructor(initialData: AuthStore | null, root: RootStore) {
     makeObservable(this);
+
     rootStore = root;
 
     if (initialData) {

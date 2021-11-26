@@ -1,7 +1,8 @@
-import { action, computed, observable } from 'mobx';
+import { action, computed, makeObservable, observable } from 'mobx';
 import { PurchaseI } from '../interfaces';
 import { SERVICE_ID } from '../constants';
 import moment from 'moment';
+import { RootStore } from './index';
 
 export class PurchaseStore implements PurchaseI {
 
@@ -16,16 +17,34 @@ export class PurchaseStore implements PurchaseI {
   @observable days_passed = 0;
   @observable days_remain = 0;
 
-  constructor(initialData: PurchaseStore | PurchaseI | null) {
+  constructor(initialData: PurchaseStore | PurchaseI | null, _root: RootStore) {
+    makeObservable(this);
+
     if (initialData) {
       this.fillingStore(initialData);
     }
   }
 
   @computed
+  get percentPassed(): string {
+    return `${((100 * this.days_passed) / this.totalDays).toFixed(0)}%`;
+  }
+
+  @computed
+  get percentPassedInteger(): number {
+    return parseInt(this.percentPassed);
+  }
+
+  @computed
+  get isExpired(): boolean {
+    return this.percentPassedInteger >= 100;
+  }
+
+  @computed
   get totalDays(): number {
     return this.days_remain + this.days_passed;
   }
+
 
   @action
   fillingStore(data: PurchaseStore | PurchaseI) {

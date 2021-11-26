@@ -7,6 +7,7 @@ export class NotificationsStore {
 
   constructor(initialData: NotificationsStore | null) {
     makeObservable(this);
+
     if (initialData) {
       this.fillingStore(initialData);
     }

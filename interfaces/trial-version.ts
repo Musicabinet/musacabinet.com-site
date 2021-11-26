@@ -6,5 +6,5 @@ export interface TrialVersionI {
   date_end: Moment,
   days_passed: number,
   days_remain: number,
-  is_valid: boolean
+  is_valid: boolean,
 }

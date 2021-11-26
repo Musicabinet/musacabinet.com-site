@@ -1,12 +1,19 @@
-import { action, observable } from 'mobx';
+import { action, makeObservable, observable } from 'mobx';
 import { PurchaseStore } from './purchase';
 import { API } from '../core';
 import { METHODS_REQUEST } from '../constants';
+import { RootStore } from './index';
+
+let rootStore: RootStore;
 
 export class PurchasesStore {
   @observable list: PurchaseStore[] = [];
 
-  constructor(initialData: PurchasesStore | null) {
+  constructor(initialData: PurchasesStore | null, root: RootStore) {
+    makeObservable(this);
+
+    rootStore = root;
+
     if (initialData) {
       this.fillingStore(initialData);
     }
@@ -27,7 +34,6 @@ export class PurchasesStore {
   @action
   fillingStore(data: PurchasesStore) {
     const { list } = data;
-
-    this.list = (list || []).map((purchase) => new PurchaseStore(purchase));
+    this.list = (list || []).map((purchase) => new PurchaseStore(purchase, rootStore));
   }
 }

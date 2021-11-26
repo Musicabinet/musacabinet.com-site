@@ -27,6 +27,7 @@ export class PlayerStore {
 
   constructor(initialData: PlayerStore | null, root: RootStore) {
     makeObservable(this);
+
     rootStore = root;
 
     if (initialData) {

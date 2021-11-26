@@ -50,6 +50,7 @@ export class LessonStore implements LessonI {
 
   constructor(initialData: LessonStore | null, root: RootStore) {
     makeObservable(this);
+
     rootStore = root;
 
     if (initialData) {

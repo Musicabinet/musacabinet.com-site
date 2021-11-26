@@ -20,6 +20,7 @@ export class GrandChartStore {
 
   constructor(initialData: GrandChartStore | null, root: RootStore) {
     makeObservable(this);
+
     rootStore = root;
 
     if (initialData) {

@@ -1,4 +1,4 @@
-import { action, computed, observable } from 'mobx';
+import { action, computed, makeObservable, observable } from 'mobx';
 import { InstrumentGroup, InstrumentI } from '../interfaces';
 import { API } from '../core';
 import { InstrumentStore } from './instrument';
@@ -8,6 +8,8 @@ export class InstrumentsStore {
   @observable all: InstrumentStore[] = [];
 
   constructor(initialData: InstrumentsStore | null) {
+    makeObservable(this);
+
     if (initialData) {
       this.fillingStore(initialData);
     }

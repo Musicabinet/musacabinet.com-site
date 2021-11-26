@@ -55,6 +55,7 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
                 'rightside'
               )}`}
             >
+
               <Menu />
               <ButtonSignIn />
               <ButtonProfile />

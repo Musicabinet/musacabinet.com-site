@@ -1,4 +1,4 @@
-import { action, computed, observable } from 'mobx';
+import { action, computed, makeObservable, observable } from 'mobx';
 import { TrialVersionI } from '../interfaces';
 import moment, { Moment } from 'moment';
 
@@ -12,9 +12,26 @@ export class TrialVersionStore implements TrialVersionI {
   @observable is_valid = false;
 
   constructor(initialData: TrialVersionStore | TrialVersionI | null) {
+    makeObservable(this);
+
     if (initialData) {
       this.fillingStore(initialData);
     }
+  }
+
+  @computed
+  get percentPassed(): string {
+    return `${((100 * this.days_passed) / this.totalDays).toFixed(0)}%`;
+  }
+
+  @computed
+  get percentPassedInteger(): number {
+    return parseInt(this.percentPassed);
+  }
+
+  @computed
+  get isExpired(): boolean {
+    return this.percentPassedInteger >= 100;
   }
 
   @computed

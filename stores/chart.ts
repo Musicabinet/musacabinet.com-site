@@ -1,4 +1,4 @@
-import { action, observable } from 'mobx';
+import { action, makeObservable, observable } from 'mobx';
 import { ChartI } from '../interfaces/chart';
 import { ChartItemStore } from './chart-item';
 
@@ -8,6 +8,8 @@ export class ChartStore implements ChartI {
   @observable items: ChartItemStore[] = [];
 
   constructor(initialData: ChartI | null) {
+    makeObservable(this);
+
     if (initialData) {
       this.fillingStore(initialData);
     }

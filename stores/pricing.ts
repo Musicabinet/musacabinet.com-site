@@ -484,6 +484,7 @@ export class PricingStore {
 
   constructor(initialData: PricingStore | null, root: RootStore) {
     makeObservable(this);
+
     rootStore = root;
 
     if (initialData) {

@@ -36,13 +36,13 @@ export class GroupLessonItem extends React.Component<GroupLessonItemProps, Group
     const { isTrialShow, userStore, systemStore, authStore, grandChart } = this.props;
     const isPurchaseUser = userStore.checkSubscription(systemStore.service_id, systemStore.instrument_id);
 
-    if(isPurchaseUser.length === 0 && !isTrialShow || !authStore.isAuth){
+    if (isPurchaseUser.length === 0 && !isTrialShow || !authStore.isAuth) {
       return false;
     }
 
-    /*if ((isPurchaseUser.length === 0 && !isTrialShow) || (!isTrialShow) && !authStore.isAuth) {
+    if (isPurchaseUser[0].isExpired) {
       return false;
-    }*/
+    }
 
     const { groupLesson } = this.props;
 
@@ -57,13 +57,7 @@ export class GroupLessonItem extends React.Component<GroupLessonItemProps, Group
   };
 
   render() {
-    const {
-      groupLesson,
-      userStore,
-      systemStore,
-      authStore,
-      isTrialShow
-    } = this.props;
+    const { groupLesson, userStore, systemStore, authStore, isTrialShow } = this.props;
     const isPurchaseUser = userStore.checkSubscription(systemStore.service_id, systemStore.instrument_id);
 
     if (!systemStore.service_name) {
@@ -76,7 +70,7 @@ export class GroupLessonItem extends React.Component<GroupLessonItemProps, Group
         className={b('item', {
           [systemStore.service_name]: true,
           [`active-${systemStore.service_name}`]: systemStore.selected_group_lesson_id === groupLesson.id,
-          [`trial-blocked`]: isPurchaseUser.length > 0 ? false : !isTrialShow || !authStore.isAuth
+          [`trial-blocked`]: isPurchaseUser.length > 0 ? isPurchaseUser[0].isExpired : !isTrialShow || !authStore.isAuth
         })}
       >
         <div className={b('title')}

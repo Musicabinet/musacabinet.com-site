@@ -103,7 +103,7 @@ export class MenuListStore {
       is_active: false
     },
     {
-      title: 'Your subscriptions',
+      title: 'My Subscriptions',
       link: '/cabinet',
       type: MenuType.DEFAULT,
       is_active: false
@@ -157,6 +157,7 @@ export class MenuListStore {
 
   constructor(initialData: MenuListStore | null) {
     makeObservable(this);
+
     if (initialData) {
       this.fillingStore(initialData);
     }

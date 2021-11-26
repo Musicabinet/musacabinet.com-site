@@ -10,6 +10,7 @@ export class AccompanimentStore implements AccompanimentI {
 
   constructor(initialData: AccompanimentI | null) {
     makeObservable(this);
+
     if (initialData) {
       this.fillingStore(initialData);
     }

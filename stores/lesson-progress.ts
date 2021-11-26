@@ -8,6 +8,7 @@ export class LessonProgressStore {
 
   constructor(initialData: LessonProgressStore | null, root: RootStore) {
     makeObservable(this);
+
     rootStore = root;
 
     if (initialData) {

@@ -53,7 +53,7 @@ export class SignInModal extends React.Component<SignInModalProps, SignInModalSt
     return (
       <Modal isOpen={show} onClose={this.handleOnClose}>
         <div className='container g-0'>
-          <div className='row g-0'>
+          <div className='row g-0 flex-column-reverse flex-sm-row'>
             <div className='col-md-6'>
               <div className={b('left')}>
                 <Title className={b('title')} size={TITLE_SIZE.THIRD}>

@@ -3,7 +3,7 @@ import { MODALS } from '../constants';
 
 export class ModalsStore {
   @observable list = {
-    [MODALS.SIGN_IN]: false,
+    [MODALS.SIGN_IN]: true,
     [MODALS.SIGN_UP]: false,
     [MODALS.RECOVER_PASSWORD]: false,
     [MODALS.GRAND_CHART]: false,

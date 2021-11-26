@@ -2,7 +2,7 @@ import { action, makeObservable, observable } from 'mobx';
 import { StatisticsLessonProgressI } from '../interfaces';
 import { RootStore } from './index';
 
-let rootStore: RootStore;
+//let rootStore: RootStore;
 
 export class StatisticsLessonProgressStore implements StatisticsLessonProgressI {
 
@@ -11,12 +11,8 @@ export class StatisticsLessonProgressStore implements StatisticsLessonProgressI 
   @observable duration_minute = 0;
   @observable total_progress_minute = 0;
 
-  constructor(initialData: StatisticsLessonProgressStore | null, root: RootStore) {
+  constructor(initialData: StatisticsLessonProgressStore | null, _root: RootStore) {
     makeObservable(this);
-
-    rootStore = root;
-
-    console.log(rootStore);
 
     if (initialData) {
       this.fillingStore(initialData);

@@ -32,7 +32,7 @@ export class GrandChart extends React.Component<GrandChartProps, GrandChartState
   };
 
   componentWillUnmount() {
-    console.log('unmount');
+
   }
 
   render() {

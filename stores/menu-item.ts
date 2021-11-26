@@ -10,6 +10,7 @@ export class MenuItemStore implements MenuI {
 
   constructor(initialData: MenuItemStore | null) {
     makeObservable(this);
+
     if (initialData) {
       this.fillingStore(initialData);
     }

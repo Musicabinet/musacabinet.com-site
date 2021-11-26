@@ -70,7 +70,7 @@ export class RootStore {
     this.metronomeStore = new MetronomeStore(iData && iData.metronomeStore ? iData.metronomeStore : null);
     this.nextModule = new NextModuleStore(iData && iData.nextModule ? iData.nextModule : null, this);
     this.pricingStore = new PricingStore(iData && iData.pricingStore ? iData.pricingStore : null, this);
-    this.purchasesStore = new PurchasesStore(iData ? iData.purchasesStore : null);
+    this.purchasesStore = new PurchasesStore(iData ? iData.purchasesStore : null, this);
     this.productsStore = new ProductsStore(iData ? iData.productsStore : null, this);
     this.tutorialsStore = new TutorialsStore(iData ? iData.tutorialsStore : null);
     this.statisticsListStore = new StatisticsListStore(iData ? iData.statisticsListStore : null, this);
