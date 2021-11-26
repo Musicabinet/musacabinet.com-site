@@ -53,8 +53,7 @@ export class GroupLessons extends React.Component<GroupLessonsProps, GroupLesson
                   return (
                     <GroupLessonItem key={group_lesson.id}
                                      groupLesson={group_lesson}
-                                     isTrialShow={row === 1 && userStore.trial_version.is_valid}
-                    />
+                                     isTrialShow={row === 1 && userStore.trial_version.is_valid} />
                   );
                 })}
               </div>

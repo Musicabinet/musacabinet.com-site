@@ -33,3 +33,14 @@ export const checkSubscription = (user: UserStore, service_id: SERVICE_ID, instr
 };
 
 export const isMobile = () => mobile();
+
+export const getTimeFromMin = (min: number) => {
+  let hours = Math.trunc(min / 60);
+  let minutes = min % 60;
+
+  if(minutes < 10){
+    return hours + ':0' + minutes;
+  }
+
+  return hours + ':' + minutes;
+};

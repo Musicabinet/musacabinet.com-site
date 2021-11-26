@@ -2,16 +2,15 @@ import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import block from 'bem-css-modules';
 import style from './lessons.module.sass';
-import { LessonI } from '../../../../../interfaces';
 import { LessonItem } from './item';
-import { RootStore } from '../../../../../stores';
+import { LessonStore, RootStore } from '../../../../../stores';
 
 const b = block(style);
 
 type LessonsProps = {
   isShowTrial: boolean;
   selected_uuid: string;
-  list: LessonI[];
+  list: LessonStore[];
 };
 type LessonsState = {};
 
@@ -31,27 +30,10 @@ export class Lessons extends React.Component<LessonsProps, LessonsState> {
       <div className={b(null)}>
         {list.map((lesson, index) => {
           return (
-            <LessonItem
-              key={lesson.id}
-              id={lesson.id}
-              isActive={lesson.uuid === selected_uuid}
-              uuid={lesson.uuid}
-              group_lesson_id={lesson.group_lesson_id}
-              sort={lesson.sort}
-              slug={lesson.slug}
-              meta_title={lesson.meta_title}
-              meta_description={lesson.meta_description}
-              meta_keywords={lesson.meta_keywords}
-              name={lesson.name}
-              description={lesson.description}
-              duration_minute={lesson.duration_minute}
-              is_active={lesson.is_active}
-              scores={lesson.scores}
-              charts={lesson.charts}
-              accompaniments={lesson.accompaniments}
-              lesson_list={lesson.lesson_list}
-              progress_second={lesson.progress_second}
-              isShowTrial={isShowTrial && index === 0}
+            <LessonItem key={lesson.id}
+                        lesson={lesson}
+                        isShowTrial={isShowTrial && index === 0}
+                        isActive={lesson.uuid === selected_uuid}
             />
           );
         })}

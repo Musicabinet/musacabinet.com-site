@@ -2,8 +2,7 @@ import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import block from 'bem-css-modules';
 import style from './group-lesson-view.module.sass';
-import { RootStore } from '../../../../stores';
-import { GroupLessonI } from '../../../../interfaces';
+import { GroupLessonStore, RootStore } from '../../../../stores';
 import { GroupLessonViewItem } from './item';
 
 const b = block(style);
@@ -11,7 +10,7 @@ const b = block(style);
 type GroupLessonViewProps = {
   isTrialValid: boolean;
   show: boolean;
-  list: GroupLessonI[];
+  list: GroupLessonStore[];
   setShowGroupLessonDetail: (show: boolean) => void;
 };
 type GroupLessonViewState = {};
@@ -47,24 +46,10 @@ export class GroupLessonView extends React.Component<GroupLessonViewProps, Group
       <div className={b(null, { show })}>
         {list.map((groupLesson, index) => {
           return (
-            <GroupLessonViewItem
-              key={groupLesson.id}
-              isFirst={index === 0}
-              id={groupLesson.id}
-              name={groupLesson.name}
-              collection_id={groupLesson.collection_id}
-              module_id={groupLesson.module_id}
-              course_id={groupLesson.course_id}
-              total_lessons={groupLesson.total_lessons}
-              lessons={groupLesson.lessons}
-              description={groupLesson.description}
-              sort={groupLesson.sort}
-              is_active={groupLesson.is_active}
-              meta_title={groupLesson.meta_title}
-              meta_description={groupLesson.meta_description}
-              meta_keywords={groupLesson.meta_keywords}
-              slug={groupLesson.slug}
-              isShowTrial={index === 0 && isTrialValid}
+            <GroupLessonViewItem key={groupLesson.id}
+                                 groupLesson={groupLesson}
+                                 isFirst={index === 0}
+                                 isShowTrial={index === 0 && isTrialValid}
             />
           );
         })}

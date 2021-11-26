@@ -51,6 +51,9 @@
       #{$root}__total-percent, #{$root}__time
         color: $school
 
+      #{$root}__line-progress
+        background: $school
+
     &_college
       #{$root}__back
         svg
@@ -59,6 +62,9 @@
 
       #{$root}__total-percent, #{$root}__time
         color: $college
+
+      #{$root}__line-progress
+        background: $college
 
 
   &__body
@@ -81,11 +87,19 @@
     width: 380px
 
   &__line
+    position: relative
     width: 100%
     height: 6px
     background: $gray20
     border-radius: 10px
     margin-bottom: 14px
+
+  &__line-progress
+    position: absolute
+    top: 0
+    left: 0
+    height: 100%
+    border-radius: 10px
 
   &__statistic
     display: flex

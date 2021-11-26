@@ -2,14 +2,14 @@ import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import block from 'bem-css-modules';
 import style from './lessons.module.sass';
-import { RootStore, SystemStore, UserStore } from '../../../../../stores';
-import { LessonI } from '../../../../../interfaces';
+import { LessonStore, RootStore, SystemStore, UserStore } from '../../../../../stores';
 import { MODALS, SERVICE_NAME } from '../../../../../constants';
 import Router from 'next/router';
 
 const b = block(style);
 
 type LessonItemProps = {
+  lesson: LessonStore;
   systemStore: SystemStore;
   user: UserStore;
   isShowTrial: boolean;
@@ -26,7 +26,7 @@ type LessonItemState = {};
   onCloseModal: store.modalsStore.close
 }))
 @observer
-export class LessonItem extends React.Component<LessonItemProps & LessonI, LessonItemState> {
+export class LessonItem extends React.Component<LessonItemProps, LessonItemState> {
   circle = React.createRef<SVGSVGElement>();
   circleFill = React.createRef<SVGSVGElement>();
 
@@ -45,19 +45,19 @@ export class LessonItem extends React.Component<LessonItemProps & LessonI, Lesso
   }
 
   handleOnClick = async () => {
-    const { uuid, onCloseModal, user, systemStore, isShowTrial } = this.props;
+    const { lesson, onCloseModal, user, systemStore, isShowTrial } = this.props;
     const isPurchaseUser = user.checkSubscription(systemStore.service_id, systemStore.instrument_id);
 
     if (isPurchaseUser.length > 0 ? false : !isShowTrial) {
       return false;
     }
 
-    await Router.push('/lesson/[uuid]', `/lesson/${uuid}`);
+    await Router.push('/lesson/[uuid]', `/lesson/${lesson.uuid}`);
     onCloseModal(MODALS.GRAND_CHART);
   };
 
   render() {
-    const { id, name, service_name, isActive, isShowTrial, user, systemStore } = this.props;
+    const { lesson, service_name, isActive, isShowTrial, user, systemStore } = this.props;
     const isPurchaseUser = user.checkSubscription(systemStore.service_id, systemStore.instrument_id);
 
     return (
@@ -69,7 +69,7 @@ export class LessonItem extends React.Component<LessonItemProps & LessonI, Lesso
           ['blocked']: isPurchaseUser.length > 0 ? false : !isShowTrial
         })}
       >
-        <div className={b('id')}>{name.replace(/\D+/g, '')}</div>
+        <div className={b('id')}>{lesson.name.replace(/\D+/g, '')}</div>
         <svg className={b('pie')} width={40} height={40} viewBox='0 0 40 40'>
           {/*
          // @ts-ignore */}
@@ -85,7 +85,7 @@ export class LessonItem extends React.Component<LessonItemProps & LessonI, Lesso
           // @ts-ignore */}
           <circle ref={this.circle}
                   className={b('circle')}
-                  id={`id_${id}`}
+                  id={`id_${lesson.id}`}
                   strokeWidth={2}
                   r={18}
                   cx={20}
