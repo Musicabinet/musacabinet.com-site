@@ -34,25 +34,27 @@ export class CourseItem extends React.Component<CourseItemProps & CourseI, Cours
     grandChartStore: {}
   };
 
+  fillCirclePercent = () => {
+    if (this.circle && this.circle.current) {
+      this.circle.current.style.strokeDasharray = `${Math.ceil(this.getPassedPercent())} 113`;
+    }
+  };
+
   getPassedPercent() {
     const { id, statisticsListStore, grandChartStore } = this.props;
     const passedMinute = statisticsListStore.getCoursesPassedTotal[id] || 0;
-
-    if (this.circle && this.circle.current) {
-      this.circle.current.style.strokeDasharray = `30 94`;
-    }
-
     return (passedMinute * 100) / grandChartStore.totalTimeCollections[id];
   }
 
   render() {
     const { id, name, is_active, number, service_name } = this.props;
-    this.getPassedPercent();
+    this.fillCirclePercent();
 
     return (
       <div
         className={b('item', {
-          is_active
+          is_active,
+          [service_name]: true
         })}
       >
         <div className={b('toolbar', { [service_name]: !is_active })}>Course {number}</div>
