@@ -3,6 +3,7 @@ import { inject, observer } from 'mobx-react';
 import block from 'bem-css-modules';
 import style from './group-lessons.module.sass';
 import { GrandChartStore, RootStore, UserStore, SystemStore, AuthStore, GroupLessonStore } from '../../../../stores';
+import { StatisticsListStore } from '../../../../stores/statistics-list';
 
 const b = block(style);
 
@@ -14,6 +15,7 @@ type GroupLessonItemProps = {
   systemStore: SystemStore,
   userStore: UserStore,
   grandChart: GrandChartStore,
+  statisticsListStore: StatisticsListStore
 };
 type GroupLessonItemState = {};
 
@@ -21,15 +23,18 @@ type GroupLessonItemState = {};
   authStore: store.authStore,
   systemStore: store.systemStore,
   userStore: store.userStore,
-  grandChart: store.grandChartStore
+  grandChart: store.grandChartStore,
+  statisticsListStore: store.statisticsListStore
 }))
 @observer
 export class GroupLessonItem extends React.Component<GroupLessonItemProps, GroupLessonItemState> {
+
   static defaultProps = {
     authStore: {},
     systemStore: {},
     userStore: {},
-    grandChart: {}
+    grandChart: {},
+    statisticsListStore: {}
   };
 
   handleOnClick = () => {
@@ -56,6 +61,30 @@ export class GroupLessonItem extends React.Component<GroupLessonItemProps, Group
     grandChart.setShowGroupLessonDetail();
   };
 
+  getPercent() {
+    const { statisticsListStore, groupLesson } = this.props;
+
+    if (!statisticsListStore.list[groupLesson.course_id] && !Array.isArray(statisticsListStore.list[groupLesson.course_id])) {
+      return 0;
+    }
+    // Получить общее кол-во минут уроков
+    let totalMinutes = 0;
+    let passedMinutes = 0;
+
+    statisticsListStore.list[groupLesson.course_id].forEach((staticLessonsProgress) => {
+      if(staticLessonsProgress.collection_id === groupLesson.collection_id){
+        staticLessonsProgress.lessons.forEach((lesson) => {
+          totalMinutes += lesson.duration_minute;
+          passedMinutes += lesson.total_progress_minute >= lesson.duration_minute
+            ? lesson.duration_minute
+            : lesson.total_progress_minute;
+        });
+      }
+    });
+
+    return Math.ceil((passedMinutes * 100) / totalMinutes);
+  }
+
   render() {
     const { groupLesson, userStore, systemStore, authStore, isTrialShow } = this.props;
     const isPurchaseUser = userStore.checkSubscription(systemStore.service_id, systemStore.instrument_id);
@@ -65,16 +94,17 @@ export class GroupLessonItem extends React.Component<GroupLessonItemProps, Group
     }
 
     return (
-      <div
-        onClick={this.handleOnClick}
-        className={b('item', {
-          [systemStore.service_name]: true,
-          [`active-${systemStore.service_name}`]: systemStore.selected_group_lesson_id === groupLesson.id,
-          [`trial-blocked`]: isPurchaseUser.length > 0 ? isPurchaseUser[0].isExpired : !isTrialShow || !authStore.isAuth
-        })}
+      <div onClick={this.handleOnClick}
+           className={b('item', {
+             [systemStore.service_name]: true,
+             [`active-${systemStore.service_name}`]: systemStore.selected_group_lesson_id === groupLesson.id,
+             [`trial-blocked`]: isPurchaseUser.length > 0 ? isPurchaseUser[0].isExpired : !isTrialShow || !authStore.isAuth
+           })}
       >
         <div className={b('title')}
              dangerouslySetInnerHTML={{ __html: groupLesson.name.replace(/\(/g, '<br/>(') }} />
+
+        <div className={b('progress')} style={{width: `${this.getPercent()}%`}} />
       </div>
     );
   }

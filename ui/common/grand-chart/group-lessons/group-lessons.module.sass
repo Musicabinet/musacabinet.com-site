@@ -55,6 +55,9 @@
       #{$root}__circle
         stroke: $school
 
+      #{$root}__progress
+        background: $school
+
 
     &_college
       position: relative
@@ -64,6 +67,9 @@
 
       #{$root}__circle
         stroke: $college
+
+      #{$root}__progress
+        background: $college
 
     &_active-school
       background: $school
@@ -137,3 +143,11 @@
     align-items: center
     justify-content: center
     @include fontMontserrat(14px)
+
+  &__progress
+    position: absolute
+    bottom: 0
+    left: 0
+    height: 3px
+    width: 13%
+    border-radius: 10px

@@ -9,7 +9,7 @@ let rootStore: RootStore;
 
 export class StatisticsListStore {
 
-  @observable list: StatisticsItemI = {};
+  @observable list: {[key: string] : StatisticsLessonsProgressStore[]} = {};
 
   constructor(initialData: StatisticsListStore | null, root: RootStore) {
     makeObservable(this);
