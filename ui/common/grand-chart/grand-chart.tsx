@@ -7,7 +7,6 @@ import { Modules } from './modules/modules';
 import { Courses } from './courses/courses';
 import { GroupLessons } from './group-lessons/group-lessons';
 import { GroupLessonView } from './group-lesson-view/group-lesson-view';
-import { LIST_ICON } from '../icons';
 import { InstrumentIcon } from '../instrument-icon/instrument-icon';
 
 const b = block(style);
@@ -63,7 +62,7 @@ export class GrandChart extends React.Component<GrandChartProps, GrandChartState
           <div
             className={b('gold-line', {
               isFetch: grandChartStore.isFetch,
-              show: !grandChartStore.isFetch && systemStore.service_name === 'college' && systemStore.instrument_icon === LIST_ICON.GUITAR
+              show: !grandChartStore.isFetch /*&& systemStore.service_name === 'college' && systemStore.instrument_icon === LIST_ICON.GUITAR*/
             })}
           />
           <div className={b('sidebar')}>

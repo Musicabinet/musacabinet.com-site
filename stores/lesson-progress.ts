@@ -18,9 +18,7 @@ export class LessonProgressStore {
 
   @action.bound
   async init() {
-    console.log(1);
     if (this.timer && rootStore.websocketStore.connect) {
-      console.log(2);
       rootStore.websocketStore.callbackOnMessage(() => {
         rootStore.lessonStore.incrementProgress();
       });

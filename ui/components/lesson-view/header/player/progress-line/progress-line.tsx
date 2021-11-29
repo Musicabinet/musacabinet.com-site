@@ -26,7 +26,6 @@ export class ProgressLine extends React.Component<ProgressLineProps, ProgressLin
 
   handleOnChange = (e: React.FormEvent<HTMLInputElement>) => {
     const { value } = e.currentTarget;
-    console.log(value);
   };
 
   render() {

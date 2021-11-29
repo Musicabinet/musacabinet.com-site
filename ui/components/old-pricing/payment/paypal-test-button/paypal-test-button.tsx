@@ -51,8 +51,6 @@ export class PayPalTestButton extends React.Component<PayPalTestButtonProps, Pay
   render() {
     const { currency } = this.props;
 
-    console.log('render', currency);
-
     return (
       <div className={b(null)} data-pay-pal={true}>
         <div className={b('description')}>No recurring payments (TEST !!!)</div>

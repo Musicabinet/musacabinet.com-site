@@ -30,8 +30,7 @@ export class BreadCrumbs extends React.Component<BreadCrumbsProps, BreadCrumbsSt
     breadcrumbs: []
   };
 
-  getNumber = (name: string) => {
-
+  getNumberType = (name: string) => {
     switch (name) {
       case 'Basic':
         return 1;
@@ -47,10 +46,33 @@ export class BreadCrumbs extends React.Component<BreadCrumbsProps, BreadCrumbsSt
         return 3;
       case 'Supernova':
         return 4;
+
+      // Module
+      case '1. RHYTHM TRAINING':
+        return 1;
+      case '2. MUSIC LITERATURE':
+        return 2;
+      case '3. BASIC HARMONY':
+        return 3;
+      case '4. SOLFEGGIO':
+        return 4;
+      case '5. ARPEGGIOS':
+        return 5;
+      case '6. NATURAL MODES':
+        return 6;
+      case '7. TRAINING SCHEMES':
+        return 7;
+      case '1. CHORDS':
+        return 1;
+      case '2. ARPEGGIOS':
+        return 2;
+      case '3. SCALES':
+        return 3;
+      case '4. IMPROVISATION':
+        return 4;
       default:
         return '';
     }
-
   };
 
   render() {
@@ -63,14 +85,13 @@ export class BreadCrumbs extends React.Component<BreadCrumbsProps, BreadCrumbsSt
         })}
       >
         {breadcrumbs.map((breadcrumb, index) => {
-          console.log(breadcrumb.name);
           return (
             <BreadcrumbsItem
               key={`${breadcrumb.name}_${breadcrumb.type}`}
               current={index + 1}
               total={breadcrumbs.length}
               name={`${breadcrumb.name}`}
-              type={`${breadcrumb.type} ${this.getNumber(breadcrumb.name)}`}
+              type={`${breadcrumb.type} ${this.getNumberType(breadcrumb.name)}`}
             />
           );
         })}
