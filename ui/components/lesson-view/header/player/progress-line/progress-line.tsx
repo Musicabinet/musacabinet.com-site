@@ -24,9 +24,7 @@ export class ProgressLine extends React.Component<ProgressLineProps, ProgressLin
     current_percent: 0
   };
 
-  handleOnChange = (e: React.FormEvent<HTMLInputElement>) => {
-    const { value } = e.currentTarget;
-  };
+  handleOnChange = (_e: React.FormEvent<HTMLInputElement>) => {};
 
   render() {
     const { service_name, current_percent } = this.props;
