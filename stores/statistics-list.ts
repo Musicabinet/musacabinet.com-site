@@ -9,7 +9,8 @@ let rootStore: RootStore;
 
 export class StatisticsListStore {
 
-  @observable list: {[key: string] : StatisticsLessonsProgressStore[]} = {};
+  @observable list: { [key: string]: StatisticsLessonsProgressStore[] } = {};
+  @observable months: string[] = [];
 
   constructor(initialData: StatisticsListStore | null, root: RootStore) {
     makeObservable(this);
@@ -44,6 +45,15 @@ export class StatisticsListStore {
     }
   }
 
+  @action.bound
+  async getByMonths() {
+    try {
+      this.months = await API.request<string[]>(`lesson-progress/by-months`);
+    } catch (e) {
+      console.error(`Error in method StatisticsLessonProgressStore.getByMonths : `, e);
+    }
+  }
+
   @computed
   get getCoursesPassedTotal(): { [key: string]: number } {
     let courses: { [key: string]: number } = {};
@@ -68,13 +78,15 @@ export class StatisticsListStore {
 
   @action
   fillingStore(data: StatisticsListStore) {
-    const { list } = data;
+    const { list, months } = data;
 
     Object.keys(list).forEach((course_id) => {
       this.list[course_id] = (list[course_id] || []).map((statisticLessonsProgressStore) => {
         return new StatisticsLessonsProgressStore(statisticLessonsProgressStore, rootStore);
       });
     });
+
+    this.months = months || [];
 
   }
 

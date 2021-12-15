@@ -4,15 +4,30 @@ import block from 'bem-css-modules';
 import style from './main-statistics.module.sass';
 import moment, { Moment } from 'moment';
 import { Block } from './block/block';
+import { RootStore } from '../../../stores';
+import { StatisticsListStore } from '../../../stores/statistics-list';
 
 const b = block(style);
 
-type MainStatisticsProps = {};
+type MainStatisticsProps = {
+  statisticsListStore: StatisticsListStore
+};
 type MainStatisticsState = {};
 
-@inject(() => ({}))
+@inject((store: RootStore) => ({
+  statisticsListStore: store.statisticsListStore
+}))
 @observer
 export class MainStatistics extends React.Component<MainStatisticsProps, MainStatisticsState> {
+
+  static defaultProps = {
+    statisticsListStore: {}
+  };
+
+  async componentDidMount() {
+    const { statisticsListStore } = this.props;
+    await statisticsListStore.getByMonths();
+  }
 
   generate = (currentMoment: Moment) => {
     // Получаем количество дней в текущем месяце
@@ -29,12 +44,17 @@ export class MainStatistics extends React.Component<MainStatisticsProps, MainSta
 
     // Формируем массив календаря
     for (let day = 1; day <= countDayInMonth; day++) {
-      completeArr.push(day);
+      let prefix: number | string = '';
+      if (day < 10) {
+        prefix = 0;
+      }
+      completeArr.push(`${prefix}${day}`);
     }
 
     return {
       name: `${currentMoment.format('MMM\'YY')}`,
-      days: completeArr
+      days: completeArr,
+      month: currentMoment.format('YYYY-MM')
     };
   };
 
