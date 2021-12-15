@@ -100,7 +100,7 @@ export class Scores extends React.Component<ScoresProps, ScoresState> {
             <div className={b('header')}>
               <div className={b('information')}>
                 <div className={b('title')}>{currentContentScore.name}</div>
-                <div className={b('sub_title')}>{currentContentScore.sub_title}</div>
+                <div className={b('sub-title')}>{currentContentScore.sub_title}</div>
               </div>
             </div>
 
