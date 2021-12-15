@@ -9,6 +9,7 @@
 
   &__information
     position: relative
+    height: 200px
 
   &__title
     text-align: center
@@ -18,20 +19,12 @@
     margin-bottom: 20px
     line-height: 45px
 
-  &__image
-    width: 100%
-    display: block
-    object-fit: contain
-    cursor: pointer
-
-    &_is_college
-      position: relative
-
   &__sub-title
-    @include fontFuturaDemic(22px)
+    @include fontFuturaDemic(28px)
     color: $gray60
     padding: 0
-    margin-top: 20px
+    margin-bottom: 30px
+    text-align: center
 
     &_left
       text-align: left
@@ -42,6 +35,15 @@
     &_center
       text-align: center
 
+  &__image
+    width: 100%
+    display: block
+    object-fit: contain
+    cursor: pointer
+
+    &_is_college
+      position: relative
+
   &__list
     position: relative
 
@@ -50,4 +52,4 @@
 
     &_college
       position: relative
-      margin: 194px 0 0
+      margin: 0

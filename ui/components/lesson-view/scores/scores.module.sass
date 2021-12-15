@@ -18,12 +18,20 @@
     margin-bottom: 20px
     line-height: 45px
 
-  &__sub_title
-    text-align: center
-    @include fontFuturaMedium(28px)
+  &__sub-title
+    @include fontFuturaDemic(28px)
     color: $gray60
     padding: 0
-    margin-bottom: 20px
+    margin-bottom: 30px
+
+    &_left
+      text-align: left
+
+    &_right
+      text-align: right
+
+    &_center
+      text-align: center
 
 
   &__image
@@ -34,21 +42,6 @@
 
     &_is_college
       position: relative
-
-  &__sub-title
-    @include fontFuturaDemic(22px)
-    color: $gray60
-    padding: 0
-    margin-bottom: 20px
-
-    &_left
-      text-align: left
-
-    &_right
-      text-align: right
-
-    &_center
-      text-align: center
 
   &__list
     position: relative

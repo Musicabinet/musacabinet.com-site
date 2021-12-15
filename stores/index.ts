@@ -22,6 +22,7 @@ import { InstrumentStore } from './instrument';
 import { GroupLessonStore } from './group-lesson';
 import { TutorialsStore } from './tutorials';
 import { StatisticsListStore } from './statistics-list';
+import { MapStore } from './map';
 
 const isServer = typeof window === 'undefined';
 enableStaticRendering(isServer);
@@ -52,6 +53,7 @@ export class RootStore {
   public productsStore: ProductsStore;
   public tutorialsStore: TutorialsStore;
   public statisticsListStore: StatisticsListStore;
+  public mapStore: MapStore;
 
   constructor(iData: RootStore | null) {
     this.notificationsStore = new NotificationsStore(iData && iData.notificationsStore ? iData.notificationsStore : null);
@@ -74,6 +76,7 @@ export class RootStore {
     this.productsStore = new ProductsStore(iData ? iData.productsStore : null, this);
     this.tutorialsStore = new TutorialsStore(iData ? iData.tutorialsStore : null);
     this.statisticsListStore = new StatisticsListStore(iData ? iData.statisticsListStore : null, this);
+    this.mapStore = new MapStore(iData ? iData.mapStore : null, this);
   }
 }
 

@@ -7,7 +7,7 @@ import { LessonDirection } from '../../../../../../../interfaces';
 const b = block(style);
 
 type ArrowProps = {
-  hidden: boolean;
+  hidden?: boolean;
   direction: LessonDirection.LEFT | LessonDirection.RIGHT;
   onClick: (direction: LessonDirection.LEFT | LessonDirection.RIGHT) => void;
 };

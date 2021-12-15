@@ -15,7 +15,7 @@ export class ScoreStore implements ScoreI {
   @observable content = '';
   @observable items: ScoreItemStore[] = [];
 
-  constructor(initialData: ScoreI | null) {
+  constructor(initialData: ScoreI | ScoreStore | null) {
     makeObservable(this);
 
     if (initialData) {
@@ -24,7 +24,7 @@ export class ScoreStore implements ScoreI {
   }
 
   @action
-  fillingStore(data: ScoreI) {
+  fillingStore(data: ScoreI | ScoreStore) {
     const { id, lesson_id, name, sub_title, video_url, content, items } = data;
 
     this.id = id;

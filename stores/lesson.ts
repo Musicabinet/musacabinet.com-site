@@ -6,7 +6,7 @@ import { ScoreStore } from './score';
 import { AccompanimentStore } from './accompaniment';
 import { CHART_TYPE, METHODS_REQUEST, SCORE_TYPE } from '../constants';
 import { ScoreItemStore } from './score-item';
-import { ChartI, ChartItemI } from '../interfaces/chart';
+import { ChartItemI } from '../interfaces/chart';
 import { ChartStore } from './chart';
 import { RootStore } from './index';
 
@@ -27,8 +27,8 @@ export class LessonStore implements LessonI {
   @observable description = '';
   @observable duration_minute = 0;
   @observable is_active = false;
-  @observable scores: ScoreI[] = [];
-  @observable charts: ChartI[] = [];
+  @observable scores: ScoreStore[] = [];
+  @observable charts: ChartStore[] = [];
   @observable group_lesson: GroupLessonStore | undefined = undefined;
   @observable accompaniments: AccompanimentStore[] = [];
   @observable breadcrumbs: BreadcrumbsI[] = [];
@@ -158,7 +158,7 @@ export class LessonStore implements LessonI {
       const isPrevCourseModule = arrCourseModule[findIndex - 1];
       const isNextCourseModule = arrCourseModule[findIndex + 1];
 
-      if (isPrevCourseModule !== undefined) {
+      if (isPrevCourseModule !== undefined && Array.isArray(result[isPrevCourseModule])) {
         const findPrevLesson = result[isPrevCourseModule].find((item: any) => item.is_finished === false);
 
         if (findPrevLesson !== undefined) {
@@ -166,7 +166,7 @@ export class LessonStore implements LessonI {
         }
       }
 
-      if (isNextCourseModule !== undefined) {
+      if (isNextCourseModule !== undefined && Array.isArray(result[isNextCourseModule])) {
         const findNextLesson = result[isNextCourseModule].find((item: any) => item.is_finished === false);
 
         if (findNextLesson !== undefined) {
@@ -331,7 +331,8 @@ export class LessonStore implements LessonI {
   }
 
   @computed
-  get currentContentChart(): ChartI | null {
+  get currentContentChart(): ChartStore | null {
+    console.log(this.charts,this.currentScore);
     return this.charts[this.currentScore] || null;
   }
 

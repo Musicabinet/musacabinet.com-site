@@ -6,8 +6,8 @@ import { RootStore } from '../../../../stores';
 import { ChartI } from '../../../../interfaces/chart';
 import { CHART_TYPE, MODALS, SERVICE_NAME } from '../../../../constants';
 import { AccompanimentI, ScoreI } from '../../../../interfaces';
-import { LessonStore } from '../../../../stores/lesson';
-import { PlayerStore } from '../../../../stores/player';
+import { LessonStore } from '../../../../stores';
+import { PlayerStore } from '../../../../stores';
 
 const b = block(style);
 
@@ -91,7 +91,8 @@ export class Charts extends React.Component<ChartsProps, ChartsState> {
             {currentContentScore && (
               <div className={b('header')}>
                 <div className={b('information')}>
-                  <div className={b('title')} />
+                  <div className={b('title')}>{currentContentChart.title}</div>
+                  <div className={b('sub-title')}>{currentContentChart.sub_title}</div>
                 </div>
               </div>
             )}

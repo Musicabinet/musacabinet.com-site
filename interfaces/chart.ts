@@ -4,6 +4,8 @@ import { ChartItemStore } from '../stores/chart-item';
 export interface ChartI {
   id: number;
   lesson_id: number;
+  title: string;
+  sub_title: string;
   items: ChartItemStore[];
 }
 

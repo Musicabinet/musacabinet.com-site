@@ -10,6 +10,7 @@ import { SERVICE_NAME } from '../../../constants';
 import { Charts } from './charts/charts';
 //import { NextModule } from '../../common';
 import { LocalStorage } from '../../../core';
+import { MapStore } from '../../../stores/map';
 
 const b = block(style);
 
@@ -18,6 +19,7 @@ type LessonViewProps = {
   instrument_name: '';
   uuid: '';
   onReset: () => void;
+  mapStore: MapStore;
 };
 type LessonViewState = {};
 
@@ -25,7 +27,8 @@ type LessonViewState = {};
   service_name: store.systemStore.service_name,
   instrument_name: store.systemStore.instrument_name,
   uuid: store.lessonStore.uuid,
-  onReset: store.lessonStore.reset
+  onReset: store.lessonStore.reset,
+  mapStore: store.mapStore
 }))
 @observer
 export class LessonView extends React.Component<LessonViewProps, LessonViewState> {
@@ -33,26 +36,30 @@ export class LessonView extends React.Component<LessonViewProps, LessonViewState
     service_name: SERVICE_NAME.SCHOOL,
     instrument_name: '',
     uuid: '',
-    onReset: () => console.log('Not set handler')
+    onReset: () => console.log('Not set handler'),
+    mapStore: {}
   };
 
   componentWillUnmount() {
     const { onReset } = this.props;
     onReset();
-    console.log('unmount lesson');
   }
 
-  componentDidMount() {
-    const { uuid } = this.props;
+  async componentDidMount() {
+    const { uuid, mapStore } = this.props;
 
     if (uuid) {
       LocalStorage.set('lesson_id_q', uuid);
+      await mapStore.getList();
     }
   }
 
-  componentDidUpdate(prevProps: Readonly<LessonViewProps>) {
+  async componentDidUpdate(prevProps: Readonly<LessonViewProps>) {
+    const { mapStore } = this.props;
+
     if (prevProps.uuid !== this.props.uuid) {
       LocalStorage.set('lesson_id_q', this.props.uuid);
+      await mapStore.getList();
     }
   }
 
