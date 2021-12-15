@@ -20,10 +20,13 @@ export class MetronomeStore {
   async init() {
     try {
       const cookieInstance = Cookie.getInstance();
+      console.log('get bpm', Number(cookieInstance.get('bpm')) || 80);
       this.current = Number(cookieInstance.get('bpm')) || 80;
       this.volume = Number(localStorage.getItem('volume-metronome')) || 0.5;
       this.worker = new Worker('/workers/metronome-worker.js');
       this.audioPlayer = new Audio('/metronome/metronome.mp3');
+
+      console.log('this.current', this.current);
 
       if (this.worker) {
         this.worker.addEventListener('message', this.onPlayTick);

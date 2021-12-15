@@ -2,22 +2,19 @@ import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import block from 'bem-css-modules';
 import style from './bpm.module.sass';
-import { RootStore } from '../../../../../../../stores';
-import { SERVICE_NAME } from '../../../../../../../constants';
+import { MetronomeStore, RootStore, SystemStore } from '../../../../../../../stores';
 
 const b = block(style);
 
 type BpmProps = {
-  service_name: SERVICE_NAME;
-  current: number;
-  onSetBPM: (value: number) => void;
+  systemStore: SystemStore,
+  metronomeStore: MetronomeStore,
 };
 type BpmState = {};
 
 @inject((store: RootStore) => ({
-  service_name: store.systemStore.service_name,
-  current: store.metronomeStore.current,
-  onSetBPM: store.metronomeStore.setBPM
+  systemStore: store.systemStore,
+  metronomeStore: store.metronomeStore
 }))
 @observer
 export class Bpm extends React.Component<BpmProps, BpmState> {
@@ -25,9 +22,8 @@ export class Bpm extends React.Component<BpmProps, BpmState> {
   inputRef = React.createRef<HTMLInputElement>();
 
   static defaultProps = {
-    service_name: SERVICE_NAME.SCHOOL,
-    current: 80,
-    onSetBPM: () => console.log('Not set handler')
+    systemStore: {},
+    metronomeStore: {}
   };
 
   constructor(props: BpmProps) {
@@ -36,11 +32,11 @@ export class Bpm extends React.Component<BpmProps, BpmState> {
 
   handleOnIncrement = (e: React.FormEvent<HTMLButtonElement> | React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
-    const { current, onSetBPM } = this.props;
-    const updateValue = current + 1;
+    const { metronomeStore } = this.props;
+    const updateValue = metronomeStore.current + 1;
 
     if (updateValue < 200) {
-      onSetBPM(Number(updateValue));
+      metronomeStore.setBPM(Number(updateValue));
 
       if (this.inputRef.current) {
         this.inputRef.current.value = String(updateValue);
@@ -50,11 +46,11 @@ export class Bpm extends React.Component<BpmProps, BpmState> {
 
   handleOnDecrement = (e: React.FormEvent<HTMLButtonElement> | React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
-    const { current, onSetBPM } = this.props;
-    const updateValue = current - 1;
+    const { metronomeStore } = this.props;
+    const updateValue = metronomeStore.current - 1;
 
     if (updateValue > 20) {
-      onSetBPM(Number(updateValue));
+      metronomeStore.setBPM(Number(updateValue));
 
       if (this.inputRef.current) {
         this.inputRef.current.value = String(updateValue);
@@ -79,26 +75,25 @@ export class Bpm extends React.Component<BpmProps, BpmState> {
   };
 
   handleOnBlur = (e: React.FormEvent<HTMLInputElement>) => {
+    const { metronomeStore } = this.props;
     const currentValue = Number(e.currentTarget.value);
 
     if (currentValue > 20 && currentValue < 200) {
-      const { onSetBPM } = this.props;
-      onSetBPM(currentValue);
+      metronomeStore.setBPM(currentValue);
     } else {
       if (this.inputRef.current) {
-        const { current } = this.props;
-        this.inputRef.current.value = String(current);
+        this.inputRef.current.value = String(metronomeStore.current);
       }
     }
   };
 
   render() {
-    const { service_name, current } = this.props;
+    const { systemStore, metronomeStore } = this.props;
 
     return (
       <div
         className={b(null, {
-          [service_name]: true
+          [systemStore.service_name]: true
         })}
       >
         <button
@@ -114,7 +109,7 @@ export class Bpm extends React.Component<BpmProps, BpmState> {
           ref={this.inputRef}
           onBlur={this.handleOnBlur}
           className={b('count')}
-          defaultValue={current}
+          value={metronomeStore.current}
         />
         <button
           className={b('button', {

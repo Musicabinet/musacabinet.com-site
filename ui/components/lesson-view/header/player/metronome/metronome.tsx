@@ -12,7 +12,7 @@ const b = block(style);
 
 type MetronomeProps = {
   volume: number;
-  initBPM: () => void;
+  initBPM: () => Promise<void>;
   worker: Worker | null;
   playTick: () => void;
   onChangeVolume: (name: string, volume: number) => void;
@@ -36,9 +36,9 @@ export class Metronome extends React.Component<MetronomeProps, MetronomeState> {
     onChangeVolume: () => console.log('Not set handler')
   };
 
-  componentDidMount() {
+  async componentDidMount() {
     const { initBPM } = this.props;
-    initBPM();
+    await initBPM();
   }
 
   componentWillUnmount() {
