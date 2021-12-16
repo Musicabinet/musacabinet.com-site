@@ -6,7 +6,7 @@ import { NextModuleStore, RootStore, SystemStore } from '../../../../../stores';
 import Router from 'next/router';
 import { SERVICE_NAME } from '../../../../../constants';
 import { ModuleNavigation } from './module-navigation/module-navigation';
-import { Timer } from './old-timer/timer';
+import { Timer } from './timer/timer';
 
 const b = block(style);
 
@@ -31,19 +31,17 @@ export class Module extends React.Component<ModuleProps, ModuleState> {
     await Router.push('/lesson/[uuid]', `/lesson/${uuid}`);
   };
 
-  getAmountTime = (): 15 | 30 | 45 | 60 => {
+  getAmountTime = (): 25 | 35 | 45 => {
     const { systemStore: { service_name } } = this.props;
-    let time = 15;
-    if (service_name === SERVICE_NAME.SCHOOL) time = 30;
-    else if (service_name === SERVICE_NAME.COLLEGE) time = 45;
+    let time: 25 | 35 | 45 = 25;
+    if (service_name === SERVICE_NAME.SCHOOL) time = 25;
+    else if (service_name === SERVICE_NAME.COLLEGE) time = 35;
     else if (service_name === SERVICE_NAME.UNIVERSITY) time = 45;
-
-    // @ts-ignore
     return time;
   };
 
   render() {
-    const { systemStore: { service_name }, nextModuleStore } = this.props;
+    const { systemStore: { service_name } } = this.props;
 
     return (
       <div
@@ -55,7 +53,8 @@ export class Module extends React.Component<ModuleProps, ModuleState> {
           <ModuleNavigation />
         </div>
         <div className={b('body')}>
-          <Timer amountTime={this.getAmountTime()} onMessageAtTheEnd={nextModuleStore.start} />
+          <Timer amountTime={this.getAmountTime()} />
+          {/*<Timer amountTime={this.getAmountTime()} onMessageAtTheEnd={nextModuleStore.start} />*/}
         </div>
       </div>
     );

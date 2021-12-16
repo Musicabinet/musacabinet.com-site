@@ -332,7 +332,6 @@ export class LessonStore implements LessonI {
 
   @computed
   get currentContentChart(): ChartStore | null {
-    console.log(this.charts,this.currentScore);
     return this.charts[this.currentScore] || null;
   }
 

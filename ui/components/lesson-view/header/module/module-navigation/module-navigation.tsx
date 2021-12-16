@@ -36,8 +36,6 @@ export class ModuleNavigation extends React.Component<ModuleNavigationProps, Mod
     let keys = Object.keys(newList);
     let keyCourseModule = `${lessonStore.group_lesson?.collections?.course_id}${lessonStore.group_lesson?.collections?.module_id}`;
 
-    console.log(`${lessonStore.group_lesson?.collections?.course_id}${lessonStore.group_lesson?.collections?.module_id}`);
-
     if (direction === LessonDirection.LEFT) {
       let nextIndex = keys.indexOf(`${keyCourseModule}`) - 1;
       let nextItem = keys[nextIndex];
@@ -49,24 +47,20 @@ export class ModuleNavigation extends React.Component<ModuleNavigationProps, Mod
       let nextIndex = keys.indexOf(`${keyCourseModule}`) + 1;
       let nextItem = keys[nextIndex];
 
-      console.log(nextIndex, nextItem, newList[nextItem]);
-
       let keyMinimum = Object.keys(newList[nextItem]).reduce((key, v) => newList[nextItem][v] < newList[nextItem][key] ? v : key);
       await Router.push(`/lesson/[uuid]`, `/lesson/${keyMinimum}`);
     }
   };
 
   render() {
-    const { lessonStore, mapStore } = this.props;
+    //const { lessonStore, mapStore } = this.props;
 
-    let data = JSON.stringify(mapStore.list);
-    let newList: MapI = JSON.parse(data);
-    let keys = Object.keys(newList);
-    let keyCourseModule = `${lessonStore.group_lesson?.collections?.course_id}${lessonStore.group_lesson?.collections?.module_id}`;
-    let nextIndex = keys.indexOf(`${keyCourseModule}`) + 1;
-    let nextItem = keys[nextIndex];
-
-    console.log(nextItem, newList[nextItem]);
+    //let data = JSON.stringify(mapStore.list);
+    //let newList: MapI = JSON.parse(data);
+    //let keys = Object.keys(newList);
+    //let keyCourseModule = `${lessonStore.group_lesson?.collections?.course_id}${lessonStore.group_lesson?.collections?.module_id}`;
+    //let nextIndex = keys.indexOf(`${keyCourseModule}`) + 1;
+    //let nextItem = keys[nextIndex];
 
     return (
       <div className={b(null)}>
