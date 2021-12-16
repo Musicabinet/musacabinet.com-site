@@ -6,7 +6,7 @@ import { NextModuleStore, RootStore, SystemStore } from '../../../../../stores';
 import Router from 'next/router';
 import { SERVICE_NAME } from '../../../../../constants';
 import { ModuleNavigation } from './module-navigation/module-navigation';
-import { Timer } from './timer/timer';
+import { Timer } from './old-timer/timer';
 
 const b = block(style);
 

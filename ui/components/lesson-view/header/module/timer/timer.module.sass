@@ -1,103 +1,75 @@
 @import "../../../../../../stylesheets/index"
 
 .timer
-  $root: &
   position: relative
-  display: inline-block
-  user-select: none
-  cursor: pointer
-  width: 72.6px
-  height: 72.6px
-  margin: 0 0 11.91px
 
-  &:after
-    position: absolute
-    content: ""
-    background-size: 63px
-    background-repeat: no-repeat
-    z-index: 500
-    width: 100px
-    height: 100px
-    top: 8px
-    left: 8px
+  &__body
+    fill: $white
 
-  &_school
+  &__background
     position: relative
+    fill: transparent
+    stroke-width: 36px
+    stroke-dasharray: 0 113px
+    transform: rotate(-90deg)
+    transform-origin: center
 
-    #{$root}__circle
-      stroke: $school
+    &_school
+      stroke-dasharray: 47px 113px
+      stroke: rgba($school, 0.6)
 
-    #{$root}__fill
-      stroke: $school
+    &_college
+      stroke-dasharray: 47px 113px
+      stroke: rgba($college, 0.6)
 
-  &_college
+  &__turn
     position: relative
+    fill: transparent
+    stroke-width: 36px
+    stroke-dasharray: 9px 113px
+    transform: rotate(60deg)
+    transform-origin: center
+    stroke: rgba($gold, 1)
 
-    #{$root}__circle
-      stroke: $college
-
-    #{$root}__fill
-      stroke: $college
-
-  &__container
-    position: relative
-
-  &__circle
+  &__progress
+    transform: rotate(-90deg)
+    transform-origin: center
+    stroke-dasharray: 43px 239px
     stroke: $school
-    stroke-dashoffset: 146
-    transform-origin: center
-    transform: rotate(-90deg)
-    transition: stroke-dashoffset 0.3s
-
-  &__fill
-    stroke-width: 30
-    stroke-dasharray: 0 94
-    transform-origin: center
-    transform: rotate(-90deg)
+    stroke-width: 4px
+    fill: transparent
     transition: stroke-dasharray 0.3s
 
-  &__current-time
+  &__time
     position: absolute
-    top: 54%
-    left: 54%
-    transform: translate(-50%, -50%)
-    @include fontMontserrat(15px, 400)
+    left: 50%
+    top: 50%
+    transform: translate(-50%, -34%)
+    @include fontMontserrat(18px)
+    line-height: 25px
     color: $gray50
-    z-index: 20
 
+  &__head
+    width: 20px
+    background: $school
+    height: 6px
+    margin: 0 auto 8px
 
-  &_time-15
-    position: relative
+  &__arrow-vertical
+    position: absolute
+    right: 12px
+    top: 11px
+    width: 2px
+    height: 8px
+    background: $school
+    transform: rotate(35deg)
 
-    #{$root}__circle
-      stroke-dashoffset: 146
+  &__arrow
+    position: absolute
+    right: 2px
+    top: 8px
+    width: 13px
+    height: 2px
+    background: $school
+    transform: rotate(35deg)
 
-    &:after
-      background-image: url('/images/circle/15_Timer.png')
-
-  &_time-30
-    position: relative
-
-    #{$root}__circle
-      stroke-dashoffset: 97.3
-
-    &:after
-      background-image: url('/images/circle/30_Timer.png')
-
-  &_time-45
-    position: relative
-
-    &:after
-      background-image: url('/images/circle/45_Timer.png')
-
-    #{$root}__circle
-      stroke-dashoffset: 48.6
-
-  &_time-60
-    position: relative
-
-    &:after
-      background-image: url('/images/circle/60_Timer.png')
-
-    #{$root}__circle
-      stroke-dashoffset: 0

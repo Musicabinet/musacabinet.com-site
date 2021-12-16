@@ -60,10 +60,10 @@ export default class Item extends React.Component<ItemProps, ItemState> {
           <div className={b('header')}>{instrument.name} {ucFirst(SERVICE_MAPPING[instrument.service_id])} for today
           </div>
           <div className={b('message')}>
-            You study
+            You study from
             <span className={b('service', {
               [SERVICE_MAPPING[instrument.service_id]]: true
-            })}>{SERVICE_DURATION_MINUTE[instrument.service_id]} minutes</span>
+            })}>{SERVICE_DURATION_MINUTE[instrument.service_id]} minutes to 3 hour</span>
             every day
             <div className={b('percent', {
               [SERVICE_MAPPING[instrument.service_id]]: true

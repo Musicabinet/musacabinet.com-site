@@ -74,16 +74,21 @@ export class Bpm extends React.Component<BpmProps, BpmState> {
     clearInterval(this.interval);
   };
 
-  handleOnBlur = (e: React.FormEvent<HTMLInputElement>) => {
+  handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { metronomeStore } = this.props;
-    const currentValue = Number(e.currentTarget.value);
+    const { value } = e.currentTarget;
+    const currentNumber = Number(value);
+    metronomeStore.setBPM(currentNumber);
+  };
 
-    if (currentValue > 20 && currentValue < 200) {
-      metronomeStore.setBPM(currentValue);
-    } else {
-      if (this.inputRef.current) {
-        this.inputRef.current.value = String(metronomeStore.current);
-      }
+
+  handleOnBlur = () => {
+    const { metronomeStore } = this.props;
+    const { current } = metronomeStore;
+    if (current > 200) {
+      metronomeStore.setBPM(200);
+    } else if (current < 20) {
+      metronomeStore.setBPM(20);
     }
   };
 
@@ -107,6 +112,7 @@ export class Bpm extends React.Component<BpmProps, BpmState> {
         <input
           type={'number'}
           ref={this.inputRef}
+          onChange={this.handleOnChange}
           onBlur={this.handleOnBlur}
           className={b('count')}
           value={metronomeStore.current}
