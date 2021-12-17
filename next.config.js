@@ -4,6 +4,7 @@ const webpack = require('webpack');
 require('dotenv').config();
 
 const nextConfig = withImage({
+  swcMinify: true,
   webpack: (config) => {
     config.plugins.push(
       new webpack.DefinePlugin({
