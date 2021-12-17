@@ -107,19 +107,34 @@ export class Timer extends React.Component<TimerProps, TimerState> {
     }
   };
 
+  handleOnChangeTime = () => {
+    console.log('change');
+    if (this.svgProgress.current) {
+      // Очищаем прогресс
+      this.svgProgress.current.style.strokeDasharray = `${0}px 236px`;
+      // Таймер обнуляем
+      this.timer = 0;
+      // Устанавливаем новый таймер
+      this.setState((state) => ({
+        timeIndex: state.timeIndex + 1 > this.times.length - 1 ? 0 : state.timeIndex + 1
+      }));
+    }
+  };
+
   render() {
     const { systemStore } = this.props;
     const { timeIndex } = this.state;
-    const { value } = this.times[timeIndex];
+    const { value: currentTime } = this.times[timeIndex];
+
 
     return (
-      <div className={b(null, {
-        [systemStore.service_name]: true
-      })}>
+      <div className={b(null, { [systemStore.service_name]: true, [currentTime]: true })}
+           onClick={this.handleOnChangeTime}>
+
         <div className={b('head')} />
         <div className={b('arrow-vertical')} />
         <div className={b('arrow')} />
-        <div className={b('time')}>{value}m</div>
+        <div className={b('time')}>{currentTime}m</div>
         <svg width={84} height={84}>
           <circle cx={42}
                   cy={42}
@@ -141,6 +156,7 @@ export class Timer extends React.Component<TimerProps, TimerState> {
                   r={18}
                   className={b('turn')} />
         </svg>
+
       </div>
     );
   }
