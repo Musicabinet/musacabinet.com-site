@@ -103,14 +103,14 @@ export class MenuListStore {
       is_active: false
     },
     {
-      title: 'My Subscriptions',
-      link: '/cabinet',
+      title: 'My Statistics',
+      link: '/cabinet/your-statistics',
       type: MenuType.DEFAULT,
       is_active: false
     },
     {
-      title: 'My Statistics',
-      link: '/cabinet/your-statistics',
+      title: 'My Subscriptions',
+      link: '/cabinet',
       type: MenuType.DEFAULT,
       is_active: false
     },
@@ -138,12 +138,6 @@ export class MenuListStore {
     {
       title: 'Privacy Policy',
       link: 'privacy-policy',
-      type: MenuType.DEFAULT,
-      is_active: false
-    },
-    {
-      title: 'Support',
-      link: 'contact',
       type: MenuType.DEFAULT,
       is_active: false
     },
