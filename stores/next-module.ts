@@ -7,8 +7,7 @@ let rootStore: RootStore;
 export class NextModuleStore {
   @observable isShow: boolean = false;
   @observable second: number = 0;
-
-  clearIntervalID: number = 0;
+  @observable uuid: string = '';
 
   constructor(initialData: NextModuleStore | null, root: RootStore) {
     makeObservable(this);
@@ -29,14 +28,26 @@ export class NextModuleStore {
 
     this.second = this.totalSeconds;
     this.isShow = true;
-    this.clearIntervalID = window.setInterval(() => {
+    this.timer();
+  }
+
+  @action.bound
+  timer() {
+    window.setTimeout(() => {
       this.second = this.second - 1;
+
+      if (this.second !== 0) {
+        this.timer();
+      } else {
+        alert('End');
+      }
+
     }, 1000);
   }
 
   @action.bound
   stop() {
-    window.clearInterval(this.clearIntervalID);
+    this.second = 0;
   }
 
   @action.bound
@@ -57,6 +68,11 @@ export class NextModuleStore {
   close() {
     this.isShow = false;
     this.stop();
+  }
+
+  @action.bound
+  setUUID(uuid: string) {
+    this.uuid = uuid;
   }
 
   @computed

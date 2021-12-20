@@ -8,6 +8,7 @@ import { InstrumentIcon } from '../../instrument-icon/instrument-icon';
 import moment from 'moment';
 import { Button } from '../../button/button';
 import Router from 'next/router';
+import { MapStore } from '../../../../stores/map';
 
 const b = block(style);
 
@@ -15,28 +16,31 @@ type NextModuleProps = {
   systemStore: SystemStore,
   nextModuleStore: NextModuleStore,
   lessonStore: LessonStore,
+  mapStore: MapStore
 };
 type NextModuleState = {};
 
 @inject((store: RootStore) => ({
   systemStore: store.systemStore,
   nextModuleStore: store.nextModule,
-  lessonStore: store.lessonStore
+  lessonStore: store.lessonStore,
+  mapStore: store.mapStore
 }))
 @observer
 export class NextModule extends React.Component<NextModuleProps, NextModuleState> {
   static defaultProps = {
     systemStore: {},
     nextModuleStore: {},
-    lessonStore: {}
+    lessonStore: {},
+    mapStore: {}
   };
 
   componentDidMount() {
   }
 
   handleOnNext = async () => {
-    const { lessonStore } = this.props;
-    await Router.push(`/lesson/[uuid]`, `/lesson/${lessonStore.nextModuleLesson}`);
+    const { mapStore } = this.props;
+    await Router.push(`/lesson/[uuid]`, `/lesson/${mapStore.nextLesson}`);
   };
 
   render() {
