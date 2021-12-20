@@ -138,7 +138,7 @@ export class Scores extends React.Component<ScoresProps, ScoresState> {
             </div>
 
             <div className={b('copyright')}>
-              &copy; Musicabinet All rights reserved
+              &copy; MUSICABINET. All rights reserved.
             </div>
           </>
         )}
