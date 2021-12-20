@@ -82,14 +82,14 @@ export class MenuListStore {
       ]
     },
     {
-      title: 'Pricing',
-      link: 'pricing',
+      title: '',
+      link: '',
       type: MenuType.DEFAULT,
       is_active: false
     },
     {
-      title: 'Support',
-      link: 'contact',
+      title: 'Pricing',
+      link: 'pricing',
       type: MenuType.DEFAULT,
       is_active: false
     }
