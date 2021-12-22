@@ -39,8 +39,9 @@ export class NextModule extends React.Component<NextModuleProps, NextModuleState
   }
 
   handleOnNext = async () => {
-    const { mapStore } = this.props;
+    const { mapStore, nextModuleStore } = this.props;
     await Router.push(`/lesson/[uuid]`, `/lesson/${mapStore.nextLesson}`);
+    nextModuleStore.close();
   };
 
   render() {

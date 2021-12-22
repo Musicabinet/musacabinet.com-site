@@ -38,8 +38,6 @@ export class NextModuleStore {
 
       if (this.second !== 0) {
         this.timer();
-      } else {
-        alert('End');
       }
 
     }, 1000);
