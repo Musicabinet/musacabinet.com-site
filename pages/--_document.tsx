@@ -26,7 +26,7 @@ export class DeferredNextScript extends NextScript {
         // eslint-disable-next-line @typescript-eslint/tslint/config
         key: script.props.src,
         defer: false,
-        async: true,
+        async: false,
       })
     })
   }
