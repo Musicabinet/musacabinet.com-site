@@ -35,16 +35,12 @@ export class Modules extends React.Component<ModulesProps, ModulesState> {
 
     return (
       <div className={b(null, { [service_name]: true })}>
-        {list.map((module) => {
+        {list.map((module, index) => {
           return (
-            <ModuleItem
-              key={module.id}
-              id={module.id}
-              number={number++}
-              sort={module.sort}
-              name={module.name}
-              is_active={selected_module_id === module.id}
-            />
+            <ModuleItem key={module.id}
+                        module={module}
+                        number={number++}
+                        is_active={selected_module_id === module.id}/>
           );
         })}
       </div>

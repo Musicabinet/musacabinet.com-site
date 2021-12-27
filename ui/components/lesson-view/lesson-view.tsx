@@ -49,6 +49,7 @@ export class LessonView extends React.Component<LessonViewProps, LessonViewState
 
     if (uuid) {
       LocalStorage.set('lesson_id_q', uuid);
+      console.log('1');
       await mapStore.getList();
     }
   }
@@ -58,6 +59,7 @@ export class LessonView extends React.Component<LessonViewProps, LessonViewState
 
     if (prevProps.uuid !== this.props.uuid) {
       LocalStorage.set('lesson_id_q', this.props.uuid);
+      console.log('2');
       await mapStore.getList();
     }
   }

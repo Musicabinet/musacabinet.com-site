@@ -56,7 +56,7 @@ export class Play extends React.Component<PlayProps, PlayState> {
 
     return (
       <button onClick={this.handleOnChangeToggle} className={b(null, { [service_name]: true })}>
-        {status ? <div className={b('pause')} /> : getIcon(LIST_ICON.PLAY, b('play'))}
+        {status ? <div className={b('pause')} /> : getIcon(LIST_ICON.PLAY_SMALL, b('play'))}
       </button>
     );
   }

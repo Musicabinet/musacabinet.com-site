@@ -1,33 +1,72 @@
 @import "../../../../../../../stylesheets/index"
 
 .play
+  $root: &
   position: relative
-  height: 25px
+  height: 30px
   border-radius: 50%
-  border: 0
+  border: 2px solid
   background: transparent
   cursor: pointer
   transition: all .2s
   display: flex
   justify-content: center
   align-items: center
-  flex: 0 0 25px
+  flex: 0 0 30px
   width: 25px
 
   &:active
     transform: scale(0.97)
 
   &_school
-    background: $school
+    border-color: $school
 
     &:hover
-      background: darken($school, 10%)
+      border-color: darken($school, 10%)
+
+      #{$root}__play
+        svg, path
+          stroke: darken($school, 10%)
+
+      #{$root}__pause
+
+        &:before, &:after
+          background: darken($school, 10%)
+
+    #{$root}__play
+      svg, path
+        stroke: $school
+
+    #{$root}__pause
+
+      &:before, &:after
+        background: $school
 
   &_college
-    background: $college
+    border-color: $college
 
     &:hover
-      background: darken($college, 10%)
+      border-color: darken($college, 10%)
+
+      #{$root}__play
+        svg, path
+          stroke: darken($college, 10%)
+
+      #{$root}__pause
+
+        &:before, &:after
+          background: darken($college, 10%)
+
+
+    #{$root}__play
+      svg, path
+        stroke: $college
+
+    #{$root}__pause
+
+      &:before, &:after
+        background: $college
+
 
   &__icon
     width: 10px
@@ -38,17 +77,17 @@
 
   &__pause
     position: relative
-    width: 10px
-    height: 10px
+    width: 12px
+    height: 14px
     margin: 0 0 0 3px
 
     &:before, &:after
       top: 0
       content: ''
       position: absolute
-      width: 1px
+      width: 2px
       height: 100%
-      background: $white
+      background: transparent
 
     &:before
       left: 0
@@ -57,12 +96,17 @@
       right: 0
 
   &__play
-    width: 13px
+    position: absolute
+    display: flex
+    width: 16px
+    height: 16px
+    left: 8.5px
+    top: 5px
+
 
     svg
       position: relative
-      height: 10px
-      fill: $white
-      left: 1px
-      top: -0.5px
+      fill: transparent
+      width: 12px
+      height: 16px
 

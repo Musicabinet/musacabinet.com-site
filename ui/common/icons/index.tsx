@@ -13,10 +13,12 @@ import ICON_KEYBOARD from './keyboards.svg';
 import ICON_CONTACT from './contact.svg';
 import ICON_BACK from './back.svg';
 import ICON_PLAY from './play.svg';
+import ICON_PLAY_SMALL from './play-small.svg';
 import ICON_VOLUME from './icon-volume.svg';
 import ICON_BACK_BUTTON from './icon-back.svg';
 import ICON_PROFILE from './profile-icon.svg';
 import ICON_CHECK from './check.svg';
+import ICON_VOLUME_WITHOUT_VIBE from './volume-without-vibe.svg';
 import React from 'react';
 import { ReactSVG } from 'react-svg';
 
@@ -39,7 +41,9 @@ export enum LIST_ICON {
   VOLUME = 'VOLUME',
   BACK_BUTTON = 'BACK_BUTTON',
   PROFILE = 'PROFILE',
-  CHECK = 'CHECK'
+  CHECK = 'CHECK',
+  PLAY_SMALL = 'PLAY_SMALL',
+  VOLUME_WITHOUT_VIBE = 'VOLUME_WITHOUT_VIBE'
 }
 
 export const ICON_MAPPING = {
@@ -61,7 +65,9 @@ export const ICON_MAPPING = {
   [LIST_ICON.VOLUME]: ICON_VOLUME,
   [LIST_ICON.BACK_BUTTON]: ICON_BACK_BUTTON,
   [LIST_ICON.PROFILE]: ICON_PROFILE,
-  [LIST_ICON.CHECK]: ICON_CHECK
+  [LIST_ICON.CHECK]: ICON_CHECK,
+  [LIST_ICON.PLAY_SMALL]: ICON_PLAY_SMALL,
+  [LIST_ICON.VOLUME_WITHOUT_VIBE]: ICON_VOLUME_WITHOUT_VIBE
 };
 
 export const getIcon = (icon: LIST_ICON, className: string): React.ReactNode => {

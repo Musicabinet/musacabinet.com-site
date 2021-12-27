@@ -198,7 +198,8 @@ export class LessonStore implements LessonI {
   @action.bound
   setCurrentScore(value: number) {
     this.currentScore = value;
-    this.selected_accompaniment = this.accompaniments[value].id;
+    // Если аккампонимента нет, то ставим 0
+    this.selected_accompaniment = this.accompaniments[value] ? this.accompaniments[value].id : 0;
   }
 
   @action.bound

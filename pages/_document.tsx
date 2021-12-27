@@ -25,8 +25,8 @@ export class DeferredNextScript extends NextScript {
       return React.cloneElement((script), {
         // eslint-disable-next-line @typescript-eslint/tslint/config
         key: script.props.src,
-        defer: true,
-        async: false,
+        defer: false,
+        async: true,
       })
     })
   }
