@@ -12,23 +12,25 @@
 
   &__information
     position: relative
-    margin-bottom: 75px
     margin-top: 40px
 
   &__title
     text-align: center
-    @include fontFuturaMedium(75px)
+    @include fontFuturaMedium(45px)
     color: $gray60
     padding: 0
-    margin-bottom: 25px
-    line-height: 90px
+    margin-bottom: 15px
+    line-height: 70px
 
   &__sub-title
-    @include fontFuturaDemic(32px)
+    @include fontFuturaDemic(28px)
     color: $gray60
     padding: 0
     margin-bottom: 30px
     text-align: center
+
+    &:empty
+      display: none
 
     &_left
       text-align: left
