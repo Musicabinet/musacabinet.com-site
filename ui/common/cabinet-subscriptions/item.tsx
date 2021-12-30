@@ -58,9 +58,13 @@ export class CabinetSubscriptionItem extends React.Component<CabinetSubscription
     // Открываем гранд чарт
     modalsStore.show(MODALS.GRAND_CHART);
 
-    // Получение гранд чарта
-    await grandChartStore.getList();
-    await statisticsListStore.get();
+    try{
+      // Получение гранд чарта
+      await grandChartStore.getList();
+      await statisticsListStore.get();
+    }catch (e) {
+      console.error(`Error in handleOnOpenGrandChart : `, e);
+    }
   };
 
   getIsPurchaseUser = (): PurchaseStore | TrialVersionStore => {

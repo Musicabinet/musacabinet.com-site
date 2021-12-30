@@ -1,4 +1,4 @@
-import { action, computed, makeObservable, observable } from 'mobx';
+import { action, computed, makeObservable, observable, transaction } from 'mobx';
 import { CollectionI, CourseI, ModuleI, GroupLessonI, GroupLessonsFinal } from '../interfaces';
 import { API } from '../core';
 import { GrandChartResponse } from '../responsible';
@@ -42,7 +42,7 @@ export class GrandChartStore {
       // Формирование объекта с группой уроков
       let formationGroupLessons: { [key: string]: GroupLessonI[] } = {};
 
-      group_lessons.forEach((group_lesson) => {
+     group_lessons.forEach((group_lesson) => {
         const { course_id, module_id } = group_lesson;
         const key = `${course_id}-${module_id}`;
 
@@ -53,13 +53,18 @@ export class GrandChartStore {
         formationGroupLessons[key].push(group_lesson);
       });
 
-      this.finalData = JSON.parse(JSON.stringify(formationGroupLessons));
-      this.courses = [...courses];
-      this.modules = [...modules];
-      this.collections = [...collections];
-      this.groupLessons = (group_lessons || []).map((group_lesson) => new GroupLessonStore(group_lesson, rootStore));
 
-      this.isEmpty = this.modules.length === 0;
+     transaction(()=>{
+
+       this.finalData = JSON.parse(JSON.stringify(formationGroupLessons));
+       this.courses = courses;
+       this.modules = modules;
+       this.collections = collections;
+       this.groupLessons = (group_lessons || []).map((group_lesson) => new GroupLessonStore(group_lesson, rootStore));
+
+       this.isEmpty = this.modules.length === 0;
+     })
+
     } catch (e) {
       console.error(`Error in method GrandChartStore.getList : `, e);
     } finally {

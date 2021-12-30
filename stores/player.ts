@@ -159,7 +159,7 @@ export class PlayerStore {
   @action.bound
   init() {
     this.player.forEach((player) => {
-      player.volume.value = -12;
+      player.volume.value = 0;
     });
   }
 

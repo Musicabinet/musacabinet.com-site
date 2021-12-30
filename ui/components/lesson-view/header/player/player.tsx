@@ -7,10 +7,10 @@ import { Toolbar } from './toolbar/toolbar';
 import { BackTrack } from './back-track/back-track';
 import { PlayButton } from './play-button/play-button';
 import { ProgressLine } from './progress-line/progress-line';
-import { ButtonComposition } from './button-composition/button-composition';
+import { LibraryType, SERVICE_NAME } from '../../../../../constants';
+import { DividerVertical } from './divider-vertical/divider-vertical';
+import { Switcher } from './switcher/switcher';
 import { VolumeControl } from '../../../../common';
-import { Metronome } from './metronome/metronome';
-import { SERVICE_NAME } from '../../../../../constants';
 
 const b = block(style);
 
@@ -48,15 +48,23 @@ export class Player extends React.Component<PlayerProps, PlayerState> {
 
   handleOnChangeVolume = (name: string, value: number) => {
     const { playerStore } = this.props;
+
+    console.log(name, value);
+
     this.setState({
       [name]: value
     });
     playerStore.setVolume(value);
   };
 
+
+  handleOnToggle = (player_id: 0 | 1 | 2) => {
+    const { playerStore } = this.props;
+    playerStore.onMute(player_id);
+  };
+
   render() {
-    const { volume } = this.state;
-    const { playerStore, service_name, noMR } = this.props;
+    const { playerStore, lessonStore, service_name, noMR } = this.props;
 
     return (
       <div className={b(null, { noMR, [service_name]: true })}>
@@ -65,15 +73,38 @@ export class Player extends React.Component<PlayerProps, PlayerState> {
           <span>.</span>
           <span>.</span>
         </div>
-        <Toolbar />
-        <div className={b('container')}>
-          <BackTrack />
-          <PlayButton />
-          <ProgressLine />
-          <VolumeControl name={'volume'} min={-30} max={0} onChange={this.handleOnChangeVolume} defaultValue={volume} />
-          <Metronome />
-          <ButtonComposition />
+        <div className={b('body')}>
+          <Toolbar />
+          <div className={b('container')}>
+            <BackTrack />
+            <PlayButton />
+            <ProgressLine />
+          </div>
         </div>
+        <DividerVertical />
+
+        <div className={b('block')}>
+          <Switcher service_name={service_name}
+                    label={'Keyboard'}
+                    checked={playerStore.keysMute}
+                    disabled={playerStore.library_type !== LibraryType.COMPOSITION || lessonStore.accompaniments.length === 0}
+                    onChange={this.handleOnToggle.bind(null, 2)} />
+          <Switcher service_name={service_name}
+                    label={'Bass'}
+                    checked={playerStore.bassMute}
+                    disabled={playerStore.library_type !== LibraryType.COMPOSITION || lessonStore.accompaniments.length === 0}
+                    onChange={this.handleOnToggle.bind(null, 0)} />
+          <Switcher service_name={service_name}
+                    label={'Drums'}
+                    checked={playerStore.drumsMute}
+                    disabled={playerStore.library_type !== LibraryType.COMPOSITION || lessonStore.accompaniments.length === 0}
+                    onChange={this.handleOnToggle.bind(null, 1)} />
+        </div>
+
+        <div className={b('block')}>
+          <VolumeControl defaultValue={-8} min={-24} max={0} name={'volume'} onChange={this.handleOnChangeVolume} />
+        </div>
+
       </div>
     );
   }

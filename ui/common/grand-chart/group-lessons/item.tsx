@@ -45,7 +45,7 @@ export class GroupLessonItem extends React.Component<GroupLessonItemProps, Group
       return false;
     }
 
-    if (isPurchaseUser[0].isExpired) {
+    if (Array.isArray(isPurchaseUser) && isPurchaseUser[0] && isPurchaseUser[0].isExpired) {
       return false;
     }
 
@@ -72,7 +72,7 @@ export class GroupLessonItem extends React.Component<GroupLessonItemProps, Group
     let passedMinutes = 0;
 
     statisticsListStore.list[groupLesson.course_id].forEach((staticLessonsProgress) => {
-      if(staticLessonsProgress.collection_id === groupLesson.collection_id){
+      if (staticLessonsProgress.collection_id === groupLesson.collection_id) {
         staticLessonsProgress.lessons.forEach((lesson) => {
           totalMinutes += lesson.duration_minute;
           passedMinutes += lesson.total_progress_minute >= lesson.duration_minute
@@ -104,7 +104,7 @@ export class GroupLessonItem extends React.Component<GroupLessonItemProps, Group
         <div className={b('title')}
              dangerouslySetInnerHTML={{ __html: groupLesson.name.replace(/\(/g, '<br/>(') }} />
 
-        <div className={b('progress')} style={{width: `${this.getPercent()}%`}} />
+        <div className={b('progress')} style={{ width: `${this.getPercent()}%` }} />
       </div>
     );
   }

@@ -88,13 +88,43 @@ export class Scores extends React.Component<ScoresProps, ScoresState> {
     }
   };
 
+  handleOnChange = (clickEvent: {
+    index: number | null;
+    selected: number;
+    nextSelectedPage: number | undefined;
+    event: object;
+    isPrevious: boolean;
+    isNext: boolean;
+    isBreak: boolean;
+    isActive: boolean;
+  }) => {
+    //const { lessonStore } = this.props;
+    console.log('clickEvent', clickEvent.index);
+    //lessonStore.setCurrentScore(clickEvent.index);
+    //this.handleSetFirstTrack();
+  };
+
   render() {
     const { currentContentScore, service_name } = this.props;
 
 
     return (
       <div className={b(null)}>
-        <Pagination />
+
+        {/*<div className={b('head')}>
+          <ReactPaginate marginPagesDisplayed={1}
+                         pageRangeDisplayed={2}
+                         pageCount={10}
+                         forcePage={0}
+                         breakLabel={'...'}
+                         previousLabel={'<'}
+                         nextLabel={'>'}
+                         containerClassName={b('pagination-container')}
+                         activeClassName={b('pagination-active')}
+                         onClick={this.handleOnChange} />
+        </div>*/}
+
+         <Pagination />
         {currentContentScore && (
           <>
             <div className={b('header')}>

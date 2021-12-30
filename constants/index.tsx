@@ -107,4 +107,9 @@ export const SERVICE_DURATION_MINUTE = {
   [SERVICE_ID.SCHOOL]: 30,
   [SERVICE_ID.COLLEGE]: 45,
   [SERVICE_ID.UNIVERSITY]: 60
-}
+};
+
+export enum METRONOME_BUTTON_TYPE {
+  INCREMENT = 'increment',
+  DECREMENT = 'decrement'
+};

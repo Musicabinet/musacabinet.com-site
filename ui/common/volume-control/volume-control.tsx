@@ -5,6 +5,7 @@ import style from './volume-control.module.sass';
 import { RootStore } from '../../../stores';
 import { SERVICE_NAME } from '../../../constants';
 import { handleDetectClick } from '../../../helpers';
+import { getIcon, LIST_ICON } from '../icons';
 
 const b = block(style);
 
@@ -83,24 +84,19 @@ export class VolumeControl extends React.Component<VolumeControlProps, VolumeCon
         })}
       >
         <div className={b('wrapper')}>
-          <div className={b('lines')}>
-            <div className={b('line')} />
-            <div className={b('line')} />
-            <div className={b('line')} />
-            <div className={b('line')} />
-            <div className={b('line')} />
-          </div>
           <input
-            type="range"
+            type='range'
             name={name}
             max={max}
             min={min}
             step={step}
             defaultValue={defaultValue}
-            aria-orientation="vertical"
+            aria-orientation='vertical'
             className={b('range', { circle })}
             onChange={this.handlerOnChange}
           />
+
+          {getIcon(LIST_ICON.VOLUME_WITHOUT_VIBE, b('icon'))}
         </div>
       </div>
     );

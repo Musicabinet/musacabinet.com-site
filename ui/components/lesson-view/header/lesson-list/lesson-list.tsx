@@ -57,7 +57,9 @@ export class LessonList extends React.Component<LessonListProps, LessonListState
 
     return (
       <>
-        <div className={b(null)} ref={this.containerLessonListRef} onClick={this.handleOnToggleList}>
+        <div className={b(null)}
+             ref={this.containerLessonListRef}
+             onClick={this.handleOnToggleList}>
           <NumberLesson />
           <NameLesson />
           <TimeLeft />
