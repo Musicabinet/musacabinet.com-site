@@ -6,7 +6,6 @@ import { RootStore, LessonStore, PlayerStore } from '../../../../stores';
 import { AccompanimentI, ScoreI } from '../../../../interfaces';
 import { MODALS, SCORE_TYPE, SERVICE_NAME } from '../../../../constants';
 import { Pagination } from './pagination/pagination';
-import ReactPaginate from 'react-paginate';
 
 const b = block(style);
 
@@ -99,7 +98,7 @@ export class Scores extends React.Component<ScoresProps, ScoresState> {
     isBreak: boolean;
     isActive: boolean;
   }) => {
-    const { lessonStore } = this.props;
+    //const { lessonStore } = this.props;
     console.log('clickEvent', clickEvent.index);
     //lessonStore.setCurrentScore(clickEvent.index);
     //this.handleSetFirstTrack();
@@ -112,7 +111,7 @@ export class Scores extends React.Component<ScoresProps, ScoresState> {
     return (
       <div className={b(null)}>
 
-        <div className={b('head')}>
+        {/*<div className={b('head')}>
           <ReactPaginate marginPagesDisplayed={1}
                          pageRangeDisplayed={2}
                          pageCount={10}
@@ -123,9 +122,9 @@ export class Scores extends React.Component<ScoresProps, ScoresState> {
                          containerClassName={b('pagination-container')}
                          activeClassName={b('pagination-active')}
                          onClick={this.handleOnChange} />
-        </div>
+        </div>*/}
 
-        {/* <Pagination />*/}
+         <Pagination />
         {currentContentScore && (
           <>
             <div className={b('header')}>

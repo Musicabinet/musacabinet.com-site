@@ -1,0 +1,82 @@
+@import "../../../../../stylesheets/index"
+
+.metronome
+  $root: &
+  position: relative
+  width: 200px
+  display: flex
+  flex-direction: column
+  margin: 0 10px 0 0
+
+  &_school
+    #{$root}__start
+      background: $school
+
+  &_college
+    #{$root}__start
+      background: $college
+
+  &_university
+    #{$root}__start
+      background: $university
+
+
+  &__header
+    height: 50px
+    background: $gray20
+    border-radius: 10px 10px 0 0
+    display: flex
+    justify-content: center
+    align-items: center
+    color: $gray50
+
+  &__body
+    flex: 1
+    display: flex
+    background: $silver
+    border-radius: 0 0 10px 10px
+    padding: 20px
+
+  &__control
+    display: flex
+    height: 40px
+
+  &__container
+    display: flex
+    flex-direction: column
+
+  &__bpm
+    width: 40px
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.25)
+    border: 0
+    background: $white
+    text-align: center
+    @include fontMontserrat(18px)
+    line-height: 25px
+    color: $gray90
+
+  &__volume
+    flex: 1
+    display: flex
+    justify-content: right
+    align-items: center
+
+  &__action
+    position: relative
+
+  &__start
+    width: 100%
+    margin: 10px 0 0
+    height: 60px
+    border-radius: 0 0 10px 10px
+    border: 0
+    color: $white
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25), inset 0px -1px 2px rgba(0, 0, 0, 0.25)
+    cursor: pointer
+    transition: all .2s
+
+    &:active
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25), inset 0px 3px 2px rgba(0, 0, 0, 0.25)
+
+
+

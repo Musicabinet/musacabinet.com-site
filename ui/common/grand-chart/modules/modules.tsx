@@ -35,7 +35,7 @@ export class Modules extends React.Component<ModulesProps, ModulesState> {
 
     return (
       <div className={b(null, { [service_name]: true })}>
-        {list.map((module, index) => {
+        {list.map((module) => {
           return (
             <ModuleItem key={module.id}
                         module={module}

@@ -7,19 +7,6 @@
   &_school
     position: relative
 
-    #{$root}__icon
-      path
-        &:nth-child(1), &:nth-child(2)
-          fill: $school
-
-        &:nth-child(4),&:nth-child(5)
-          fill: transparent
-          stroke: $school
-          stroke-width: 2px
-
-      polygon
-        fill: $school
-
     #{$root}__range
       &::-webkit-slider-thumb
         background: $school
@@ -27,26 +14,38 @@
       &::-webkit-slider-runnable-track
         background: $school
 
+    #{$root}__icon
+      path
+        fill: $school
+
 
   &_college
     position: relative
 
-    #{$root}__icon
-      path
-        &:nth-child(1), &:nth-child(2)
-          fill: $college
-
-        &:nth-child(4),&:nth-child(5)
-          fill: transparent
-          stroke: $college
-          stroke-width: 2px
-
-      polygon
-        fill: $college
-
     #{$root}__range
       &::-webkit-slider-thumb
         background: $college
+
+      &::-webkit-slider-runnable-track
+        background: $college
+
+    #{$root}__icon
+      path
+        fill: $college
+
+  &_university
+    position: relative
+
+    #{$root}__range
+      &::-webkit-slider-thumb
+        background: $university
+
+      &::-webkit-slider-runnable-track
+        background: $university
+
+    #{$root}__icon
+      path
+        fill: $university
 
   &__button
     display: flex

@@ -10,6 +10,7 @@ import { MODALS, SERVICE_NAME } from '../../../../constants';
 import { LIST_ICON } from '../../../common/icons';
 import { Module } from './module/module';
 import { Player } from './player/player';
+import { Metronome } from './metronome/metronome';
 
 const b = block(style);
 
@@ -69,6 +70,7 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
         </div>
 
         <div className={b('right-side')}>
+          <Metronome />
           <Module />
         </div>
       </div>

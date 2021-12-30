@@ -8,6 +8,7 @@ type SwitcherProps = {
   label: string,
   checked: boolean,
   service_name: string,
+  disabled: boolean,
   onChange: () => void
 };
 type SwitcherState = {
@@ -21,6 +22,12 @@ export class Switcher extends React.Component<SwitcherProps, SwitcherState> {
   };
 
   handleOnChange = () => {
+    const { disabled } = this.props;
+
+    if (disabled) {
+      return false;
+    }
+
     this.setState((state) => ({ checked: !state.checked }), () => {
       const { onChange } = this.props;
       onChange();
@@ -28,16 +35,16 @@ export class Switcher extends React.Component<SwitcherProps, SwitcherState> {
   };
 
   render() {
-    const { service_name, label } = this.props;
+    const { service_name, label, disabled } = this.props;
     const { checked } = this.state;
 
     return (
       <div className={b(null)}>
-        <div className={b('container')}>
+        <div className={b('container', { disabled })}>
           <span className={b('off')}>Off</span>
           <div className={b('switch', {
             [service_name]: true,
-            off: checked
+            off: disabled ? disabled : checked
           })}
                onClick={this.handleOnChange}>
             On <div className={b('circle')} />
