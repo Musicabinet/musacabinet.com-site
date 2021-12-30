@@ -2,7 +2,7 @@
 
 .charts
   position: relative
-  padding: 20px 30px 70px
+  padding: 0 0 25px
 
   &__header
     position: relative
@@ -10,17 +10,19 @@
   &__information
     position: relative
     height: 200px
+    margin-top: 30px
+    margin-bottom: 13px
 
   &__title
     text-align: center
-    @include fontFuturaMedium(35px)
+    @include fontFuturaMedium(75px)
     color: $gray60
     padding: 0
-    margin-bottom: 20px
-    line-height: 45px
+    margin-bottom: 25px
+    line-height: 90px
 
   &__sub-title
-    @include fontFuturaDemic(28px)
+    @include fontFuturaDemic(35px)
     color: $gray60
     padding: 0
     margin-bottom: 30px
@@ -46,6 +48,7 @@
 
   &__list
     position: relative
+    padding: 0 20px
 
     &_school
       position: relative
@@ -53,3 +56,20 @@
     &_college
       position: relative
       margin: 0
+
+  &__head
+    height: 50px
+    border-radius: 10px 10px 0 0
+    background: #E5E5E5
+    margin: 0 0 10px
+    display: flex
+    justify-content: center
+
+
+
+  &__copyright
+    margin-top: auto
+    display: flex
+    justify-content: center
+    align-items: center
+    font-weight: 500

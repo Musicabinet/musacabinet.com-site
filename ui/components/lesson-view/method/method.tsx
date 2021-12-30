@@ -5,7 +5,6 @@ import style from './method.module.sass';
 import { RootStore } from '../../../../stores';
 import { ScoreI } from '../../../../interfaces';
 import { SERVICE_NAME } from '../../../../constants';
-import { ButtonBurger, Switcher } from '../../../common';
 import { Scores } from '../scores/scores';
 
 const b = block(style);
@@ -67,7 +66,7 @@ export class Method extends React.Component<MethodProps, MethodState> {
     }
   }
 
-  handleOnChangeNotes = (value: boolean) => this.setState(() => ({ isNotes: value }));
+  handleOnChangeNotes = () => this.setState((state) => ({ isNotes: !state.isNotes }));
 
   render() {
     const { currentContentScore, video_iframe, service_name, instrument_name } = this.props;
@@ -75,7 +74,20 @@ export class Method extends React.Component<MethodProps, MethodState> {
 
     return (
       <>
-        <div className={b('header', { [service_name]: true })}>
+        <div className={b('head', {[service_name]: true, isNotes})}>
+          {service_name === SERVICE_NAME.COLLEGE && instrument_name !== '' && instrument_name == 'Guitar' && (
+            <div className={b('control')}>
+              Method
+              <div onClick={this.handleOnChangeNotes}
+                   className={b('switcher')}>
+                <div className={b('checked', { isNotes })} />
+              </div>
+              Notes
+            </div>
+          )}
+        </div>
+
+        {/*<div className={b('header', { [service_name]: true })}>
           <ButtonBurger active onClick={() => ({})} />
           <span className={b('header-text')}>Method</span>
           {service_name === SERVICE_NAME.COLLEGE && instrument_name !== '' && instrument_name == 'Guitar' && (
@@ -84,7 +96,7 @@ export class Method extends React.Component<MethodProps, MethodState> {
               <span className={b('header-text')}>Notes</span>
             </>
           )}
-        </div>
+        </div>*/}
 
         {!isNotes && video_iframe && currentContentScore?.video_url && (
           <div className={`${b(null)} embed-container`} dangerouslySetInnerHTML={{ __html: video_iframe }} />
@@ -100,4 +112,5 @@ export class Method extends React.Component<MethodProps, MethodState> {
       </>
     );
   }
+
 }

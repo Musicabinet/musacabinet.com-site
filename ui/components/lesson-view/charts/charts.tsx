@@ -2,7 +2,7 @@ import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import block from 'bem-css-modules';
 import style from './charts.module.sass';
-import { RootStore } from '../../../../stores';
+import { RootStore, SystemStore } from '../../../../stores';
 import { ChartI } from '../../../../interfaces/chart';
 import { CHART_TYPE, MODALS, SERVICE_NAME } from '../../../../constants';
 import { AccompanimentI, ScoreI } from '../../../../interfaces';
@@ -12,7 +12,7 @@ import { PlayerStore } from '../../../../stores';
 const b = block(style);
 
 type ChartsProps = {
-  service_name: SERVICE_NAME;
+  systemStore: SystemStore;
   currentContentChart: ChartI | null;
   currentContentScore: ScoreI | null;
   currentSubTitleScore: string;
@@ -27,7 +27,7 @@ type ChartsProps = {
 type ChartsState = {};
 
 @inject((store: RootStore) => ({
-  service_name: store.systemStore.service_name,
+  systemStore: store.systemStore,
   currentContentChart: store.lessonStore.currentContentChart,
   currentContentScore: store.lessonStore.currentContentScore,
   currentSubTitleScore: store.lessonStore.currentSubTitleScore,
@@ -42,7 +42,7 @@ type ChartsState = {};
 @observer
 export class Charts extends React.Component<ChartsProps, ChartsState> {
   static defaultProps = {
-    service_name: SERVICE_NAME.SCHOOL,
+    systemStore: {},
     currentContentChart: null,
     currentContentScore: null,
     currentSubTitleScore: '',
@@ -82,10 +82,17 @@ export class Charts extends React.Component<ChartsProps, ChartsState> {
   };
 
   render() {
-    const { service_name, currentContentChart, currentContentScore } = this.props;
+    const { systemStore, currentContentChart, currentContentScore } = this.props;
 
     return (
       <div className={b(null)}>
+
+        {systemStore.service_name === SERVICE_NAME.COLLEGE && systemStore.instrument_name !== '' && systemStore.instrument_name == 'Guitar' && (
+          <div className={b('head')}>
+
+          </div>
+        )}
+
         {currentContentChart && (
           <>
             {currentContentScore && (
@@ -99,7 +106,7 @@ export class Charts extends React.Component<ChartsProps, ChartsState> {
 
             <div
               className={b('list', {
-                college: service_name === SERVICE_NAME.COLLEGE
+                college: systemStore.service_name === SERVICE_NAME.COLLEGE
               })}
             >
               {currentContentChart.items.map((chart) => {
@@ -114,6 +121,10 @@ export class Charts extends React.Component<ChartsProps, ChartsState> {
                   );
                 }
               })}
+            </div>
+
+            <div className={b('copyright')}>
+              &copy; MUSICABINET. All rights reserved.
             </div>
           </>
         )}

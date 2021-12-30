@@ -2,7 +2,7 @@ import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import block from 'bem-css-modules';
 import style from './scores.module.sass';
-import { RootStore, LessonStore, PlayerStore } from '../../../../stores';
+import { LessonStore, PlayerStore, RootStore, SystemStore } from '../../../../stores';
 import { AccompanimentI, ScoreI } from '../../../../interfaces';
 import { MODALS, SCORE_TYPE, SERVICE_NAME } from '../../../../constants';
 import { Pagination } from './pagination/pagination';
@@ -10,6 +10,7 @@ import { Pagination } from './pagination/pagination';
 const b = block(style);
 
 type ScoresProps = {
+  systemStore: SystemStore;
   lessonStore: LessonStore;
   playerStore: PlayerStore;
   service_name: SERVICE_NAME;
@@ -26,6 +27,7 @@ type ScoresProps = {
 type ScoresState = {};
 
 @inject((store: RootStore) => ({
+  systemStore: store.systemStore,
   lessonStore: store.lessonStore,
   playerStore: store.playerStore,
   service_name: store.systemStore.service_name,
@@ -42,6 +44,7 @@ type ScoresState = {};
 @observer
 export class Scores extends React.Component<ScoresProps, ScoresState> {
   static defaultProps = {
+    systemStore: {},
     lessonStore: {},
     playerStore: {},
     service_name: SERVICE_NAME.SCHOOL,
@@ -105,26 +108,18 @@ export class Scores extends React.Component<ScoresProps, ScoresState> {
   };
 
   render() {
-    const { currentContentScore, service_name } = this.props;
+    const { currentContentScore, service_name, systemStore } = this.props;
+    const isShowHead = systemStore.service_name === SERVICE_NAME.SCHOOL || (systemStore.instrument_name != 'Guitar' && systemStore.service_name === SERVICE_NAME.COLLEGE);
 
 
     return (
       <div className={b(null)}>
 
-        {/*<div className={b('head')}>
-          <ReactPaginate marginPagesDisplayed={1}
-                         pageRangeDisplayed={2}
-                         pageCount={10}
-                         forcePage={0}
-                         breakLabel={'...'}
-                         previousLabel={'<'}
-                         nextLabel={'>'}
-                         containerClassName={b('pagination-container')}
-                         activeClassName={b('pagination-active')}
-                         onClick={this.handleOnChange} />
-        </div>*/}
+        {isShowHead && (
+          <div className={b('head')}></div>
+        )}
 
-         <Pagination />
+        <Pagination />
         {currentContentScore && (
           <>
             <div className={b('header')}>
