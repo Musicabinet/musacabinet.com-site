@@ -25,7 +25,7 @@ export class StatisticsListStore {
   @action.bound
   async get() {
     try {
-      const response = await API.request<StatisticsItemI>(`lesson-progress/list`, {
+      /*const response = await API.request<StatisticsItemI>(`lesson-progress/list`, {
         method: METHODS_REQUEST.POST,
         body: API.getFormData({
           service_id: rootStore.systemStore.service_id,
@@ -37,9 +37,8 @@ export class StatisticsListStore {
         this.list[course_id] = (response[course_id] || []).map((statisticLessonsProgressStore) => {
           return new StatisticsLessonsProgressStore(statisticLessonsProgressStore, rootStore);
         });
-      });
+      });*/
 
-      console.log('this.list', this.list);
     } catch (e) {
       console.error(`Error in method StatisticsLessonProgressStore.get : `, e);
     }

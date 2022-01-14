@@ -3,11 +3,7 @@ import { inject, observer } from 'mobx-react';
 import block from 'bem-css-modules';
 import style from './grand-chart.module.sass';
 import { GrandChartStore, RootStore, SystemStore } from '../../../stores';
-import { Modules } from './modules/modules';
-import { Courses } from './courses/courses';
-import { GroupLessons } from './group-lessons/group-lessons';
-import { GroupLessonView } from './group-lesson-view/group-lesson-view';
-import { InstrumentIcon } from '../instrument-icon/instrument-icon';
+import { Logotype } from './logotype/logotype';
 
 const b = block(style);
 
@@ -43,35 +39,11 @@ export class GrandChart extends React.Component<GrandChartProps, GrandChartState
 
     return (
       <div className={b(null, { is_transparent, loading: grandChartStore.isFetch, isEmpty: grandChartStore.isEmpty })}>
-        <header className={b('header')}>
-          <div className={b('logotype')}>
-            <InstrumentIcon service={systemStore.service_name} icon={systemStore.instrument_icon} />
-            <div
-              className={b('name', {
-                [systemStore.service_name]: true
-              })}
-            >
-              Grand
-              <br /> Chart
-            </div>
-          </div>
-          <Modules />
-        </header>
+        <div className={b('header')}>
+          <Logotype/>
+        </div>
+        <div className={b('body')}>
 
-        <div className={b('container')}>
-          <div
-            className={b('gold-line', {
-              isFetch: grandChartStore.isFetch,
-              show: !grandChartStore.isFetch /*&& systemStore.service_name === 'college' && systemStore.instrument_icon === LIST_ICON.GUITAR*/
-            })}
-          />
-          <div className={b('sidebar')}>
-            <Courses />
-          </div>
-          <div className={b('content')}>
-            <GroupLessonView />
-            <GroupLessons />
-          </div>
         </div>
       </div>
     );
