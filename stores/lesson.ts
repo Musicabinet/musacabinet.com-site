@@ -127,7 +127,7 @@ export class LessonStore implements LessonI {
       });
 
       // @ts-ignore
-      this.video_iframe = response.body.embed.html;
+      this.video_iframe = response.video.embed_code;
     } catch (e) {
       console.error(`Error in method getVideo : `, e);
     }
