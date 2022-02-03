@@ -32,6 +32,7 @@ export class GroupLessons extends React.Component<GroupLessonsProps, GroupLesson
   render() {
     const { grandChartStore, userStore, systemStore } = this.props;
 
+
     return (
       <div className={b(null, {
         [systemStore.service_name]: true
@@ -41,11 +42,25 @@ export class GroupLessons extends React.Component<GroupLessonsProps, GroupLesson
              gridTemplateRows: `repeat(${grandChartStore.courses.length}, 170px)`
            }}>
         {grandChartStore.groupLessons.map((groupLessonsGroup) => {
-          return groupLessonsGroup.map((groupLessonStore) => {
-            return <GroupLessonItem key={groupLessonStore.id}
-                                    groupLesson={groupLessonStore}
-                                    isTrialShow={userStore.trial_version.is_valid} />;
-          });
+          console.log('groupLessonsGroup count ',groupLessonsGroup.length);
+
+          if(groupLessonsGroup.length > 1){
+            return <div className={b('container')}>
+              {groupLessonsGroup.map((groupLessonStore) => {
+                return <GroupLessonItem key={groupLessonStore.id}
+                                        groupLesson={groupLessonStore}
+                                        isTrialShow={userStore.trial_version.is_valid} />;
+              })}
+            </div>
+          }else{
+            return groupLessonsGroup.map((groupLessonStore) => {
+              return <GroupLessonItem key={groupLessonStore.id}
+                                      groupLesson={groupLessonStore}
+                                      isTrialShow={userStore.trial_version.is_valid} />;
+            });
+          }
+
+
         })}
 
         <GroupLessonView />

@@ -24,7 +24,7 @@ export class BreadcrumbsItem extends React.Component<BreadcrumbsItemProps & Brea
         {current === 1 ? <span className={b('first')}>/</span> : null}
         {current < total ? (
           <span>
-            {type}: <span className={b('color')}>{ucFirst(name)}</span>
+            {type} : <span className={b('color')}>{ucFirst(name).replace(/[0-9]./g, '')}</span>
           </span>
         ) : (
           <span className={b('color')}>{name}</span>
