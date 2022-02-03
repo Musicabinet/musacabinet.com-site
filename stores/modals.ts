@@ -6,7 +6,7 @@ export class ModalsStore {
     [MODALS.SIGN_IN]: false,
     [MODALS.SIGN_UP]: false,
     [MODALS.RECOVER_PASSWORD]: false,
-    [MODALS.GRAND_CHART]: true,
+    [MODALS.GRAND_CHART]: false,
     [MODALS.PREVIEW_NOTES]: false,
     [MODALS.PREVIEW_CHART]: false
   };
