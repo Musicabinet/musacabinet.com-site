@@ -2,40 +2,38 @@ import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import block from 'bem-css-modules';
 import style from './lessons.module.sass';
-import { LessonItem } from './item';
 import { LessonStore, RootStore } from '../../../../../stores';
+import { LessonItem } from './lesson-item';
 
 const b = block(style);
 
 type LessonsProps = {
+  lessons: LessonStore[],
+  lessonStore: LessonStore,
   isShowTrial: boolean;
-  selected_uuid: string;
-  list: LessonStore[];
 };
 type LessonsState = {};
 
 @inject((store: RootStore) => ({
-  selected_uuid: store.lessonStore.uuid
+  lessonStore: store.lessonStore
 }))
 @observer
 export class Lessons extends React.Component<LessonsProps, LessonsState> {
+
   static defaultProps = {
-    selected_uuid: ''
+    lessonStore: {}
   };
 
   render() {
-    const { selected_uuid, list, isShowTrial } = this.props;
+    const { lessons, lessonStore, isShowTrial } = this.props;
 
     return (
       <div className={b(null)}>
-        {list.map((lesson, index) => {
-          return (
-            <LessonItem key={lesson.id}
-                        lesson={lesson}
-                        isShowTrial={isShowTrial && index === 0}
-                        isActive={lesson.uuid === selected_uuid}
-            />
-          );
+        {lessons.map((lesson, index) => {
+          return <LessonItem key={lesson.id}
+                             lesson={lesson}
+                             isShowTrial={isShowTrial && index === 0}
+                             isActive={lesson.uuid === lessonStore.uuid} />;
         })}
       </div>
     );

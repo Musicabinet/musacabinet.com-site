@@ -412,6 +412,11 @@ export class LessonStore implements LessonI {
     return Boolean(this.scoresImages[currentUpdate]);
   }
 
+  @computed
+  get numberLesson(){
+    return this.name.replace(/\D+/g, '');
+  }
+
   @action
   fillingStore(data: LessonStore | LessonI) {
     const {

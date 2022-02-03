@@ -1,5 +1,5 @@
 import { CollectionI } from './collection';
-import { GroupLessonStore } from '../stores/group-lesson';
+import { GroupLessonStore } from '../stores';
 import { LessonStore } from '../stores';
 
 export interface GroupLessonI {

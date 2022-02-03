@@ -54,7 +54,7 @@ export class FifthBlock extends React.Component<FifthBlockProps, FifthBlockState
         </div>
 
         <div className={b('grand-chart')}>
-          <GrandChart is_transparent />
+          <GrandChart />
         </div>
 
         <div className="container">

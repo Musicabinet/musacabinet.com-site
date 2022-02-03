@@ -2,126 +2,62 @@
 
 .courses
   $root: &
+  display: grid
+  grid-auto-flow: column
+  grid-row-gap: 20px
   position: relative
-  z-index: 150
-  display: flex
-  flex-direction: column
-  align-items: center
-
-  &_school
-    position: relative
-
-    #{$root}__item
-
-      &_is_active
-        background: $school
-
-        &:hover
-          background: darken($school, 4%)
-
-        #{$root}__circle
-          stroke: $gray50
-
-
-  &_college
-    position: relative
-
-    #{$root}__item
-      &_is_active
-        background: $college
-
-        &:hover
-          background: darken($college, 4%)
-
-        #{$root}__circle
-          stroke: $gray50
+  margin: 0 5px
 
   &__item
     position: relative
-    width: 170px
-    height: 170px
-    display: flex
-    justify-content: left
-    align-items: center
     background: $gray50
     border-radius: 10px
-    margin-bottom: 20px
-    @include fontMontserrat(14px)
-    line-height: 15px
-    color: $white
     padding: 20px
-    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))
+    display: grid
+    align-items: center
+    @include fontMontserrat(14px)
+    line-height: 17px
+    text-transform: uppercase
+    color: $white
 
     &_school
-      position: relative
+      #{$root}__toolbar
+        background: $school
 
       #{$root}__circle
         stroke: $school
 
     &_college
-      position: relative
+      #{$root}__toolbar
+        background: $college
 
       #{$root}__circle
         stroke: $college
 
-      &:last-child
-        margin-bottom: 0
+    &_university
+      #{$root}__toolbar
+        background: $university
 
-  &__name
-    text-transform: uppercase
-    line-height: 20px
+      #{$root}__circle
+        stroke: $university
 
   &__toolbar
     position: absolute
-    width: calc(100% - 20px)
     top: 0
-    left: 50%
-    transform: translateX(-50%)
-    margin: 0 auto
+    left: 11px
+    right: 11px
     @include fontMontserrat(12px)
     line-height: 15px
-    padding: 2.5px 0
-    border-radius:  0  0 10px 10px
     text-align: center
-    background: $gray50
-
-    &_school
-      background: $school
-
-    &_college
-      background: $college
-
-  &__pie-container
-    position: absolute
-    bottom: 8px
-    right: 11px
-    width: 40px
-    height: 40px
-
-  &__percent
-    position: absolute
-    @include fontMontserrat(12px)
-    z-index: 1000
-    color: #fff
-    left: 50%
-    top: 50%
-    transform: translate(-50%, -50%)
+    text-transform: capitalize
+    height: 20px
+    display: grid
+    align-items: center
+    justify-content: center
+    border-radius: 0 0 10px 10px
 
   &__pie
-    width: 40px
-    height: 40px
-    margin: 1px 0 0 1px
-
-  &__circle
-    stroke-dasharray: 0 113
-    transform-origin: center
-    transform: rotate(-90deg)
-    transition: stroke-dasharray 0.6s
-
-  &__fill
-    stroke: $gray20
-    stroke-dasharray: 113 113
-    transform-origin: center
-    transform: rotate(-90deg)
-    transition: stroke-dasharray 0.3s
+    position: absolute
+    right: 8px
+    bottom: 11px
 

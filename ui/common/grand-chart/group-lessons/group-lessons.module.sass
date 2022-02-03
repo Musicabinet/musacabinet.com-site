@@ -3,77 +3,58 @@
 .group-lessons
   $root: &
   position: relative
-  display: flex
-  flex-wrap: wrap
+  margin-left: 15px
+  display: grid
+  grid-auto-flow: column
+  grid-row-gap: 20px
+  grid-column-gap: 10px
 
-  &__block
-    position: relative
-    flex: 0 0 220px
-    height: 170px
-    margin: 0 10px 20px 0
-    background: transparent
-    display: flex
-    flex-direction: column
+  &_school
+    #{$root}__progress
+      background: $school
 
-    &_last
-      margin-bottom: 0
+  &_college
+    #{$root}__progress
+      background: $college
+
+  &_university
+    #{$root}__progress
+      background: $university
+
 
   &__item
     position: relative
-    display: flex
-    flex: 1
-    background: $white
-    margin-bottom: 7px
-    border-radius: 10px 10px 0 0
+    display: grid
     align-items: center
+    height: 170px
+    background: $white
+    border-radius: 10px 10px 0 0
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))
+    margin-bottom: 10px
+    padding: 0 20px
     cursor: pointer
-    user-select: none
-    transition: transform 0.2s
 
     &:hover
-      background: $gray05
+      background: $gray15
 
-      #{$root}__fill
-        stroke: $white
-
-    &_active
-      position: relative
-
-    &:active
-      transform: scale(0.97)
-
-    &:last-child
-      margin-bottom: 0
-
-    &_school
-      position: relative
-
-      #{$root}__count-lessons
-        color: $school
-
-      #{$root}__circle
-        stroke: $school
-
-      #{$root}__progress
-        background: $school
-
-
-    &_college
-      position: relative
-
-      #{$root}__count-lessons
-        color: $college
-
-      #{$root}__circle
-        stroke: $college
-
-      #{$root}__progress
-        background: $college
+    &_trial-blocked
+      &:after
+        content: ''
+        position: absolute
+        top: 0
+        left: 0
+        width: 100%
+        height: 100%
+        background: $gray05 !important
+        opacity: 0.5
+        cursor: not-allowed
+        border-radius: 10px 10px 0 0
 
     &_active-school
       background: $school
-      color: $white
+
+      #{$root}__name
+        color: $white
 
       #{$root}__count-lessons
         color: $white
@@ -89,7 +70,9 @@
 
     &_active-college
       background: $college
-      color: $white
+
+      #{$root}__name
+        color: $white
 
       #{$root}__count-lessons
         color: $white
@@ -103,52 +86,11 @@
       #{$root}__progress
         background: $gray50
 
-    &_trial-blocked
-      &:after
-        content: ''
-        position: absolute
-        top: 0
-        left: 0
-        width: 100%
-        height: 100%
-        background: $gray05 !important
-        opacity: 0.5
-        cursor: not-allowed
 
-  &__title
-    flex: 1
-    padding: 0 20px
-    @include fontMontserrat(12px, 400)
+  &__name
+    @include fontMontserrat(12px)
     line-height: 15px
-
-  &__pie
-    position: relative
-    margin-right: 6px
-
-  &__circle
-    stroke-dasharray: 0 113
-    transform-origin: center
-    transform: rotate(-90deg)
-    transition: stroke-dasharray 0.6s
-
-  &__fill
-    stroke: $gray20
-    stroke-dasharray: 113 113
-    transform-origin: center
-    transform: rotate(-90deg)
-    transition: stroke-dasharray 0.3s
-
-  &__count-lessons
-    position: absolute
-    right: 6px
-    top: 50%
-    transform: translateY(-50%) translateZ(0)
-    width: 40px
-    height: 40px
-    display: flex
-    align-items: center
-    justify-content: center
-    @include fontMontserrat(14px)
+    color: $gray50
 
   &__progress
     position: absolute

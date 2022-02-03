@@ -2,77 +2,69 @@ import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import block from 'bem-css-modules';
 import style from './grand-chart.module.sass';
-import { GrandChartStore, RootStore, SystemStore } from '../../../stores';
-import { Modules } from './modules/modules';
+import { GrandChartStore, ModalsStore, RootStore } from '../../../stores';
+import { handleDetectClick } from '../../../helpers';
+import { MODALS } from '../../../constants';
+import { Header } from './header/header';
 import { Courses } from './courses/courses';
 import { GroupLessons } from './group-lessons/group-lessons';
-import { GroupLessonView } from './group-lesson-view/group-lesson-view';
-import { InstrumentIcon } from '../instrument-icon/instrument-icon';
 
 const b = block(style);
 
 type GrandChartProps = {
-  grandChartStore: GrandChartStore,
-  systemStore: SystemStore,
-  is_transparent: boolean;
+  modalsStore: ModalsStore,
+  grandChartStore: GrandChartStore
 };
 type GrandChartState = {};
 
 @inject((store: RootStore) => ({
-  grandChartStore: store.grandChartStore,
-  systemStore: store.systemStore
+  modalsStore: store.modalsStore,
+  grandChartStore: store.grandChartStore
 }))
 @observer
 export class GrandChart extends React.Component<GrandChartProps, GrandChartState> {
+
+  public containerModalRef = React.createRef<HTMLDivElement>();
+
   static defaultProps = {
-    grandChartStore: {},
-    systemStore: {},
-    is_transparent: false
+    modalsStore: {},
+    grandChartStore: {}
   };
 
-  componentWillUnmount() {
+  componentDidMount() {
+    const { grandChartStore } = this.props;
+    grandChartStore.setIsShowGoldLine(true);
 
+    setTimeout(() => {
+      document.addEventListener('click', this.handleClickOutside);
+    }, 100);
   }
 
+  componentWillUnmount() {
+    const { grandChartStore } = this.props;
+    grandChartStore.setIsShowGoldLine(false);
+
+    setTimeout(() => {
+      document.removeEventListener('click', this.handleClickOutside);
+    }, 100);
+  }
+
+  handleClickOutside = (e: MouseEvent) => {
+    const { modalsStore } = this.props;
+    handleDetectClick(this.containerModalRef, () => modalsStore.close(MODALS.GRAND_CHART), e);
+  };
+
   render() {
-    const { grandChartStore, systemStore, is_transparent } = this.props;
-
-    if (!systemStore.service_name) {
-      return null;
-    }
-
+    const { grandChartStore } = this.props;
     return (
-      <div className={b(null, { is_transparent, loading: grandChartStore.isFetch, isEmpty: grandChartStore.isEmpty })}>
-        <header className={b('header')}>
-          <div className={b('logotype')}>
-            <InstrumentIcon service={systemStore.service_name} icon={systemStore.instrument_icon} />
-            <div
-              className={b('name', {
-                [systemStore.service_name]: true
-              })}
-            >
-              Grand
-              <br /> Chart
-            </div>
-          </div>
-          <Modules />
-        </header>
-
+      <div className={b(null)}
+           ref={this.containerModalRef}>
+        <Header />
         <div className={b('container')}>
-          <div
-            className={b('gold-line', {
-              isFetch: grandChartStore.isFetch,
-              show: !grandChartStore.isFetch /*&& systemStore.service_name === 'college' && systemStore.instrument_icon === LIST_ICON.GUITAR*/
-            })}
-          />
-          <div className={b('sidebar')}>
-            <Courses />
-          </div>
-          <div className={b('content')}>
-            <GroupLessonView />
-            <GroupLessons />
-          </div>
+          <Courses />
+          <GroupLessons />
         </div>
+        <div className={b('gold-line', { show: grandChartStore.isShowGoldLine && !grandChartStore.isFetch })} />
       </div>
     );
   }

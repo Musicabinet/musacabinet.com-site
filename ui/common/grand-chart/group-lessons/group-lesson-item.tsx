@@ -2,7 +2,7 @@ import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import block from 'bem-css-modules';
 import style from './group-lessons.module.sass';
-import { GrandChartStore, RootStore, UserStore, SystemStore, AuthStore, GroupLessonStore } from '../../../../stores';
+import { AuthStore, GrandChartStore, GroupLessonStore, RootStore, SystemStore, UserStore } from '../../../../stores';
 import { StatisticsListStore } from '../../../../stores/statistics-list';
 
 const b = block(style);
@@ -37,7 +37,7 @@ export class GroupLessonItem extends React.Component<GroupLessonItemProps, Group
     statisticsListStore: {}
   };
 
-  handleOnClick = () => {
+  handleOnShow = () => {
     const { isTrialShow, userStore, systemStore, authStore, grandChart } = this.props;
     const isPurchaseUser = userStore.checkSubscription(systemStore.service_id, systemStore.instrument_id);
 
@@ -58,10 +58,11 @@ export class GroupLessonItem extends React.Component<GroupLessonItemProps, Group
     systemStore.setCourseId(groupLesson.course_id);
     systemStore.setModuleId(groupLesson.module_id);
     systemStore.setGroupLessonId(groupLesson.id);
+    grandChart.setDetailGroupLesson(groupLesson);
     grandChart.setShowGroupLessonDetail();
   };
 
-  getPercent() {
+  getPercent(): number {
     const { statisticsListStore, groupLesson } = this.props;
 
     if (!statisticsListStore.list[groupLesson.course_id] && !Array.isArray(statisticsListStore.list[groupLesson.course_id])) {
@@ -86,7 +87,7 @@ export class GroupLessonItem extends React.Component<GroupLessonItemProps, Group
   }
 
   render() {
-    const { groupLesson, userStore, systemStore, authStore, isTrialShow } = this.props;
+    const { groupLesson, systemStore, userStore, authStore, isTrialShow } = this.props;
     const isPurchaseUser = userStore.checkSubscription(systemStore.service_id, systemStore.instrument_id);
 
     if (!systemStore.service_name) {
@@ -94,16 +95,12 @@ export class GroupLessonItem extends React.Component<GroupLessonItemProps, Group
     }
 
     return (
-      <div onClick={this.handleOnClick}
+      <div onClick={this.handleOnShow}
            className={b('item', {
-             [systemStore.service_name]: true,
              [`active-${systemStore.service_name}`]: systemStore.selected_group_lesson_id === groupLesson.id,
              [`trial-blocked`]: isPurchaseUser.length > 0 ? isPurchaseUser[0].isExpired : !isTrialShow || !authStore.isAuth
-           })}
-      >
-        <div className={b('title')}
-             dangerouslySetInnerHTML={{ __html: groupLesson.name.replace(/\(/g, '<br/>(') }} />
-
+           })}>
+        <div className={b('name')}>{groupLesson.name}</div>
         <div className={b('progress')} style={{ width: `${this.getPercent()}%` }} />
       </div>
     );

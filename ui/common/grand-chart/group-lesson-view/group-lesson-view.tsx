@@ -2,58 +2,57 @@ import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import block from 'bem-css-modules';
 import style from './group-lesson-view.module.sass';
-import { GroupLessonStore, RootStore } from '../../../../stores';
-import { GroupLessonViewItem } from './item';
+import { GrandChartStore, RootStore, SystemStore, UserStore } from '../../../../stores';
+import { GroupLessonViewDetail } from './group-lesson-view-detail';
 
 const b = block(style);
 
 type GroupLessonViewProps = {
-  isTrialValid: boolean;
-  show: boolean;
-  list: GroupLessonStore[];
-  setShowGroupLessonDetail: (show: boolean) => void;
+  userStore: UserStore,
+  grandChartStore: GrandChartStore,
+  systemStore: SystemStore
 };
 type GroupLessonViewState = {};
 
 @inject((store: RootStore) => ({
-  isTrialValid: store.userStore.trial_version.is_valid,
-  show: store.grandChartStore.showGroupLessonDetail,
-  setShowGroupLessonDetail: store.grandChartStore.setShowGroupLessonDetail,
-  list: store.grandChartStore.groupLessonDetail
+  userStore: store.userStore,
+  grandChartStore: store.grandChartStore,
+  systemStore: store.systemStore
 }))
 @observer
 export class GroupLessonView extends React.Component<GroupLessonViewProps, GroupLessonViewState> {
+
   static defaultProps = {
-    isTrialValid: false,
-    show: false,
-    list: [],
-    setShowGroupLessonDetail: () => console.log('Not set handler')
+    userStore: {},
+    grandChartStore: {},
+    systemStore: {}
   };
 
   componentWillUnmount() {
-    const { setShowGroupLessonDetail } = this.props;
-    setShowGroupLessonDetail(false);
+    const { grandChartStore } = this.props;
+    grandChartStore.setShowGroupLessonDetail(false);
   }
 
   render() {
-    const { show, list, isTrialValid } = this.props;
+    const { grandChartStore, userStore } = this.props;
+    const groupLessonDetail = grandChartStore.groupLessonDetail;
+    let i = 0;
 
-    if (!show) {
-      return false;
+    if (!grandChartStore.showGroupLessonDetail) {
+      return null;
     }
 
     return (
-      <div className={b(null, { show })}>
-        {list.map((groupLesson, index) => {
-          return (
-            <GroupLessonViewItem key={groupLesson.id}
-                                 groupLesson={groupLesson}
-                                 isFirst={index === 0}
-                                 isShowTrial={index === 0 && isTrialValid}
-            />
-          );
+      <div className={b(null)}>
+        {groupLessonDetail.map((groupLesson, index) => {
+          i++;
+          return <GroupLessonViewDetail key={groupLesson.id}
+                                        groupLessonDetail={groupLesson}
+                                        isFirst={i === 1}
+                                        isShowTrial={index === 0 && userStore.trial_version.is_valid}/>;
         })}
       </div>
     );
   }
+
 }

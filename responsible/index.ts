@@ -18,7 +18,7 @@ export interface GrandChartResponse {
   courses: CourseI[];
   modules: ModuleI[];
   collections: CollectionI[];
-  group_lessons: GroupLessonI[];
+  group_lessons: [GroupLessonI[]];
 }
 
 export interface ServiceListResponse {

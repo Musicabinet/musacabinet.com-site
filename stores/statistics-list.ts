@@ -38,8 +38,6 @@ export class StatisticsListStore {
           return new StatisticsLessonsProgressStore(statisticLessonsProgressStore, rootStore);
         });
       });
-
-      console.log('this.list', this.list);
     } catch (e) {
       console.error(`Error in method StatisticsLessonProgressStore.get : `, e);
     }

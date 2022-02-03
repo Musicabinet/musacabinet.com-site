@@ -1,36 +1,14 @@
 @import "../../../../stylesheets/index"
 
 .group-lesson-view
-  display: none
   $root: &
   position: absolute
-  left: -10px
-  top: -10px
+  left: 0
+  top: 0
+  background: $silver
+  width: calc(100% - 5px)
   height: 100%
-  width: calc(100% + 10px)
-  background: #E5E5E5
-  z-index: 100
-  padding: 10px 10px
-  flex-direction: column
-
-  &_show
-    display: block
-
-  &_active
-    display: flex
-    width: calc(100% + 10px)
-
-  &__back
-    display: none
-    margin-bottom: 10px
-    cursor: pointer
-
-    svg
-      width: 40px
-      height: 25px
-
-    &_show
-      display: block
+  border-radius: 10px 10px 0 0
 
   &__item
     background: $white
@@ -66,6 +44,17 @@
       #{$root}__line-progress
         background: $college
 
+  &__back
+    display: none
+    margin-bottom: 10px
+    cursor: pointer
+
+    svg
+      width: 40px
+      height: 25px
+
+    &_show
+      display: block
 
   &__body
     display: flex
