@@ -4,14 +4,14 @@ import block from 'bem-css-modules';
 import style from './module.module.sass';
 import { NextModuleStore, RootStore, SystemStore } from '../../../../../stores';
 import Router from 'next/router';
-import { MODULE_BUTTON_TYPE, SERVICE_NAME } from '../../../../../constants';
+import { SERVICE_NAME } from '../../../../../constants';
+import { ModuleNavigation } from './module-navigation/module-navigation';
 import { Timer } from './timer/timer';
-import { Button } from './button/button';
 
 const b = block(style);
 
 type ModuleProps = {
-  systemStore: SystemStore,
+  systemStore: SystemStore;
   nextModuleStore: NextModuleStore
 };
 type ModuleState = {};
@@ -22,7 +22,6 @@ type ModuleState = {};
 }))
 @observer
 export class Module extends React.Component<ModuleProps, ModuleState> {
-
   static defaultProps = {
     systemStore: {},
     nextModuleStore: {}
@@ -42,20 +41,20 @@ export class Module extends React.Component<ModuleProps, ModuleState> {
   };
 
   render() {
-    const { systemStore } = this.props;
+    const { systemStore: { service_name } } = this.props;
 
     return (
       <div
         className={b(null, {
-          [systemStore.service_name]: true
-        })}>
+          [service_name]: true
+        })}
+      >
         <div className={b('header')}>
-          <Button type={MODULE_BUTTON_TYPE.LEFT} className={b('btn-left')}/>
-          Module
-          <Button type={MODULE_BUTTON_TYPE.RIGHT}  className={b('btn-right')}/>
+          <ModuleNavigation />
         </div>
         <div className={b('body')}>
           <Timer amountTime={this.getAmountTime()} />
+          {/*<Timer amountTime={this.getAmountTime()} onMessageAtTheEnd={nextModuleStore.start} />*/}
         </div>
       </div>
     );

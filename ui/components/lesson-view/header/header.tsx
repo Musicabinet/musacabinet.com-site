@@ -8,9 +8,9 @@ import { InstrumentIcon } from '../../../common';
 import { RootStore } from '../../../../stores';
 import { MODALS, SERVICE_NAME } from '../../../../constants';
 import { LIST_ICON } from '../../../common/icons';
-import { Module } from './module/module';
 import { Player } from './player/player';
 import { Metronome } from './metronome/metronome';
+import { Module } from './module/module';
 
 const b = block(style);
 

@@ -1,0 +1,120 @@
+@import "../../../../../../stylesheets/index"
+
+.timer
+  position: relative
+  $root: &
+  user-select: none
+  cursor: pointer
+
+  &_school
+    position: relative
+
+    #{$root}__head, #{$root}__arrow-vertical, #{$root}__arrow
+      background: $school
+
+    #{$root}__background
+      stroke: rgba($school, 0.25)
+
+    #{$root}__progress
+      stroke: $school
+
+  &_college
+    position: relative
+
+    #{$root}__head, #{$root}__arrow-vertical, #{$root}__arrow
+      background: $college
+
+    #{$root}__background
+      stroke: rgba($college, 0.25)
+
+    #{$root}__progress
+      stroke: $college
+
+
+  &_25
+    position: relative
+
+    #{$root}__background
+      stroke-dasharray: 47px 113px
+
+    #{$root}__turn
+      transform: rotate(60deg)
+      stroke-dasharray: 9px 113px
+
+  &_35
+    position: relative
+
+    #{$root}__background
+      stroke-dasharray: 65.9px 113px
+
+    #{$root}__turn
+      transform: rotate(121deg)
+      stroke-dasharray: 18.8px 113px
+
+  &_45
+    position: relative
+
+    #{$root}__background
+      stroke-dasharray: 85px 113px
+
+    #{$root}__turn
+      transform: rotate(180deg)
+      stroke-dasharray: 29px 113px
+
+  &__body
+    fill: $white
+
+  &__background
+    position: relative
+    fill: transparent
+    stroke-width: 36px
+    transform: rotate(-90deg)
+    transform-origin: center
+    transition: stroke-dasharray 0.3s
+
+  &__turn
+    position: relative
+    fill: transparent
+    stroke-width: 36px
+    transform-origin: center
+    stroke: rgba($gold, 1)
+    transition: stroke-dasharray 0.3s
+
+  &__progress
+    transform: rotate(-90deg)
+    transform-origin: center
+    stroke-dasharray: 0 236px
+    stroke-width: 4px
+    fill: transparent
+    transition: stroke-dasharray 0.3s
+
+  &__time
+    position: absolute
+    left: 50%
+    top: 50%
+    transform: translate(-50%, -34%)
+    @include fontMontserrat(18px)
+    line-height: 25px
+    color: $gray50
+
+  &__head
+    width: 20px
+    height: 6px
+    margin: 0 auto 8px
+
+  &__arrow-vertical
+    position: absolute
+    right: 12px
+    top: 11px
+    width: 2px
+    height: 8px
+    transform: rotate(35deg)
+
+  &__arrow
+    position: absolute
+    right: 2px
+    top: 8px
+    width: 13px
+    height: 2px
+    transform: rotate(35deg)
+
