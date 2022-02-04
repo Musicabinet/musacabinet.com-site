@@ -5,6 +5,7 @@ import style from './button-free-trial.module.sass';
 import { RootStore } from '../../../stores';
 import Router from 'next/router';
 import { MODALS } from '../../../constants';
+import { LocalStorage } from '../../../core';
 
 const b = block(style);
 
@@ -14,7 +15,9 @@ type ButtonFreeTrialProps = {
   textIsAuth: string;
   onShow: (id_modal: MODALS) => void;
 };
-type ButtonFreeTrialState = {};
+type ButtonFreeTrialState = {
+  uuid: string
+};
 
 @inject((store: RootStore) => ({
   isAuth: store.authStore.isAuth,
@@ -29,6 +32,16 @@ export class ButtonFreeTrial extends React.Component<ButtonFreeTrialProps, Butto
     onShow: () => console.log('Not set handler')
   };
 
+  state = {
+    uuid: ''
+  }
+
+  componentDidMount() {
+    this.setState({
+      uuid: LocalStorage.get('lesson_id_q')
+    });
+  }
+
   getTitle = () => {
     const { isAuth, textNotAuth, textIsAuth } = this.props;
     return isAuth ? textIsAuth : textNotAuth;
@@ -36,8 +49,14 @@ export class ButtonFreeTrial extends React.Component<ButtonFreeTrialProps, Butto
 
   handleOnClick = async () => {
     const { isAuth, onShow } = this.props;
+    const {uuid} = this.state;
     if (isAuth) {
-      await Router.push(`/cabinet`);
+
+      if(uuid.length > 0){
+        await Router.push(`/lesson/${uuid}`);
+      }else{
+        await Router.push(`/cabinet`);
+      }
     } else {
       onShow(MODALS.SIGN_IN);
     }
