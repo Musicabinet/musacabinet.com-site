@@ -212,6 +212,7 @@ export class PlayerStore {
   @action.bound
   setLibrary(id_library: number) {
     this.selected_library_id = id_library;
+    //rootStore.lessonStore.setCurrentPreviewScoreIndex()
   }
 
   @action.bound

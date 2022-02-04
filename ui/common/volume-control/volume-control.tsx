@@ -48,7 +48,7 @@ export class VolumeControl extends React.Component<VolumeControlProps, VolumeCon
   };
 
   componentDidMount() {
-    const {defaultValue} = this.props;
+    const { defaultValue } = this.props;
 
     this.drawProgress(defaultValue);
 
@@ -63,17 +63,23 @@ export class VolumeControl extends React.Component<VolumeControlProps, VolumeCon
     }
   }
 
+  componentDidUpdate(prevProps: Readonly<VolumeControlProps>) {
+    if(prevProps.defaultValue !== this.props.defaultValue){
+      this.drawProgress(this.props.defaultValue);
+    }
+  }
+
   componentWillUnmount() {
     document.removeEventListener('click', this.handleClickOutside);
   }
 
   drawProgress = (value: number) => {
-    const {isNegative} = this.props;
+    const { isNegative } = this.props;
     let updateValuePercent = 0;
 
-    if(isNegative){
+    if (isNegative) {
       updateValuePercent = 100 - Math.abs(value);
-    }else{
+    } else {
       updateValuePercent = value;
     }
 
@@ -116,17 +122,16 @@ export class VolumeControl extends React.Component<VolumeControlProps, VolumeCon
         })}
       >
         <div className={b('wrapper')}>
-          <input
-            type='range'
-            name={name}
-            max={max}
-            min={min}
-            step={step}
-            defaultValue={defaultValue}
-            aria-orientation='vertical'
-            ref={this.inputRangeRef}
-            className={b('range', { circle })}
-            onChange={this.handlerOnChange}
+          <input type='range'
+                 name={name}
+                 max={max}
+                 min={min}
+                 step={step}
+                 defaultValue={defaultValue}
+                 aria-orientation='vertical'
+                 ref={this.inputRangeRef}
+                 className={b('range', { circle })}
+                 onChange={this.handlerOnChange}
           />
           <div ref={this.progressRef}
                className={b('progress')} />

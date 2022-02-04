@@ -7,8 +7,7 @@ import { Modal } from '../../modal/modal';
 import { Player } from '../../../components/lesson-view/header/player/player';
 import { MODALS, SERVICE_NAME } from '../../../../constants';
 import { AccompanimentI } from '../../../../interfaces';
-import { LessonStore } from '../../../../stores/lesson';
-import { PlayerStore } from '../../../../stores/player';
+import { LessonStore, PlayerStore } from '../../../../stores';
 
 const b = block(style);
 
@@ -111,7 +110,7 @@ export class PreviewNotes extends React.Component<PreviewNotesProps, PreviewNote
               onClick={() => this.handleOnSetCurrentPreviewScoreIndex(previewCurrentNumber - 1)}
             />
             <span className={b('total')}>
-              {previewCurrentNumber} / <span>{totalScoresImages - 1}</span>
+              {previewCurrentNumber + 1} / <span>{totalScoresImages}</span>
             </span>
             <button
               className={b('arrow', { right: true })}

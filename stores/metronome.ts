@@ -1,5 +1,6 @@
 import { action, computed, makeObservable, observable } from 'mobx';
 import { Cookie } from '../core';
+import { METRONOME_CONST } from '../constants';
 
 export class MetronomeStore {
   @observable current: number = 80;
@@ -21,9 +22,11 @@ export class MetronomeStore {
     try {
       const cookieInstance = Cookie.getInstance();
       this.current = Number(cookieInstance.get('bpm')) || 80;
-      this.volume = Number(localStorage.getItem('volume-metronome')) || 50;
+      this.volume = Number(cookieInstance.get(METRONOME_CONST.VOLUME)) || 50;
       this.worker = new Worker('/workers/metronome-worker.js');
       this.audioPlayer = new Audio('/metronome/metronome.mp3');
+
+      console.log('this.volume',this.volume);
 
       if (this.worker) {
         this.worker.addEventListener('message', this.onPlayTick);
@@ -87,6 +90,9 @@ export class MetronomeStore {
   @action.bound
   changeVolume(_name: string, volume: number) {
     this.volume = volume;
+
+    const cookieInstance = Cookie.getInstance();
+    cookieInstance.set(METRONOME_CONST.VOLUME, String(volume));
 
     if (this.audioPlayer) {
       this.audioPlayer.volume = volume / 100;

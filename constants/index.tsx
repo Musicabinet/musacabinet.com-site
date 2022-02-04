@@ -118,3 +118,8 @@ export enum MODULE_BUTTON_TYPE {
   LEFT = 'left',
   RIGHT = 'right'
 };
+
+
+export enum METRONOME_CONST {
+  VOLUME= 'METRONOME_VOLUME'
+}
