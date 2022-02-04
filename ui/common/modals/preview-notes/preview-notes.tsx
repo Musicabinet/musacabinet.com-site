@@ -74,7 +74,6 @@ export class PreviewNotes extends React.Component<PreviewNotesProps, PreviewNote
     setCurrentPreviewScoreIndex(previewCurrentNumber);
 
     const selected_accompaniment = lessonStore.selected_accompaniment;
-
     const findAccompaniment = lessonStore.accompaniments.find((item) => item.id === selected_accompaniment);
 
     if (previewCurrentNumber && findAccompaniment) {

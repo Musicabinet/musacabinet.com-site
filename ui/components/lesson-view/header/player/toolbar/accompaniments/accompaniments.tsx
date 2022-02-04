@@ -48,8 +48,8 @@ export class Accompaniments extends React.Component<AccompanimentsProps, Accompa
       <div className={b(null)}>
         {findAccompaniment &&
           findAccompaniment.libraries.length > 0 &&
-          findAccompaniment.libraries.map((library) => {
-            return <LibraryItem key={library.id} library={library} />;
+          findAccompaniment.libraries.map((library, number) => {
+            return <LibraryItem key={library.id} library={library} ordinalNumber={number}/>;
           })}
       </div>
     );

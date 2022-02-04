@@ -66,7 +66,7 @@ export class PreviewChart extends React.Component<PreviewChartProps, PreviewChar
     const { setCurrentPreviewChartIndex, accompaniments, onChooseAccompaniment, onLoadTrack } = this.props;
     setCurrentPreviewChartIndex(previewCurrentNumber);
 
-    if (previewCurrentNumber) {
+    if (previewCurrentNumber || previewCurrentNumber === 0) {
       if (accompaniments[previewCurrentNumber]) {
         onChooseAccompaniment(accompaniments[previewCurrentNumber].id);
         onLoadTrack();
@@ -80,9 +80,7 @@ export class PreviewChart extends React.Component<PreviewChartProps, PreviewChar
       show,
       totalChartImages,
       previewPath,
-      previewCurrentNumber,
-      hasNextChartImage,
-      hasPrevChartImage
+      previewCurrentNumber
     } = this.props;
 
     return (
@@ -93,15 +91,15 @@ export class PreviewChart extends React.Component<PreviewChartProps, PreviewChar
           <div className={b('arrows')}>
             <button
               className={b('arrow', { left: true })}
-              disabled={!hasPrevChartImage}
+              disabled={(previewCurrentNumber + 1 <= 1)}
               onClick={() => this.handleOnSetCurrentPreviewScoreIndex(previewCurrentNumber - 1)}
             />
             <span className={b('total')}>
-              {previewCurrentNumber} / <span>{totalChartImages - 1}</span>
+              {previewCurrentNumber + 1} / <span>{totalChartImages}</span>
             </span>
             <button
               className={b('arrow', { right: true })}
-              disabled={!hasNextChartImage}
+              disabled={(previewCurrentNumber + 1 === totalChartImages)}
               onClick={() => this.handleOnSetCurrentPreviewScoreIndex(previewCurrentNumber + 1)}
             />
           </div>
