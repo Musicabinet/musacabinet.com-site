@@ -23,7 +23,7 @@ export class PlayerStore {
   @observable duration_time: number = 0;
   @observable current_percent: number = 0;
 
-  @observable isShowTracks = true;
+  @observable isShowTracks = false;
 
   clearUpdateTime: number = 0;
 
