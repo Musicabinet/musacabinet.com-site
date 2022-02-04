@@ -81,7 +81,9 @@ export class Player extends React.Component<PlayerProps, PlayerState> {
         </div>
         <DividerVertical />
 
-        <div className={b('block')}>
+        <div className={b('block', {
+          close: playerStore.isShowTracks
+        })}>
           <Switcher service_name={service_name}
                     label={'Keyboard'}
                     checked={playerStore.keysMute}

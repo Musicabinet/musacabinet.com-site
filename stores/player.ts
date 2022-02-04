@@ -23,6 +23,8 @@ export class PlayerStore {
   @observable duration_time: number = 0;
   @observable current_percent: number = 0;
 
+  @observable isShowTracks = true;
+
   clearUpdateTime: number = 0;
 
   constructor(initialData: PlayerStore | null, root: RootStore) {
@@ -245,6 +247,11 @@ export class PlayerStore {
   @action.bound
   setBpm(value: number) {
     this.bpm = value;
+  }
+
+  @action.bound
+  setShowTracks(show = true){
+    this.isShowTracks = show;
   }
 
   @computed
