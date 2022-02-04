@@ -59,7 +59,7 @@ export class Metronome extends React.Component<MetronomeProps, MetronomeState> {
             <VolumeControl defaultValue={metronomeStore.volume}
                            name={'volume'}
                            min={0}
-                           max={1}
+                           max={100}
                            onChange={metronomeStore.changeVolume} />
           </div>
         </div>

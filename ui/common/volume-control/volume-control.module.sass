@@ -11,8 +11,8 @@
       &::-webkit-slider-thumb
         background: $school
 
-      &::-webkit-slider-runnable-track
-        background: $school
+    #{$root}__progress
+      background: $school
 
     #{$root}__icon
       path
@@ -26,8 +26,8 @@
       &::-webkit-slider-thumb
         background: $college
 
-      &::-webkit-slider-runnable-track
-        background: $college
+    #{$root}__progress
+      background: $college
 
     #{$root}__icon
       path
@@ -40,8 +40,8 @@
       &::-webkit-slider-thumb
         background: $university
 
-      &::-webkit-slider-runnable-track
-        background: $university
+    #{$root}__progress
+      background: $university
 
     #{$root}__icon
       path
@@ -61,7 +61,7 @@
 
   &__wrapper
     position: relative
-    top: -12px
+    top: 0
     width: 16px
     height: 80px
     z-index: 150
@@ -87,25 +87,29 @@
     height: 1px
     background: $gray50
 
-    &:nth-child(2),&:nth-child(4)
+    &:nth-child(2), &:nth-child(4)
       width: 4px
 
 
   &__range
     -webkit-appearance: none
-    height: 100%
-    width: 64px
-    background: transparent
+    height: 20px
+    width: 80px
     transform: rotate(-90deg)
     position: relative
-    left: -24px
-    top: 7px
+    left: -32px
+    top: 29px
     cursor: pointer
+    background: transparent
+    border-radius: 10px
+    margin-bottom: 8px
+    z-index: 100
 
     &::-webkit-slider-thumb
       -webkit-appearance: none
       position: relative
-      top: -8px
+      top: -7.5px
+      left: 0
       width: 20px
       height: 20px
       border: 5px solid $white
@@ -119,6 +123,21 @@
       border: 0
       box-shadow: none
       border-radius: 10px
+      -webkit-appearance: none
+
+    &::-moz-range-progress
+      background-color: #43e5f7
+
+    &::-moz-range-track
+      background-color: #9a905d
+
+    &::-ms-fill-lower
+      background-color: #43e5f7
+
+
+    &::-ms-fill-upper
+      background-color: #9a905d
+
 
     &_circle
       &::-webkit-slider-thumb
@@ -129,3 +148,19 @@
         width: 16px
         height: 16px
         border-radius: 50%
+
+
+  &__icon
+    position: relative
+    display: flex
+    margin-top: 8px
+
+  &__progress
+    position: absolute
+    z-index: 50
+    left: 5px
+    bottom: 7.5px
+    width: 6px
+    height: calc(0% - 16px)
+    background: transparent
+    border-radius: 6px

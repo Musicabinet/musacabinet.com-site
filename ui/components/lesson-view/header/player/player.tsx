@@ -49,8 +49,6 @@ export class Player extends React.Component<PlayerProps, PlayerState> {
   handleOnChangeVolume = (name: string, value: number) => {
     const { playerStore } = this.props;
 
-    console.log(name, value);
-
     this.setState({
       [name]: value
     });
@@ -102,7 +100,12 @@ export class Player extends React.Component<PlayerProps, PlayerState> {
         </div>
 
         <div className={b('block')}>
-          <VolumeControl defaultValue={-8} min={-24} max={0} name={'volume'} onChange={this.handleOnChangeVolume} />
+          <VolumeControl defaultValue={-50}
+                         min={-100}
+                         max={0}
+                         name={'volume'}
+                         isNegative
+                         onChange={this.handleOnChangeVolume} />
         </div>
 
       </div>

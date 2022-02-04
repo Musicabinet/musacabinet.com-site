@@ -17,6 +17,7 @@ type VolumeControlProps = {
   max: number;
   step: number;
   defaultValue: number;
+  isNegative: boolean;
   onChange: (name: string, value: number, e?: React.FormEvent<HTMLInputElement>) => void;
 };
 type VolumeControlState = {
@@ -28,7 +29,9 @@ type VolumeControlState = {
 }))
 @observer
 export class VolumeControl extends React.Component<VolumeControlProps, VolumeControlState> {
-  controlVolumeRef = React.createRef<HTMLDivElement>();
+  public controlVolumeRef = React.createRef<HTMLDivElement>();
+  public inputRangeRef = React.createRef<HTMLInputElement>();
+  public progressRef = React.createRef<HTMLDivElement>();
 
   static defaultProps = {
     circle: false,
@@ -36,6 +39,7 @@ export class VolumeControl extends React.Component<VolumeControlProps, VolumeCon
     min: 0,
     max: 1,
     step: 0.1,
+    isNegative: false,
     onChange: () => console.log('Not set handler')
   };
 
@@ -44,12 +48,39 @@ export class VolumeControl extends React.Component<VolumeControlProps, VolumeCon
   };
 
   componentDidMount() {
+    const {defaultValue} = this.props;
+
+    this.drawProgress(defaultValue);
+
+
     document.addEventListener('click', this.handleClickOutside);
+
+    if (this.inputRangeRef.current) {
+      this.inputRangeRef.current.oninput = (e: Event) => {
+        const currentValue = Number((e.target as HTMLInputElement).value);
+        this.drawProgress(currentValue);
+      };
+    }
   }
 
   componentWillUnmount() {
     document.removeEventListener('click', this.handleClickOutside);
   }
+
+  drawProgress = (value: number) => {
+    const {isNegative} = this.props;
+    let updateValuePercent = 0;
+
+    if(isNegative){
+      updateValuePercent = 100 - Math.abs(value);
+    }else{
+      updateValuePercent = value;
+    }
+
+    if (this.progressRef.current) {
+      this.progressRef.current.style.height = `calc(${updateValuePercent}% - 8px)`;
+    }
+  };
 
   handleClickOutside = (e: MouseEvent) => {
     handleDetectClick(this.controlVolumeRef, this.handleOnClose, e);
@@ -60,6 +91,7 @@ export class VolumeControl extends React.Component<VolumeControlProps, VolumeCon
 
     e.preventDefault();
     e.stopPropagation();
+
   };
 
   handleOnClose = () => {
@@ -92,12 +124,14 @@ export class VolumeControl extends React.Component<VolumeControlProps, VolumeCon
             step={step}
             defaultValue={defaultValue}
             aria-orientation='vertical'
+            ref={this.inputRangeRef}
             className={b('range', { circle })}
             onChange={this.handlerOnChange}
           />
-
-          {getIcon(LIST_ICON.VOLUME_WITHOUT_VIBE, b('icon'))}
+          <div ref={this.progressRef}
+               className={b('progress')} />
         </div>
+        {getIcon(LIST_ICON.VOLUME_WITHOUT_VIBE, b('icon'))}
       </div>
     );
   }

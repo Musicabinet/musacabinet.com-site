@@ -103,7 +103,7 @@ export class PlayerStore {
                   url: `${CONTENT_URL}${track.path}`,
                   loop: true,
                   mute: this.getMuteTrack(track),
-                  volume: -12, // -100 0
+                  volume: -50, // -100 0
                   onload: () => {
                     this.setDurationTime(this.player[0].buffer.duration);
                     resolve(1);

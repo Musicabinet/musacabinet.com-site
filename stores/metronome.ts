@@ -3,7 +3,7 @@ import { Cookie } from '../core';
 
 export class MetronomeStore {
   @observable current: number = 80;
-  @observable volume: number = 0.5;
+  @observable volume: number = 50;
   @observable isPlay: boolean = false;
   @observable audioPlayer: HTMLAudioElement | null = null;
   @observable worker: Worker | null = null;
@@ -21,7 +21,7 @@ export class MetronomeStore {
     try {
       const cookieInstance = Cookie.getInstance();
       this.current = Number(cookieInstance.get('bpm')) || 80;
-      this.volume = Number(localStorage.getItem('volume-metronome')) || 0.5;
+      this.volume = Number(localStorage.getItem('volume-metronome')) || 50;
       this.worker = new Worker('/workers/metronome-worker.js');
       this.audioPlayer = new Audio('/metronome/metronome.mp3');
 
@@ -89,7 +89,7 @@ export class MetronomeStore {
     this.volume = volume;
 
     if (this.audioPlayer) {
-      this.audioPlayer.volume = volume;
+      this.audioPlayer.volume = volume / 100;
     }
   }
 
