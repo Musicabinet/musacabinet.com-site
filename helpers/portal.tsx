@@ -15,6 +15,7 @@ export class Portal extends React.Component<PortalProps, PortalState> {
 
   componentDidMount() {
     this.element = document.createElement('div');
+    this.element.classList.add('modal');
     document.body.classList.add('overflow');
     document.body.appendChild(this.element);
     this.setState(() => ({ mounted: true }));

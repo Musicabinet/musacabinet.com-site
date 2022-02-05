@@ -33,7 +33,7 @@ export class Modal extends React.Component<ModalProps, ModalState> {
   handleClickOutside = (e: MouseEvent) => {
     const { onClose } = this.props;
 
-    // @ts-ignore
+    // @ts-ignoreReactDOM.createPortal
     if (this.modalRef && this.modalRef.current && !this.modalRef.current.contains(e.target)) {
       onClose();
     }
