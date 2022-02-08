@@ -50,12 +50,9 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
               <Logotype />
               <Motto />
             </div>
-            <div
-              className={`col-lg-10 col-xl-7 col-8 d-flex justify-content-lg-end align-items-center justify-content-start ${b(
+            <div className={`col-lg-10 col-xl-7 col-8 d-flex justify-content-lg-end align-items-center justify-content-start ${b(
                 'rightside'
-              )}`}
-            >
-
+              )}`}>
               <Menu />
               <ButtonSignIn />
               <ButtonProfile />

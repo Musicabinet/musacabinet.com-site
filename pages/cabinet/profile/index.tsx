@@ -13,6 +13,8 @@ type ProfilePageState = {};
 export default class ProfilePage extends React.Component<ProfilePageProps, ProfilePageState> {
   static async getInitialProps({ store, ctx: { res } }: CustomAppContext) {
     await store?.authStore.check(() => redirectToWrapper(res, '/'));
+
+
     return {
       title: 'MC | Profile Settings',
       description: '',

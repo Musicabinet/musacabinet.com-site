@@ -94,7 +94,12 @@ export const MAPPING_INSTRUMENT_ID = {
   'school-guitar': 1,
   'school-keyboard': 2,
   'school-saxophone': 4,
-  'college-guitar': 3
+  'college-guitar': 3,
+  'college-keyboard': 5,
+  'college-saxophone': 6,
+  'university-guitar': 7,
+  'university-keyboard': 8,
+  'university-saxophone': 9
 };
 
 export const SERVICE_SECOND_NEXT_MODULE = {

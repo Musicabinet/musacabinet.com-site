@@ -22,6 +22,7 @@ export default class InstrumentPage extends React.Component<InstrumentPageProps,
     const key = `${service}-${instrument}`;
     // @ts-ignore
     const serviceID = MAPPING_SERVICE_ID[key];
+
     // @ts-ignore
     const instrumentID = MAPPING_INSTRUMENT_ID[key];
 

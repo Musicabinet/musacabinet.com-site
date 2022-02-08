@@ -59,6 +59,15 @@ export class GrandChartStore {
   }
 
   @action.bound
+  async get(service_id: number, instrument_id: number) {
+    try {
+      const {} = await API.request(`grand-chart/list?service_id=${service_id}&instrument_id=${instrument_id}`)
+    } catch (e) {
+      console.error(`Error in method GrandChartStore.get : `, e);
+    }
+  }
+
+  @action.bound
   setShowGroupLessonDetail(show: boolean = true) {
     this.showGroupLessonDetail = show;
   }
