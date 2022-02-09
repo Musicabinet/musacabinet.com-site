@@ -38,7 +38,8 @@ export class MainStatistics extends React.Component<MainStatisticsProps, MainSta
 
     // Создаем пустые дни если начало недели не с понедельника
     if (startDayInWeek != 1) {
-      completeArr = Array(startDayInWeek - 1).fill(null).map((i) => i);
+      console.log('startDayInWeek',startDayInWeek);
+      //completeArr = Array(startDayInWeek - 1).fill(null).map((i) => i);
     }
 
 

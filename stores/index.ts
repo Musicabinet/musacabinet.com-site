@@ -23,6 +23,7 @@ import { GroupLessonStore } from './group-lesson';
 import { TutorialsStore } from './tutorials';
 import { StatisticsListStore } from './statistics-list';
 import { MapStore } from './map';
+import { GrandChartFlatStore } from './grand-chart-flat.store';
 
 const isServer = typeof window === 'undefined';
 enableStaticRendering(isServer);
@@ -41,6 +42,7 @@ export class RootStore {
   public notificationsStore: NotificationsStore;
   public servicesStore: ServicesStore;
   public grandChartStore: GrandChartStore;
+  public grandChartFlatStore: GrandChartFlatStore;
   public lessonStore: LessonStore;
   public playerStore: PlayerStore;
   public lessonProgress: LessonProgressStore;
@@ -65,6 +67,7 @@ export class RootStore {
     this.modalsStore = new ModalsStore();
     this.authStore = new AuthStore(iData && iData.authStore ? iData.authStore : null, this);
     this.grandChartStore = new GrandChartStore(iData && iData.grandChartStore ? iData.grandChartStore : null, this);
+    this.grandChartFlatStore = new GrandChartFlatStore(iData && iData.grandChartFlatStore ? iData.grandChartFlatStore : null, this);
     this.lessonStore = new LessonStore(iData && iData.lessonStore ? iData.lessonStore : null, this);
     this.playerStore = new PlayerStore(iData && iData.playerStore ? iData.playerStore : null, this);
     this.lessonProgress = new LessonProgressStore(iData && iData.lessonProgress ? iData.lessonProgress : null, this);
@@ -101,6 +104,7 @@ export {
   NotificationsStore,
   ServicesStore,
   GrandChartStore,
+  GrandChartFlatStore,
   LessonStore,
   PlayerStore,
   LessonProgressStore,

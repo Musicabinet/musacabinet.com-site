@@ -1,14 +1,14 @@
 import * as React from 'react';
-import { Provider } from 'mobx-react';
+import { observer, Provider } from 'mobx-react';
 import App from 'next/app';
 import initializeStore, { RootStore } from '../stores';
 import './app.global.sass';
 import { Cookie } from '../core';
 import { CustomAppContext } from '../interfaces';
 import HeadBlock from './head-block';
-import { Notifications, PreviewChart, PreviewNotes } from '../ui';
+import { GrandChartFlat, Notifications, PreviewChart, PreviewNotes } from '../ui';
 import { GrandChartModal } from '../ui';
-//import TagManager from 'react-gtm-module';
+import { MODALS_GRAND_CHART } from '../constants';
 
 interface Props {
   pageProps: any;
@@ -16,8 +16,11 @@ interface Props {
   title: string;
 }
 
+@observer
 class MusiCabinetApp extends App<Props> {
+
   public mobxStore: RootStore;
+  public grandCharts: React.ReactNode[] = [];
 
   static async getInitialProps(appContext: CustomAppContext): Promise<any> {
     const ctx: any = appContext.ctx;
@@ -49,14 +52,33 @@ class MusiCabinetApp extends App<Props> {
     this.mobxStore = isServer ? props.initialMobxState : initializeStore(props.initialMobxState);
   }
 
-  componentDidMount() {
-    /*TagManager.initialize({
-      gtmId: 'GTM-PPT365K'
-    })*/
-  }
+  getGrandCharts = (): void => {
+    const serviceList = this.mobxStore.servicesStore.list;
+
+    if (Array.isArray(serviceList) && serviceList.length > 0 && !this.mobxStore.systemStore.isLoadGrandChart) {
+      for (const serviceIndex in serviceList) {
+        const serviceStore = serviceList[serviceIndex];
+
+        // Проходим по каждому и инструменту сервиса
+        for (const instrumentIndex in serviceStore.instruments) {
+          const instrumentStore = serviceStore.instruments[instrumentIndex];
+
+          // Запрос на гранд чарт
+          this.grandCharts.push(<GrandChartFlat key={`${serviceStore.id}-${instrumentStore.id}`}
+                                                service_id={serviceStore.id}
+                                                instrument_id={instrumentStore.id}
+                                                modal_name={`${serviceStore.id}-${instrumentStore.id}` as MODALS_GRAND_CHART} />);
+        }
+      }
+
+      // Устанавливаем флаг что грандчарты загружены
+      this.mobxStore.systemStore.setIsLoadGrandChart();
+    }
+  };
 
   render() {
     const { pageProps, Component } = this.props;
+    this.getGrandCharts();
 
     return (
       <>
@@ -67,6 +89,11 @@ class MusiCabinetApp extends App<Props> {
           <GrandChartModal />
           <PreviewNotes />
           <PreviewChart />
+
+          {/** Рендерим гранд чарты */}
+          {this.grandCharts.map((reactNode) => {
+            return reactNode;
+          })}
         </Provider>
       </>
     );

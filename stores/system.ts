@@ -14,7 +14,7 @@ export interface AboutService {
 
 export class SystemStore {
   @observable service_id = 0;
-  @observable service_name: SERVICE_NAME  = SERVICE_NAME.SCHOOL;
+  @observable service_name: SERVICE_NAME = SERVICE_NAME.SCHOOL;
   @observable instrument_id: number = 0;
   @observable instrument_name: string = '';
   @observable instrument_icon: LIST_ICON.GUITAR | LIST_ICON.KEYBOARD | LIST_ICON.SAXOPHONE = LIST_ICON.GUITAR;
@@ -28,12 +28,19 @@ export class SystemStore {
   @observable currentCountry: string = '';
   @observable currencyConverter: number = 1;
 
+  @observable isLoadGrandChart = false;
+
   constructor(initialData: SystemStore | null) {
     makeObservable(this);
 
     if (initialData) {
       this.fillingStore(initialData);
     }
+  }
+
+  @action.bound
+  setIsLoadGrandChart(value = true) {
+    this.isLoadGrandChart = value;
   }
 
   @action.bound
@@ -115,9 +122,9 @@ export class SystemStore {
   @computed
   get title(): string {
     const title = {
-      'school-saxophone': "Let's start your saxophone<br/> playing together",
-      'school-keyboard': "Let's start your keyboard<br/> playing together",
-      'school-guitar': "Let's start your music<br/> together",
+      'school-saxophone': 'Let\'s start your saxophone<br/> playing together',
+      'school-keyboard': 'Let\'s start your keyboard<br/> playing together',
+      'school-guitar': 'Let\'s start your music<br/> together',
 
       'college-saxophone': 'Take your saxophone<br/> playing to the next level',
       'college-keyboard': 'Take your keyboard playing to<br/> the next level',
@@ -207,17 +214,17 @@ export class SystemStore {
       ],
 
       'university-guitar': [
-        "Your guitar level is alreday high enough, but you feel that you've hit the сeiling and can't move further to become a true professional",
+        'Your guitar level is alreday high enough, but you feel that you\'ve hit the сeiling and can\'t move further to become a true professional',
         'You are willing to enhance your theoretical and practical guitar knowledge to the maximum extent',
         'You want to learn how to instantly improvise and compose absolutely unique music'
       ],
       'university-keyboard': [
-        "Your keyboard level is alreday high enough, but you feel that you've hit the сeiling and can't move further to become a true professional",
+        'Your keyboard level is alreday high enough, but you feel that you\'ve hit the сeiling and can\'t move further to become a true professional',
         'You are willing to enhance your theoretical and practical keyboard knowledge to the maximum extent',
         'You want to learn how to instantly improvise and compose absolutely unique music'
       ],
       'university-saxophone': [
-        "Your saxophone level is alreday high enough, but you feel that you've hit the сeiling and can't move further to become a true professional",
+        'Your saxophone level is alreday high enough, but you feel that you\'ve hit the сeiling and can\'t move further to become a true professional',
         'You are willing to enhance your theoretical and practical saxophone knowledge to the maximum extent',
         'You want to learn how to instantly improvise and compose absolutely unique music'
       ]

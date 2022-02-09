@@ -5,8 +5,8 @@ import style from './header.module.sass';
 import { BreadCrumbs } from './breadcrumbs/breadcrumbs';
 import { LessonList } from './lesson-list/lesson-list';
 import { InstrumentIcon } from '../../../common';
-import { RootStore } from '../../../../stores';
-import { MODALS, SERVICE_NAME } from '../../../../constants';
+import { ModalsStore, RootStore, SystemStore } from '../../../../stores';
+import { MODALS_GRAND_CHART, SERVICE_NAME } from '../../../../constants';
 import { LIST_ICON } from '../../../common/icons';
 import { Player } from './player/player';
 import { Metronome } from './metronome/metronome';
@@ -15,35 +15,35 @@ import { Module } from './module/module';
 const b = block(style);
 
 type HeaderProps = {
+  systemStore: SystemStore;
+  modalsStore: ModalsStore;
   instrument_name: string;
   instrument_icon: LIST_ICON.GUITAR | LIST_ICON.KEYBOARD | LIST_ICON.SAXOPHONE;
   service_name: SERVICE_NAME;
-  onShowModal: (id_modal: MODALS) => void;
-  onGetGranChart: () => Promise<void>;
 };
 type HeaderState = {};
 
 @inject((store: RootStore) => ({
+  systemStore: store.systemStore,
+  modalsStore: store.modalsStore,
   instrument_name: store.systemStore.instrument_name,
   instrument_icon: store.systemStore.instrument_icon,
   service_name: store.systemStore.service_name,
-  onShowModal: store.modalsStore.show,
-  onGetGranChart: store.grandChartStore.getList
 }))
 @observer
 export class Header extends React.Component<HeaderProps, HeaderState> {
   static defaultProps = {
+    modalsStore: {},
+    systemStore: {},
     service_name: SERVICE_NAME.SCHOOL,
     instrument_name: '',
     instrument_icon: LIST_ICON.GUITAR,
-    onShowModal: () => console.log('Not set handler'),
-    onGetGranChart: () => console.log('Not set handler')
   };
 
   handleOnShwGrandChard = async () => {
-    const { onShowModal, onGetGranChart } = this.props;
-    onShowModal(MODALS.GRAND_CHART);
-    await onGetGranChart();
+    const { modalsStore, systemStore } = this.props;
+    const modalKey = `${systemStore.service_id}-${systemStore.instrument_id}` as MODALS_GRAND_CHART;
+    modalsStore.show(modalKey);
   };
 
   render() {

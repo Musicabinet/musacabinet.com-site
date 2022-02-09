@@ -1,0 +1,31 @@
+@import "../../../../stylesheets/index"
+
+.header
+  position: relative
+  display: grid
+  grid-template-columns: 170px 1fr
+  column-gap: 10px
+  align-items: center
+  padding: 2px 5px 0
+  margin-bottom: 20px
+
+  &__logotype
+    display: flex
+    align-items: center
+    justify-content: center
+    padding: 20px 20px 20px 20px
+
+  &__name
+    display: flex
+    margin-left: 10px
+    @include fontMontserrat(18px, 800)
+    line-height: 22px
+
+    &_school
+      color: $school
+
+    &_college
+      color: $college
+
+    &_university
+      color: $university

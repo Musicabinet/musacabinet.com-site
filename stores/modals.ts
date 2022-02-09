@@ -1,5 +1,5 @@
 import { action, makeObservable, observable } from 'mobx';
-import { MODALS } from '../constants';
+import { MODALS, MODALS_GRAND_CHART } from '../constants';
 
 export class ModalsStore {
   @observable list = {
@@ -8,7 +8,17 @@ export class ModalsStore {
     [MODALS.RECOVER_PASSWORD]: false,
     [MODALS.GRAND_CHART]: false,
     [MODALS.PREVIEW_NOTES]: false,
-    [MODALS.PREVIEW_CHART]: false
+    [MODALS.PREVIEW_CHART]: false,
+
+    [MODALS_GRAND_CHART.SCHOOL_GUITAR]: false,
+    [MODALS_GRAND_CHART.SCHOOL_KEYBOARD]: false,
+    [MODALS_GRAND_CHART.SCHOOL_SAXOPHONE]: false,
+    [MODALS_GRAND_CHART.COLLEGE_GUITAR]: false,
+    [MODALS_GRAND_CHART.COLLEGE_KEYBOARD]: false,
+    [MODALS_GRAND_CHART.COLLEGE_SAXOPHONE]: false,
+    [MODALS_GRAND_CHART.UNIVERSITY_GUITAR]: false,
+    [MODALS_GRAND_CHART.UNIVERSITY_KEYBOARD]: false,
+    [MODALS_GRAND_CHART.UNIVERSITY_SAXOPHONE]: false,
   };
 
   constructor() {
@@ -16,14 +26,14 @@ export class ModalsStore {
   }
 
   @action.bound
-  show(id_window: MODALS) {
+  show(id_window: MODALS | MODALS_GRAND_CHART) {
     if (this.list.hasOwnProperty(id_window)) {
       this.list[id_window] = true;
     }
   }
 
   @action.bound
-  close(id_window: MODALS) {
+  close(id_window: MODALS | MODALS_GRAND_CHART) {
     if (this.list.hasOwnProperty(id_window)) {
       this.list[id_window] = false;
     }

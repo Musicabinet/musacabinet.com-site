@@ -117,12 +117,12 @@ export const SERVICE_DURATION_MINUTE = {
 export enum METRONOME_BUTTON_TYPE {
   INCREMENT = 'increment',
   DECREMENT = 'decrement'
-};
+}
 
 export enum MODULE_BUTTON_TYPE {
   LEFT = 'left',
   RIGHT = 'right'
-};
+}
 
 
 export enum METRONOME_CONST {

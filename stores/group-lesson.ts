@@ -41,6 +41,7 @@ export class GroupLessonStore implements GroupLessonI {
       id,
       collection_id,
       course_id,
+      module_id,
       sort,
       slug,
       meta_title,
@@ -56,6 +57,7 @@ export class GroupLessonStore implements GroupLessonI {
     this.id = id;
     this.collection_id = collection_id;
     this.course_id = course_id;
+    this.module_id = module_id;
     this.sort = sort;
     this.slug = slug;
     this.meta_title = meta_title;

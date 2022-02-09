@@ -1,0 +1,33 @@
+@import "../../../../stylesheets/index"
+
+.pie
+  position: relative
+  width: 40px
+  height: 40px
+
+  &__percent
+    position: absolute
+    @include fontMontserrat(12px)
+    z-index: 1000
+    color: #fff
+    left: 50%
+    top: 51%
+    transform: translate(-50%, -50%)
+
+  &__container
+    width: 40px
+    height: 40px
+    margin: 1px 0 0 1px
+
+  &__circle
+    stroke-dasharray: 0 113
+    transform-origin: center
+    transform: rotate(-90deg)
+    transition: stroke-dasharray 0.2s
+
+  &__fill
+    stroke: $gray20
+    stroke-dasharray: 113 113
+    transform-origin: center
+    transform: rotate(-90deg)
+    transition: stroke-dasharray 0.2s

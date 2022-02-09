@@ -1,7 +1,7 @@
 import { action, computed, makeObservable, observable } from 'mobx';
 import { StatisticsItemI } from '../interfaces';
 import { API } from '../core';
-import { METHODS_REQUEST } from '../constants';
+import { METHODS_REQUEST, SERVICE_ID } from '../constants';
 import { RootStore } from './index';
 import { StatisticsLessonsProgressStore } from './statistics-lessons-progress';
 
@@ -23,13 +23,13 @@ export class StatisticsListStore {
   }
 
   @action.bound
-  async get() {
+  async get(service_id: SERVICE_ID, instrument_id: number) {
     try {
       const response = await API.request<StatisticsItemI>(`lesson-progress/list`, {
         method: METHODS_REQUEST.POST,
         body: API.getFormData({
-          service_id: rootStore.systemStore.service_id,
-          instrument_id: rootStore.systemStore.instrument_id
+          service_id,
+          instrument_id
         })
       });
 

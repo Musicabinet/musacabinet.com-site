@@ -14,24 +14,6 @@ export default class CabinetPage extends React.Component<CabinetPageProps, Cabin
     await store?.authStore.check(() => redirectToWrapper(res, '/'));
     await store?.servicesStore.getList();
 
-
-    // Получаение списка гранд чартов
-    const serviceList = store?.servicesStore.list;
-
-    if (Array.isArray(serviceList) && serviceList.length > 0) {
-      for (const serviceIndex in serviceList) {
-        const serviceStore = serviceList[serviceIndex];
-
-        // Проходим по каждому и инструменту сервиса
-        for (const instrumentIndex in serviceStore.instruments) {
-          const instrumentStore = serviceStore.instruments[instrumentIndex];
-
-          // Запрос на гранд чарт
-          await store?.grandChartStore.get(serviceStore.id, instrumentStore.id);
-        }
-      }
-    }
-
     return {
       title: 'MC | Subscriptions',
       description: '',

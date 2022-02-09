@@ -3,7 +3,7 @@ import { inject, observer } from 'mobx-react';
 import block from 'bem-css-modules';
 import style from './cabinet-subscriptions.module.sass';
 import { RootStore, UserStore, InstrumentStore, SystemStore, ModalsStore, GrandChartStore } from '../../../stores';
-import { MODALS, SERVICE_MAPPING } from '../../../constants';
+import { MODALS_GRAND_CHART, SERVICE_MAPPING } from '../../../constants';
 import { ButtonGrandChart } from '../button-grand-chart/button-grand-chart';
 import { InstrumentIcon } from '../instrument-icon/instrument-icon';
 import { StatisticsListStore } from '../../../stores/statistics-list';
@@ -40,31 +40,9 @@ export class CabinetSubscriptionItem extends React.Component<CabinetSubscription
   };
 
   handleOnOpenGrandChart = async () => {
-    const {
-      instrument,
-      systemStore,
-      modalsStore,
-      grandChartStore,
-      statisticsListStore
-    } = this.props;
-
-    // Записываем данные
-    systemStore.setServiceId(instrument.service_id);
-    systemStore.setServiceName(SERVICE_MAPPING[instrument.service_id]);
-    systemStore.setInstrumentId(instrument.id);
-    systemStore.setInstrumentName(instrument.name);
-    systemStore.setInstrumentIcon(instrument.icon);
-
-    // Открываем гранд чарт
-    modalsStore.show(MODALS.GRAND_CHART);
-
-    try{
-      // Получение гранд чарта
-      await grandChartStore.getList();
-      await statisticsListStore.get();
-    }catch (e) {
-      console.error(`Error in handleOnOpenGrandChart : `, e);
-    }
+    const { instrument, modalsStore } = this.props;
+    const MODAL_GRAND_CHART_SELECTED = `${instrument.service_id}-${instrument.id}` as MODALS_GRAND_CHART;
+    modalsStore.show(MODAL_GRAND_CHART_SELECTED);
   };
 
   getIsPurchaseUser = (): PurchaseStore | TrialVersionStore => {
