@@ -12,7 +12,6 @@ type CabinetPageState = {};
 export default class CabinetPage extends React.Component<CabinetPageProps, CabinetPageState> {
   static async getInitialProps({ store, ctx: { res } }: CustomAppContext) {
     await store?.authStore.check(() => redirectToWrapper(res, '/'));
-    await store?.servicesStore.getList();
 
     return {
       title: 'MC | Subscriptions',

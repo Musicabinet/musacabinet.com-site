@@ -31,6 +31,7 @@ class MusiCabinetApp extends App<Props> {
     cookie.init(ctx);
 
     appContext.store = ctx.store;
+    await appContext.store?.servicesStore.getList();
 
     let pageProps: { title: string } = {
       title: ''
