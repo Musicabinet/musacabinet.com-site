@@ -34,18 +34,22 @@ export class Lessons extends React.Component<LessonsProps, LessonsState> {
 
   componentDidMount() {
     const { grandChartStore } = this.props;
-    const findCourse = grandChartStore.statistics.list[grandChartStore.selected_course_id];
-    const findModule = findCourse.find((item) => item.module_id === grandChartStore.selected_module_id);
     let mapProgressLesson: MapProgressI = {};
 
-    if (findModule) {
-      findModule.lessons.forEach((lesson) => {
-        mapProgressLesson[lesson.uuid] = {
-          total: lesson.duration_minute,
-          progress: lesson.total_progress_minute
-        };
-      });
+    const findCourse = grandChartStore.statistics.list[grandChartStore.selected_course_id];
+    if(findCourse){
+      const findModule = findCourse.find((item) => item.module_id === grandChartStore.selected_module_id);
+
+      if (findModule) {
+        findModule.lessons.forEach((lesson) => {
+          mapProgressLesson[lesson.uuid] = {
+            total: lesson.duration_minute,
+            progress: lesson.total_progress_minute
+          };
+        });
+      }
     }
+
 
     this.setState({
       mapProgressLesson
