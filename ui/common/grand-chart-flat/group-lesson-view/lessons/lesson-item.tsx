@@ -10,10 +10,12 @@ import {
   UserStore
 } from '../../../../../stores';
 import Router from 'next/router';
+import { MapProgressI } from '../../../../../interfaces';
 
 const b = block(style);
 
 type LessonItemProps = {
+  mapProgressLesson: MapProgressI;
   grandChartStore: GrandChartFlatStore;
   lesson: LessonStore,
   isShowTrial: boolean,
@@ -46,8 +48,30 @@ export class LessonItem extends React.Component<LessonItemProps, LessonItemState
     }
   }
 
+  componentDidUpdate(prevProps: Readonly<LessonItemProps>) {
+    if (Object.keys(prevProps.mapProgressLesson).length !== Object.keys(this.props.mapProgressLesson).length) {
+      const { mapProgressLesson, lesson } = this.props;
+      const { total, progress } = mapProgressLesson[lesson.uuid];
+
+      let percent = 0;
+      if (progress >= total) {
+        percent = 100;
+      } else {
+        percent = Math.round((progress * 100) / total);
+      }
+
+      // Вычисляем на сколько зарисовать кружок
+      const fill = Math.round((113 * percent) / 100);
+
+      if (this.circle && this.circle.current) {
+        this.circle.current.style.strokeDasharray = `${fill} 113`;
+      }
+    }
+  }
+
   handleOnClick = async () => {
     const { lesson, modalsStore, userStore, grandChartStore, isShowTrial } = this.props;
+
     const isPurchaseUser = userStore.checkSubscription(grandChartStore.service_id, grandChartStore.instrument_id);
 
     if (isPurchaseUser.length > 0 ? false : !isShowTrial) {
@@ -69,6 +93,7 @@ export class LessonItem extends React.Component<LessonItemProps, LessonItemState
     })}
                  onClick={this.handleOnClick}>
       <div className={b('id')}>{lesson.numberLesson}</div>
+      <div className={b('background')} />
       <svg className={b('pie')} width={40} height={40} viewBox='0 0 40 40'>
         <circle ref={this.circleFill}
                 className={b('fill')}

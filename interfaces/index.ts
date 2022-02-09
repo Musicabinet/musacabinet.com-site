@@ -22,6 +22,13 @@ export interface RelationIdNameI {
   name: string;
 }
 
+export interface MapProgressI{
+  [key: string]: {
+    total: number,
+    progress: number
+  }
+}
+
 export * from './menu';
 export * from './auth';
 export * from './user';

@@ -44,7 +44,7 @@
         stroke: $school
 
       #{$root}__id
-        color: $school
+        //color: $school
 
       &:hover
         border-color: $school
@@ -111,3 +111,17 @@
     left: 50%
     transform: translate(-50%, -50%)
     @include fontMontserrat(14px)
+    color: white
+    z-index: 1000
+
+  &__background
+    position: absolute
+    top: 50%
+    left: 50%
+    transform: translate(-50%, -50%)
+    background: #7EBBCE
+    width: 28px
+    height: 28px
+    border-radius: 50%
+    z-index: 500
+
