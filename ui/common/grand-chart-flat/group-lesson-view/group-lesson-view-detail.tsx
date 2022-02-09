@@ -2,9 +2,8 @@ import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import block from 'bem-css-modules';
 import style from './group-lesson-view.module.sass';
-import { GrandChartFlatStore, GroupLessonStore, RootStore } from '../../../../stores';
+import { GrandChartFlatStore, GroupLessonStore } from '../../../../stores';
 import { getTimeFromMin } from '../../../../helpers';
-import { StatisticsListStore } from '../../../../stores/statistics-list';
 import { getIcon, LIST_ICON } from '../../icons';
 import { Lessons } from './lessons/lessons';
 import { SERVICE_NAME } from '../../../../constants';
@@ -13,7 +12,6 @@ const b = block(style);
 
 type GroupLessonViewDetailProps = {
   serviceName: SERVICE_NAME;
-  statisticsListStore: StatisticsListStore;
   grandChartStore: GrandChartFlatStore;
   groupLessonDetail: GroupLessonStore;
   isFirst: boolean;
@@ -21,15 +19,13 @@ type GroupLessonViewDetailProps = {
 };
 type GroupLessonViewDetailState = {};
 
-@inject((store: RootStore) => ({
-  statisticsListStore: store.statisticsListStore
+@inject(() => ({
 }))
 @observer
 export class GroupLessonViewDetail extends React.Component<GroupLessonViewDetailProps, GroupLessonViewDetailState> {
 
   static defaultProps = {
-    systemStore: {},
-    statisticsListStore: {}
+    systemStore: {}
   };
 
   handleOnBack = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -40,9 +36,10 @@ export class GroupLessonViewDetail extends React.Component<GroupLessonViewDetail
   };
 
   getDataStatistics(): { passedData: string, passedPercent: number, totalData: string } {
-    const { statisticsListStore, groupLessonDetail } = this.props;
+    const { groupLessonDetail, grandChartStore } = this.props;
 
-    if (!statisticsListStore.list[groupLessonDetail.course_id] && !Array.isArray(statisticsListStore.list[groupLessonDetail.course_id])) {
+
+    if (!grandChartStore.statistics.list[grandChartStore.selected_course_id] && !Array.isArray(grandChartStore.statistics.list[grandChartStore.selected_course_id])) {
       return {
         passedData: '0:00',
         passedPercent: 0,
@@ -53,7 +50,7 @@ export class GroupLessonViewDetail extends React.Component<GroupLessonViewDetail
     let totalMinutes = 0;
     let passedMinutes = 0;
 
-    statisticsListStore.list[groupLessonDetail.course_id].forEach((staticLessonsProgress) => {
+    grandChartStore.statistics.list[grandChartStore.selected_course_id].forEach((staticLessonsProgress) => {
       if (staticLessonsProgress.collection_id === groupLessonDetail.collection_id) {
         staticLessonsProgress.lessons.forEach((lesson) => {
           totalMinutes += lesson.duration_minute;
