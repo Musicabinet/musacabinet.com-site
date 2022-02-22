@@ -9,6 +9,7 @@ import { InstrumentIcon } from '../instrument-icon/instrument-icon';
 import { StatisticsListStore } from '../../../stores/statistics-list';
 import { PurchaseStore } from '../../../stores/purchase';
 import { TrialVersionStore } from '../../../stores/trial-version';
+import moment from 'moment';
 
 const b = block(style);
 
@@ -53,10 +54,12 @@ export class CabinetSubscriptionItem extends React.Component<CabinetSubscription
     return isPurchaseUser.length > 0 ? isPurchaseUser[0] : user.trial_version;
   };
 
+  isNoLimited = (): boolean => {
+    return this.getIsPurchaseUser().date_end.diff(moment(), 'days') > 365;
+  };
 
   render() {
     let { instrument } = this.props;
-
 
     return (
       <div
@@ -81,34 +84,43 @@ export class CabinetSubscriptionItem extends React.Component<CabinetSubscription
               </ButtonGrandChart>
 
               <div className={b('count', { [SERVICE_MAPPING[instrument.service_id]]: true })}>
-                {this.getIsPurchaseUser().totalDays} days
+                {this.isNoLimited()
+                  ? `No limited`
+                  : `${this.getIsPurchaseUser().totalDays} days`}
               </div>
 
-              <div className={b('progress-line')}>
-                <div className={b('line')} style={{ width: this.getIsPurchaseUser().percentPassed }} />
-              </div>
+              {this.isNoLimited()
+                ? ``
+                : (
+                  <>
+                    <div className={b('progress-line')}>
+                      <div className={b('line')} style={{ width: this.getIsPurchaseUser().percentPassed }} />
+                    </div>
 
-              <div className={b('days')}>
-                <div className={b('passed-days')}>
-                  <div className={b('count-days', { [SERVICE_MAPPING[instrument.service_id]]: true })}>
-                    {this.getIsPurchaseUser().days_passed}
-                  </div>
-                  <div className={b('description')}>
-                    Days
-                    <br /> passed
-                  </div>
-                </div>
+                    <div className={b('days')}>
+                      <div className={b('passed-days')}>
+                        <div className={b('count-days', { [SERVICE_MAPPING[instrument.service_id]]: true })}>
+                          {this.getIsPurchaseUser().days_passed}
+                        </div>
+                        <div className={b('description')}>
+                          Days
+                          <br /> passed
+                        </div>
+                      </div>
 
-                <div className={b('remain-days')}>
-                  <div className={b('count-days')}>
-                    {this.getIsPurchaseUser().days_remain}
-                  </div>
-                  <div className={b('description')}>
-                    Days
-                    <br /> remain
-                  </div>
-                </div>
-              </div>
+                      <div className={b('remain-days')}>
+                        <div className={b('count-days')}>
+                          {this.getIsPurchaseUser().days_remain}
+                        </div>
+                        <div className={b('description')}>
+                          Days
+                          <br /> remain
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                )}
+
             </>
           ) : (
             <ButtonGrandChart service={SERVICE_MAPPING[instrument.service_id]}>Coming soon...</ButtonGrandChart>
@@ -117,4 +129,5 @@ export class CabinetSubscriptionItem extends React.Component<CabinetSubscription
       </div>
     );
   }
+
 }

@@ -60,7 +60,9 @@ export class NextModule extends React.Component<NextModuleProps, NextModuleState
           </div>
 
           <div className={b('actions')}>
-            <Button className={b('btn-default')} onClick={nextModuleStore.close}>Stay Here</Button>
+            <Button className={b('btn-default')} onClick={() => {
+              nextModuleStore.close();
+            }}>Stay Here</Button>
             <Button className={b('btn-primary')} onClick={this.handleOnNext}>Next Module</Button>
           </div>
         </div>
