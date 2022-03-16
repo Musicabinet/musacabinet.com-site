@@ -42,8 +42,6 @@ export class GroupLessons extends React.Component<GroupLessonsProps, GroupLesson
              gridTemplateRows: `repeat(${grandChartStore.courses.length}, 170px)`
            }}>
         {grandChartStore.groupLessons.map((groupLessonsGroup) => {
-          console.log('groupLessonsGroup count ',groupLessonsGroup.length);
-
           if(groupLessonsGroup.length > 1){
             return <div className={b('container')}>
               {groupLessonsGroup.map((groupLessonStore) => {

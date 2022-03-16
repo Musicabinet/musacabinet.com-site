@@ -137,6 +137,9 @@ export class GrandChartFlatStore {
           if (!complete[groupLesson.course_id]) {
             complete[groupLesson.course_id] = 0;
           }
+
+          console.log('complete[groupLesson.course_id]',complete[groupLesson.course_id]);
+
           complete[groupLesson.course_id] += lesson.duration_minute;
         });
       });

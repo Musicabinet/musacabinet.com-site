@@ -85,7 +85,7 @@ export class CabinetSubscriptionItem extends React.Component<CabinetSubscription
 
               <div className={b('count', { [SERVICE_MAPPING[instrument.service_id]]: true })}>
                 {this.isNoLimited()
-                  ? `No limits`
+                  ? `Unlimited`
                   : `${this.getIsPurchaseUser().totalDays} days`}
               </div>
 

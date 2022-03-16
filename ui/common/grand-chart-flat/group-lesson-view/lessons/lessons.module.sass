@@ -23,6 +23,36 @@
     #{$root}__id
       color: $white
 
+  &_college
+    position: relative
+
+    #{$root}__count-lessons
+      color: $white
+
+    #{$root}__circle
+      stroke: $gray50
+
+    #{$root}__fill
+      stroke: $white
+
+    #{$root}__id
+      color: $white
+
+  &_university
+    position: relative
+
+    #{$root}__count-lessons
+      color: $white
+
+    #{$root}__circle
+      stroke: $gray50
+
+    #{$root}__fill
+      stroke: $white
+
+    #{$root}__id
+      color: $white
+
   &__item
     position: relative
     width: 46px
@@ -32,6 +62,17 @@
     background: transparent
     border-radius: 10px
     border: 2px solid transparent
+
+    &_college
+
+      #{$root}__background
+        background: rgba($college, 0.6)
+
+    &_university
+
+      #{$root}__background
+        background: rgba($university, 0.6)
+
 
     &_blocked
       cursor: not-allowed
@@ -84,6 +125,21 @@
 
       #{$root}__circle
         stroke: $gray50
+
+    &_active-university
+      background: $university
+
+      #{$root}__id
+        color: $white
+
+      #{$root}__fill
+        stroke: $white
+
+      #{$root}__circle
+        stroke: $gray50
+
+      #{$root}__background
+        stroke: red
 
 
   &__pie

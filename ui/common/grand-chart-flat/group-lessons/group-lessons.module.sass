@@ -5,7 +5,7 @@
   position: relative
   margin-left: 15px
   display: grid
-  grid-auto-flow: column
+  //grid-auto-flow: column
   grid-row-gap: 20px
   grid-column-gap: 10px
 
@@ -27,6 +27,7 @@
 
     &>div:last-child
       margin-bottom: 0
+
 
 
   &__item
@@ -77,6 +78,24 @@
 
     &_active-college
       background: $college
+
+      #{$root}__name
+        color: $white
+
+      #{$root}__count-lessons
+        color: $white
+
+      #{$root}__circle
+        stroke: $gray50
+
+      #{$root}__fill
+        stroke: $white
+
+      #{$root}__progress
+        background: $gray50
+
+    &_active-university
+      background: $university
 
       #{$root}__name
         color: $white

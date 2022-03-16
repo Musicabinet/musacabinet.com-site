@@ -67,6 +67,31 @@
       &:before, &:after
         background: $college
 
+  &_university
+    border-color: $university
+
+    &:hover
+      border-color: darken($university, 10%)
+
+      #{$root}__play
+        svg, path
+          stroke: darken($university, 10%)
+
+      #{$root}__pause
+
+        &:before, &:after
+          background: darken($university, 10%)
+
+
+    #{$root}__play
+      svg, path
+        stroke: $university
+
+    #{$root}__pause
+
+      &:before, &:after
+        background: $university
+
 
   &__icon
     width: 10px
