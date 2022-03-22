@@ -42,7 +42,7 @@ export class Method extends React.Component<MethodProps, MethodState> {
 
     document.addEventListener('click', this.handleClickOutside);
 
-    if (lessonStore.currentContentScore) {
+    if (lessonStore.currentContentScore && lessonStore.isEmptyVideoLink) {
       await lessonStore.getVideo(Number(lessonStore.currentContentScore.video_url.replace(/\D/g, '')));
     }
   }
@@ -51,7 +51,7 @@ export class Method extends React.Component<MethodProps, MethodState> {
     const { lessonStore } = this.props;
 
     if (prevProps.lessonStore.uuid !== lessonStore.uuid) {
-      if (lessonStore.currentContentScore) {
+      if (lessonStore.currentContentScore && lessonStore.isEmptyVideoLink) {
         await lessonStore.getVideo(Number(lessonStore.currentContentScore.video_url.replace(/\D/g, '')));
       }
     }
@@ -66,8 +66,8 @@ export class Method extends React.Component<MethodProps, MethodState> {
   }
 
   handleClickOutside = (e: MouseEvent) => {
-    const {isShowExtra} = this.state;
-    if(isShowExtra){
+    const { isShowExtra } = this.state;
+    if (isShowExtra) {
       handleDetectClick(this.extraListRef, this.handleOnCloseExtra, e);
     }
   };
@@ -77,6 +77,19 @@ export class Method extends React.Component<MethodProps, MethodState> {
   handleOnShowExtra = () => this.setState(() => ({ isShowExtra: true }));
 
   handleOnCloseExtra = () => this.setState(() => ({ isShowExtra: false }));
+
+  getVideoIframeFromLink = (): React.ReactNode => {
+    const { lessonStore } = this.props;
+    return (lessonStore.isEmptyVideoLink)
+      ? null
+      : <div className='embed-container'>
+        <iframe src={lessonStore.currentContentScore?.video_link}
+                width={1920}
+                height={1080}
+                allowFullScreen
+                frameBorder='0' className={b('iframe')} />
+      </div>;
+  };
 
   render() {
     const { lessonStore, systemStore } = this.props;
@@ -94,11 +107,11 @@ export class Method extends React.Component<MethodProps, MethodState> {
             <span />
 
             <ul className={b('dropdown', {
-                  [systemStore.service_name]: true,
-                  show: isShowExtra
-                })}>
+              [systemStore.service_name]: true,
+              show: isShowExtra
+            })}>
               <li>
-                <button>Circle od Fifths</button>
+                <button>Circle of Fifths</button>
               </li>
               <li>
                 <button>Fretboard (A B C ...)</button>
@@ -108,7 +121,6 @@ export class Method extends React.Component<MethodProps, MethodState> {
               </li>
             </ul>
           </button>
-
 
 
           {systemStore.service_name === SERVICE_NAME.COLLEGE && systemStore.instrument_name !== '' && systemStore.instrument_name == 'Guitar' && (
@@ -122,6 +134,8 @@ export class Method extends React.Component<MethodProps, MethodState> {
             </div>
           )}
         </div>
+
+        {!isNotes && !lessonStore.isEmptyVideoLink && this.getVideoIframeFromLink()}
 
         {!isNotes && lessonStore.video_iframe && lessonStore.currentContentScore?.video_url && (
           <div className={`${b(null)} embed-container`}

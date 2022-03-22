@@ -7,6 +7,7 @@ export interface ScoreI {
   name: string;
   sub_title: string;
   video_url: string;
+  video_link: string;
   content: string;
   items: ScoreItemStore[];
 }

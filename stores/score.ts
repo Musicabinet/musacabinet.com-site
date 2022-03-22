@@ -12,6 +12,7 @@ export class ScoreStore implements ScoreI {
   @observable name = '';
   @observable sub_title = '';
   @observable video_url = '';
+  @observable video_link = '';
   @observable content = '';
   @observable items: ScoreItemStore[] = [];
 
@@ -25,13 +26,14 @@ export class ScoreStore implements ScoreI {
 
   @action
   fillingStore(data: ScoreI | ScoreStore) {
-    const { id, lesson_id, name, sub_title, video_url, content, items } = data;
+    const { id, lesson_id, name, sub_title, video_url, video_link, content, items } = data;
 
     this.id = id;
     this.lesson_id = lesson_id;
     this.name = name;
     this.sub_title = sub_title;
     this.video_url = video_url;
+    this.video_link = video_link;
     this.content = content;
     this.items = (items || []).map((item) => new ScoreItemStore(item));
   }

@@ -119,7 +119,7 @@ export class GrandChartFlatStore {
 
     this.groupLessons.forEach((groupLessonAr) => {
       groupLessonAr.forEach((groupLesson) => {
-        if (groupLesson.id === this.selected_group_lesson_id) {
+        if (groupLesson.course_id === this.selected_course_id && groupLesson.module_id === this.selected_module_id) {
           completeGroupLessons.push(groupLesson);
         }
       });
@@ -137,8 +137,6 @@ export class GrandChartFlatStore {
           if (!complete[groupLesson.course_id]) {
             complete[groupLesson.course_id] = 0;
           }
-
-          console.log('complete[groupLesson.course_id]',complete[groupLesson.course_id]);
 
           complete[groupLesson.course_id] += lesson.duration_minute;
         });

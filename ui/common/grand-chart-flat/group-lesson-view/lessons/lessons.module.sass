@@ -7,6 +7,7 @@
   align-items: center
   flex-wrap: wrap
   margin-right: 430px
+  margin-left: 20px
 
   &_school
     position: relative
@@ -66,12 +67,12 @@
     &_college
 
       #{$root}__background
-        background: rgba($college, 0.6)
+        background: rgba($college, 1)
 
     &_university
 
       #{$root}__background
-        background: rgba($university, 0.6)
+        background: rgba($university, 1)
 
 
     &_blocked
@@ -181,6 +182,9 @@
     @include fontMontserrat(14px)
     color: white
     z-index: 1000
+
+    &_isGrey
+      color: $gray60 !important
 
   &__background
     position: absolute

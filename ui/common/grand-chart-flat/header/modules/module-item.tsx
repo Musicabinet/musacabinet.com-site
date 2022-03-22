@@ -22,7 +22,7 @@ export class ModuleItem extends React.Component<ModuleItemProps, ModuleItemState
 
     return (
       <div className={b('item', { [serviceName]: true, isActive })}>
-        <span className={b('toolbar')}>{module.nameModule}</span>
+        <span className={b('toolbar')}>Module {module.number_module}</span>
         <span className={b('name')}>{module.nameWithoutNumber}</span>
       </div>
     );

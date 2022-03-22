@@ -6,6 +6,7 @@ export class ModuleStore implements ModuleI {
   @observable id = 0;
   @observable sort = 0;
   @observable name = '';
+  @observable number_module = 1;
   @observable is_active = false;
 
   constructor(initialData: ModuleStore | ModuleI | null) {
@@ -26,11 +27,12 @@ export class ModuleStore implements ModuleI {
 
   @action
   fillingStore(data: ModuleStore | ModuleI) {
-    const { id, sort, name, is_active } = data;
+    const { id, sort, name, number_module, is_active } = data;
 
     this.id = id;
     this.sort = sort;
     this.name = name;
+    this.number_module = number_module;
     this.is_active = is_active;
   }
 

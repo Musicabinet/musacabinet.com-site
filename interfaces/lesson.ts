@@ -27,6 +27,7 @@ export interface LessonI {
   prevModuleLesson?: null | string;
   nextModuleLesson?: null | string;
   selected_accompaniment?: number;
+  color: string;
 }
 
 export interface LessonListI {

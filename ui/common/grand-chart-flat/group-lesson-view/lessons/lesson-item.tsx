@@ -86,14 +86,16 @@ export class LessonItem extends React.Component<LessonItemProps, LessonItemState
     const { lesson, isShowTrial, grandChartStore, isActive, userStore } = this.props;
     const isPurchaseUser = userStore.checkSubscription(grandChartStore.service_id, grandChartStore.instrument_id);
 
+    console.log('lesson.color',lesson.color, lesson.isGrey);
+
     return (<div className={b('item', {
       [grandChartStore.service_name]: true,
       [`active-${grandChartStore.service_name}`]: isActive,
       ['blocked']: isPurchaseUser.length > 0 ? false : !isShowTrial
     })}
                  onClick={this.handleOnClick}>
-      <div className={b('id')}>{lesson.numberLesson}</div>
-      <div className={b('background')} />
+      <div className={b('id', { isGrey: lesson.isGrey })}>{lesson.numberLesson}</div>
+      <div className={b('background')} style={{ background: lesson.color }} />
       <svg className={b('pie')} width={40} height={40} viewBox='0 0 40 40'>
         <circle ref={this.circleFill}
                 className={b('fill')}

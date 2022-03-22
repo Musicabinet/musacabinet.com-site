@@ -26,7 +26,7 @@ export { Paragraph } from './paragraph/paragraph';
 export { StudyAt } from './study-at/study-at';
 export { VolumeControl } from './volume-control/volume-control';
 export { GrandChart } from './grand-chart/grand-chart';
-export {GrandChartFlat} from './grand-chart-flat/grand-chart-flat';
+export { GrandChartFlat } from './grand-chart-flat/grand-chart-flat';
 export { ButtonFreeTrial } from './button-free-trial/button-free-trial';
 export { Switcher } from './switcher/switcher';
 export { FormSignUp } from './form-sign-up/form-sign-up';

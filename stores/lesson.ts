@@ -34,6 +34,7 @@ export class LessonStore implements LessonI {
   @observable breadcrumbs: BreadcrumbsI[] = [];
   @observable progress_second = 0;
   @observable lesson_list: LessonListI[] = [];
+  @observable color = '';
 
   @observable prevModuleLesson: null | string = null;
   @observable nextModuleLesson: null | string = null;
@@ -413,8 +414,18 @@ export class LessonStore implements LessonI {
   }
 
   @computed
-  get numberLesson(){
+  get numberLesson() {
     return this.name.replace(/\D+/g, '');
+  }
+
+  @computed
+  get isGrey(): boolean {
+    return ['#D8D8D8', '#AE6E5E5', '#FFFFFF'].includes(this.color);
+  }
+
+  @computed
+  get isEmptyVideoLink(): boolean {
+    return this.scores[this.currentScore] && this.scores[this.currentScore].video_link.length === 0;
   }
 
   @action
@@ -441,7 +452,8 @@ export class LessonStore implements LessonI {
       prevModuleLesson,
       nextModuleLesson,
       selected_accompaniment,
-      progress_second
+      progress_second,
+      color
     } = data;
 
     this.id = id;
@@ -463,6 +475,7 @@ export class LessonStore implements LessonI {
     this.breadcrumbs = breadcrumbs ? [...breadcrumbs] : [];
     this.lesson_list = lesson_list || [];
     this.progress_second = progress_second;
+    this.color = color;
 
     this.prevModuleLesson = prevModuleLesson || null;
     this.nextModuleLesson = nextModuleLesson || null;
