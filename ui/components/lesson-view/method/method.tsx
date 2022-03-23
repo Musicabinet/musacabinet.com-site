@@ -2,16 +2,17 @@ import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import block from 'bem-css-modules';
 import style from './method.module.sass';
-import { LessonStore, RootStore, SystemStore } from '../../../../stores';
-import { SERVICE_NAME } from '../../../../constants';
+import { LessonStore, ModalsStore, RootStore, SystemStore } from '../../../../stores';
+import { MODALS, SERVICE_NAME } from '../../../../constants';
 import { Scores } from '../scores/scores';
 import { handleDetectClick } from '../../../../helpers';
 
 const b = block(style);
 
 type MethodProps = {
-  systemStore: SystemStore,
-  lessonStore: LessonStore,
+  systemStore: SystemStore;
+  lessonStore: LessonStore;
+  modalsStore: ModalsStore;
 };
 type MethodState = {
   isNotes: boolean;
@@ -20,7 +21,8 @@ type MethodState = {
 
 @inject((store: RootStore) => ({
   systemStore: store.systemStore,
-  lessonStore: store.lessonStore
+  lessonStore: store.lessonStore,
+  modalsStore: store.modalsStore
 }))
 @observer
 export class Method extends React.Component<MethodProps, MethodState> {
@@ -34,7 +36,8 @@ export class Method extends React.Component<MethodProps, MethodState> {
 
   static defaultProps = {
     systemStore: {},
-    lessonStore: {}
+    lessonStore: {},
+    modalsStore: {}
   };
 
   async componentDidMount() {
@@ -92,7 +95,7 @@ export class Method extends React.Component<MethodProps, MethodState> {
   };
 
   render() {
-    const { lessonStore, systemStore } = this.props;
+    const { lessonStore, systemStore, modalsStore } = this.props;
     const { isNotes, isShowExtra } = this.state;
 
     return (
@@ -111,13 +114,13 @@ export class Method extends React.Component<MethodProps, MethodState> {
               show: isShowExtra
             })}>
               <li>
-                <button>Circle of Fifths</button>
+                <button onClick={() => modalsStore.show(MODALS.CIRCLE_OF_FIFTHS)}>Circle of Fifths</button>
               </li>
               <li>
-                <button>Fretboard (A B C ...)</button>
+                <button onClick={() => modalsStore.show(MODALS.FRETBOARD_A_B_C)}>Fretboard (A B C ...)</button>
               </li>
               <li>
-                <button>Fretboard (do re mi ...)</button>
+                <button onClick={() => modalsStore.show(MODALS.FRETBOARD_DO)}>Fretboard (do re mi ...)</button>
               </li>
             </ul>
           </button>

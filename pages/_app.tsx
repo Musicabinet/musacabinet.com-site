@@ -6,7 +6,15 @@ import './app.global.sass';
 import { Cookie } from '../core';
 import { CustomAppContext } from '../interfaces';
 import HeadBlock from './head-block';
-import { GrandChartFlat, Notifications, PreviewChart, PreviewNotes } from '../ui';
+import {
+  CircleOfFifthsModal,
+  FretboardABC,
+  FretboardDo,
+  GrandChartFlat,
+  Notifications,
+  PreviewChart,
+  PreviewNotes
+} from '../ui';
 import { GrandChartModal } from '../ui';
 import { MODALS_GRAND_CHART } from '../constants';
 
@@ -95,6 +103,10 @@ class MusiCabinetApp extends App<Props> {
           {this.grandCharts.map((reactNode) => {
             return reactNode;
           })}
+
+          <CircleOfFifthsModal />
+          <FretboardABC />
+          <FretboardDo />
         </Provider>
       </>
     );

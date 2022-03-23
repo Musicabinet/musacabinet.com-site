@@ -10,6 +10,10 @@ export class ModalsStore {
     [MODALS.PREVIEW_NOTES]: false,
     [MODALS.PREVIEW_CHART]: false,
 
+    [MODALS.CIRCLE_OF_FIFTHS]: false,
+    [MODALS.FRETBOARD_A_B_C]: false,
+    [MODALS.FRETBOARD_DO]: false,
+
     [MODALS_GRAND_CHART.SCHOOL_GUITAR]: false,
     [MODALS_GRAND_CHART.SCHOOL_KEYBOARD]: false,
     [MODALS_GRAND_CHART.SCHOOL_SAXOPHONE]: false,
