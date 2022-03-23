@@ -31,7 +31,7 @@ export class FretboardDo extends React.Component<FretboardDoProps, FretboardDoSt
     return (
       <Modal isOpen={modalsStore.list[MODALS.FRETBOARD_DO]}
              onClose={this.handleOnClose}>
-        <img src='/payload/Neck_Notes - Do re mi....png' alt='' />
+        <img className='image-adaptive' src='/payload/Neck_Notes - Do re mi....png' alt='' />
       </Modal>
     );
   }

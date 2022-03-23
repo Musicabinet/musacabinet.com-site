@@ -30,7 +30,7 @@ export class FretboardABC extends React.Component<FretboardABCProps, FretboardAB
     return (
       <Modal isOpen={modalsStore.list[MODALS.FRETBOARD_A_B_C]}
              onClose={this.handleOnClose}>
-        <img src='/payload/Neck_Letters - Chords.png' alt='' />
+        <img className='image-adaptive' src='/payload/Neck_Letters - Chords.png' alt='' />
       </Modal>
     );
   }

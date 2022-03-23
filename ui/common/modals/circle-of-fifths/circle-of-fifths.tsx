@@ -30,7 +30,7 @@ export class CircleOfFifthsModal extends React.Component<CircleOfFifthsModalProp
     return (
       <Modal isOpen={modalsStore.list[MODALS.CIRCLE_OF_FIFTHS]}
              onClose={this.handleOnClose}>
-        <img src='/payload/CircleOfFifths.png' alt='' />
+        <img className='image-adaptive' src='/payload/CircleOfFifths.png' alt='' />
       </Modal>
     );
   }
