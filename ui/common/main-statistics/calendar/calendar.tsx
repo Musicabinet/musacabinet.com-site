@@ -2,6 +2,10 @@ import * as React from 'react';
 import block from 'bem-css-modules';
 import style from './calendar.module.sass';
 import moment from 'moment';
+import { inject, observer } from 'mobx-react';
+import { RootStore } from '../../../../stores';
+import Router from 'next/router';
+import { StatisticsListStore } from '../../../../stores/statistics-list';
 
 const b = block(style);
 
@@ -9,14 +13,20 @@ type CalendarProps = {
   month: number;
   year: string;
   last: boolean;
+  statisticsListStore: StatisticsListStore;
 };
 type CalendarState = {};
 
+@inject((store: RootStore) => ({
+  statisticsListStore: store.statisticsListStore
+}))
+@observer
 export class Calendar extends React.Component<CalendarProps, CalendarState> {
 
   static defaultProps = {
-    last: false
-  }
+    last: false,
+    statisticsListStore: {}
+  };
 
   isExtraDays = (week: number, date: number) => {
     if (week === 0 && date > 10) {
@@ -48,7 +58,9 @@ export class Calendar extends React.Component<CalendarProps, CalendarState> {
   };
 
   render() {
-    const { month, year, last } = this.props;
+    const { month, year, last, statisticsListStore } = this.props;
+    const currentMonth = month + 1;
+
     this.calendarFormation();
     return (
       <div className={b(null, { last })}>
@@ -66,12 +78,22 @@ export class Calendar extends React.Component<CalendarProps, CalendarState> {
           </tr>
           </thead>
           <tbody>
-          {this.calendarFormation().map((week, index)=>{
+          {this.calendarFormation().map((week, index) => {
             return <tr key={index}>
-              {week.map((day)=>{
-                return <td key={day}>{this.isExtraDays(index, +day) ? null : day}</td>
+              {week.map((day) => {
+                const calendarDate = moment(`${day}-${currentMonth}-${year}`, 'D-M-YY').format('YYYY-MM-DD');
+                const isLearning = statisticsListStore.months.includes(calendarDate);
+
+                return <td key={day} className={b('day', { isLearning })} onClick={async () => {
+                  if (!isLearning) {
+                    return false;
+                  }
+
+                  await Router.push(`/cabinet/your-statistics/history/${calendarDate}`);
+
+                }}>{this.isExtraDays(index, +day) ? null : day}</td>;
               })}
-            </tr>
+            </tr>;
           })}
           </tbody>
         </table>

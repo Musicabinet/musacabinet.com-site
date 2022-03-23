@@ -4,6 +4,7 @@ import { API } from '../core';
 import { METHODS_REQUEST, SERVICE_ID } from '../constants';
 import { RootStore } from './index';
 import { StatisticsLessonsProgressStore } from './statistics-lessons-progress';
+import moment, { Moment } from 'moment';
 
 let rootStore: RootStore;
 
@@ -11,6 +12,7 @@ export class StatisticsListStore {
 
   @observable list: { [key: string]: StatisticsLessonsProgressStore[] } = {};
   @observable months: string[] = [];
+  @observable selected_day: Moment = moment();
 
   constructor(initialData: StatisticsListStore | null, root: RootStore) {
     makeObservable(this);
@@ -20,6 +22,11 @@ export class StatisticsListStore {
     if (initialData) {
       this.fillingStore(initialData);
     }
+  }
+
+  @action.bound
+  setSelectedDay(date: string){
+    this.selected_day = moment(date);
   }
 
   @action.bound
@@ -74,9 +81,10 @@ export class StatisticsListStore {
     return courses;
   }
 
+
   @action
   fillingStore(data: StatisticsListStore) {
-    const { list, months } = data;
+    const { list, months, selected_day } = data;
 
     Object.keys(list).forEach((course_id) => {
       this.list[course_id] = (list[course_id] || []).map((statisticLessonsProgressStore) => {
@@ -85,6 +93,7 @@ export class StatisticsListStore {
     });
 
     this.months = months || [];
+    this.selected_day = moment(selected_day);
 
   }
 

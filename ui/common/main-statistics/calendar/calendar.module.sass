@@ -38,8 +38,18 @@
         @include fontMontserrat(14px)
         color: $gray50
         border-bottom: 0.3px solid $gray20
+        user-select: none
 
       tr
         &:last-child
           td
             border: 0
+
+  &__day
+    position: relative
+
+    &:not(:empty) + &_isLearning
+      position: relative
+      background: $red50
+      color: $white !important
+      cursor: pointer

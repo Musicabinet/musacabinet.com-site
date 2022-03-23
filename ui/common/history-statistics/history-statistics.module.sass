@@ -1,0 +1,53 @@
+@import "../../../stylesheets/index"
+
+.history-statistics
+  position: relative
+  background: #FFFFFF
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25)
+  border-radius: 10px
+  padding: 20px 40px 70px
+
+  &__btn-back
+    position: absolute
+    width: 43px
+    height: 27px
+    border: 0
+    padding: 0
+    margin: 0
+    left: 20px
+    top: 15px
+    background: transparent
+    cursor: pointer
+    z-index: 100
+
+    svg
+      path
+        stroke: $red50
+
+  &__header
+    position: relative
+    padding: 0 0 0 42px
+    margin-bottom: 30px
+
+  &__title
+    color: $gray50
+    @include fontMontserrat(18px, 700)
+    line-height: 27px
+
+  &__current-date
+    @include fontMontserrat(14px)
+    line-height: 1px
+    color: $gray50
+    border-bottom: 1px solid #000
+    margin: 10px 0 20px
+
+    span
+      background: $white
+      padding-right: 20px
+
+  &__notify
+    @include fontMontserrat(20px, 800)
+    margin: 50px 0
+    text-align: center
+
+
