@@ -5,7 +5,8 @@ import style from './scores.module.sass';
 import { LessonStore, PlayerStore, RootStore, SystemStore } from '../../../../stores';
 import { AccompanimentI, ScoreI } from '../../../../interfaces';
 import { MODALS, SCORE_TYPE, SERVICE_NAME } from '../../../../constants';
-import { Pagination } from './pagination/pagination';
+import { Pagination } from '../../../common/pagination/pagination';
+
 
 const b = block(style);
 
@@ -91,7 +92,7 @@ export class Scores extends React.Component<ScoresProps, ScoresState> {
     }
   };
 
-  handleOnChange = (clickEvent: {
+  /*handleOnChange = (clickEvent: {
     index: number | null;
     selected: number;
     nextSelectedPage: number | undefined;
@@ -101,25 +102,21 @@ export class Scores extends React.Component<ScoresProps, ScoresState> {
     isBreak: boolean;
     isActive: boolean;
   }) => {
-    //const { lessonStore } = this.props;
-    console.log('clickEvent', clickEvent.index);
-    //lessonStore.setCurrentScore(clickEvent.index);
-    //this.handleSetFirstTrack();
-  };
+  };*/
 
   render() {
-    const { currentContentScore, service_name, systemStore } = this.props;
-    const isShowHead = systemStore.service_name === SERVICE_NAME.SCHOOL || (systemStore.instrument_name != 'Guitar' && systemStore.service_name === SERVICE_NAME.COLLEGE);
+    const { currentContentScore, service_name } = this.props;
+    //const isShowHead = systemStore.service_name === SERVICE_NAME.SCHOOL || (systemStore.instrument_name != 'Guitar' && systemStore.service_name === SERVICE_NAME.COLLEGE);
 
 
     return (
       <div className={b(null)}>
 
-        {isShowHead && (
-          <div className={b('head')}></div>
-        )}
 
-        <Pagination />
+        <div className={b('head')}>
+          <Pagination/>
+        </div>
+
         {currentContentScore && (
           <>
             <div className={b('header')}>

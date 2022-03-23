@@ -18,6 +18,9 @@
     #{$root}__progress
       stroke: $school
 
+    #{$root}__circle
+      stroke: rgba($school, 0.25)
+
   &_college
     position: relative
 
@@ -29,6 +32,9 @@
 
     #{$root}__progress
       stroke: $college
+
+    #{$root}__circle
+      stroke: rgba($college, 0.25)
 
   &_university
     position: relative
@@ -42,36 +48,39 @@
     #{$root}__progress
       stroke: $university
 
+    #{$root}__circle
+      background: rgba($university, 0.25)
+
 
   &_25
-    position: relative
-
-    #{$root}__background
-      stroke-dasharray: 47px 113px
-
-    #{$root}__turn
-      transform: rotate(60deg)
-      stroke-dasharray: 9px 113px
-
-  &_35
     position: relative
 
     #{$root}__background
       stroke-dasharray: 65.9px 113px
 
     #{$root}__turn
-      transform: rotate(121deg)
-      stroke-dasharray: 18.8px 113px
+      transform: rotate(56deg)
+      stroke-dasharray: 15.8px 155px
+
+  &_35
+    position: relative
+
+    #{$root}__background
+      stroke-dasharray: 100px 113px
+
+    #{$root}__turn
+      transform: rotate(131deg)
+      stroke-dasharray: 22.8px 155px
 
   &_45
     position: relative
 
     #{$root}__background
-      stroke-dasharray: 85px 113px
+      stroke-dasharray: 123px 288px
 
     #{$root}__turn
-      transform: rotate(180deg)
-      stroke-dasharray: 29px 113px
+      transform: rotate(179deg)
+      stroke-dasharray: 42px 155px
 
   &__body
     fill: $white
@@ -93,6 +102,7 @@
     transition: stroke-dasharray 0.3s
 
   &__progress
+    position: relative
     transform: rotate(-90deg)
     transform-origin: center
     stroke-dasharray: 0 236px
@@ -102,9 +112,10 @@
 
   &__time
     position: absolute
+    z-index: 1000
     left: 50%
     top: 50%
-    transform: translate(-50%, -34%)
+    transform: translate(-50%, -52%)
     @include fontMontserrat(18px)
     line-height: 25px
     color: $gray50
@@ -129,4 +140,15 @@
     width: 13px
     height: 2px
     transform: rotate(35deg)
+
+  &__circle
+    width: 16px
+    height: 16px
+    position: absolute
+    z-index: 100
+    left: 50%
+    top: 56px
+    border-radius: 50%
+    transform: translateX(-50%)
+
 

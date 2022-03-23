@@ -82,7 +82,7 @@ export class Timer extends React.Component<TimerProps, TimerState> {
 
         setTimeout(() => {
           if (this.svgProgress.current) {
-            this.svgProgress.current.style.strokeDasharray = `${0}px 239px`;
+            this.svgProgress.current.style.strokeDasharray = `${0}px 288px`;
             setTimeout(() => {
               this.timer = 0;
               setTimeout(() => {
@@ -105,7 +105,6 @@ export class Timer extends React.Component<TimerProps, TimerState> {
         const updatePercent = +((this.timer * fillValue) / value).toFixed(2);
 
 
-
         if (fillValue <= updatePercent && !nextModuleStore.isShow && uuid !== nextModuleStore.uuid) {
           nextModuleStore.setUUID(uuid);
           nextModuleStore.setSecond();
@@ -116,7 +115,7 @@ export class Timer extends React.Component<TimerProps, TimerState> {
 
         } else {
           if (this.svgProgress.current && this.svgProgress.current.style) {
-            this.svgProgress.current.style.strokeDasharray = `${updatePercent}px 239px`;
+            this.svgProgress.current.style.strokeDasharray = `${updatePercent}px 288px`;
             this.startTimer();
           }
         }
@@ -127,7 +126,7 @@ export class Timer extends React.Component<TimerProps, TimerState> {
   handleOnChangeTime = () => {
     if (this.svgProgress.current) {
       // Очищаем прогресс
-      this.svgProgress.current.style.strokeDasharray = `${0}px 239px`;
+      this.svgProgress.current.style.strokeDasharray = `${0}px 288px`;
       // Таймер обнуляем
       this.timer = 0;
       // Устанавливаем новый таймер
@@ -151,26 +150,28 @@ export class Timer extends React.Component<TimerProps, TimerState> {
           <div className={b('arrow-vertical')} />
           <div className={b('arrow')} />
           <div className={b('time')}>{currentTime}m</div>
-          <svg width={84}
-               height={84}>
-            <circle cx={42}
-                    cy={42}
+          <div className={b('circle')} />
+          <svg width={96}
+               height={108}
+               style={{ position: 'relative', top: '-4px' }}>
+            <circle cx={48}
+                    cy={54}
                     strokeWidth={4}
-                    r={84 / 2}
+                    r={96 / 2}
                     className={b('body')} />
-            <circle cx={42}
-                    cy={42}
-                    r={38}
+            <circle cx={48}
+                    cy={54}
+                    r={46}
                     ref={this.svgProgress}
                     className={b('progress')} />
-            <circle cx={42}
-                    cy={42}
-                    r={18}
+            <circle cx={48}
+                    cy={54}
+                    r={26}
                     ref={this.svgCircleBackground}
                     className={b('background')} />
-            <circle cx={42}
-                    cy={42}
-                    r={18}
+            <circle cx={48}
+                    cy={54}
+                    r={26}
                     className={b('turn')} />
           </svg>
         </div>
