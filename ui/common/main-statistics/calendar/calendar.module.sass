@@ -1,0 +1,45 @@
+@import "../../../../stylesheets/index"
+
+.calendar
+  position: relative
+  flex: 1
+  margin-right: 20px
+
+  &_last
+    margin-right: 0
+
+  table
+    width: 100%
+
+    caption
+      @include fontMontserrat(14px)
+      color: $gray50
+      height: 40px
+      caption-side: top
+      padding: 10px 0 0
+
+    thead
+      th
+        @include fontMontserrat(10px)
+        line-height: 12px
+        width: 30px
+        height: 20px
+        text-align: center
+        vertical-align: middle
+        border-bottom: 0.3px solid $gray20
+
+    tbody
+      td
+        width: 30px
+        height: 20px
+        padding: 2.5px 0
+        text-align: center
+        vertical-align: middle
+        @include fontMontserrat(14px)
+        color: $gray50
+        border-bottom: 0.3px solid $gray20
+
+      tr
+        &:last-child
+          td
+            border: 0

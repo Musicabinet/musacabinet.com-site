@@ -2,26 +2,31 @@ import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import block from 'bem-css-modules';
 import style from './main-statistics.module.sass';
-import moment, { Moment } from 'moment';
-import { Block } from './block/block';
+import { Moment } from 'moment';
 import { RootStore } from '../../../stores';
 import { StatisticsListStore } from '../../../stores/statistics-list';
+import { Calendar } from './calendar/calendar';
+import { YourStatisticsStore } from '../../../stores/your-statistics';
+import { getIcon, LIST_ICON } from '../icons';
 
 const b = block(style);
 
 type MainStatisticsProps = {
-  statisticsListStore: StatisticsListStore
+  statisticsListStore: StatisticsListStore;
+  yourStatisticsStore: YourStatisticsStore;
 };
 type MainStatisticsState = {};
 
 @inject((store: RootStore) => ({
-  statisticsListStore: store.statisticsListStore
+  statisticsListStore: store.statisticsListStore,
+  yourStatisticsStore: store.yourStatisticsStore
 }))
 @observer
 export class MainStatistics extends React.Component<MainStatisticsProps, MainStatisticsState> {
 
   static defaultProps = {
-    statisticsListStore: {}
+    statisticsListStore: {},
+    yourStatisticsStore: {}
   };
 
   async componentDidMount() {
@@ -38,7 +43,7 @@ export class MainStatistics extends React.Component<MainStatisticsProps, MainSta
 
     // Создаем пустые дни если начало недели не с понедельника
     if (startDayInWeek != 1) {
-      console.log('startDayInWeek',startDayInWeek);
+      console.log('startDayInWeek', startDayInWeek);
       //completeArr = Array(startDayInWeek - 1).fill(null).map((i) => i);
     }
 
@@ -60,35 +65,27 @@ export class MainStatistics extends React.Component<MainStatisticsProps, MainSta
   };
 
   render() {
+    const { yourStatisticsStore } = this.props;
+    const currentDate = yourStatisticsStore.currentDate.clone();
+
     return (
       <div className={b(null)}>
+        <button className={b('btn', { left: true })}
+                onClick={yourStatisticsStore.previousMonth}>{getIcon(LIST_ICON.ARROW_LEFT, b('arrow'))}</button>
+        <button className={b('btn', { right: true })}
+                onClick={yourStatisticsStore.nextMonth}>{getIcon(LIST_ICON.ARROW_RIGHT, b('arrow'))}</button>
 
         <div className={b('container')}>
-          <div className={b('header')}>Main statistics</div>
-          <div className={b('text')}>Your overall activity</div>
+          <div className={b('header')}>Main statistics <span>/ Your overall activity</span></div>
 
-          <div className='row'>
-            <div className='col-xxl-3 position-relative'>
-              <div className={b('name-week')}>
-                <div>Mon</div>
-                <div>Sun</div>
-                <div>Tue</div>
-                <div>Wed</div>
-                <div>Thu</div>
-                <div>Fri</div>
-                <div>Sat</div>
-              </div>
-              <Block {...this.generate(moment())} />
-            </div>
-            <div className='col-xxl-3'>
-              <Block {...this.generate(moment().add(1, 'month'))} />
-            </div>
-            <div className='col-xxl-3'>
-              <Block {...this.generate(moment().add(2, 'month'))} />
-            </div>
-            <div className='col-xxl-3'>
-              <Block {...this.generate(moment().add(3, 'month'))} />
-            </div>
+          <div className={b('body')}>
+            <Calendar month={currentDate.month()}
+                      year={currentDate.format('YY')} />
+            <Calendar month={currentDate.add(1, 'month').month()}
+                      year={currentDate.format('YY')} />
+            <Calendar month={currentDate.add(1, 'month').month()}
+                      year={currentDate.format('YY')} last />
+
           </div>
 
         </div>

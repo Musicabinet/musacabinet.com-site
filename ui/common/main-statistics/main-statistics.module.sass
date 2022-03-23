@@ -4,7 +4,7 @@
   position: relative
 
   &__container
-    padding: 20px 35px 35px 80px
+    padding: 20px 35px 35px 40px
     background: $white
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25)
     border-radius: 10px
@@ -13,24 +13,45 @@
   &__header
     @include fontMontserrat(18px, 800)
     line-height: 30px
-    margin-bottom: 10px
+    margin-bottom: 20px
+    margin-left: 40px
 
-  &__text
-    @include fontMontserrat(14px, 300)
-    line-height: 17px
-    margin-bottom: 10px
+    span
+      font-weight: 300
 
-  &__name-week
-    position: absolute
+  &__body
     display: flex
-    flex-direction: column
-    @include fontMontserrat(12px)
-    line-height: 15px
-    color: $gray50
-    left: -25px
-    top: 40px
+    justify-content: space-between
 
-    div
-      margin-bottom: 5px
+  &__btn
+    position: absolute
+    background: $red50
+    top: 70px
+    left: 0
+    width: 30px
+    height: 40px
+    border: 0
+    cursor: pointer
+    transition: all 0.2s
+    display: flex
+    align-items: center
+    justify-content: center
+    padding: 0
+    margin: 0
 
+    &_left
+      border-radius: 0 10px 10px 0
+      padding-right: 6px
+
+    &_right
+      right: 0
+      left: auto
+      border-radius: 10px 0 0 10px
+      padding-left: 6px
+
+    &:active
+      transform: scale(0.96)
+
+  &__arrow
+    display: flex
 
