@@ -19,6 +19,11 @@ type PaginationState = {};
 @observer
 export class Pagination extends React.Component<PaginationProps, PaginationState> {
 
+  static defaultProps = {
+    lessonStore: {},
+    systemStore: {}
+  }
+
   handleOnClick = (score_number: number) => {
     const { lessonStore } = this.props;
     lessonStore.setCurrentScore(score_number);
