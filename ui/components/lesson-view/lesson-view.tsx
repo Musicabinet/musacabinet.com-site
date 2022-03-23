@@ -5,7 +5,7 @@ import style from './lesson-view.module.sass';
 import { Header } from './header/header';
 import { Scores } from './scores/scores';
 import { Method } from './method/method';
-import { RootStore } from '../../../stores';
+import { LessonStore, RootStore } from '../../../stores';
 import { SERVICE_NAME } from '../../../constants';
 import { Charts } from './charts/charts';
 import { LocalStorage } from '../../../core';
@@ -19,6 +19,7 @@ type LessonViewProps = {
   uuid: '';
   onReset: () => void;
   mapStore: MapStore;
+  lessonStore: LessonStore;
 };
 type LessonViewState = {};
 
@@ -27,7 +28,8 @@ type LessonViewState = {};
   instrument_name: store.systemStore.instrument_name,
   uuid: store.lessonStore.uuid,
   onReset: store.lessonStore.reset,
-  mapStore: store.mapStore
+  mapStore: store.mapStore,
+  lessonStore: store.lessonStore
 }))
 @observer
 export class LessonView extends React.Component<LessonViewProps, LessonViewState> {
@@ -36,7 +38,8 @@ export class LessonView extends React.Component<LessonViewProps, LessonViewState
     instrument_name: '',
     uuid: '',
     onReset: () => console.log('Not set handler'),
-    mapStore: {}
+    mapStore: {},
+    lessonStore: {}
   };
 
   componentWillUnmount() {
@@ -54,11 +57,13 @@ export class LessonView extends React.Component<LessonViewProps, LessonViewState
   }
 
   async componentDidUpdate(prevProps: Readonly<LessonViewProps>) {
-    const { mapStore } = this.props;
+    const { mapStore, lessonStore } = this.props;
 
     if (prevProps.uuid !== this.props.uuid) {
       LocalStorage.set('lesson_id_q', this.props.uuid);
       await mapStore.getList();
+      // Сброс выбранной страницы
+      lessonStore.resetCurrentScore();
     }
   }
 

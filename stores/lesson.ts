@@ -212,6 +212,11 @@ export class LessonStore implements LessonI {
     }
   }
 
+  @action.bound
+  resetCurrentScore(){
+    this.currentScore = 0;
+  }
+
   @computed
   get showPreviewScorePath() {
     const currentScoreImage = this.scoresImages[this.currentPreviewScoreIndex];
