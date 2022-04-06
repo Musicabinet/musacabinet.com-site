@@ -26,6 +26,7 @@ export class Item extends React.Component<ItemProps, ItemState> {
 
     return (
       <div onClick={this.handleOnLink} className={b('item', { active })}>
+        <div className={b('number')}>{name.replace('Lesson', '')}</div>
         {name}
       </div>
     );

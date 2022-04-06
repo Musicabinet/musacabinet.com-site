@@ -22,6 +22,8 @@
     display: block
 
   &__item
+    display: flex
+    align-items: center
     padding: 10px 20px
     @include fontMontserrat(14px, 300)
     color: $gray50
@@ -34,3 +36,14 @@
     &_active
       background: $gray50
       color: $white
+
+  &__number
+    width: 30px
+    height: 30px
+    display: flex
+    align-items: center
+    justify-content: center
+    border: 1px solid $gray70
+    border-radius: 50%
+    margin-right: 15px
+
