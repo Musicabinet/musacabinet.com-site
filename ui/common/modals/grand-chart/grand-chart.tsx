@@ -31,7 +31,7 @@ export class GrandChartModal extends React.Component<GrandChartModalProps, Grand
     const { is_show } = this.props;
     return (
       <Modal isOpen={is_show} size={'large'} onClose={this.handleOnClose}>
-        <GrandChart />
+       <GrandChart />
       </Modal>
     );
   }

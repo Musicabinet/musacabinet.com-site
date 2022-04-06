@@ -25,6 +25,7 @@ import { StatisticsListStore } from './statistics-list';
 import { MapStore } from './map';
 import { GrandChartFlatStore } from './grand-chart-flat.store';
 import { YourStatisticsStore } from './your-statistics';
+import { GeoPluginStore } from './geo-plugin.store';
 
 const isServer = typeof window === 'undefined';
 enableStaticRendering(isServer);
@@ -58,6 +59,7 @@ export class RootStore {
   public statisticsListStore: StatisticsListStore;
   public mapStore: MapStore;
   public yourStatisticsStore: YourStatisticsStore;
+  public geoPluginStore: GeoPluginStore;
 
   constructor(iData: RootStore | null) {
     this.notificationsStore = new NotificationsStore(iData && iData.notificationsStore ? iData.notificationsStore : null);
@@ -83,6 +85,7 @@ export class RootStore {
     this.statisticsListStore = new StatisticsListStore(iData ? iData.statisticsListStore : null, this);
     this.mapStore = new MapStore(iData ? iData.mapStore : null, this);
     this.yourStatisticsStore = new YourStatisticsStore(null);
+    this.geoPluginStore = new GeoPluginStore(iData ? iData.geoPluginStore : null);
   }
 }
 

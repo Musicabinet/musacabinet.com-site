@@ -50,6 +50,15 @@ export class GroupLessonItem extends React.Component<GroupLessonItemProps, Group
     grandChartStore.setGroupLessonId(groupLesson.id);
     grandChartStore.setShowGroupLessonDetail(true);
 
+    // Находим текущий гранд чарт
+    const findGrandChart = document.querySelector('[data-grand-chart-show=\'true\']');
+
+    if (findGrandChart) {
+      findGrandChart.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    }
   };
 
   getPercent(): number {

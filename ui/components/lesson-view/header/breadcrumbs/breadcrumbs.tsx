@@ -84,17 +84,20 @@ export class BreadCrumbs extends React.Component<BreadCrumbsProps, BreadCrumbsSt
           [service_name]: true
         })}
       >
-        {breadcrumbs.map((breadcrumb, index) => {
-          return (
-            <BreadcrumbsItem
-              key={`${breadcrumb.name}_${breadcrumb.type}`}
-              current={index + 1}
-              total={breadcrumbs.length}
-              name={`${breadcrumb.name}`}
-              type={`${breadcrumb.type} ${this.getNumberType(breadcrumb.name)}`}
-            />
-          );
-        })}
+        <div className={b('container')}>
+          {breadcrumbs.map((breadcrumb, index) => {
+            return (
+              <BreadcrumbsItem
+                key={`${breadcrumb.name}_${breadcrumb.type}`}
+                current={index + 1}
+                total={breadcrumbs.length}
+                name={`${breadcrumb.name}`}
+                type={`${breadcrumb.type} ${this.getNumberType(breadcrumb.name)}`}
+              />
+            );
+          })}
+        </div>
+
       </div>
     );
   }

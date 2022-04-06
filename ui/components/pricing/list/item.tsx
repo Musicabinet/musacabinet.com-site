@@ -11,6 +11,7 @@ import { ProductStore } from '../../../../stores/product';
 import { InstrumentIcon } from '../../../common';
 import { getIcon, LIST_ICON } from '../../../common/icons';
 import { MODALS } from '../../../../constants';
+import { GeoPluginStore } from '../../../../stores/geo-plugin.store';
 
 const b = block(style);
 
@@ -19,7 +20,8 @@ type ItemProps = {
   authStore: AuthStore,
   modalsStore: ModalsStore,
   userStore: UserStore,
-  purchasesStore: PurchasesStore
+  purchasesStore: PurchasesStore,
+  geoPluginStore: GeoPluginStore
 };
 type ItemState = {};
 
@@ -27,7 +29,8 @@ type ItemState = {};
   authStore: store.authStore,
   modalsStore: store.modalsStore,
   userStore: store.userStore,
-  purchasesStore: store.purchasesStore
+  purchasesStore: store.purchasesStore,
+  geoPluginStore: store.geoPluginStore
 }))
 @observer
 export class Item extends React.Component<ItemProps, ItemState> {
@@ -36,11 +39,12 @@ export class Item extends React.Component<ItemProps, ItemState> {
     authStore: {},
     modalsStore: {},
     userStore: {},
-    purchasesStore: {}
+    purchasesStore: {},
+    geoPluginStore: {}
   };
 
   handleOrder = async () => {
-    const { product, authStore, modalsStore, userStore, purchasesStore } = this.props;
+    const { product, authStore, modalsStore, userStore, purchasesStore, geoPluginStore } = this.props;
 
     // Если не доступен для продаже то отменяем клик
     if (!product.for_sale) {
@@ -94,8 +98,8 @@ export class Item extends React.Component<ItemProps, ItemState> {
         {
           publicId: CLOUD_PAYMENTS_PUBLIC_ID,
           description: 'Pay order musicabinet.com',
-          amount: product.sale_price,
-          currency: 'USD',
+          amount: (geoPluginStore.isRussia) ? product.sale_price * geoPluginStore.geoplugin_currencyConverter : product.sale_price,
+          currency: (geoPluginStore.isRussia) ? 'RUB' : 'USD',
           accountId: userStore.email,
           skin: 'mini',
           data: data,

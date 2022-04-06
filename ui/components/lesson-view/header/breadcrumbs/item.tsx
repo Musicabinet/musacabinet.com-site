@@ -20,7 +20,7 @@ export class BreadcrumbsItem extends React.Component<BreadcrumbsItemProps & Brea
     const { type, name, current, total } = this.props;
 
     return (
-      <div className={b('item')}>
+      <span className={b('item')}>
         {current === 1 ? <span className={b('first')}>/</span> : null}
         {current < total ? (
           <span>
@@ -30,7 +30,7 @@ export class BreadcrumbsItem extends React.Component<BreadcrumbsItemProps & Brea
           <span className={b('color')}>{name}</span>
         )}
         {current < total ? '\u00A0 / \u00A0' : null}
-      </div>
+      </span>
     );
   }
 }

@@ -17,6 +17,7 @@ type GrandChartFlatProps = {
   modal_name: MODALS_GRAND_CHART;
   service_id: number;
   instrument_id: number;
+  show: boolean;
 };
 type GrandChartFlatState = {};
 
@@ -30,7 +31,8 @@ export class GrandChartFlat extends React.Component<GrandChartFlatProps, GrandCh
   public grandChartStore = new GrandChartFlatStore(null, this.props.store);
 
   static defaultProps = {
-    store: {}
+    store: {},
+    show: false
   };
 
   async componentDidMount() {
@@ -74,14 +76,16 @@ export class GrandChartFlat extends React.Component<GrandChartFlatProps, GrandCh
   };
 
   render() {
-    const { service_id, instrument_id, store, modal_name } = this.props;
+    const { service_id, instrument_id, store, modal_name, show } = this.props;
     const serviceName = SERVICE_MAPPING[service_id as SERVICE_ID];
 
     return (
       <>
-        <div className={b('container', {
-          show: store.modalsStore.list[modal_name]
-        })}>
+        <div data-grand-chart-show={store.modalsStore.list[modal_name]}
+             className={b('container', {
+               show: store.modalsStore.list[modal_name] ?? show,
+               isPage: show
+             })}>
           <div className={b(null)}
                ref={this.containerModalRef}>
             <Header serviceName={serviceName}

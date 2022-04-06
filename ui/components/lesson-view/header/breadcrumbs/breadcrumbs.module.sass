@@ -11,8 +11,12 @@
   color: $white
 
   @include breakpoint-phone
-    display: inline-block
-    white-space: nowrap
+    //display: inline-block
+    //white-space: nowrap
+
+  &__container
+    position: relative
+    height: 25px
 
 
   &_school
@@ -54,17 +58,7 @@
     position: relative
     text-transform: uppercase
 
-    @include breakpoint-phone
-      display: inline-block
-
-      &:nth-child(n+4)
-        display: none
-
-    @include breakpoint-phone-vertical
-      &:nth-child(n+3)
-        display: none
-
   &__first
-    display: inline-flex
+    //display: inline-flex
     margin-right: 5px
 

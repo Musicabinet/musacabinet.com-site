@@ -1,6 +1,7 @@
 @import "../../../stylesheets/index"
 
 .grand-chart-flat
+  $root: &
   position: relative
   z-index: 1000
   background: $silver
@@ -21,6 +22,11 @@
     z-index: 10000
     overflow: auto
     padding: 50px 0 0
+
+    &_isPage
+      position: relative
+      z-index: auto
+      visibility: visible
 
     &_show
       visibility: visible
@@ -44,3 +50,4 @@
     display: grid
     grid-template-columns: 170px 1fr
     margin-bottom: 5px
+
