@@ -16,7 +16,8 @@ type VolumeControlProps = {
   min: number;
   max: number;
   step: number;
-  defaultValue: number;
+  defaultValue?: number;
+  value?: number;
   isNegative: boolean;
   onChange: (name: string, value: number, e?: React.FormEvent<HTMLInputElement>) => void;
 };
@@ -48,9 +49,15 @@ export class VolumeControl extends React.Component<VolumeControlProps, VolumeCon
   };
 
   componentDidMount() {
-    const { defaultValue } = this.props;
+    const { defaultValue, value } = this.props;
 
-    this.drawProgress(defaultValue);
+    if(defaultValue){
+      this.drawProgress(defaultValue);
+    }
+
+    if(value){
+      this.drawProgress(value);
+    }
 
 
     document.addEventListener('click', this.handleClickOutside);
@@ -64,7 +71,7 @@ export class VolumeControl extends React.Component<VolumeControlProps, VolumeCon
   }
 
   componentDidUpdate(prevProps: Readonly<VolumeControlProps>) {
-    if(prevProps.defaultValue !== this.props.defaultValue){
+    if (prevProps.defaultValue !== this.props.defaultValue && this.props.defaultValue) {
       this.drawProgress(this.props.defaultValue);
     }
   }
@@ -112,7 +119,9 @@ export class VolumeControl extends React.Component<VolumeControlProps, VolumeCon
   };
 
   render() {
-    const { service_name, name, max, min, step, defaultValue, circle } = this.props;
+    const { service_name, name, max, min, step, defaultValue, circle, value } = this.props;
+
+    console.log('value', value);
 
     return (
       <div
@@ -122,17 +131,32 @@ export class VolumeControl extends React.Component<VolumeControlProps, VolumeCon
         })}
       >
         <div className={b('wrapper')}>
-          <input type='range'
-                 name={name}
-                 max={max}
-                 min={min}
-                 step={step}
-                 defaultValue={defaultValue}
-                 aria-orientation='vertical'
-                 ref={this.inputRangeRef}
-                 className={b('range', { circle })}
-                 onChange={this.handlerOnChange}
-          />
+          {value ? (
+            <input type='range'
+                   name={name}
+                   max={max}
+                   min={min}
+                   step={step}
+                   value={value}
+                   aria-orientation='vertical'
+                   ref={this.inputRangeRef}
+                   className={b('range', { circle })}
+                   onChange={this.handlerOnChange}
+            />
+          ) : (
+            <input type='range'
+                   name={name}
+                   max={max}
+                   min={min}
+                   step={step}
+                   defaultValue={defaultValue}
+                   aria-orientation='vertical'
+                   ref={this.inputRangeRef}
+                   className={b('range', { circle })}
+                   onChange={this.handlerOnChange} />
+          )}
+
+
           <div ref={this.progressRef}
                className={b('progress')} />
         </div>

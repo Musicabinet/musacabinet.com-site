@@ -1,6 +1,6 @@
 import { action, computed, makeObservable, observable } from 'mobx';
 import * as Tone from 'tone';
-import { LibraryTrackType, LibraryType, SPACE_CONTROL, SPACE_CONTROL_CURRENT } from '../constants';
+import { LibraryTrackType, LibraryType, PLAYER_CONST, SPACE_CONTROL, SPACE_CONTROL_CURRENT } from '../constants';
 import { LibraryTrackI } from '../interfaces';
 import { RootStore } from './index';
 
@@ -93,6 +93,9 @@ export class PlayerStore {
       // Записываем тип
       this.library_type = current_library.type;
 
+      // Получаем громкость
+      const currentVolume = localStorage.getItem(PLAYER_CONST.VOLUME);
+
       let promise_list: any[] = [];
 
       if (current_library.tracks.length > 0) {
@@ -105,7 +108,7 @@ export class PlayerStore {
                   url: `${CONTENT_URL}${track.path}`,
                   loop: true,
                   mute: this.getMuteTrack(track),
-                  volume: -50, // -100 0
+                  volume: (currentVolume) ? Number(currentVolume) : -50, // -100 0
                   onload: () => {
                     this.setDurationTime(this.player[0].buffer.duration);
                     resolve(1);
@@ -243,6 +246,9 @@ export class PlayerStore {
 
   @action.bound
   setVolume(value: number) {
+
+    localStorage.setItem(PLAYER_CONST.VOLUME, String(value));
+
     this.player.forEach((player) => {
       player.volume.value = value;
     });
@@ -254,7 +260,7 @@ export class PlayerStore {
   }
 
   @action.bound
-  setShowTracks(show = true){
+  setShowTracks(show = true) {
     this.isShowTracks = show;
   }
 

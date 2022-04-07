@@ -7,7 +7,7 @@ import { Toolbar } from './toolbar/toolbar';
 import { BackTrack } from './back-track/back-track';
 import { PlayButton } from './play-button/play-button';
 import { ProgressLine } from './progress-line/progress-line';
-import { LibraryType, SERVICE_NAME } from '../../../../../constants';
+import { LibraryType, PLAYER_CONST, SERVICE_NAME } from '../../../../../constants';
 import { DividerVertical } from './divider-vertical/divider-vertical';
 import { Switcher } from './switcher/switcher';
 import { VolumeControl } from '../../../../common';
@@ -40,12 +40,27 @@ export class Player extends React.Component<PlayerProps, PlayerState> {
   };
 
   state = {
-    volume: -15
+    volume: -50
   };
 
   componentDidMount() {
     const { playerStore } = this.props;
     playerStore.init();
+
+    // Устанавливаем значение громкости
+    this.setState(() => {
+      const currentVolume = localStorage.getItem(PLAYER_CONST.VOLUME);
+
+      if(currentVolume){
+        playerStore.setVolume(Number(currentVolume));
+      }else{
+        playerStore.setVolume(-50);
+      }
+
+      return {
+        volume: currentVolume ? Number(currentVolume) : -50
+      };
+    });
   }
 
   handleOnChangeVolume = (name: string, value: number) => {
@@ -65,6 +80,7 @@ export class Player extends React.Component<PlayerProps, PlayerState> {
 
   render() {
     const { playerStore, lessonStore, service_name, noMR } = this.props;
+    const { volume } = this.state;
 
     return (
       <div className={b('preview')}>
@@ -106,7 +122,7 @@ export class Player extends React.Component<PlayerProps, PlayerState> {
           </div>
 
           <div className={b('block')}>
-            <VolumeControl defaultValue={-50}
+            <VolumeControl value={volume}
                            min={-100}
                            max={0}
                            name={'volume'}
