@@ -122,10 +122,6 @@ export class Charts extends React.Component<ChartsProps, ChartsState> {
                 }
               })}
             </div>
-
-            <div className={b('copyright')}>
-              &copy; MUSICABINET. All rights reserved.
-            </div>
           </>
         )}
       </div>
