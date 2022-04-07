@@ -99,6 +99,70 @@ input[type=number]
   height: 100%
   object-fit: contain
 
+.rc-pagination
+  display: flex
+  align-items: center
+  user-select: none
+
+  &.university
+    position: relative
+
+    a[data-page-prev], a[data-page-next]
+      svg
+        path
+          stroke: $university
+
+    .rc-pagination-item-active
+      a[data-page-link]
+        background: $university
+        color: $white
+
+    a
+      cursor: pointer
+
+    a[data-page-link]
+      display: inline-flex
+      justify-content: center
+      align-items: center
+      width: 30px
+      height: 30px
+      border: 0
+      margin: 0 10px 0 0
+      padding: 0
+      background: $gray20
+      border-radius: 5px
+      color: $gray50
+      @include fontMontserrat(18px)
+      line-height: 22px
+      cursor: pointer
+      text-decoration: none
+
+    a[data-page-prev], a[data-page-next]
+      display: inline-flex
+      justify-content: center
+      align-items: center
+      width: 30px
+      height: 30px
+      margin-right: 10px
+
+      div
+        display: inline-flex
+        justify-content: center
+        align-items: center
+        width: 30px
+        height: 30px
+
+        svg
+          height: 16px
+
+  .rc-pagination-disabled
+    cursor: not-allowed !important
+    opacity: 0.2
+
+
+
+
+
 
 
 
