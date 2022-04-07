@@ -11,6 +11,7 @@ import { Pagination } from '../../../common/pagination/pagination';
 const b = block(style);
 
 type ScoresProps = {
+  isNotes: boolean;
   systemStore: SystemStore;
   lessonStore: LessonStore;
   playerStore: PlayerStore;
@@ -45,6 +46,7 @@ type ScoresState = {};
 @observer
 export class Scores extends React.Component<ScoresProps, ScoresState> {
   static defaultProps = {
+    isNotes: false,
     systemStore: {},
     lessonStore: {},
     playerStore: {},
@@ -105,7 +107,7 @@ export class Scores extends React.Component<ScoresProps, ScoresState> {
   };*/
 
   render() {
-    const { currentContentScore, service_name } = this.props;
+    const { currentContentScore, service_name, isNotes } = this.props;
     //const isShowHead = systemStore.service_name === SERVICE_NAME.SCHOOL || (systemStore.instrument_name != 'Guitar' && systemStore.service_name === SERVICE_NAME.COLLEGE);
 
 
@@ -113,8 +115,8 @@ export class Scores extends React.Component<ScoresProps, ScoresState> {
       <div className={b(null)}>
 
 
-        <div className={b('head')}>
-          <Pagination/>
+        <div className={b('head', { isNotes })}>
+          <Pagination />
         </div>
 
         {currentContentScore && (

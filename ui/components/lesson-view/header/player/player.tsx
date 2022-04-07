@@ -19,6 +19,7 @@ type PlayerProps = {
   lessonStore: LessonStore;
   service_name: SERVICE_NAME;
   noMR: boolean;
+  isPreview: boolean;
 };
 type PlayerState = {};
 
@@ -34,7 +35,8 @@ export class Player extends React.Component<PlayerProps, PlayerState> {
     lessonStore: {},
     service_name: SERVICE_NAME.SCHOOL,
     init: () => console.log('Not set handler'),
-    noMR: false
+    noMR: false,
+    isPreview: false
   };
 
   state = {
@@ -65,50 +67,53 @@ export class Player extends React.Component<PlayerProps, PlayerState> {
     const { playerStore, lessonStore, service_name, noMR } = this.props;
 
     return (
-      <div className={b(null, { noMR, [service_name]: true })}>
-        <div className={b('loading', { show: playerStore.isFetch })}>
-          Loading track <span>.</span>
-          <span>.</span>
-          <span>.</span>
-        </div>
-        <div className={b('body')}>
-          <Toolbar />
-          <div className={b('container')}>
-            <BackTrack />
-            <PlayButton />
-            <ProgressLine />
+      <div className={b('preview')}>
+        <div className={b(null, { noMR, [service_name]: true })}>
+          <div className={b('loading', { show: playerStore.isFetch })}>
+            Loading track <span>.</span>
+            <span>.</span>
+            <span>.</span>
           </div>
-        </div>
-        <DividerVertical />
+          <div className={b('body')}>
+            <Toolbar />
+            <div className={b('container')}>
+              <BackTrack />
+              <PlayButton />
+              <ProgressLine />
+            </div>
+          </div>
+          <DividerVertical />
 
-        <div className={b('block', {
-          close: playerStore.isShowTracks,
-          switchers: true
-        })}>
-          <Switcher service_name={service_name}
-                    label={'Keyboard'}
-                    checked={playerStore.keysMute}
-                    disabled={playerStore.library_type !== LibraryType.COMPOSITION || lessonStore.accompaniments.length === 0}
-                    onChange={this.handleOnToggle.bind(null, 2)} />
-          <Switcher service_name={service_name}
-                    label={'Bass'}
-                    checked={playerStore.bassMute}
-                    disabled={playerStore.library_type !== LibraryType.COMPOSITION || lessonStore.accompaniments.length === 0}
-                    onChange={this.handleOnToggle.bind(null, 0)} />
-          <Switcher service_name={service_name}
-                    label={'Drums'}
-                    checked={playerStore.drumsMute}
-                    disabled={playerStore.library_type !== LibraryType.COMPOSITION || lessonStore.accompaniments.length === 0}
-                    onChange={this.handleOnToggle.bind(null, 1)} />
-        </div>
+          <div className={b('block', {
+            close: playerStore.isShowTracks,
+            switchers: true
+          })}>
+            <Switcher service_name={service_name}
+                      label={'Keyboard'}
+                      checked={playerStore.keysMute}
+                      disabled={playerStore.library_type !== LibraryType.COMPOSITION || lessonStore.accompaniments.length === 0}
+                      onChange={this.handleOnToggle.bind(null, 2)} />
+            <Switcher service_name={service_name}
+                      label={'Bass'}
+                      checked={playerStore.bassMute}
+                      disabled={playerStore.library_type !== LibraryType.COMPOSITION || lessonStore.accompaniments.length === 0}
+                      onChange={this.handleOnToggle.bind(null, 0)} />
+            <Switcher service_name={service_name}
+                      label={'Drums'}
+                      checked={playerStore.drumsMute}
+                      disabled={playerStore.library_type !== LibraryType.COMPOSITION || lessonStore.accompaniments.length === 0}
+                      onChange={this.handleOnToggle.bind(null, 1)} />
+          </div>
 
-        <div className={b('block')}>
-          <VolumeControl defaultValue={-50}
-                         min={-100}
-                         max={0}
-                         name={'volume'}
-                         isNegative
-                         onChange={this.handleOnChangeVolume} />
+          <div className={b('block')}>
+            <VolumeControl defaultValue={-50}
+                           min={-100}
+                           max={0}
+                           name={'volume'}
+                           isNegative
+                           onChange={this.handleOnChangeVolume} />
+          </div>
+
         </div>
 
       </div>

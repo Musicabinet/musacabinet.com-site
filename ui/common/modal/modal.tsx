@@ -10,6 +10,7 @@ type ModalProps = {
   onClose: () => void;
   size: 'middle' | 'large' | 'small';
   auto: boolean;
+  isFull: boolean;
 };
 type ModalState = {};
 
@@ -19,7 +20,8 @@ export class Modal extends React.Component<ModalProps, ModalState> {
   static defaultProps = {
     isOpen: false,
     size: 'middle',
-    auto: false
+    auto: false,
+    isFull: false
   };
 
   componentDidMount() {
@@ -40,7 +42,7 @@ export class Modal extends React.Component<ModalProps, ModalState> {
   };
 
   render() {
-    const { isOpen, children, size, auto, onClose } = this.props;
+    const { isOpen, children, size, auto, onClose, isFull } = this.props;
 
     if (!isOpen) {
       return null;
@@ -49,7 +51,7 @@ export class Modal extends React.Component<ModalProps, ModalState> {
     return (
       <Portal>
         <div className={b('overlay')} />
-        <div ref={this.modalRef} className={b(null, { [size]: true, auto })}>
+        <div ref={this.modalRef} className={b(null, { [size]: true, auto, isFull })}>
           <button className={b('close')} onClick={onClose} />
           <div className={b('container')}>{children}</div>
         </div>

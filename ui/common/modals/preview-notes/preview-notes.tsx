@@ -98,9 +98,13 @@ export class PreviewNotes extends React.Component<PreviewNotesProps, PreviewNote
     } = this.props;
 
     return (
-      <Modal size={'large'} auto isOpen={show} onClose={this.handleOnClose}>
+      <Modal size={'large'}
+             auto
+             isFull
+             isOpen={show}
+             onClose={this.handleOnClose}>
         <div className={b(null, { [service_name]: true })}>
-          <Player noMR />
+          <Player noMR isPreview />
 
           <div className={b('arrows')}>
             <button

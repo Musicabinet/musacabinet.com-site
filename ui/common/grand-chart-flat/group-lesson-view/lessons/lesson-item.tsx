@@ -51,21 +51,25 @@ export class LessonItem extends React.Component<LessonItemProps, LessonItemState
   componentDidUpdate(prevProps: Readonly<LessonItemProps>) {
     if (Object.keys(prevProps.mapProgressLesson).length !== Object.keys(this.props.mapProgressLesson).length) {
       const { mapProgressLesson, lesson } = this.props;
-      const { total, progress } = mapProgressLesson[lesson.uuid];
 
-      let percent = 0;
-      if (progress >= total) {
-        percent = 100;
-      } else {
-        percent = Math.round((progress * 100) / total);
+      if(mapProgressLesson[lesson.uuid]){
+        const { total, progress } = mapProgressLesson[lesson.uuid];
+
+        let percent = 0;
+        if (progress >= total) {
+          percent = 100;
+        } else {
+          percent = Math.round((progress * 100) / total);
+        }
+
+        // Вычисляем на сколько зарисовать кружок
+        const fill = Math.round((113 * percent) / 100);
+
+        if (this.circle && this.circle.current) {
+          this.circle.current.style.strokeDasharray = `${fill} 113`;
+        }
       }
 
-      // Вычисляем на сколько зарисовать кружок
-      const fill = Math.round((113 * percent) / 100);
-
-      if (this.circle && this.circle.current) {
-        this.circle.current.style.strokeDasharray = `${fill} 113`;
-      }
     }
   }
 

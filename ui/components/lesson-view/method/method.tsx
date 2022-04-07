@@ -152,7 +152,7 @@ export class Method extends React.Component<MethodProps, MethodState> {
           </>
         )}
 
-        {isNotes && <Scores />}
+        {isNotes && <Scores isNotes={isNotes} />}
       </>
     );
   }
