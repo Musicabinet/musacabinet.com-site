@@ -1,5 +1,5 @@
 import { action, computed, makeObservable, observable } from 'mobx';
-import { BreadcrumbsI, LessonI, LessonListI, ScoreI } from '../interfaces';
+import { BreadcrumbsI, LessonI, ScoreI } from '../interfaces';
 import { API } from '../core';
 import { GroupLessonStore } from './group-lesson';
 import { ScoreStore } from './score';
@@ -9,6 +9,7 @@ import { ScoreItemStore } from './score-item';
 import { ChartItemI } from '../interfaces/chart';
 import { ChartStore } from './chart';
 import { RootStore } from './index';
+import { LessonListItemStore } from './lesson-list-item.store';
 
 let rootStore: RootStore;
 
@@ -33,7 +34,7 @@ export class LessonStore implements LessonI {
   @observable accompaniments: AccompanimentStore[] = [];
   @observable breadcrumbs: BreadcrumbsI[] = [];
   @observable progress_second = 0;
-  @observable lesson_list: LessonListI[] = [];
+  @observable lesson_list: LessonListItemStore[] = [];
   @observable color = '';
 
   @observable prevModuleLesson: null | string = null;
@@ -213,7 +214,7 @@ export class LessonStore implements LessonI {
   }
 
   @action.bound
-  resetCurrentScore(){
+  resetCurrentScore() {
     this.currentScore = 0;
   }
 
@@ -478,7 +479,7 @@ export class LessonStore implements LessonI {
     this.charts = (charts || []).map((chart) => new ChartStore(chart));
     this.accompaniments = (accompaniments || []).map((accompaniment) => new AccompanimentStore(accompaniment));
     this.breadcrumbs = breadcrumbs ? [...breadcrumbs] : [];
-    this.lesson_list = lesson_list || [];
+    this.lesson_list = (lesson_list || []).map((lesson_list_item) => new LessonListItemStore(lesson_list_item));
     this.progress_second = progress_second;
     this.color = color;
 

@@ -2,30 +2,27 @@ import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import block from 'bem-css-modules';
 import style from './list.module.sass';
-import { RootStore } from '../../../../../../stores';
+import { LessonStore, RootStore } from '../../../../../../stores';
 import Router from 'next/router';
-import { LessonListI } from '../../../../../../interfaces';
 import { Item } from './item';
 
 const b = block(style);
 
 type ListProps = {
+  lessonStore: LessonStore,
   show: boolean;
-  current_uuid: string;
-  list: LessonListI[];
   onCloseList: () => void;
 };
 type ListState = {};
 
 @inject((store: RootStore) => ({
-  current_uuid: store.lessonStore.uuid,
-  list: store.lessonStore.lesson_list
+  lessonStore: store.lessonStore
 }))
 @observer
 export class List extends React.Component<ListProps, ListState> {
+
   static defaultProps = {
-    current_uuid: '',
-    list: []
+    lessonStore: {}
   };
 
   handleOnLink = async (uuid: string) => {
@@ -35,17 +32,16 @@ export class List extends React.Component<ListProps, ListState> {
   };
 
   render() {
-    const { list, current_uuid, show } = this.props;
+    const { lessonStore, show } = this.props;
 
     return (
       <div className={b(null, { show })}>
-        {list.map((lesson) => {
+        {lessonStore.lesson_list.map((lessonListItem) => {
           return (
             <Item
-              key={lesson.id}
-              active={current_uuid === lesson.uuid}
-              uuid={lesson.uuid}
-              name={lesson.name}
+              key={lessonListItem.id}
+              active={lessonStore.uuid === lessonListItem.uuid}
+              lessonListItem={lessonListItem}
               onLink={this.handleOnLink}
             />
           );

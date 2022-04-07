@@ -108,22 +108,22 @@ export class Method extends React.Component<MethodProps, MethodState> {
             <span />
             <span />
             <span />
-
-            <ul className={b('dropdown', {
-              [systemStore.service_name]: true,
-              show: isShowExtra
-            })}>
-              <li>
-                <button onClick={() => modalsStore.show(MODALS.CIRCLE_OF_FIFTHS)}>Circle of Fifths</button>
-              </li>
-              <li>
-                <button onClick={() => modalsStore.show(MODALS.FRETBOARD_A_B_C)}>Fretboard (A B C ...)</button>
-              </li>
-              <li>
-                <button onClick={() => modalsStore.show(MODALS.FRETBOARD_DO)}>Fretboard (do re mi ...)</button>
-              </li>
-            </ul>
           </button>
+
+          <ul className={b('dropdown', {
+            [systemStore.service_name]: true,
+            show: isShowExtra
+          })}>
+            <li>
+              <button onClick={() => modalsStore.show(MODALS.CIRCLE_OF_FIFTHS)}>Circle of Fifths</button>
+            </li>
+            <li>
+              <button onClick={() => modalsStore.show(MODALS.FRETBOARD_A_B_C)}>Fretboard (A B C ...)</button>
+            </li>
+            <li>
+              <button onClick={() => modalsStore.show(MODALS.FRETBOARD_DO)}>Fretboard (do re mi ...)</button>
+            </li>
+          </ul>
 
 
           {systemStore.service_name === SERVICE_NAME.COLLEGE && systemStore.instrument_name !== '' && systemStore.instrument_name == 'Guitar' && (

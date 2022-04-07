@@ -1,6 +1,6 @@
 import { action, computed, makeObservable, observable } from 'mobx';
 import { Cookie } from '../core';
-import { METRONOME_CONST } from '../constants';
+import { METRONOME_CONST, SPACE_CONTROL, SPACE_CONTROL_CURRENT } from '../constants';
 
 export class MetronomeStore {
   @observable current: number = 80;
@@ -26,7 +26,7 @@ export class MetronomeStore {
       this.worker = new Worker('/workers/metronome-worker.js');
       this.audioPlayer = new Audio('/metronome/metronome.mp3');
 
-      console.log('this.volume',this.volume);
+      console.log('this.volume', this.volume);
 
       if (this.worker) {
         this.worker.addEventListener('message', this.onPlayTick);
@@ -53,6 +53,10 @@ export class MetronomeStore {
 
   @action.bound
   onPlayStop() {
+
+    // Записываем что управление клавишей пробел передано метроному
+    localStorage.setItem(SPACE_CONTROL_CURRENT, SPACE_CONTROL.METRONOME);
+
     if (this.isPlay) {
       this.onStop();
     } else {

@@ -44,7 +44,8 @@ export class PlayButton extends React.Component<PlayButtonProps, PlayButtonState
     const { service_name, is_playing } = this.props;
 
     return (
-      <button className={b(null, { [service_name]: true, is_playing })} onClick={this.handleOnPlay}>
+      <button className={b(null, { [service_name]: true, is_playing })}
+              onClick={this.handleOnPlay}>
         {getIcon(LIST_ICON.PLAY, b('icon'))}
       </button>
     );

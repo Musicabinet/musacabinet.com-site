@@ -1,6 +1,6 @@
 import { action, computed, makeObservable, observable } from 'mobx';
 import * as Tone from 'tone';
-import { LibraryTrackType, LibraryType } from '../constants';
+import { LibraryTrackType, LibraryType, SPACE_CONTROL, SPACE_CONTROL_CURRENT } from '../constants';
 import { LibraryTrackI } from '../interfaces';
 import { RootStore } from './index';
 
@@ -167,6 +167,10 @@ export class PlayerStore {
 
   @action.bound
   onPlay() {
+
+    // Записываем что управление клавишей пробел передано метроному
+    localStorage.setItem(SPACE_CONTROL_CURRENT, SPACE_CONTROL.PLAYER);
+
     Tone.Transport.stop();
     Tone.Transport.cancel(0);
     let now = Tone.now();

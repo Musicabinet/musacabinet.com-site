@@ -3,6 +3,7 @@ import { BreadcrumbsI } from './breadcrumbs';
 import { AccompanimentStore } from '../stores/accompaniment';
 import { ScoreStore } from '../stores/score';
 import { ChartStore } from '../stores/chart';
+import { LessonListItemStore } from '../stores/lesson-list-item.store';
 
 export interface LessonI {
   id: number;
@@ -23,7 +24,7 @@ export interface LessonI {
   accompaniments: AccompanimentStore[];
   breadcrumbs: BreadcrumbsI[];
   progress_second: number;
-  lesson_list: LessonListI[];
+  lesson_list: LessonListItemStore[];
   prevModuleLesson?: null | string;
   nextModuleLesson?: null | string;
   selected_accompaniment?: number;
@@ -33,7 +34,17 @@ export interface LessonI {
 export interface LessonListI {
   id: number;
   uuid: string;
+  group_lesson_id: number | undefined;
+  sort: number;
+  slug: string;
+  meta_title: string;
+  meta_description: string;
+  meta_keywords: string;
   name: string;
+  description: string;
+  duration_minute: number;
+  is_active: boolean;
+  color: string;
 }
 
 export enum LessonDirection {

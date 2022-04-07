@@ -4,28 +4,23 @@ import { BaseLayout } from '../../ui';
 import { LessonView } from '../../ui/components';
 import { CustomAppContext } from '../../interfaces';
 import { redirectToWrapper } from '../../core';
-import { RootStore } from '../../stores';
+import { LessonStore, MetronomeStore, PlayerStore, RootStore, WebsocketStore } from '../../stores';
 import { ucFirst } from '../../helpers';
+import { SPACE_CONTROL, SPACE_CONTROL_CURRENT } from '../../constants';
 
 type LessonPageProps = {
-  uuid: string;
-  isFetch: boolean;
-  onLoadTrack: () => void;
-  onSetFirstLibrary: () => void;
-  onInitWebSocket: () => Promise<void>;
-  onSendMessageWebSocket: (data: {}) => void;
-  onDisconnectWebSocket: () => void;
+  playerStore: PlayerStore;
+  metronomeStore: MetronomeStore;
+  lessonStore: LessonStore,
+  websocketStore: WebsocketStore
 };
 type LessonPageState = {};
 
 @inject((store: RootStore) => ({
-  uuid: store.lessonStore.uuid,
-  isFetch: store.lessonStore.isFetch,
-  onLoadTrack: store.playerStore.loadTrack,
-  onSetFirstLibrary: store.playerStore.setFirstLibrary,
-  onInitWebSocket: store.websocketStore.init,
-  onSendMessageWebSocket: store.websocketStore.sendMessage,
-  onDisconnectWebSocket: store.websocketStore.disconnect
+  playerStore: store.playerStore,
+  metronomeStore: store.metronomeStore,
+  lessonStore: store.lessonStore,
+  websocketStore: store.websocketStore
 }))
 @observer
 export default class LessonPage extends React.Component<LessonPageProps, LessonPageState> {
@@ -73,40 +68,71 @@ export default class LessonPage extends React.Component<LessonPageProps, LessonP
   }
 
   static defaultProps = {
-    uuid: '',
-    isFetch: false,
-    onInitWebSocket: () => console.log('Not set handler'),
-    onSendMessageWebSocket: () => console.log('Not set handler'),
-    onDisconnectWebSocket: () => console.log('Not set handler')
+    playerStore: {},
+    metronomeStore: {},
+    lessonStore: {},
+    websocketStore: {}
   };
 
   async componentDidMount() {
-    const { uuid, onLoadTrack, onSetFirstLibrary, onInitWebSocket, onSendMessageWebSocket } = this.props;
-    onSetFirstLibrary();
-    onLoadTrack();
-    await onInitWebSocket();
-    onSendMessageWebSocket({ uuid });
+    this.handleSpaceKey();
+
+    const { lessonStore, playerStore, websocketStore } = this.props;
+    playerStore.setFirstLibrary();
+    playerStore.loadTrack();
+    await websocketStore.init();
+    websocketStore.sendMessage({ uuid: lessonStore.uuid });
   }
 
+  handleSpaceKey = () => {
+    const { playerStore, metronomeStore } = this.props;
+
+    document.body.onkeydown = function(event) {
+      if (event.keyCode === 32) {
+        event.preventDefault();
+
+        const currentSpaceKeyControl = localStorage.getItem(SPACE_CONTROL_CURRENT) ?? SPACE_CONTROL_CURRENT;
+
+        if (SPACE_CONTROL.PLAYER === currentSpaceKeyControl) {
+          if (playerStore.is_playing) {
+            playerStore.onStop();
+          } else {
+            playerStore.onPlay();
+          }
+        } else if (SPACE_CONTROL.METRONOME === currentSpaceKeyControl) {
+          if (metronomeStore.isPlay) {
+            metronomeStore.onStop();
+          } else {
+            metronomeStore.onStart();
+          }
+        } else {
+          console.warn(`Not selected control key : SPACE_CONTROL_CURRENT`);
+        }
+      }
+    };
+  };
+
   componentDidUpdate(prevProps: LessonPageProps) {
-    if (!this.props.isFetch) {
-      const { onLoadTrack, onSetFirstLibrary } = this.props;
-      onSetFirstLibrary();
-      onLoadTrack();
+    const { lessonStore } = this.props;
+
+    if (!lessonStore.isFetch) {
+      const { playerStore } = this.props;
+      playerStore.setFirstLibrary();
+      playerStore.loadTrack();
     }
 
-    const { uuid, onSendMessageWebSocket } = this.props;
-    if (prevProps.uuid !== uuid) {
+    const { websocketStore } = this.props;
+    if (prevProps.lessonStore.uuid !== lessonStore.uuid) {
       // Устанавливаем трек
-      onSendMessageWebSocket({
-        uuid
+      websocketStore.sendMessage({
+        uuid: lessonStore.uuid
       });
     }
   }
 
-  componentWillUnmount() {
-    const { onDisconnectWebSocket } = this.props;
-    onDisconnectWebSocket();
+  async componentWillUnmount() {
+    const { websocketStore } = this.props;
+    await websocketStore.disconnect();
   }
 
   render() {

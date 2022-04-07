@@ -35,7 +35,8 @@ export class Pagination extends React.Component<PaginationProps, PaginationState
 
 
     for (let i = 0; i < lessonStore.scoresTotal; i++) {
-      pagination.push(<button className={b('btn', { active: i === lessonStore.currentScore })}
+      pagination.push(<button key={i}
+                              className={b('btn', { active: i === lessonStore.currentScore })}
                               onClick={() => this.handleOnClick(i)}>{i + 1}</button>);
     }
 
