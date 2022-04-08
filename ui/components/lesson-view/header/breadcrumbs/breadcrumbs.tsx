@@ -7,6 +7,7 @@ import { SERVICE_NAME } from '../../../../../constants';
 import { BreadcrumbsI } from '../../../../../interfaces';
 import { BreadcrumbsItem } from './item';
 import { LIST_ICON } from '../../../../common/icons';
+import { ucFirst } from '../../../../../helpers';
 
 const b = block(style);
 
@@ -75,6 +76,20 @@ export class BreadCrumbs extends React.Component<BreadCrumbsProps, BreadCrumbsSt
     }
   };
 
+
+  getTitle = () => {
+    const { breadcrumbs } = this.props;
+    let complete = '';
+
+    breadcrumbs.forEach((item, index) => {
+      complete += `${item.type} : ${ucFirst(item.name).replace(/[0-9]./g, '')}`;
+      complete += (breadcrumbs.length - 1 === index ? '' : ' / ');
+    });
+
+    return complete;
+
+  };
+
   render() {
     const { service_name, breadcrumbs } = this.props;
 
@@ -84,7 +99,8 @@ export class BreadCrumbs extends React.Component<BreadCrumbsProps, BreadCrumbsSt
           [service_name]: true
         })}
       >
-        <div className={b('container')}>
+        <div className={b('container')}
+             title={this.getTitle()}>
           {breadcrumbs.map((breadcrumb, index) => {
             return (
               <BreadcrumbsItem
