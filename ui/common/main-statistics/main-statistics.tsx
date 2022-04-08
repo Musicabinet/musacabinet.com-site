@@ -87,7 +87,6 @@ export class MainStatistics extends React.Component<MainStatisticsProps, MainSta
                       year={currentDate.format('YY')} last />
 
           </div>
-
         </div>
       </div>
     );

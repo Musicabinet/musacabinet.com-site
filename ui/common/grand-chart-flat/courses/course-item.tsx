@@ -39,10 +39,9 @@ export class CourseItem extends React.Component<CourseItemProps, CourseItemState
   };
 
   getPassedPercent(): number {
-    //const { course, grandChartStore } = this.props;
-    //const passedMinute = grandChartStore.statistics.getCoursesPassedTotal[course.id] || 0;
-
-    return 0;  //Math.ceil((passedMinute * 100) / grandChartStore.totalTimeCollections[course.id]);
+    const { course, grandChartStore } = this.props;
+    const passedMinute = grandChartStore.statistics.getCoursesPassedTotal[course.id] || 0;
+    return Math.ceil((passedMinute * 100) / grandChartStore.totalTimeCollections[course.id]);
   }
 
   fillCirclePercent = () => {

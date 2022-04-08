@@ -53,3 +53,4 @@ export * from './tutorial';
 export * from './lesson-progress';
 export * from './map';
 export * from './geo-plugin';
+export * from './lesson-progress-month';

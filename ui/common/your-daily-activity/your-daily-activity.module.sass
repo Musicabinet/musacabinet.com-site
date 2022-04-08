@@ -1,8 +1,7 @@
 @import "../../../stylesheets/index"
 
-.main-statistics
+.your-daily-activity
   position: relative
-  margin-bottom: 11px
 
   &__container
     padding: 20px 35px 35px 40px
@@ -22,6 +21,7 @@
 
   &__body
     display: flex
+    flex-direction: column
     justify-content: space-between
 
   &__btn
@@ -56,3 +56,32 @@
   &__arrow
     display: flex
 
+  &__nameMonth
+    @include fontMontserrat(14px, 400)
+    color: $gray50
+    text-align: center
+    margin-bottom: 10px
+
+  &__statistics
+    display: flex
+    justify-content: space-between
+
+  &__item
+    position: relative
+    width: 10px
+    height: 100px
+    background: $gray20
+    border-radius: 5px 5px 0 0
+    margin-right: 10px
+
+    &:last-child
+      margin-right: 0
+
+
+  &__day
+    position: absolute
+    bottom: -20px
+    @include fontMontserrat(8px)
+    color: $gray50
+    width: 10px
+    text-align: center

@@ -26,6 +26,7 @@ import { MapStore } from './map';
 import { GrandChartFlatStore } from './grand-chart-flat.store';
 import { YourStatisticsStore } from './your-statistics';
 import { GeoPluginStore } from './geo-plugin.store';
+import { LessonProgressMonthStore } from './lesson-progress-month.store';
 
 const isServer = typeof window === 'undefined';
 enableStaticRendering(isServer);
@@ -60,6 +61,7 @@ export class RootStore {
   public mapStore: MapStore;
   public yourStatisticsStore: YourStatisticsStore;
   public geoPluginStore: GeoPluginStore;
+  public lessonProgressMonthStore: LessonProgressMonthStore;
 
   constructor(iData: RootStore | null) {
     this.notificationsStore = new NotificationsStore(iData && iData.notificationsStore ? iData.notificationsStore : null);
@@ -86,6 +88,7 @@ export class RootStore {
     this.mapStore = new MapStore(iData ? iData.mapStore : null, this);
     this.yourStatisticsStore = new YourStatisticsStore(null);
     this.geoPluginStore = new GeoPluginStore(iData ? iData.geoPluginStore : null);
+    this.lessonProgressMonthStore = new LessonProgressMonthStore(iData ? iData.lessonProgressMonthStore : null);
   }
 }
 
@@ -122,5 +125,6 @@ export {
   PurchasesStore,
   ProductsStore,
   InstrumentStore,
-  GroupLessonStore
+  GroupLessonStore,
+  LessonProgressMonthStore
 };

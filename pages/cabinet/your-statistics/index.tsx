@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { inject, observer } from 'mobx-react';
-import { BaseLayout, CabinetLayout, MainStatistics } from '../../../ui';
+import { BaseLayout, CabinetLayout, MainStatistics, YourDailyActivity } from '../../../ui';
 import { CustomAppContext } from '../../../interfaces';
 import { redirectToWrapper } from '../../../core';
 
@@ -25,7 +25,8 @@ export default class YourStatistics extends React.Component<YourStatisticsProps,
     return (
       <BaseLayout background={'gray'} noStick>
         <CabinetLayout>
-          <MainStatistics/>
+          <MainStatistics />
+          <YourDailyActivity />
         </CabinetLayout>
       </BaseLayout>
     );

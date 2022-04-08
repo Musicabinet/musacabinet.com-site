@@ -35,3 +35,4 @@ export { MainStatistics } from './main-statistics/main-statistics';
 export { Tutorials } from './tutorials/tutorials';
 export { InputSmall } from './input-small/input-small';
 export { HistoryStatistics } from './history-statistics/history-statistics';
+export { YourDailyActivity } from './your-daily-activity/your-daily-activity';
