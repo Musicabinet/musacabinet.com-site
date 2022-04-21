@@ -317,7 +317,7 @@ export class LessonStore implements LessonI {
 
   @computed
   get disabledSwitcher(): boolean {
-    return this.scoresTotal < 1;
+    return this.scores.length > 0 && this.scores[1].items.length === 0;
   }
 
   @computed
