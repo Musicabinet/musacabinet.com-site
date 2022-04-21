@@ -85,7 +85,6 @@ export class VolumeControl extends React.Component<VolumeControlProps, VolumeCon
     }
 
     if (prevProps.value !== this.props.value && this.props.value) {
-      console.log('update');
       this.drawProgress(this.props.value);
     }
   }
@@ -105,10 +104,8 @@ export class VolumeControl extends React.Component<VolumeControlProps, VolumeCon
     const maxU = max ? max : 100;
     const newVal = Number(((val - minU) * 100) / (maxU - minU));
 
-    console.log('current percent ',newVal);
 
     if (this.progressRef.current) {
-      console.log('newVal progressRef',newVal);
       this.progressRef.current.style.height = `calc(${newVal}% - 8px)`;
     }
   };

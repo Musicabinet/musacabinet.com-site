@@ -64,13 +64,23 @@ export class BreadCrumbs extends React.Component<BreadCrumbsProps, BreadCrumbsSt
       case '7. TRAINING SCHEMES':
         return 7;
       case '1. CHORDS':
+      case 'CHORDS':
         return 1;
       case '2. ARPEGGIOS':
+      case 'ARPEGGIOS':
         return 2;
       case '3. SCALES':
+      case 'SCALES & MODES':
         return 3;
       case '4. IMPROVISATION':
+      case 'OUTSIDES & POLYCHORDS':
         return 4;
+      case 'PHRASES & SOLOS':
+        return 5;
+      case 'BACKING TRACKS & TRAINING SCHEMES':
+        return 6;
+      case 'IMPROVISATIONAL GUIDE MACHINE':
+        return 7;
       default:
         return '';
     }
@@ -82,16 +92,18 @@ export class BreadCrumbs extends React.Component<BreadCrumbsProps, BreadCrumbsSt
     let complete = '';
 
     breadcrumbs.forEach((item, index) => {
-      complete += `${item.type} : ${ucFirst(item.name).replace(/[0-9]./g, '')}`;
-      complete += (breadcrumbs.length - 1 === index ? '' : ' / ');
+      complete += `${item.type} ${this.getNumberType(item.name)} : ${ucFirst(item.name).replace(/[0-9]./g, '')}`;
+      complete += (breadcrumbs.length - 1 === index ? '' : ' / ')
     });
 
-    return complete;
+    return complete.toUpperCase();
 
   };
 
   render() {
     const { service_name, breadcrumbs } = this.props;
+
+    console.log('breadcrumbs',breadcrumbs);
 
     return (
       <div
