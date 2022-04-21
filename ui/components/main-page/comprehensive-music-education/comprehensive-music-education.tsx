@@ -29,6 +29,7 @@ export class ComprehensiveMusicEducation extends React.Component<
               src="/images/MC_logo_platform.png"
               srcSet="/images/MC_logo_platform@2x.png 2x"
               className={b('logotype')}
+              alt={'Musicabinet Education'}
             />
           </picture>
 
