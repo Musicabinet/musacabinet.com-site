@@ -42,10 +42,6 @@ export class Item extends React.Component<ItemProps, ItemState> {
              style={{ background: lessonListItem.color }}>{lessonListItem.nameForCircle}</div>
         <div className={b('name')}>
           {lessonListItem.nameScore}
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum, deleniti et eveniet illum nemo nihil
-          voluptatum! Architecto cum dolorem, et fuga minus nam nesciunt nulla, numquam placeat, praesentium recusandae
-          sapiente sit soluta unde vitae. Ab, at, deleniti distinctio ea illo illum impedit libero maiores nihil
-          officiis quia rem repellat sunt?
         </div>
       </div>
     );
