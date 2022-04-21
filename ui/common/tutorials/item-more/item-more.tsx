@@ -30,7 +30,7 @@ export class ItemMore extends React.Component<ItemMoreProps, ItemMoreState> {
     return <div className='col-lg-4' onClick={() => tutorialsStore.setSelectedId(tutorial.id)}>
       <div className={b(null)}>
         <div className={b('preview')}>
-          <img src='/images/MC_logo_platform.png' alt='' />
+          <img src='/images/MC_logo_platform.png' alt='Musicabinet' />
         </div>
 
         <div className={b('title')}>{tutorial.title}</div>

@@ -27,7 +27,6 @@ export class DeferredNextScript extends NextScript {
       return React.cloneElement((script), {
         // eslint-disable-next-line @typescript-eslint/tslint/config
         key: script.props.src,
-        defer: false,
         async: true
       });
     });
@@ -55,7 +54,7 @@ export class DeferredNextScript extends NextScript {
 
       return (
         <script
-          defer={true}
+          defer
           key={bundle.file}
           src={`${assetPrefix}/_next/${encodeURI(
             bundle.file
@@ -74,7 +73,7 @@ export class DeferredNextScript extends NextScript {
 export default class MyDocument extends Document {
   render() {
     return (
-      <Html>
+      <Html lang='en'>
         <Head />
         <body>
         <Main />
