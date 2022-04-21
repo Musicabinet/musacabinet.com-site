@@ -219,6 +219,11 @@ export class LessonStore implements LessonI {
   }
 
   @computed
+  get nameScore(): string {
+    return (this.scores[0]) ? this.scores[0].name : this.name;
+  }
+
+  @computed
   get showPreviewScorePath() {
     const currentScoreImage = this.scoresImages[this.currentPreviewScoreIndex];
     return currentScoreImage && currentScoreImage.content && currentScoreImage.content.image
@@ -308,6 +313,11 @@ export class LessonStore implements LessonI {
   @computed
   get scoresTotal() {
     return this.scores.length;
+  }
+
+  @computed
+  get disabledSwitcher(): boolean {
+    return this.scoresTotal < 1;
   }
 
   @computed

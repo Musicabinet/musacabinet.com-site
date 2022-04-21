@@ -49,30 +49,44 @@ export class VolumeControl extends React.Component<VolumeControlProps, VolumeCon
   };
 
   componentDidMount() {
-    const { defaultValue, value } = this.props;
+    const { defaultValue } = this.props;
 
-    if(defaultValue){
+    if (defaultValue) {
       this.drawProgress(defaultValue);
     }
 
-    if(value){
+    /*if (value) {
+      console.log('eheye');
       this.drawProgress(value);
-    }
+    }*/
 
+
+    /*setTimeout(()=>{
+
+      if (value) {
+        console.log('eheye', value);
+        this.drawProgress(value);
+      }
+    }, 500)*/
 
     document.addEventListener('click', this.handleClickOutside);
 
-    if (this.inputRangeRef.current) {
-      this.inputRangeRef.current.oninput = (e: Event) => {
-        const currentValue = Number((e.target as HTMLInputElement).value);
-        this.drawProgress(currentValue);
-      };
-    }
+      if (this.inputRangeRef.current) {
+        this.inputRangeRef.current.oninput = (e: Event) => {
+          const currentValue = Number((e.target as HTMLInputElement).value);
+          this.drawProgress(currentValue);
+        };
+      }
   }
 
   componentDidUpdate(prevProps: Readonly<VolumeControlProps>) {
     if (prevProps.defaultValue !== this.props.defaultValue && this.props.defaultValue) {
       this.drawProgress(this.props.defaultValue);
+    }
+
+    if (prevProps.value !== this.props.value && this.props.value) {
+      console.log('update');
+      this.drawProgress(this.props.value);
     }
   }
 
@@ -81,17 +95,21 @@ export class VolumeControl extends React.Component<VolumeControlProps, VolumeCon
   }
 
   drawProgress = (value: number) => {
-    const { isNegative } = this.props;
-    let updateValuePercent = 0;
+    const { min, max } = this.props;
 
-    if (isNegative) {
-      updateValuePercent = 100 - Math.abs(value);
-    } else {
-      updateValuePercent = value;
-    }
+    // max = 100
+    // value = x
+
+    const val = value;
+    const minU = min ? min : 0;
+    const maxU = max ? max : 100;
+    const newVal = Number(((val - minU) * 100) / (maxU - minU));
+
+    console.log('current percent ',newVal);
 
     if (this.progressRef.current) {
-      this.progressRef.current.style.height = `calc(${updateValuePercent}% - 8px)`;
+      console.log('newVal progressRef',newVal);
+      this.progressRef.current.style.height = `calc(${newVal}% - 8px)`;
     }
   };
 
@@ -120,8 +138,6 @@ export class VolumeControl extends React.Component<VolumeControlProps, VolumeCon
 
   render() {
     const { service_name, name, max, min, step, defaultValue, circle, value } = this.props;
-
-    console.log('value', value);
 
     return (
       <div

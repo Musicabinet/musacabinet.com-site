@@ -34,3 +34,7 @@ export interface DefaultResponse {
   success: boolean;
   errors?: string[];
 }
+
+export interface CheckLoginResponse {
+  isExist: boolean;
+}

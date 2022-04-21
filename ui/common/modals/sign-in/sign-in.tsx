@@ -108,7 +108,7 @@ export class SignInModal extends React.Component<SignInModalProps, SignInModalSt
                           <ButtonSocial onClick={renderProps.onClick}
                                         type={SOCIAL_BUTTON_TYPE.FACEBOOK}
                                         disabled={isFetchFacebook}>
-                            Log in with Facebook
+                            Sign in with Facebook
                           </ButtonSocial>
                         );
                       }}
@@ -128,7 +128,7 @@ export class SignInModal extends React.Component<SignInModalProps, SignInModalSt
                       clientId='826618397728-phql2reajkfudj3q0uosjuqb7tpjdlhf.apps.googleusercontent.com'
                       render={(renderProps) => (
                         <ButtonSocial onClick={renderProps.onClick} type={SOCIAL_BUTTON_TYPE.GOOGLE}>
-                          Log in with Google
+                          Sign in with Google
                         </ButtonSocial>
                       )}
                       buttonText='Login'

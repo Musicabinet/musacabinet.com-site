@@ -55,8 +55,8 @@ export class Timer extends React.Component<TimerProps, TimerState> {
     },
     {
       value: 45,
-      fillValue: 180,
-      turnValue: 59
+      fillValue: 217,     // Полный урок
+      turnValue: 72       // Значение на перемену
     }
   ];
 
@@ -99,11 +99,21 @@ export class Timer extends React.Component<TimerProps, TimerState> {
     if (this.svgProgress.current) {
       const { nextModuleStore, uuid } = this.props;
 
-      setTimeout(() => {
-        const { value, fillValue, turnValue } = this.times[this.state.timeIndex];
-        this.timer = +(this.timer + +(1 / 60).toFixed(2)).toFixed(2);
-        const updatePercent = +((this.timer * fillValue) / value).toFixed(2);
+      // Высчитываем заполняемость круга
+      const { value, fillValue, turnValue } = this.times[this.state.timeIndex];
 
+
+      setTimeout(() => {
+        // Текущая минута
+        this.timer = this.timer + 1;
+        // Находим процент заполнения круга
+        const updatePercent = +((0.0166 * fillValue) / value).toFixed(2);
+
+        if (this.svgProgress.current && this.svgProgress.current.style) {
+          this.svgProgress.current.style.strokeDasharray = `${updatePercent}px 288px`;
+        }
+        //console.log('текущая секунда', this.timer);
+        //console.log('процент', updatePercent);
 
         if (fillValue <= updatePercent && !nextModuleStore.isShow && uuid !== nextModuleStore.uuid) {
           nextModuleStore.setUUID(uuid);
@@ -120,6 +130,33 @@ export class Timer extends React.Component<TimerProps, TimerState> {
           }
         }
       }, 1000);
+
+
+      /*setTimeout(() => {
+        const { value, fillValue, turnValue } = this.times[this.state.timeIndex];
+
+
+        this.timer = +(this.timer + +(1 / 60).toFixed(2)).toFixed(2);
+        console.log('this.timer',this.timer);
+        const updatePercent = +((this.timer * fillValue) / value).toFixed(2);
+        console.log('updatePercent',updatePercent);
+
+
+        if (fillValue <= updatePercent && !nextModuleStore.isShow && uuid !== nextModuleStore.uuid) {
+          nextModuleStore.setUUID(uuid);
+          nextModuleStore.setSecond();
+          nextModuleStore.start();
+        }
+
+        if (fillValue + turnValue <= updatePercent) {
+
+        } else {
+          if (this.svgProgress.current && this.svgProgress.current.style) {
+            this.svgProgress.current.style.strokeDasharray = `${updatePercent}px 288px`;
+            this.startTimer();
+          }
+        }
+      }, 1000);*/
     }
   };
 

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import block from 'bem-css-modules';
 import style from './form-login.module.sass';
-import { RootStore } from '../../../stores';
+import { AuthStore, RootStore } from '../../../stores';
 import { Formik } from 'formik';
 import { loginValidationSchema } from '../../../validation-scheme';
 import { InputText } from '../input-text/input-text';
@@ -13,6 +13,7 @@ import { MODALS } from '../../../constants';
 const b = block(style);
 
 type FormLoginProps = {
+  authStore: AuthStore;
   onLogin: (data: LoginRequestI) => void;
   onShowModal: (id_modal: MODALS) => void;
   onCloseModal: (id_modal: MODALS) => void;
@@ -20,6 +21,7 @@ type FormLoginProps = {
 type FormLoginState = {};
 
 @inject((store: RootStore) => ({
+  authStore: store.authStore,
   onLogin: store.authStore.login,
   onShowModal: store.modalsStore.show,
   onCloseModal: store.modalsStore.close
@@ -27,6 +29,7 @@ type FormLoginState = {};
 @observer
 export class FormLogin extends React.Component<FormLoginProps, FormLoginState> {
   static defaultProps = {
+    authStore: {},
     onLogin: () => console.log('Not set handler'),
     onShowModal: () => console.log('Not set handler'),
     onCloseModal: () => console.log('Not set handler')
@@ -54,22 +57,21 @@ export class FormLogin extends React.Component<FormLoginProps, FormLoginState> {
         {({ values, errors, touched, handleChange, handleBlur, isValid, handleSubmit, dirty }) => {
           return (
             <form onSubmit={handleSubmit}>
-              <div className="row">
-                <div className="col-12">
-                  <InputText
-                    name={'email'}
-                    value={values.email}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    placeholder={'Your email'}
-                    isValid={Boolean((touched.email && errors.email === undefined) || !dirty)}
-                    errors={errors.email}
+              <div className='row'>
+                <div className='col-12'>
+                  <InputText name={'email'}
+                             value={values.email}
+                             onChange={handleChange}
+                             onBlur={handleBlur}
+                             placeholder={'Your email'}
+                             isValid={Boolean((touched.email && errors.email === undefined) || !dirty)}
+                             errors={errors.email}
                   />
                 </div>
 
                 <div className={b('space', { '15': true })} />
 
-                <div className="col-12">
+                <div className='col-12'>
                   <InputText
                     name={'password'}
                     type={'password'}
@@ -84,22 +86,22 @@ export class FormLogin extends React.Component<FormLoginProps, FormLoginState> {
 
                 <div className={b('space', { '15': true })} />
 
-                <div className="col-12 d-flex justify-content-center">
+                <div className='col-12 d-flex justify-content-center'>
                   <button className={b('link')}>Forgot your password?</button>
                 </div>
 
                 <div className={b('space', { '15': true })} />
 
-                <div className="col-12">
+                <div className='col-12'>
                   <Button type={'submit'} full disabled={!isValid || !dirty}>
-                    Log in
+                    Sign in
                   </Button>
                 </div>
 
                 <div className={b('space', { '20': true })} />
 
                 <div className={b('text')}>Don't have an account?</div>
-                <div className="col-12 d-flex justify-content-center">
+                <div className='col-12 d-flex justify-content-center'>
                   <button onClick={this.handleOnSignUp} className={b('action')}>
                     Sign up
                   </button>

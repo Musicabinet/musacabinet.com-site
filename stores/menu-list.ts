@@ -146,6 +146,12 @@ export class MenuListStore {
       link: 'company-information',
       type: MenuType.DEFAULT,
       is_active: false
+    },
+    {
+      title: 'Payment Policy',
+      link: 'payment-policy',
+      type: MenuType.DEFAULT,
+      is_active: false
     }
   ];
 

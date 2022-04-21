@@ -108,7 +108,7 @@ export class PlayerStore {
                   url: `${CONTENT_URL}${track.path}`,
                   loop: true,
                   mute: this.getMuteTrack(track),
-                  volume: (currentVolume) ? Number(currentVolume) : -50, // -100 0
+                  volume: (currentVolume) ? Number(currentVolume) : -6, // -100 0
                   onload: () => {
                     this.setDurationTime(this.player[0].buffer.duration);
                     resolve(1);

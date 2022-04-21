@@ -75,7 +75,15 @@ export class Method extends React.Component<MethodProps, MethodState> {
     }
   };
 
-  handleOnChangeNotes = () => this.setState((state) => ({ isNotes: !state.isNotes }));
+  handleOnChangeNotes = () => {
+    const { lessonStore } = this.props;
+
+    if (lessonStore.disabledSwitcher) {
+      return false;
+    }
+
+    this.setState((state) => ({ isNotes: !state.isNotes }));
+  };
 
   handleOnShowExtra = () => this.setState(() => ({ isShowExtra: true }));
 
@@ -131,7 +139,7 @@ export class Method extends React.Component<MethodProps, MethodState> {
               Method
               <div onClick={this.handleOnChangeNotes}
                    className={b('switcher')}>
-                <div className={b('checked', { isNotes })} />
+                <div className={b('checked', { isNotes, disabled: lessonStore.disabledSwitcher })} />
               </div>
               Notes
             </div>
@@ -147,8 +155,12 @@ export class Method extends React.Component<MethodProps, MethodState> {
 
         {!isNotes && lessonStore.currentContentScore && (
           <>
-            <div className={b('content')}
-                 dangerouslySetInnerHTML={{ __html: lessonStore.currentContentScore.content }} />
+            <div className={b('block-overflow')}>
+
+              <div className={b('content')} dangerouslySetInnerHTML={{ __html: lessonStore.currentContentScore.content }}/>
+            </div>
+
+
           </>
         )}
 

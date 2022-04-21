@@ -1,6 +1,6 @@
 import { action, makeObservable, observable } from 'mobx';
 import { AuthI, LoginRequestI, SignUpRequestI, UserI } from '../interfaces';
-import { FacebookClientResponsive, LoginResponse } from '../responsible';
+import { CheckLoginResponse, FacebookClientResponsive, LoginResponse } from '../responsible';
 import { API, Cookie } from '../core';
 import { METHODS_REQUEST, NOTIFICATION_TYPE } from '../constants';
 import Router from 'next/router';
@@ -21,6 +21,29 @@ export class AuthStore implements AuthI {
 
     if (initialData) {
       this.fillingStore(initialData);
+    }
+  }
+
+  @action.bound
+  async checkLogin(email: string) {
+    try {
+      const response = await API.request<CheckLoginResponse>(`auth/check-login`, {
+        method: METHODS_REQUEST.POST,
+        body: API.getFormData({
+          email
+        })
+      });
+
+      if(response.isExist){
+        rootStore.notificationsStore.add({
+          id: rootStore.notificationsStore.generateID(),
+          type: NOTIFICATION_TYPE.ERROR,
+          title: 'Error',
+          message: 'Login already exists in the system'
+        });
+      }
+    } catch (e) {
+      console.error(`Error in method AuthStore.checkLogin : `, e);
     }
   }
 

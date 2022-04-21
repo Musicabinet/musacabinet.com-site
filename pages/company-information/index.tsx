@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { inject, observer } from 'mobx-react';
-import { BaseLayout, Title } from '../../ui';
-import { TITLE_SIZE } from '../../constants';
+import { BaseLayout, Paragraph, Title } from '../../ui';
+import { SERVICE_NAME, TITLE_SIZE } from '../../constants';
+import { CustomAppContext } from '../../interfaces';
 
 type CompanyInformationPageProps = {};
 type CompanyInformationPageState = {};
@@ -12,6 +13,17 @@ export default class CompanyInformationPage extends React.Component<
   CompanyInformationPageProps,
   CompanyInformationPageState
 > {
+
+  static async getInitialProps({ store }: CustomAppContext) {
+    store?.systemStore.setServiceName(SERVICE_NAME.SCHOOL);
+    await store?.authStore.check();
+    return {
+      title: 'MUSICABINET | Company information',
+      description: '',
+      keywords: ''
+    };
+  }
+
   render() {
     return (
       <BaseLayout noStick background={'gray'}>
@@ -24,11 +36,11 @@ export default class CompanyInformationPage extends React.Component<
 
           <div className="row">
             <div className="col-lg-12 mt-4 mb-4">
-              <p>Kazan, Russia</p>
-              <p>Musicabinet Ltd</p>
-              <p>TIN: 1660299477</p>
-              <p>Patrisa Lumumbi street, building 49A, office 12</p>
-              <p>Kazan, Russian Federation</p>
+              <Paragraph>
+                Republic of Kazakhstan, Ekibastuz, M. Jusupa street, 20-24<br/>
+                +7 701 771 13 87<br/>
+                info@musicabinet.com<br/>
+              </Paragraph>
             </div>
           </div>
         </div>

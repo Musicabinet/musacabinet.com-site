@@ -1,34 +1,39 @@
 import * as React from 'react';
 import { inject, observer } from 'mobx-react';
+import { LessonStore, PlayerStore, RootStore } from '../../../../../../../stores';
 import block from 'bem-css-modules';
-import style from './accompaniments.module.sass';
+import style from './burger-accompaniments.module.sass';
 import { LibraryI } from '../../../../../../../interfaces';
-import { PlayerStore } from '../../../../../../../stores/player';
-import { LessonStore, RootStore } from '../../../../../../../stores';
 
 const b = block(style);
 
-type LibraryItemProps = {
+type AccompanimentItemProps = {
   library: LibraryI;
   playerStore: PlayerStore;
+  lessonStore: LessonStore;
+  active: boolean;
   ordinalNumber: number;
-  lessonStore: LessonStore
+  onClose: () => void;
 };
-type LibraryItemState = {};
+type AccompanimentItemState = {};
 
 @inject((store: RootStore) => ({
   playerStore: store.playerStore,
   lessonStore: store.lessonStore
 }))
 @observer
-export class LibraryItem extends React.Component<LibraryItemProps, LibraryItemState> {
+export class AccompanimentItem extends React.Component<AccompanimentItemProps, AccompanimentItemState> {
+
   static defaultProps = {
     playerStore: {},
     lessonStore: {}
   };
 
-  handleOnClick = () => {
-    const { library, playerStore, lessonStore, ordinalNumber } = this.props;
+  handleOnClick = (e: React.MouseEvent<HTMLLIElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const { library, playerStore, lessonStore, ordinalNumber, onClose } = this.props;
 
     if (library.id === playerStore.selected_library_id) {
       return false;
@@ -38,18 +43,15 @@ export class LibraryItem extends React.Component<LibraryItemProps, LibraryItemSt
     lessonStore.setCurrentPreviewScoreIndex(ordinalNumber);
     playerStore.setLibrary(library.id);
     playerStore.loadTrack();
+    onClose();
   };
 
   render() {
-    const { library, playerStore } = this.props;
+    const { library, active } = this.props;
 
     return (
-      <div
-        className={b('item', { selected: library.id === playerStore.selected_library_id })}
-        onClick={this.handleOnClick}
-      >
-        {library.pivot.custom_name || library.name}
-      </div>
+      <li onClick={this.handleOnClick}
+          className={b('item', { active })}>{library.name}</li>
     );
   }
 }

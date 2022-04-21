@@ -45,6 +45,7 @@ export interface LessonListI {
   duration_minute: number;
   is_active: boolean;
   color: string;
+  scores: ScoreStore[];
 }
 
 export enum LessonDirection {
@@ -52,4 +53,5 @@ export enum LessonDirection {
   RIGHT = 'right'
 }
 
-export interface LessonExtraParamsI {}
+export interface LessonExtraParamsI {
+}

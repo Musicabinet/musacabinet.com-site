@@ -40,7 +40,7 @@ export class Player extends React.Component<PlayerProps, PlayerState> {
   };
 
   state = {
-    volume: -50
+    volume: -6
   };
 
   componentDidMount() {
@@ -51,9 +51,9 @@ export class Player extends React.Component<PlayerProps, PlayerState> {
     this.setState(() => {
       const currentVolume = localStorage.getItem(PLAYER_CONST.VOLUME);
 
-      if(currentVolume){
+      if (currentVolume) {
         playerStore.setVolume(Number(currentVolume));
-      }else{
+      } else {
         playerStore.setVolume(-50);
       }
 
@@ -81,6 +81,8 @@ export class Player extends React.Component<PlayerProps, PlayerState> {
   render() {
     const { playerStore, lessonStore, service_name, noMR } = this.props;
     const { volume } = this.state;
+
+    console.log({ volume });
 
     return (
       <div className={b('preview')}>
@@ -123,8 +125,8 @@ export class Player extends React.Component<PlayerProps, PlayerState> {
 
           <div className={b('block')}>
             <VolumeControl value={volume}
-                           min={-100}
-                           max={0}
+                           min={-30}
+                           max={-6}
                            name={'volume'}
                            isNegative
                            onChange={this.handleOnChangeVolume} />

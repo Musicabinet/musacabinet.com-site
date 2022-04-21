@@ -13,7 +13,9 @@ type MetronomeProps = {
   metronomeStore: MetronomeStore,
   systemStore: SystemStore
 };
-type MetronomeState = {};
+type MetronomeState = {
+  bpm: number
+};
 
 @inject((store: RootStore) => ({
   metronomeStore: store.metronomeStore,
@@ -27,13 +29,43 @@ export class Metronome extends React.Component<MetronomeProps, MetronomeState> {
     systemStore: {}
   };
 
+  state = {
+    bpm: this.props.metronomeStore.current
+  };
+
   async componentDidMount() {
     const { metronomeStore } = this.props;
     await metronomeStore.init();
   }
 
+  handleOnChangeMetronome = (e: React.FormEvent<HTMLInputElement>) => {
+    this.setState({
+      bpm: Number(e.currentTarget.value)
+    });
+  };
+
+  handleOnBlurMetronome = () => {
+    const { bpm } = this.state;
+    const { metronomeStore } = this.props;
+
+    let currentBpm = bpm;
+
+    if (bpm < 20) {
+      currentBpm = 20;
+    } else if (bpm > 240) {
+      currentBpm = 240;
+    }
+
+    this.setState({
+      bpm: currentBpm
+    }, (() => {
+      metronomeStore.setBPM(currentBpm);
+    }));
+  };
+
   render() {
     const { metronomeStore, systemStore } = this.props;
+    const { bpm } = this.state;
 
     return (
       <div className={b(null, {
@@ -45,7 +77,11 @@ export class Metronome extends React.Component<MetronomeProps, MetronomeState> {
 
             <div className={b('control')}>
               <Button type={METRONOME_BUTTON_TYPE.DECREMENT} />
-              <input type='number' value={metronomeStore.current} readOnly className={b('bpm')} />
+              <input type='number'
+                     value={bpm}
+                     onChange={this.handleOnChangeMetronome}
+                     onBlur={this.handleOnBlurMetronome}
+                     className={b('bpm')} />
               <Button type={METRONOME_BUTTON_TYPE.INCREMENT} />
             </div>
             <div className={b('action')}>

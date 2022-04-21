@@ -2,27 +2,27 @@ import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import block from 'bem-css-modules';
 import style from './name-lesson.module.sass';
-import { RootStore } from '../../../../../../stores';
+import { LessonStore, RootStore } from '../../../../../../stores';
 
 const b = block(style);
 
 type NameLessonProps = {
-  name: string;
+  lessonStore: LessonStore;
 };
 type NameLessonState = {};
 
 @inject((store: RootStore) => ({
-  name: store.lessonStore.name
+  lessonStore: store.lessonStore
 }))
 @observer
 export class NameLesson extends React.Component<NameLessonProps, NameLessonState> {
   static defaultProps = {
-    name: ''
+    lessonStore: LessonStore
   };
 
   render() {
-    const { name } = this.props;
+    const { lessonStore } = this.props;
 
-    return <div className={b(null)}>{name}</div>;
+    return <div className={b(null)}>{lessonStore.nameScore}</div>;
   }
 }

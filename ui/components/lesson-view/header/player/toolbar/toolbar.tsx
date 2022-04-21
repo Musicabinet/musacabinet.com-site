@@ -3,7 +3,7 @@ import { inject, observer } from 'mobx-react';
 import block from 'bem-css-modules';
 import style from './toolbar.module.sass';
 import { PlusButton } from './plus-button';
-import { Accompaniments } from './accompaniments/accompaniments';
+import { BurgerAccompaniments } from './burger-accompaniments/burger-accompaniments';
 
 const b = block(style);
 
@@ -17,7 +17,7 @@ export class Toolbar extends React.Component<ToolbarProps, ToolbarState> {
     return (
       <div className={b(null)}>
         <PlusButton />
-        <Accompaniments />
+        <BurgerAccompaniments />
       </div>
     );
   }

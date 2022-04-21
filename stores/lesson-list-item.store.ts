@@ -1,5 +1,6 @@
 import { action, computed, makeObservable, observable } from 'mobx';
 import { LessonListI } from '../interfaces';
+import { ScoreStore } from './score';
 
 export class LessonListItemStore implements LessonListI {
 
@@ -16,6 +17,7 @@ export class LessonListItemStore implements LessonListI {
   @observable duration_minute = 0;
   @observable is_active = false;
   @observable color = '';
+  @observable scores: ScoreStore[] = [];
 
   constructor(initialData: LessonListItemStore | LessonListI | null) {
     makeObservable(this);
@@ -26,13 +28,19 @@ export class LessonListItemStore implements LessonListI {
   }
 
   @computed
-  get nameForCircle(): string{
+  get nameForCircle(): string {
     return this.name.replace('Lesson ', '').replace(',', '.');
   }
+
 
   @computed
   get isGrey(): boolean {
     return ['#D8D8D8', '#AE6E5E5', '#FFFFFF'].includes(this.color);
+  }
+
+  @computed
+  get nameScore(): string {
+    return (this.scores[0]) ? this.scores[0].name : this.name;
   }
 
   @action
@@ -50,7 +58,8 @@ export class LessonListItemStore implements LessonListI {
       description,
       duration_minute,
       is_active,
-      color
+      color,
+      scores
     } = data;
 
     this.id = id;
@@ -66,5 +75,6 @@ export class LessonListItemStore implements LessonListI {
     this.duration_minute = duration_minute;
     this.is_active = is_active;
     this.color = color;
+    this.scores = (scores || []).map((score) => new ScoreStore(score));
   }
 }

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import block from 'bem-css-modules';
 import style from './form-sign-up.module.sass';
-import { RootStore } from '../../../stores';
+import { AuthStore, RootStore } from '../../../stores';
 import { Formik } from 'formik';
 import { signUpValidationSchema } from '../../../validation-scheme';
 import { InputText } from '../input-text/input-text';
@@ -13,6 +13,7 @@ import { MODALS } from '../../../constants';
 const b = block(style);
 
 type FormSignUpProps = {
+  authStore: AuthStore;
   onSignUp: (data: SignUpRequestI) => void;
   onShowModal: (id_modal: MODALS) => void;
   onCloseModal: (id_modal: MODALS) => void;
@@ -20,6 +21,7 @@ type FormSignUpProps = {
 type FormSignUpState = {};
 
 @inject((store: RootStore) => ({
+  authStore: store.authStore,
   onSignUp: store.authStore.signUp,
   onShowModal: store.modalsStore.show,
   onCloseModal: store.modalsStore.close
@@ -27,6 +29,7 @@ type FormSignUpState = {};
 @observer
 export class FormSignUp extends React.Component<FormSignUpProps, FormSignUpState> {
   static defaultProps = {
+    authStore: {},
     onSignUp: () => console.log('Not set handler'),
     onShowModal: () => console.log('Not set handler'),
     onCloseModal: () => console.log('Not set handler')
@@ -36,6 +39,13 @@ export class FormSignUp extends React.Component<FormSignUpProps, FormSignUpState
     const { onCloseModal, onShowModal } = this.props;
     onCloseModal(MODALS.SIGN_UP);
     onShowModal(MODALS.SIGN_IN);
+  };
+
+  handleOnCheckLogin = async (e: React.FormEvent<HTMLInputElement>) => {
+    const { authStore } = this.props;
+    const { value } = e.currentTarget;
+
+    await authStore.checkLogin(value);
   };
 
   render() {
@@ -60,7 +70,10 @@ export class FormSignUp extends React.Component<FormSignUpProps, FormSignUpState
                     name={'email'}
                     value={values.email}
                     onChange={handleChange}
-                    onBlur={handleBlur}
+                    onBlur={async (e: React.FormEvent<HTMLInputElement>) => {
+                      handleBlur(e);
+                      await this.handleOnCheckLogin(e);
+                    }}
                     placeholder={'Your email'}
                     isValid={Boolean((touched.email && errors.email === undefined) || !dirty)}
                     errors={errors.email}
