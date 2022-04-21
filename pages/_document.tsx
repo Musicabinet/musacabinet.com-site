@@ -1,5 +1,5 @@
 import Document, { Html, Head, NextScript, Main } from 'next/document';
-import React from 'react'
+import React from 'react';
 
 type DocumentFiles = {
   sharedFiles: readonly string[]
@@ -8,15 +8,17 @@ type DocumentFiles = {
 }
 
 function dedupe<T extends { file: string }>(bundles: T[]): T[] {
-  const files = new Set<string>()
-  const kept: T[] = []
+  const files = new Set<string>();
+  const kept: T[] = [];
 
   for (const bundle of bundles) {
-    if (files.has(bundle.file)) {continue}
-    files.add(bundle.file)
-    kept.push(bundle)
+    if (files.has(bundle.file)) {
+      continue;
+    }
+    files.add(bundle.file);
+    kept.push(bundle);
   }
-  return kept
+  return kept;
 }
 
 export class DeferredNextScript extends NextScript {
@@ -26,28 +28,30 @@ export class DeferredNextScript extends NextScript {
         // eslint-disable-next-line @typescript-eslint/tslint/config
         key: script.props.src,
         defer: false,
-        async: true,
-      })
-    })
+        async: true
+      });
+    });
   }
+
   getDynamicChunks(files: DocumentFiles) {
     const {
       dynamicImports,
       assetPrefix,
-      devOnlyCacheBusterQueryString,
-    } = this.context
+      devOnlyCacheBusterQueryString
+    } = this.context;
 
     // @ts-ignore
     return dedupe(dynamicImports).map((bundle) => {
-      let modernProps = {}
+      let modernProps = {};
       if (process.env.__NEXT_MODERN_BUILD) {
         modernProps = bundle.file.endsWith('.module.js')
           ? { type: 'module' }
-          : { noModule: true }
+          : { noModule: true };
       }
 
-      if (!bundle.file.endsWith('.js') || files.allFiles.includes(bundle.file))
-      {return null}
+      if (!bundle.file.endsWith('.js') || files.allFiles.includes(bundle.file)) {
+        return null;
+      }
 
       return (
         <script
@@ -62,8 +66,8 @@ export class DeferredNextScript extends NextScript {
           }
           {...modernProps}
         />
-      )
-    })
+      );
+    });
   }
 }
 
@@ -71,13 +75,13 @@ export default class MyDocument extends Document {
   render() {
     return (
       <Html>
-      <Head />
-      <body>
-      <Main />
-      <DeferredNextScript />
-      </body>
+        <Head />
+        <body>
+        <Main />
+        <DeferredNextScript />
+        </body>
       </Html>
-    )
+    );
   }
 }
 
