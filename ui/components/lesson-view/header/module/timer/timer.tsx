@@ -105,9 +105,9 @@ export class Timer extends React.Component<TimerProps, TimerState> {
 
       setTimeout(() => {
         // Текущая минута
-        this.timer = this.timer + 1;
+        this.timer = this.timer + 0.0166;
         // Находим процент заполнения круга
-        const updatePercent = +((0.0166 * fillValue) / value).toFixed(2);
+        const updatePercent = +((this.timer * fillValue) / value).toFixed(2);
 
         if (this.svgProgress.current && this.svgProgress.current.style) {
           this.svgProgress.current.style.strokeDasharray = `${updatePercent}px 288px`;
@@ -122,13 +122,13 @@ export class Timer extends React.Component<TimerProps, TimerState> {
         }
 
         if (fillValue + turnValue <= updatePercent) {
-
         } else {
           if (this.svgProgress.current && this.svgProgress.current.style) {
             this.svgProgress.current.style.strokeDasharray = `${updatePercent}px 288px`;
             this.startTimer();
           }
         }
+
       }, 1000);
 
 
