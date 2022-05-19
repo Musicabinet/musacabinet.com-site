@@ -40,7 +40,7 @@ class MusiCabinetApp extends App<Props> {
 
     appContext.store = ctx.store;
     await appContext.store?.servicesStore.getList();
-    await appContext.store?.geoPluginStore.getCurrent();
+    //await appContext.store?.geoPluginStore.getCurrent();
 
     let pageProps: { title: string } = {
       title: ''
