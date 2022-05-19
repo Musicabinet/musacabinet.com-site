@@ -58,7 +58,8 @@ export default class HeadBlock extends React.Component<HeadBlockProps, HeadBlock
               type='text/css'
               media='all'/>
         <link rel='stylesheet'
-              href='https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css' />
+              href='https://cdnjs.cloudflare.com/ajax/libs/line-awesome/1.3.0/line-awesome/css/line-awesome.min.css
+' />
         <link rel='shortcut icon' href='/favicon.ico' type='image/x-icon' />
         <link rel='icon' href='/favicon.ico' type='image/x-icon' />
         <meta name='yandex-verification' content='9cd91603377bfecd' />
