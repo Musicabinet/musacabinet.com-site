@@ -121,7 +121,7 @@ export class ButtonProfile extends React.Component<ButtonProfileProps, ButtonPro
             </li>
             <li className={b('item')}>
               <a className={b('link')} onClick={onLogout}>
-                Sign out
+                Sign Out
               </a>
             </li>
           </ul>
