@@ -109,7 +109,7 @@ export class ButtonProfile extends React.Component<ButtonProfileProps, ButtonPro
 
             <li className={b('item', { noPadding: true })}>
               <Link href={'/cabinet'} as={`/cabinet`}>
-                <a className={b('link', { musicabinet: true })}>My profile</a>
+                <a className={b('link', { musicabinet: true })}>My Profile</a>
               </Link>
             </li>
             <li className={b('item', { borderBottom: true })}>
