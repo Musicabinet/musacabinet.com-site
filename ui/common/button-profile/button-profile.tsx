@@ -102,7 +102,7 @@ export class ButtonProfile extends React.Component<ButtonProfileProps, ButtonPro
             {uuid && uuid.length > 0 && (
               <li className={b('item')}>
                 <Link href={`/lesson/[uuid]`} as={`/lesson/${uuid}`}>
-                  <a className={b('link')}>Continue learning</a>
+                  <a className={b('link')}>Continue Learning</a>
                 </Link>
               </li>
             )}

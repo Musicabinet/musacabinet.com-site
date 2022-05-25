@@ -105,7 +105,7 @@ export class Timer extends React.Component<TimerProps, TimerState> {
 
       setTimeout(() => {
         // Текущая минута
-        this.timer = this.timer + 0.0166;
+        this.timer = this.timer + 0.005;
         // Находим процент заполнения круга
         const updatePercent = +((this.timer * fillValue) / value).toFixed(2);
 

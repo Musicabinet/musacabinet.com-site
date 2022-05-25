@@ -82,8 +82,6 @@ export class Player extends React.Component<PlayerProps, PlayerState> {
     const { playerStore, lessonStore, service_name, noMR } = this.props;
     const { volume } = this.state;
 
-    console.log({ volume });
-
     return (
       <div className={b('preview')}>
         <div className={b(null, { noMR, [service_name]: true })}>

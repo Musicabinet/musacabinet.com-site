@@ -59,11 +59,15 @@ export class LessonView extends React.Component<LessonViewProps, LessonViewState
   async componentDidUpdate(prevProps: Readonly<LessonViewProps>) {
     const { mapStore, lessonStore } = this.props;
 
+    console.log(prevProps.uuid, this.props.uuid);
+
     if (prevProps.uuid !== this.props.uuid) {
       LocalStorage.set('lesson_id_q', this.props.uuid);
       await mapStore.getList();
       // Сброс выбранной страницы
       lessonStore.resetCurrentScore();
+      // Загружаем треку
+
     }
   }
 

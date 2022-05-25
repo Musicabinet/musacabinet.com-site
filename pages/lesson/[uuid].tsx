@@ -56,6 +56,10 @@ export default class LessonPage extends React.Component<LessonPageProps, LessonP
         store?.systemStore.setGroupLessonId(store?.lessonStore.group_lesson?.id);
       }
 
+
+      store?.playerStore.setFirstLibrary();
+      store?.playerStore.loadTrack();
+
       await store?.lessonStore.getModuleMapping();
     }
     return {

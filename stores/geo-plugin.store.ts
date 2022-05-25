@@ -43,6 +43,8 @@ export class GeoPluginStore implements GeoPluginI {
       return false;
     }
 
+    console.log('connect');
+
     try {
       const response: Response = await fetch(`https://ssl.geoplugin.net/json.gp?k=a2b4f3646f77ea13`);
       const data: GeoPluginI = await response.json();

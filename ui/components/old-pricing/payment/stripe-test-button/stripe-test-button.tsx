@@ -34,7 +34,7 @@ export class StripeTestButton extends React.Component<StripeTestButtonProps, Str
   };
 
   async componentDidMount() {
-    await this.loadStripe();
+    //await this.loadStripe();
   }
 
   async loadStripe() {}
