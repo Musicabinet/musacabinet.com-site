@@ -36,6 +36,10 @@ export class Metronome extends React.Component<MetronomeProps, MetronomeState> {
   async componentDidMount() {
     const { metronomeStore } = this.props;
     await metronomeStore.init();
+
+    this.setState({
+      bpm: metronomeStore.current
+    });
   }
 
   handleOnChangeMetronome = (e: React.FormEvent<HTMLInputElement>) => {

@@ -22,11 +22,10 @@ export class MetronomeStore {
     try {
       const cookieInstance = Cookie.getInstance();
       this.current = Number(cookieInstance.get('bpm')) || 80;
+      console.log('init', this.current);
       this.volume = Number(cookieInstance.get(METRONOME_CONST.VOLUME)) || 50;
       this.worker = new Worker('/workers/metronome-worker.js');
       this.audioPlayer = new Audio('/metronome/metronome.mp3');
-
-      console.log('this.volume', this.volume);
 
       if (this.worker) {
         this.worker.addEventListener('message', this.onPlayTick);
