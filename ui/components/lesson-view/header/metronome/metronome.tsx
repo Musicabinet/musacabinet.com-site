@@ -63,6 +63,12 @@ export class Metronome extends React.Component<MetronomeProps, MetronomeState> {
     }));
   };
 
+  handleSetBPM = (value: number) => {
+    this.setState({
+      bpm: value
+    });
+  };
+
   render() {
     const { metronomeStore, systemStore } = this.props;
     const { bpm } = this.state;
@@ -76,13 +82,15 @@ export class Metronome extends React.Component<MetronomeProps, MetronomeState> {
           <div className={b('container')}>
 
             <div className={b('control')}>
-              <Button type={METRONOME_BUTTON_TYPE.DECREMENT} />
+              <Button type={METRONOME_BUTTON_TYPE.DECREMENT}
+                      onCallback={this.handleSetBPM} />
               <input type='number'
                      value={bpm}
                      onChange={this.handleOnChangeMetronome}
                      onBlur={this.handleOnBlurMetronome}
                      className={b('bpm')} />
-              <Button type={METRONOME_BUTTON_TYPE.INCREMENT} />
+              <Button type={METRONOME_BUTTON_TYPE.INCREMENT}
+                      onCallback={this.handleSetBPM} />
             </div>
             <div className={b('action')}>
               <button onClick={metronomeStore.onPlayStop}

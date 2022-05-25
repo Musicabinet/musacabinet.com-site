@@ -11,6 +11,7 @@ type ButtonProps = {
   systemStore: SystemStore,
   metronomeStore: MetronomeStore,
   type: METRONOME_BUTTON_TYPE,
+  onCallback: (value: number) => void
 };
 type ButtonState = {};
 
@@ -29,10 +30,12 @@ export class Button extends React.Component<ButtonProps, ButtonState> {
   };
 
   handleOnChange = (e: React.FormEvent<HTMLButtonElement> | React.MouseEvent<HTMLButtonElement>) => {
+
     e.stopPropagation();
-    const { metronomeStore, type } = this.props;
+    const { metronomeStore, type, onCallback } = this.props;
     let updateValue = 0;
     if (type === METRONOME_BUTTON_TYPE.INCREMENT) {
+
       updateValue = metronomeStore.current + 1;
     } else {
       updateValue = metronomeStore.current - 1;
@@ -40,8 +43,10 @@ export class Button extends React.Component<ButtonProps, ButtonState> {
 
     if (updateValue < 200) {
       metronomeStore.setBPM(Number(updateValue));
+      onCallback(Number(updateValue))
     } else {
       metronomeStore.setBPM(200);
+      onCallback(200)
     }
   };
 
