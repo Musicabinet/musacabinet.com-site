@@ -107,6 +107,7 @@ export class PlayerStore {
                 new Tone.Player({
                   url: `${CONTENT_URL}${track.path}`,
                   loop: true,
+                  loopStart: 0.025,
                   mute: this.getMuteTrack(track),
                   volume: (currentVolume) ? Number(currentVolume) : -6, // -100 0
                   onload: () => {
