@@ -65,7 +65,7 @@ class MusiCabinetApp extends App<Props> {
   getGrandCharts = (): void => {
     const serviceList = this.mobxStore.servicesStore.list;
 
-    if (Array.isArray(serviceList) && serviceList.length > 0 && !this.mobxStore.systemStore.isLoadGrandChart) {
+    if (Array.isArray(serviceList) && serviceList.length > 0 && !this.mobxStore.systemStore.isLoadGrandChart && this.mobxStore.authStore.isAuth) {
       for (const serviceIndex in serviceList) {
         const serviceStore = serviceList[serviceIndex];
 
