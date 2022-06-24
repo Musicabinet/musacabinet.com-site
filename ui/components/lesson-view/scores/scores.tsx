@@ -116,7 +116,7 @@ export class Scores extends React.Component<ScoresProps, ScoresState> {
 
 
         <div className={b('head', { isNotes })}>
-          <Pagination />
+          <Pagination type={'scores'} />
         </div>
 
         {currentContentScore && (

@@ -10,7 +10,8 @@ const b = block(style);
 
 type PaginationProps = {
   lessonStore: LessonStore,
-  systemStore: SystemStore
+  systemStore: SystemStore,
+  type: 'scores' | 'charts'
 };
 type PaginationState = {};
 
@@ -26,28 +27,26 @@ export class Pagination extends React.Component<PaginationProps, PaginationState
     systemStore: {}
   };
 
-  handleOnClick = (score_number: number) => {
-    const { lessonStore } = this.props;
+  handleOnClick = (page_number: number) => {
+    const { lessonStore, type } = this.props;
 
-    if(score_number === -1 || score_number > lessonStore.scoresTotal){
-      return false;
+    if(type === 'scores'){
+      if(page_number === -1 || page_number > lessonStore.scoresTotal){
+        return false;
+      }
+
+      lessonStore.setCurrentScore(page_number);
     }
 
-    lessonStore.setCurrentScore(score_number);
-  };
+    if(type === 'charts'){
+      if(page_number === -1 || page_number > lessonStore.chartsTotal){
+        return false;
+      }
 
-  generate = () => {
-    const { lessonStore } = this.props;
-    let pagination: React.ReactNode[] = [];
-
-
-    for (let i = 0; i < lessonStore.scoresTotal; i++) {
-      pagination.push(<button key={i}
-                              className={b('btn', { active: i === lessonStore.currentScore })}
-                              onClick={() => this.handleOnClick(i)}>{i + 1}</button>);
+      lessonStore.setCurrentChart(page_number);
     }
 
-    return pagination;
+
   };
 
   itemRender = (current: number, type: string, element: React.ReactNode): React.ReactNode => {
@@ -71,17 +70,26 @@ export class Pagination extends React.Component<PaginationProps, PaginationState
   };
 
   render() {
-    const { lessonStore, systemStore } = this.props;
-    const currentPage = lessonStore.currentScore + 1;
+    const { lessonStore, systemStore, type } = this.props;
+    let currentPage = 0;
+    let totalPages = 0
 
+
+    if(type === 'scores'){
+      totalPages = lessonStore.scoresTotal;
+      currentPage = lessonStore.currentScore + 1;
+    }else if(type === 'charts'){
+      totalPages = lessonStore.chartsTotal;
+      currentPage = lessonStore.currentChart + 1;
+    }
 
     return (
       <div className={b(null, {
         [systemStore.service_name]: true,
-        hidden: lessonStore.scoresTotal < 2
+        hidden: totalPages < 2
       })}>
         <PaginationRC current={currentPage}
-                      total={lessonStore.scoresTotal}
+                      total={totalPages}
                       itemRender={this.itemRender}
                       pageSize={1}
                       className={`${systemStore.service_name}`} />

@@ -205,6 +205,11 @@ export class LessonStore implements LessonI {
   }
 
   @action.bound
+  setCurrentChart(value: number) {
+    this.currentChart = value;
+  }
+
+  @action.bound
   incrementProgress() {
     try {
       this.progress_second += 1;
@@ -316,6 +321,11 @@ export class LessonStore implements LessonI {
   }
 
   @computed
+  get chartsTotal() {
+    return this.charts.length;
+  }
+
+  @computed
   get disabledSwitcher(): boolean {
     return this.scores.length > 0 ? this.scores[0].items.length === 0 ? true : false : false;
   }
@@ -350,7 +360,7 @@ export class LessonStore implements LessonI {
 
   @computed
   get currentContentChart(): ChartStore | null {
-    return this.charts[this.currentScore] || null;
+    return this.charts[this.currentChart] || null;
   }
 
   @computed
