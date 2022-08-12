@@ -37,8 +37,7 @@ export default class CompanyInformationPage extends React.Component<
           <div className="row">
             <div className="col-lg-12 mt-4 mb-4">
               <Paragraph>
-                Republic of Kazakhstan, Ekibastuz, M. Jusupa street, 20-24<br/>
-                +7 701 771 13 87<br/>
+		Georgia, Batumi, 26 Takaishvili Street<br/
                 info@musicabinet.com<br/>
               </Paragraph>
             </div>
